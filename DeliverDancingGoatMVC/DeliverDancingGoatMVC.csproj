@@ -188,14 +188,7 @@
   <ItemGroup>
     <Content Include="Content\Fonts\Core-icons.svg" />
     <Content Include="Content\Images\404.jpg" />
-    <Content Include="Content\Images\banner-b2b.jpg" />
-    <Content Include="Content\Images\banner-b2c.jpg" />
-    <Content Include="Content\Images\banner-default.jpg" />
-    <Content Include="Content\Images\default-image-cafe.jpg" />
-    <Content Include="Content\Images\empty_cup.jpg" />
     <Content Include="Content\Images\facebook-icon.png" />
-    <Content Include="Content\Images\icon-magnifier.png" />
-    <Content Include="Content\Images\our-story.jpg" />
     <Content Include="Content\Images\twitter-icon.png" />
     <Content Include="Content\Styles\Site.css" />
     <Content Include="favicon.ico" />
