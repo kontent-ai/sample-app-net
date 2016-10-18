@@ -1,0 +1,25 @@
+﻿@model KenticoCloud.Deliver.ContentItem
+
+@{
+    var image = Model.Elements.image.value.First;
+}
+
+<article class="product-tile">
+    <a href="@Url.Action("Detail", "Product", new {id = Model.System.Codename})">
+        <h1 class="product-heading">@Model.System.Name</h1>
+        @if (Model.Elements.taxonomy.value.Count > 0)
+        {
+            <span class="product-tile-status">
+                @Model.Elements.taxonomy.value.First.name
+            </span>
+        }
+        <figure class="product-tile-image">
+            <img src="@image.url" alt="@image.name" width="452" height="452" />
+        </figure>
+        <div class="product-tile-info">
+            <span class="product-tile-price">
+                @Model.Elements.price.value.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-US"))
+            </span>
+        </div>
+    </a>
+</article>

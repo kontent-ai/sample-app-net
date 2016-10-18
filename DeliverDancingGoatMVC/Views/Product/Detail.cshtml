@@ -1,0 +1,44 @@
+﻿@model KenticoCloud.Deliver.ContentItem
+
+@{
+    ViewBag.Title = Model.System.Name;
+    var image = Model.Elements.image.value.First;
+}
+
+<article class="product-detail">
+    <div class="row">
+        <div class="col-md-12">
+            <header>
+                <h2>@Model.System.Name</h2>
+            </header>
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="col-lg-7 col-md-6">
+            <figure class="image">
+                <img src="@image.url" alt="@image.name" />
+            </figure>
+            <div class="description">
+                @Html.Raw((Model.Elements.description ?? Model.Elements.long_description).value)
+
+                @if (Model.System.Type == "coffee")
+                {
+                <div class="product-detail-properties">
+                    <h4>@Resources.DancingGoat.Product_Parameters</h4>
+                    <dl class="row">
+                        <dt class="col-xs-12 col-sm-4">@Resources.DancingGoat.Coffee_Farm</dt>
+                        <dd class="col-xs-12 col-sm-8">@Model.Elements.farm.value</dd>
+                        <dt class="col-xs-12 col-sm-4">@Resources.DancingGoat.Coffee_Variety</dt>
+                        <dd class="col-xs-12 col-sm-8">@Model.Elements.variety.value</dd>
+                        <dt class="col-xs-12 col-sm-4">@Resources.DancingGoat.Coffee_Processing</dt>
+                        <dd class="col-xs-12 col-sm-8">@Model.Elements.processing.value</dd>
+                        <dt class="col-xs-12 col-sm-4">@Resources.DancingGoat.Coffee_Altitude</dt>
+                        <dd class="col-xs-12 col-sm-8">@Model.Elements.altitude.value</dd>
+                    </dl>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</article>

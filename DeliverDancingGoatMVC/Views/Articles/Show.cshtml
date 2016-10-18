@@ -1,0 +1,49 @@
+﻿@model KenticoCloud.Deliver.ContentItem
+@{
+    ViewBag.Title = @Model.System.Name;
+}
+<article class="article-detail col-lg-9 col-md-12 article-detail-related-box">
+    <h2>@Model.System.Name</h2>
+    <div class="article-detail-datetime">
+        @Model.GetDateTime("post_date").ToString("D")
+    </div>
+    <div class="row">
+        <div class="article-detail-image col-md-push-2 col-md-8">
+            <img src="@Model.GetAssets("teaser_image")[0].Url" class="img-responsive" alt="Article @Model.System.Name" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="article-detail-content">
+            @Html.Raw(@Model.GetString("body_copy"))
+        </div>
+    </div>
+</article>
+@if (Model.GetModularContent("related_articles").Any())
+{
+    <div class="article-related-articles">
+        <h1 class="title-tab">@Resources.DancingGoat.Articles_RelatedArticles</h1>
+        <div class="row">
+            @foreach (var article in Model.GetModularContent("related_articles"))
+            {
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="article-tile">
+                        <a href="@Url.Action("Show", "Articles", new { id = article.System.Codename })">
+                            <img src="@article.GetAssets("teaser_image")[0].Url" class="article-tile-image" alt="Article @Model.System.Name" />
+                        </a>
+                        <div class="article-tile-date">
+                            @article.GetDateTime("post_date").ToString("m")
+                        </div>
+                        <div class="article-tile-content">
+                            <h2 class="h4">
+                                <a href="@Url.Action("Show", "Articles", new { id = article.System.Codename })">@article.System.Name</a>
+                            </h2>
+                            <p class="article-tile-text">
+                                @Model.GetString("summary")
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}

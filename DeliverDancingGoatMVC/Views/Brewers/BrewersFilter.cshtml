@@ -1,0 +1,19 @@
+﻿@model DeliverDancingGoatMVC.Models.BrewerFilterViewModel
+
+<h4>@Resources.DancingGoat.Brewers_Manufacturers</h4>
+<span class="checkbox js-postback">
+    @Html.CheckBoxFor(m => m.Aerobie)
+    @Html.LabelFor(m => m.Aerobie, Resources.DancingGoat.Brewers_Aerobie)
+</span>
+<span class="checkbox js-postback">
+    @Html.CheckBoxFor(m => m.Chemex)
+    @Html.LabelFor(m => m.Chemex, Resources.DancingGoat.Brewers_Chemex)
+</span>
+<span class="checkbox js-postback">
+    @Html.CheckBoxFor(m => m.Espro)
+    @Html.LabelFor(m => m.Espro, Resources.DancingGoat.Brewers_Espro)
+</span>
+<span class="checkbox js-postback">
+    @Html.CheckBoxFor(m => m.Hario)
+    @Html.LabelFor(m => m.Hario, Resources.DancingGoat.Brewers_Hario)
+</span>

@@ -1,0 +1,16 @@
+﻿@model DeliverDancingGoatMVC.Models.CoffeesFilterViewModel
+
+<h4>@Resources.DancingGoat.Coffees_CoffeeProcessing</h4>
+
+<span class="checkbox js-postback">
+    @Html.CheckBoxFor(m => m.Washed)
+    @Html.LabelFor(m => m.Washed, Resources.DancingGoat.Coffees_Washed)
+</span>
+<span class="checkbox js-postback">
+    @Html.CheckBoxFor(m => m.SemiWashed)
+    @Html.LabelFor(m => m.SemiWashed, Resources.DancingGoat.Coffees_Semiwashed)
+</span>
+<span class="checkbox js-postback">
+    @Html.CheckBoxFor(m => m.Natural)
+    @Html.LabelFor(m => m.Natural, Resources.DancingGoat.Coffees_Natural)
+</span>
