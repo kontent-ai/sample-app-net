@@ -22,7 +22,7 @@ namespace DeliverDancingGoatMVC.Controllers
             var filters = new List<IFilter> {
                 new EqualsFilter("system.type", "coffee"),
                 new Order("elements.product_name"),
-                new ElementsFilter("image", "price", "taxonomy", "processing"),
+                new ElementsFilter("image", "price", "product_status", "processing"),
                 new DepthFilter(0)
             };
 
@@ -36,7 +36,7 @@ namespace DeliverDancingGoatMVC.Controllers
             var filters = new List<IFilter> {
                 new EqualsFilter("system.type", "coffee"),
                 new Order("elements.product_name"),
-                new ElementsFilter("image", "price", "taxonomy", "processing"),
+                new ElementsFilter("image", "price", "product_status", "processing"),
                 new DepthFilter(0),
             };
 

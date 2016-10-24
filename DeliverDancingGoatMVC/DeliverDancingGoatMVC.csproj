@@ -193,6 +193,7 @@
     <Content Include="Content\Styles\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Gruntfile.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\Fonts\Core-icons.eot" />
@@ -213,6 +214,7 @@
     <Content Include="Content\Styles\Site.less" />
     <Content Include="Content\Styles\variables.less" />
     <Content Include="Content\Styles\YourAccount.less" />
+    <Content Include="package.json" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\formAutoPost.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />

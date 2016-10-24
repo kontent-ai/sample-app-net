@@ -7,10 +7,10 @@
 <article class="product-tile">
     <a href="@Url.Action("Detail", "Product", new {id = Model.System.Codename})">
         <h1 class="product-heading">@Model.System.Name</h1>
-        @if (Model.Elements.taxonomy.value.Count > 0)
+        @if (Model.Elements.product_status.value.Count > 0)
         {
             <span class="product-tile-status">
-                @Model.Elements.taxonomy.value.First.name
+                @Model.Elements.product_status.value.First.name
             </span>
         }
         <figure class="product-tile-image">

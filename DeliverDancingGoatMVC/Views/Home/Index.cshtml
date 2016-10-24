@@ -15,12 +15,16 @@
     </div>
 }
 
-<section class="banner-section" style="background-image: url('@Model.GetAssets("images")[0].Url');">
-    <h2 class="banner-heading">@Model.GetString("header_title")</h2>
-    <p class="banner-text">
-        @Model.GetString("header_text")
-    </p>
-</section>
+
+@foreach (var banner in Model.GetModularContent("hero_unit"))
+{
+    <section class="banner-section" style="background-image: url('@banner.GetAssets("image")[0].Url');">
+        <h2 class="banner-heading">@banner.GetString("title")</h2>
+        <div class="banner-text">
+            @Html.Raw(banner.GetString("marketing_message"))
+        </div>
+    </section>
+}
 
 <div class="row">
     <h1 class="title-tab">@Resources.DancingGoat.Articles_LatestOne</h1>
