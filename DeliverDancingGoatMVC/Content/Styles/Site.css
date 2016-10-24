@@ -5781,6 +5781,9 @@ footer {
   margin: 0;
   font-weight: 300;
 }
+.banner-text p {
+  margin: 0;
+}
 /*# Our story #*/
 .ourstory-section {
   color: #fff;

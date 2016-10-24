@@ -14,7 +14,7 @@ namespace DeliverDancingGoatMVC.Controllers
     [RoutePrefix("product-catalog/coffees")]
     public class CoffeesController : AsyncController
     {
-        private readonly DeliverClient client = new DeliverClient(ConfigurationManager.AppSettings["ProjectId"], ConfigurationManager.AppSettings["PreviewToken"]);
+        private readonly DeliverClient client = new DeliverClient(ConfigurationManager.AppSettings["ProjectId"]);
 
         [Route]
         public async Task<ActionResult> Index()
@@ -22,7 +22,7 @@ namespace DeliverDancingGoatMVC.Controllers
             var filters = new List<IFilter> {
                 new EqualsFilter("system.type", "coffee"),
                 new Order("elements.product_name"),
-                new ElementsFilter("image", "price", "taxonomy", "processing"),
+                new ElementsFilter("image", "price", "product_status", "processing"),
                 new DepthFilter(0)
             };
 
@@ -36,7 +36,7 @@ namespace DeliverDancingGoatMVC.Controllers
             var filters = new List<IFilter> {
                 new EqualsFilter("system.type", "coffee"),
                 new Order("elements.product_name"),
-                new ElementsFilter("image", "price", "taxonomy", "processing"),
+                new ElementsFilter("image", "price", "product_status", "processing"),
                 new DepthFilter(0),
             };
 

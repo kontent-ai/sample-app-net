@@ -12,7 +12,7 @@ namespace DeliverDancingGoatMVC.Controllers
 {
     public class HomeController : AsyncController
     {
-        private readonly DeliverClient client = new DeliverClient(ConfigurationManager.AppSettings["ProjectId"], ConfigurationManager.AppSettings["PreviewToken"]);
+        private readonly DeliverClient client = new DeliverClient(ConfigurationManager.AppSettings["ProjectId"]);
 
         [Route]
         public async Task<ActionResult> Index()

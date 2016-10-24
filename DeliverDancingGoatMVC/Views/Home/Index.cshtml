@@ -19,9 +19,9 @@
 
 <section class="banner-section" style="background-image: url('@heroUnit.GetAssets("image")[0].Url');">
     <h2 class="banner-heading">@heroUnit.GetString("title")</h2>
-    <p class="banner-text">
-        @heroUnit.GetString("marketing_message")
-    </p>
+    <div class="banner-text">
+        @Html.Raw(@heroUnit.GetString("marketing_message"))
+    </div>
 </section>
 
 <div class="row">
