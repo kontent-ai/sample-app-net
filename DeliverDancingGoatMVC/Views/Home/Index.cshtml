@@ -2,6 +2,8 @@
 
 @{
     ViewBag.Title = Resources.DancingGoat.Home;
+    var heroUnit = Model.GetModularContent("hero_unit").First();
+    var englishCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-us");
 }
 
 @helper MoreButton(string text, string url)
@@ -15,10 +17,10 @@
     </div>
 }
 
-<section class="banner-section" style="background-image: url('@Model.GetAssets("images")[0].Url');">
-    <h2 class="banner-heading">@Model.GetString("header_title")</h2>
+<section class="banner-section" style="background-image: url('@heroUnit.GetAssets("image")[0].Url');">
+    <h2 class="banner-heading">@heroUnit.GetString("title")</h2>
     <p class="banner-text">
-        @Model.GetString("header_text")
+        @heroUnit.GetString("marketing_message")
     </p>
 </section>
 
@@ -38,7 +40,7 @@
                 </div>
                 <div class="col-md-12 col-lg-6">
                     <div class="article-tile-date">
-                        @article.GetDateTime("post_date").ToString("m")
+                        @article.GetDateTime("post_date").ToString("m", englishCulture)
                     </div>
                     <div class="article-tile-content">
                         <h2>
@@ -59,7 +61,7 @@
                         <img src="@article.GetAssets("teaser_image")[0].Url" class="article-tile-image" alt="@article.System.Name" />
                     </a>
                     <div class="article-tile-date">
-                        @article.GetDateTime("post_date").ToString("m")
+                        @article.GetDateTime("post_date").ToString("m", englishCulture)
                     </div>
                     <div class="article-tile-content">
                         <h2 class="h4">

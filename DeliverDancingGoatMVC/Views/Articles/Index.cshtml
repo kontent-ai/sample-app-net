@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = Resources.DancingGoat.Articles;
     var i = 1;
+    var englishCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-us");
 }
 @foreach (var article in @Model)
 {
@@ -11,7 +12,7 @@
                 <img src="@article.GetAssets("teaser_image")[0].Url" class="article-tile-image" alt="Article @article.System.Name" />
             </a>
             <div class="article-tile-date">
-                @article.GetDateTime("post_date").ToString("m")
+                @article.GetDateTime("post_date").ToString("m", englishCulture)
             </div>
             <div class="article-tile-content">
                 <h2 class="h4">

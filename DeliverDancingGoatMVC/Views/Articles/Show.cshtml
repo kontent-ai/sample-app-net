@@ -1,11 +1,13 @@
 ﻿@model KenticoCloud.Deliver.ContentItem
 @{
     ViewBag.Title = @Model.System.Name;
+    var englishCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-us");
+    var relatedArticles = Model.GetModularContent("related_articles");
 }
 <article class="article-detail col-lg-9 col-md-12 article-detail-related-box">
     <h2>@Model.System.Name</h2>
     <div class="article-detail-datetime">
-        @Model.GetDateTime("post_date").ToString("D")
+        @Model.GetDateTime("post_date").ToString("D", englishCulture)
     </div>
     <div class="row">
         <div class="article-detail-image col-md-push-2 col-md-8">
@@ -18,12 +20,12 @@
         </div>
     </div>
 </article>
-@if (Model.GetModularContent("related_articles").Any())
+@if (relatedArticles.Any())
 {
     <div class="article-related-articles">
         <h1 class="title-tab">@Resources.DancingGoat.Articles_RelatedArticles</h1>
         <div class="row">
-            @foreach (var article in Model.GetModularContent("related_articles"))
+            @foreach (var article in relatedArticles)
             {
                 <div class="col-lg-3 col-md-6 col-sm-12">
                     <div class="article-tile">
@@ -31,7 +33,7 @@
                             <img src="@article.GetAssets("teaser_image")[0].Url" class="article-tile-image" alt="Article @Model.System.Name" />
                         </a>
                         <div class="article-tile-date">
-                            @article.GetDateTime("post_date").ToString("m")
+                            @article.GetDateTime("post_date").ToString("m", englishCulture)
                         </div>
                         <div class="article-tile-content">
                             <h2 class="h4">
