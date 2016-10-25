@@ -24,7 +24,7 @@ Dancing Goat .NET MVC Application is a sample website utilizing Kentico Deliver 
 ## PREVIEW CONTENT
 
 1. To preview the unpublished content you need to provide the Preview API key to the application.
-2. Copy the Preview API key from the https://app.kenticocloud.com. For more details, please read: https://kenticocloud.com/docs#previewing-unpublished-content-using-deliver-api
+2. Copy the Preview API key from the https://app.kenticocloud.com . For more details, please read: https://kenticocloud.com/docs#previewing-unpublished-content-using-deliver-api .
 3. Insert the Preview API key to the string value of the PreviewToken application setting in the Web.config file.
 4. Run the application.
 
