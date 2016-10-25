@@ -2,12 +2,12 @@
 
 ## SUMMARY
 
-Dancing Goat .NET MVC Application is a sample website utilizing Kentico Deliver preproduction environment to retrieve content and Kentico Draft preproduction environment to manage the content.
+Dancing Goat .NET MVC Application is a sample website utilizing Kentico Deliver service to manage and retrieve content.
 
 ## PREREQUISITIES
 
-1. Environment that is capable of running the .NET MVC 5 application sutch as Visual Studio 2013+.
-2. Account at https://app.kenticocloud.com with sample project with Kentico Deliver activated (more about Kentico Deliver activation here: https://kenticocloud.com/docs#enabling-kentico-deliver ).
+1. Environment that is capable of running the .NET MVC 5 application such as Visual Studio 2013+.
+2. Account at https://app.kenticocloud.com with sample Kentico Deliver project. You can read more about Kentico Deliver service activation here: https://kenticocloud.com/docs#enabling-kentico-deliver .
 
 ## CONTENT ADMINISTRATION
 
@@ -17,14 +17,14 @@ Dancing Goat .NET MVC Application is a sample website utilizing Kentico Deliver 
 
 ## APPLICATION SETUP
 
-1. Copy the Project ID from the https://app.kenticocloud.com (more here: https://kenticocloud.com/docs#getting-project-id ) 
+1. Copy the Project ID from the https://app.kenticocloud.com. More details about getting Project ID: https://kenticocloud.com/docs#getting-project-id .
 2. Insert the Project ID to the value of the ProjectId application setting in the Web.config file. 
 3. Run the application.
 
 ## PREVIEW CONTENT
 
 1. To preview the unpublished content you need to provide the Preview API key to the application.
-2. Copy the Preview API key from the https://app.kenticocloud.com (more here: https://kenticocloud.com/docs#previewing-unpublished-content-using-deliver-api ) 
+2. Copy the Preview API key from the https://app.kenticocloud.com. For more details, please read: https://kenticocloud.com/docs#previewing-unpublished-content-using-deliver-api
 3. Insert the Preview API key to the string value of the PreviewToken application setting in the Web.config file.
 4. Run the application.
 
