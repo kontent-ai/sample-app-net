@@ -30,4 +30,4 @@ Dancing Goat .NET MVC Application is a sample website utilizing Kentico Deliver 
 
 ## CONTENT DELIVERY
 
-The content can be reached either through REST API on URL: http://deliver.kenticocloud.com/<PROJECT_ID>/items (For more about the Kentico Deliver API, please see http://docs.kenticodeliver.apiary.io ), or through .NET SDK which is used in this project. You can find more information about our SDK here: https://github.com/Kentico/Deliver-.NET-SDK and include it in your projects as a NuGet package: https://www.nuget.org/packages/KenticoCloud.Deliver
+The content can be reached either through REST API on URL: http://deliver.kenticocloud.com/PROJECT_ID/items (For more about the Kentico Deliver API, please see http://docs.kenticodeliver.apiary.io ), or through .NET SDK which is used in this project. You can find more information about our SDK here: https://github.com/Kentico/Deliver-.NET-SDK and include it in your projects as a NuGet package: https://www.nuget.org/packages/KenticoCloud.Deliver
