@@ -1,4 +1,4 @@
-# Deliver-Dancing-Goat-.NET-MVC
+# Deliver Dancing Goat .NET MVC 5 sample application
 
 ## SUMMARY
 
