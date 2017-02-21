@@ -1,0 +1,12 @@
+{
+  "name": "dancing-goat",
+  "version": "1.0.0",
+  "description": "Sample .NET MVC web application",
+  "main": "Kentico",
+
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-less": "~0.11.0",
+    "grunt-contrib-watch": "~0.6.1"
+  }
+}

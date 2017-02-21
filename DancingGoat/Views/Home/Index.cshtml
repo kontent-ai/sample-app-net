@@ -1,0 +1,113 @@
+﻿@model KenticoCloud.Delivery.ContentItem
+
+@{
+    ViewBag.Title = Resources.DancingGoat.Home;
+    var heroUnit = Model.GetModularContent("hero_unit").First();
+}
+
+@helper MoreButton(string text, string url)
+{
+    <div class="row">
+        <div class="clear center-text">
+            <a href="@url" class="btn btn-more">
+                @text
+            </a>
+        </div>
+    </div>
+}
+
+<section class="banner-section" style="background-image: url('@heroUnit.GetAssets("image").First().Url');">
+    <h2 class="banner-heading">@heroUnit.GetString("title")</h2>
+    <div class="banner-text">
+        @Html.Raw(@heroUnit.GetString("marketing_message"))
+    </div>
+</section>
+
+<div class="row">
+    <h1 class="title-tab">@Resources.DancingGoat.Articles_LatestOne</h1>
+    @{var isFirstArticle = true; }
+    @foreach (var article in @Model.GetModularContent("articles"))
+    {
+        if (isFirstArticle)
+        {
+            isFirstArticle = false;
+            <div class="article-tile article-tile-large">
+                <div class="col-md-12 col-lg-6">
+                    <a href="@Url.Action("Show", "Articles", new { id = article.System.Codename })">
+                        <img src="@article.GetAssets("teaser_image").First().Url" class="article-tile-image" alt="@article.System.Name" />
+                    </a>
+                </div>
+                <div class="col-md-12 col-lg-6">
+                    <div class="article-tile-date">
+                        @article.GetDateTime("post_date").Value.ToString("M")
+                    </div>
+                    <div class="article-tile-content">
+                        <h2>
+                            <a href="@Url.Action("Show", "Articles", new { id = article.System.Codename })">@article.System.Name</a>
+                        </h2>
+                        <p class="article-tile-text lead-paragraph">
+                            @article.GetString("summary")
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="col-md-3">
+                <div class="article-tile">
+                    <a href="@Url.Action("Show", "Articles", new { id = article.System.Codename })">
+                        <img src="@article.GetAssets("teaser_image").First().Url" class="article-tile-image" alt="@article.System.Name" />
+                    </a>
+                    <div class="article-tile-date">
+                        @article.GetDateTime("post_date").Value.ToString("M")
+                    </div>
+                    <div class="article-tile-content">
+                        <h2 class="h4">
+                            <a href="@Url.Action("Show", "Articles", new { id = article.System.Codename })">@article.System.Name</a>
+                        </h2>
+                        <p class="article-tile-text">
+                            @article.GetString("summary")
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+@MoreButton(Resources.DancingGoat.Articles_More, Url.Action("Index", "Articles"))
+
+@foreach (var factAboutUs in Model.GetModularContent("our_story"))
+{
+    <div class="row">
+        <h1 class="title-tab">@factAboutUs.GetString("title")</h1>
+        <div class="col-sm-12">
+            <div class="ourstory-section center-text" style="background-image: url('@factAboutUs.GetAssets("image").First().Url');">
+                @Html.Raw(@factAboutUs.GetString("description"))
+            </div>
+        </div>
+    </div>
+
+    @MoreButton(Resources.DancingGoat.Story_WholeStory, Url.Action("Index", "About"))
+}
+
+<div class="row">
+    <div>
+        <h1 class="title-tab">@Resources.DancingGoat.CompanyCafes_Title</h1>
+    </div>
+    @foreach (var cafe in Model.GetModularContent("cafes"))
+    {
+        <div class="col-xs-6 col-md-3">
+            <div>
+                <a href="@Url.Action("Index", "Cafes")" class="ourcoffee-tile-link">
+                    <h2 class="ourcoffee-tile-text center-text">@cafe.System.Name</h2>
+                    <span class="cafe-overlay"> </span>
+                    <img src="@cafe.GetAssets("photo").First().Url" class="ourcoffee-tile-image" alt="@cafe.System.Name" />
+                </a>
+            </div>
+        </div>
+    }
+</div>
+
+@MoreButton(Resources.DancingGoat.Cafes_More, Url.Action("Index", "Cafes"))

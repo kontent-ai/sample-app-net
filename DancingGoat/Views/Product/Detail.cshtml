@@ -1,0 +1,44 @@
+﻿@model KenticoCloud.Delivery.ContentItem
+
+@{
+    ViewBag.Title = Model.System.Name;
+    var image = Model.GetAssets("image").First();
+}
+
+<article class="product-detail">
+    <div class="row">
+        <div class="col-md-12">
+            <header>
+                <h2>@Model.System.Name</h2>
+            </header>
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="col-lg-7 col-md-6">
+            <figure class="image">
+                <img src="@image.Url" alt="@image.Name" />
+            </figure>
+            <div class="description">
+                @Html.Raw(Model.GetString("short_description") ?? Model.GetString("long_description"))
+
+                @if (Model.System.Type == "coffee")
+                {
+                <div class="product-detail-properties">
+                    <h4>@Resources.DancingGoat.Product_Parameters</h4>
+                    <dl class="row">
+                        <dt class="col-xs-12 col-sm-4">@Resources.DancingGoat.Coffee_Farm</dt>
+                        <dd class="col-xs-12 col-sm-8">@Model.GetString("farm")</dd>
+                        <dt class="col-xs-12 col-sm-4">@Resources.DancingGoat.Coffee_Variety</dt>
+                        <dd class="col-xs-12 col-sm-8">@Model.GetString("variety")</dd>
+                        <dt class="col-xs-12 col-sm-4">@Resources.DancingGoat.Coffee_Processing</dt>
+                        <dd class="col-xs-12 col-sm-8">@Model.GetOptions("processing").First().Name</dd>
+                        <dt class="col-xs-12 col-sm-4">@Resources.DancingGoat.Coffee_Altitude</dt>
+                        <dd class="col-xs-12 col-sm-8">@Model.GetNumber("altitude").Value.ToString("N0") ft</dd>
+                    </dl>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</article>

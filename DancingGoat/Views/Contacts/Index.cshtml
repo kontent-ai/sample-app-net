@@ -1,0 +1,61 @@
+﻿@model DancingGoat.Models.ContactsViewModel
+
+@{
+    ViewBag.Title = Resources.DancingGoat.Contact;
+}
+
+<div class="col-md-12">
+    <h2 class="contact-title">@Resources.DancingGoat.Roastery</h2>
+    <ul class="contact-info">
+        @{
+            var phone = Model.Roastery.GetString("phone");
+            var email = Model.Roastery.GetString("email");
+            var city = Model.Roastery.GetString("city");
+            var street = Model.Roastery.GetString("street");
+            var zipCode = Model.Roastery.GetString("zip_code");
+            var country = Model.Roastery.GetString("country");
+            var state = Model.Roastery.GetString("state");
+        }
+        <li>@phone</li>
+        <li><a href="mailto:@email" target="_top">@email</a></li>
+        <li>
+            <a href="javascript:void(0)" data-address="@city, @street" class="js-scroll-to-map">@street @city,<br />
+                @zipCode, @country, @state<br />
+            </a>
+        </li>
+    </ul>
+</div>
+
+<h2>@Resources.DancingGoat.CompanyCafes</h2>
+<div class="row">
+    @foreach (var cafe in @Model.Cafes)
+    {
+        phone = cafe.GetString("phone");
+        city = cafe.GetString("city");
+        street = cafe.GetString("street");
+        zipCode = cafe.GetString("zip_code");
+        country = cafe.GetString("country");
+        state = cafe.GetString("state");
+        <div class="col-md-6 col-lg-3">
+            <div class="cafe-tile cursor-hand js-scroll-to-map" data-address="@city, @street">
+                <div class="cafe-tile-content">
+                    <h3 class="cafe-tile-name">@cafe.System.Name</h3>
+                    <address class="cafe-tile-address">
+                        <a href="javascript:void(0)" class="cafe-tile-address-anchor">@street, @city<br />
+                            @zipCode, @country, @state
+                        </a>
+                    </address>
+                    <p class="cafe-tile-phone">@phone</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<h2 class="map-title">@Resources.DancingGoat.ContactUs_MapTitle</h2>
+<div class="map js-map"></div>
+
+@section Scripts {
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVOq4C-rf7JVeHt6ws9vsf-KHIRpueASg"></script>
+    @Scripts.Render("~/Scripts/map.js")
+}

@@ -1,0 +1,31 @@
+﻿@model IEnumerable<KenticoCloud.Delivery.ContentItem>
+@{
+    ViewBag.Title = Resources.DancingGoat.Articles;
+    var i = 1;
+}
+@foreach (var article in @Model)
+{
+    <div class="col-md-3">
+        <div class="article-tile">
+            <a href="@Url.Action("Show", "Articles", new { id = article.System.Codename })">
+                <img src="@article.GetAssets("teaser_image")[0].Url" class="article-tile-image" alt="Article @article.System.Name" />
+            </a>
+            <div class="article-tile-date">
+                @article.GetDateTime("post_date").Value.ToString("M")
+            </div>
+            <div class="article-tile-content">
+                <h2 class="h4">
+                    <a href="@Url.Action("Show", "Articles", new { id = article.System.Codename })">@article.System.Name </a>
+                </h2>
+                <p class="article-tile-text">
+                    @article.GetString("summary")
+                </p>
+            </div>
+        </div>
+    </div>
+    if (i % 4 == 0)
+    {
+        <div class="clear"></div>
+    }
+    i++;
+}

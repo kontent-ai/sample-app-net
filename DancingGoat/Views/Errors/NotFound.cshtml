@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = Resources.DancingGoat.NotFound_Title;
+}
+
+<div class="row">
+    <div class="not-found">
+        <div class="col-md-5 col-lg-4 col-lg-offset-1 sm-hidden xs-hidden">
+            <img class="img-responsive" alt="Page not found" src="@Url.Content("~/Content/Images/404.jpg")">
+        </div>
+        <div class="col-md-7 col-lg-6">
+            <div class="not-found-content">
+                <h2 class="">
+                    @Resources.DancingGoat.NotFound_Title
+                </h2>
+                <p>@Resources.DancingGoat.NotFound_Message</p>
+                <p>
+                    @Html.Raw(string.Format(Resources.DancingGoat.NotFound_Instructions,
+                      Html.ActionLink(Resources.DancingGoat.NotFound_Homepage, "Index", "Home"),
+                      Html.ActionLink(Resources.DancingGoat.NotFound_ContactUs, "Index", "Contacts")))
+                </p>
+                <a href="@Url.Action("Index", "Home")" class="btn">
+                    @Resources.DancingGoat.NotFound_GoHome
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

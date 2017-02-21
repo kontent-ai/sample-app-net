@@ -1,0 +1,22 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container product-page-container">
+    <nav role="navigation" class="sub-menu row">
+        <div class="store-menu-list row">
+            <ul>
+                <li>
+                    @Html.ActionLink(Resources.DancingGoat.Coffees, "Index", "Coffees")
+                </li>
+                <li>
+                    @Html.ActionLink(Resources.DancingGoat.Brewers, "Index", "Brewers")
+                </li>
+            </ul>
+        </div>
+    </nav>
+    @RenderBody()
+</div>
+
+@section Scripts {
+    @RenderSection("scripts", required: false)
+}
