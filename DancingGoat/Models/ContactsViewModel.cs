@@ -7,6 +7,6 @@ namespace DancingGoat.Models
     {
         public ContentItem Roastery { get; set; }
 
-        public List<ContentItem> Cafes { get; set; }
+        public IReadOnlyList<ContentItem> Cafes { get; set; }
     }
 }

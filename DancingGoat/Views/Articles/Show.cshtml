@@ -10,7 +10,7 @@
     </div>
     <div class="row">
         <div class="article-detail-image col-md-push-2 col-md-8">
-            <img src="@Model.GetAssets("teaser_image")[0].Url" class="img-responsive" alt="Article @Model.System.Name" />
+            <img src="@Model.GetAssets("teaser_image").First().Url" class="img-responsive" alt="Article @Model.System.Name" />
         </div>
     </div>
     <div class="row">

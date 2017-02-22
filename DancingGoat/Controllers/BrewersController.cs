@@ -16,34 +16,32 @@ namespace DancingGoat.Controllers
         [Route]
         public async Task<ActionResult> Index()
         {
-            var filters = new List<IFilter> {
+            var response = await client.GetItemsAsync(
                 new EqualsFilter("system.type", "brewer"),
-                new Order("elements.product_name"),
-                new ElementsFilter("image", "price", "product_status", "processing"),
-                new DepthFilter(0)
-            };
-
-            var response = await client.GetItemsAsync(filters);
+                new OrderParameter("elements.product_name"),
+                new ElementsParameter("image", "price", "product_status", "processing"),
+                new DepthParameter(0)
+            );
 
             return View(response.Items);
         }
 
         public async Task<ActionResult> Filter(BrewerFilterViewModel model)
         {
-            var filters = new List<IFilter> {
+            var parameters = new List<IQueryParameter> {
                 new EqualsFilter("system.type", "brewer"),
-                new Order("elements.product_name"),
-                new ElementsFilter("image", "price", "product_status", "processing"),
-                new DepthFilter(0)
+                new OrderParameter("elements.product_name"),
+                new ElementsParameter("image", "price", "product_status", "processing"),
+                new DepthParameter(0)
             };
 
             var manufacturers = model.GetManufacturerFilters().ToArray();
             if (manufacturers.Any())
             {
-                filters.Add(new InFilter("elements.manufacturer", manufacturers));
+                parameters.Add(new InFilter("elements.manufacturer", manufacturers));
             }
 
-            var response = await client.GetItemsAsync(filters);
+            var response = await client.GetItemsAsync(parameters);
 
             return PartialView("BrewersList", response.Items);
         }

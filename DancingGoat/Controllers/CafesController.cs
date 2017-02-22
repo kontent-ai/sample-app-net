@@ -16,12 +16,11 @@ namespace DancingGoat.Controllers
         [Route]
         public async Task<ActionResult> Index()
         {
-            var filters = new List<IFilter> {
+            var response = await client.GetItemsAsync(
                 new EqualsFilter("system.type", "cafe"),
-                new Order("system.name")
-            };
-
-            var cafes = (await client.GetItemsAsync(filters)).Items;
+                new OrderParameter("system.name")
+            );
+            var cafes = response.Items;
 
             var viewModel = new CafesViewModel
             {

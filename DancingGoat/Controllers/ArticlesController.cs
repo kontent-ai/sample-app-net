@@ -16,15 +16,13 @@ namespace DancingGoat.Controllers
         [Route]
         public async Task<ActionResult> Index()
         {
-            var filters = new List<IFilter> {
+            var response = await client.GetItemsAsync(
                 new EqualsFilter("system.type", "article"),
-                new Order("elements.post_date", OrderDirection.Descending),
-                new ElementsFilter("teaser_image", "post_date", "summary")
-            };
+                new OrderParameter("elements.post_date", SortOrder.Descending),
+                new ElementsParameter("teaser_image", "post_date", "summary")
+            );
 
-            var articles = await client.GetItemsAsync(filters);
-
-            return View(articles.Items);
+            return View(response.Items);
         }
 
         [Route("{id}")]

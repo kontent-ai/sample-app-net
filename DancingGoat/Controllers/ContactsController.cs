@@ -16,12 +16,11 @@ namespace DancingGoat.Controllers
         [Route]
         public async Task<ActionResult> Index()
         {
-            var filters = new List<IFilter> {
+            var response = await client.GetItemsAsync(
                 new EqualsFilter("system.type", "cafe"),
                 new EqualsFilter("elements.country", "USA")
-            };
-
-            var cafes = (await client.GetItemsAsync(filters)).Items;
+            );
+            var cafes = response.Items;
 
             var viewModel = new ContactsViewModel
             {
@@ -35,11 +34,7 @@ namespace DancingGoat.Controllers
         [ChildActionOnly]
         public ActionResult CompanyAddress()
         {
-            var filters = new List<IFilter> {
-                new ElementsFilter("contact")
-            };
-
-            var contact = Task.Run(() => client.GetItemAsync("home", filters)).Result.Item.GetString("contact");
+            var contact = Task.Run(() => client.GetItemAsync("home", new ElementsParameter("contact"))).Result.Item.GetString("contact");
 
             return Content(contact);
         }

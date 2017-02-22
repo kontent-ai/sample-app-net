@@ -8,7 +8,7 @@
     <div class="col-md-3">
         <div class="article-tile">
             <a href="@Url.Action("Show", "Articles", new { id = article.System.Codename })">
-                <img src="@article.GetAssets("teaser_image")[0].Url" class="article-tile-image" alt="Article @article.System.Name" />
+                <img src="@article.GetAssets("teaser_image").First().Url" class="article-tile-image" alt="Article @article.System.Name" />
             </a>
             <div class="article-tile-date">
                 @article.GetDateTime("post_date").Value.ToString("M")

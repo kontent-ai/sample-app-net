@@ -16,34 +16,32 @@ namespace DancingGoat.Controllers
         [Route]
         public async Task<ActionResult> Index()
         {
-            var filters = new List<IFilter> {
+            var response = await client.GetItemsAsync(
                 new EqualsFilter("system.type", "coffee"),
-                new Order("elements.product_name"),
-                new ElementsFilter("image", "price", "product_status", "processing"),
-                new DepthFilter(0)
-            };
-
-            var response = await client.GetItemsAsync(filters);
+                new OrderParameter("elements.product_name"),
+                new ElementsParameter("image", "price", "product_status", "processing"),
+                new DepthParameter(0)
+            );
 
             return View(response.Items);
         }
 
         public async Task<ActionResult> Filter(CoffeesFilterViewModel model)
         {
-            var filters = new List<IFilter> {
+            var parameters = new List<IQueryParameter> {
                 new EqualsFilter("system.type", "coffee"),
-                new Order("elements.product_name"),
-                new ElementsFilter("image", "price", "product_status", "processing"),
-                new DepthFilter(0),
+                new OrderParameter("elements.product_name"),
+                new ElementsParameter("image", "price", "product_status", "processing"),
+                new DepthParameter(0),
             };
 
             var filter = model.GetFilteredValues().ToArray();
             if (filter.Any())
             {
-                filters.Add(new InFilter("elements.processing", filter));
+                parameters.Add(new InFilter("elements.processing", filter));
             }
 
-            var response = await client.GetItemsAsync(filters);
+            var response = await client.GetItemsAsync(parameters);
 
             return PartialView("CoffeeList", response.Items);
         }
