@@ -1,37 +1,45 @@
-# Deliver Dancing Goat .NET MVC 5 sample application
+# Kentico Cloud sample .NET MVC web application
 
-## SUMMARY
+Dancing Goat is a sample website utilizing the Kentico Cloud Delivery SDK to manage and retrieve content.
 
-Dancing Goat .NET MVC Application is a sample website utilizing Kentico Deliver service to manage and retrieve content.
-
-## PREREQUISITIES
+## Prerequisites
 
 1. Environment that is capable of running the .NET MVC 5 application such as Visual Studio 2013+.
-2. Account at https://app.kenticocloud.com with a sample project that is created automatically for every new subscription. You can read more about Kentico Deliver service activation here: https://kenticocloud.com/docs#enabling-kentico-deliver .
+2. A Kentico Cloud account. You can register at https://app.kenticocloud.com.
 
-## CONTENT ADMINISTRATION
+
+## Content administration
 
 1. Navigate to https://app.kenticocloud.com in your browser.
 2. Sign in with your credentials.
-3. You are redirected to content administration interface of your sample project. For more details about the content editing, please see https://kenticocloud.com/docs .
+3. Manage content in the content administration interface of your sample project.
 
-## APPLICATION SETUP
+You can learn more about content editing with Kentico Cloud in the [documentation](http://help.kenticocloud.com/).
 
-1. Copy the Project ID from the https://app.kenticocloud.com. More details about getting Project ID: https://kenticocloud.com/docs#getting-project-id .
-2. Insert the Project ID to the value of the ProjectId application setting in the Web.config file. 
-3. Run the application.
+## Application setup
 
-## PREVIEW CONTENT
+1. In Kentico Cloud, navigate to the Development section and copy the ID of your project.
+2. Open the application's `Web.config` file.
+3. Insert the Project ID to the value of the `ProjectId` application setting.
+4. Save the changes.
+5. Run the application.
 
-1. To preview the unpublished content you need to provide the Preview API key to the application.
-2. Copy the Preview API key from the https://app.kenticocloud.com . For more details, please read: https://kenticocloud.com/docs#previewing-unpublished-content-using-deliver-api .
-3. Insert the Preview API key to the string value of the PreviewToken application setting in the Web.config file.
-4. Run the application.
+## Preview content
+For previewing content that is not yet published, you need to provide the Preview API key to the application.
 
-## CONTENT DELIVERY
+1. In Kentico Cloud, navigate to the Development section and copy the Preview API key for the Delivery API.
+2. Open the application's `Web.config` file.
+3. Create a new application setting named `PreviewToken` in the `<appSettings>` section.
+4. Use the Preview API key as the setting's value.
+5. Save the changes.
+6. Run the application.
 
-The content can be reached either through REST API on URL: http://deliver.kenticocloud.com/PROJECT_ID/items, or through .NET SDK which is used in this project. 
+## Content delivery
 
-For more information about the Kentico Deliver REST API, please see http://docs.kenticodeliver.apiary.io .
+You can retrieve content either through the Kentico Cloud Delivery SDKs or the Kentico Cloud Delivery API:
+* For published content, use `https://deliver.kenticocloud.com/PROJECT_ID/items`.
+* For unpublished content, use `https://preview-deliver.kenticocloud.com/PROJECT_ID/items`.
 
-You can find more information about our SDK here: https://github.com/Kentico/Deliver-.NET-SDK and include it in your projects as a NuGet package: https://www.nuget.org/packages/KenticoCloud.Deliver .
+For more info about the API, see the [API reference](http://docs.kenticodeliver.apiary.io).
+
+You can find more information about the Kentico Cloud Delivery .NET SDK at https://github.com/Kentico/delivery-sdk-net. To use the SDK in your projects, include it as a NuGet package (https://www.nuget.org/packages/KenticoCloud.Delivery).
