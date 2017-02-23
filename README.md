@@ -1,12 +1,35 @@
 # Kentico Cloud sample .NET MVC web application
 
-Dancing Goat is a sample website utilizing the Kentico Cloud Delivery SDK to manage and retrieve content.
+This is a sample website written in ASP.NET MVC 5 utilizing the [Kentico Cloud Delivery .NET SDK](https://github.com/Kentico/delivery-sdk-net) to manage and retrieve content from Kentico Cloud. You can register your account for free at https://app.kenticocloud.com.
 
-## Prerequisites
+## Application setup
 
-1. Environment that is capable of running the .NET MVC 5 application such as Visual Studio 2013+.
-2. A Kentico Cloud account. You can register at https://app.kenticocloud.com.
+We recommend running the sample application in Visual Studio 2013 or later. By default, the application uses the default Kentico Cloud sample project for its content.
 
+To try the aplication:
+
+1. Clone the sample application repository.
+2. Open the solution in Visual Studio (using the _DancingGoat.sln_ file).
+3. Run the application.
+4. The sample application opens in your browser.
+
+## Preview content from your project
+
+If you already have a Kentico Cloud account and you want to connect the sample application to a project of your own, you need to provide your Project ID and Preview API key to authorize requests to the Delivery Preview API. For example, you can connect the application to your modified version of the sample project.
+
+To preview content in the sample application, follow these steps:
+
+1. In Kentico Cloud, select your project.
+2. Navigate to the Development section.
+3. Copy your Project ID and Preview API key.
+4. Open the sample application's `Web.config` file.
+5. Insert the copied Project ID to the value of the `ProjectId` application setting.
+6. Create a new application setting named `PreviewToken` in the `<appSettings>` section.
+7. Use the copied Preview API key as the setting's value.
+8. Save the changes.
+9. Run the application.
+
+When you now run the application, you will see all project content including the unpublished version of content items.
 
 ## Content administration
 
@@ -14,25 +37,7 @@ Dancing Goat is a sample website utilizing the Kentico Cloud Delivery SDK to man
 2. Sign in with your credentials.
 3. Manage content in the content administration interface of your sample project.
 
-You can learn more about content editing with Kentico Cloud in the [documentation](http://help.kenticocloud.com/).
-
-## Application setup
-
-1. In Kentico Cloud, navigate to the Development section and copy the ID of your project.
-2. Open the application's `Web.config` file.
-3. Insert the Project ID to the value of the `ProjectId` application setting.
-4. Save the changes.
-5. Run the application.
-
-## Preview content
-For previewing content that is not yet published, you need to provide the Preview API key to the application.
-
-1. In Kentico Cloud, navigate to the Development section and copy the Preview API key for the Delivery API.
-2. Open the application's `Web.config` file.
-3. Create a new application setting named `PreviewToken` in the `<appSettings>` section.
-4. Use the Preview API key as the setting's value.
-5. Save the changes.
-6. Run the application.
+You can learn more about content editing with Kentico Cloud in the [user documentation](http://help.kenticocloud.com/).
 
 ## Content delivery
 
