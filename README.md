@@ -1,6 +1,6 @@
 # Kentico Cloud sample .NET MVC web application
 
-This is a sample website written in ASP.NET MVC 5 utilizing the [Kentico Cloud Delivery .NET SDK](https://github.com/Kentico/delivery-sdk-net) to manage and retrieve content from Kentico Cloud. You can register your account for free at https://app.kenticocloud.com.
+This is a sample website written in ASP.NET MVC 5 utilizing the [Kentico Cloud Delivery .NET SDK](https://github.com/Kentico/delivery-sdk-net) to manage and retrieve content from Kentico Cloud. You can register your account for free at <https://app.kenticocloud.com>.
 
 ## Application setup
 
@@ -33,7 +33,7 @@ When you now run the application, you will see all project content including the
 
 ## Content administration
 
-1. Navigate to https://app.kenticocloud.com in your browser.
+1. Navigate to <https://app.kenticocloud.com> in your browser.
 2. Sign in with your credentials.
 3. Manage content in the content administration interface of your sample project.
 
@@ -42,9 +42,10 @@ You can learn more about content editing with Kentico Cloud in the [user documen
 ## Content delivery
 
 You can retrieve content either through the Kentico Cloud Delivery SDKs or the Kentico Cloud Delivery API:
+
 * For published content, use `https://deliver.kenticocloud.com/PROJECT_ID/items`.
 * For unpublished content, use `https://preview-deliver.kenticocloud.com/PROJECT_ID/items`.
 
-For more info about the API, see the [API reference](http://docs.kenticodeliver.apiary.io).
+For more info about the API, see the [API reference](https://developer.kenticocloud.com/reference#delivery-api).
 
-You can find more information about the Kentico Cloud Delivery .NET SDK at https://github.com/Kentico/delivery-sdk-net. To use the SDK in your projects, include it as a NuGet package (https://www.nuget.org/packages/KenticoCloud.Delivery).
+You can find more information about the Kentico Cloud Delivery .NET SDK at <https://github.com/Kentico/delivery-sdk-net>. To use the SDK in your projects, include it as a [NuGet package] (https://www.nuget.org/packages/KenticoCloud.Delivery).
