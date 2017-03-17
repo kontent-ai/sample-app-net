@@ -18,6 +18,8 @@ namespace DancingGoat.Controllers
             try
             {
                 var response = await client.GetItemAsync(id);
+                ViewBag.FreeTasteRequested = TempData["formSubmited"] ?? false;
+                ViewBag.Id = id;
                 return View(response.Item);
             }
             catch (DeliveryException ex)
@@ -31,6 +33,13 @@ namespace DancingGoat.Controllers
                     throw;
                 }
             }
+        }
+
+        [HttpPost]
+        public ActionResult FreeTaste()
+        {
+            TempData["formSubmited"] = true;
+            return RedirectToAction("Detail", new { id = Request.Form["product_id"]});
         }
     }
 }

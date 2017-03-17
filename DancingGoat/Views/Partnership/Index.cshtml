@@ -1,0 +1,160 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = Resources.DancingGoat.Partnership;
+}
+
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="partnership-info partnership-info-left">
+
+            <h3>Wholesale Partner Program</h3>
+
+            <ul>
+                <li>Multiple sale levels of up to 25% based on the quarterly quota</li>
+                <li>Free tableware and merchandise</li>
+                <li>Promotional materials</li>
+            </ul>
+
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="partnership-info partnership-info-right">
+
+            <h3>Partner Café Program</h3>
+
+            <ul>
+                <li>for café owners only</li>
+                <li>Multiple sale levels of up to 25% based on the quarterly quota</li>
+                <li>Professional coffee machine rental and leasing</li>
+                <li>Promotion by Dancing Goat</li>
+                <li>Barista, promotion, and management training</li>
+                <li>Special merchandise and access to limited editions</li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+
+
+
+<section class="row text-and-image">
+    <h3 class="col-lg-12">
+        How does it work?
+    </h3>
+    <div>
+        If your company buys in our on-line store regularly, we&#39;d like to reward you and offer you our wholesale partner program. Register on the form below and we&#39;ll contact you within two days with a newly created business account with which you can buy discounted products. The discount is of up to 25% and is settled on a quarterly basis according to your purchases the quarter before. Besides that, you get free tableware and merchandise along with other promotional materials.
+        <br />
+        <br />
+        If you have a café or you want to open one and you&#39;d like to be referred to as our partner café, we offer a partner café program in which you can also buy for discounted prices and get free tableware and merchandise. Dancing Goat also offers the rental and leasing of professional café equipment to our partner cafés and access to limited editions of our special merchandise.
+        <br />
+        <br />
+        Just register and wait two days for our sales person to contact you. We do the magic and then you can start making the profit.
+    </div>
+</section>
+
+<section class="row" id="lp-form">
+    <div class="container">
+        <h3> Partnership Application </h3>
+        <div class="row">
+            <div class="col-md-5">
+                <div> Your business is also our business. Become a part of our brand and benefit from it. </div>
+            </div>
+
+            <div class="col-md-6 col-md-offset-1">
+                @if (ViewBag.PartnershipRequested)
+                {
+                    <div class="partnership-info-right">
+                        <span class="InfoLabel">We'll contact you within 48 hours to discuss details and explain any question of yours regarding the partnership.</span>
+                    </div>
+                }
+                else
+                {
+                    <div id="pnlForm" class="FormPanel">
+                        @using (Html.BeginForm("Application", "Partnership", FormMethod.Post, new { id = "partnership-application" }))
+                        {
+                            <div class="form-group">
+                                <div class="form-group-label">
+                                    <strong><label id="CompanyName_lb" for="CompanyName_txtText">Company name</label></strong>
+                                </div>
+                                <div class="form-group-input">
+                                    <input name="CompanyName" type="text" maxlength="200" id="CompanyName_txtText" class="form-control" required />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="form-group-label">
+                                    <strong><label id="FirstName_lb" for="FirstName_txtText">First name</label></strong>
+                                </div>
+                                <div class="form-group-input">
+                                    <input name="FirstName" type="text" maxlength="200" id="FirstName_txtText" class="form-control" required />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="form-group-label">
+                                    <strong><label id="LastName_lb" for="LastName_txtText">Last name</label></strong>
+                                </div>
+                                <div class="form-group-input">
+                                    <input name="LastName" type="text" maxlength="200" id="LastName_txtText" class="form-control" required />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="form-group-label">
+                                    <strong><label id="Phone_lb" for="Phone_txtText">Phone</label></strong> (optional)
+                                </div>
+                                <div class="form-group-input">
+                                    <input name="Phone" type="text" maxlength="200" id="Phone_txtText" class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="form-group-label">
+                                    <strong><label id="Email_lb" for="Email_txtEmailInput">Email</label></strong>
+                                </div>
+                                <div class="form-group-input">
+                                    <input name="Email" type="text" maxlength="254" id="Email_txtEmailInput" class="form-control" required />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <fieldset class="partnership-form-fieldset">
+                                    <legend class="form-group-label"><strong>I am interested in...</strong></legend>
+                                    <span id="BecomePartner_list" class="radio radio-list-vertical">
+                                        <input id="BecomePartner_list_0" type="radio" name="BecomePartner" value="wholesale partner"/>
+                                        <label for="BecomePartner_list_0">Becoming a wholesale partner</label>
+                                    </span>
+                                    <span id="BecomePartner_list" class="radio radio-list-vertical">
+                                        <input id="BecomePartner_list_1" type="radio" name="BecomePartner" value="partner café"/>
+                                        <label for="BecomePartner_list_1">Becoming a partner café</label>
+                                    </span>
+                                </fieldset>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="submit" name="btnOK" value="APPLY" class="btn btn-primary" />
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            $("#partnership-application").validate({
+                errorClass: "message message-error",
+                rules: {
+                    Email: "email",
+                    Phone: "digits"
+                }
+            });
+        });
+    </script>
+}
