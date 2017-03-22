@@ -1,8 +1,7 @@
-﻿@model KenticoCloud.Delivery.ContentItem
+﻿@model DancingGoat.Models.HomeViewModel
 
 @{
     ViewBag.Title = Resources.DancingGoat.Home;
-    var heroUnit = Model.GetModularContent("hero_unit").First();
 }
 
 @helper MoreButton(string text, string url)
@@ -16,17 +15,17 @@
     </div>
 }
 
-<section class="banner-section" style="background-image: url('@heroUnit.GetAssets("image").First().Url');">
-    <h2 class="banner-heading">@heroUnit.GetString("title")</h2>
+<section class="banner-section" style="background-image: url('@Model.Header.GetAssets("image").First().Url');">
+    <h2 class="banner-heading">@Model.Header.GetString("title")</h2>
     <div class="banner-text">
-        @Html.Raw(@heroUnit.GetString("marketing_message"))
+        @Html.Raw(@Model.Header.GetString("marketing_message"))
     </div>
 </section>
 
 <div class="row">
     <h1 class="title-tab">@Resources.DancingGoat.Articles_LatestOne</h1>
     @{var isFirstArticle = true; }
-    @foreach (var article in @Model.GetModularContent("articles"))
+    @foreach (var article in @Model.ContentItem.GetModularContent("articles"))
     {
         if (isFirstArticle)
         {
@@ -78,7 +77,7 @@
 
 @MoreButton(Resources.DancingGoat.Articles_More, Url.Action("Index", "Articles"))
 
-@foreach (var factAboutUs in Model.GetModularContent("our_story"))
+@foreach (var factAboutUs in Model.ContentItem.GetModularContent("our_story"))
 {
     <div class="row">
         <h1 class="title-tab">@factAboutUs.GetString("title")</h1>
@@ -96,7 +95,7 @@
     <div>
         <h1 class="title-tab">@Resources.DancingGoat.CompanyCafes_Title</h1>
     </div>
-    @foreach (var cafe in Model.GetModularContent("cafes"))
+    @foreach (var cafe in Model.ContentItem.GetModularContent("cafes"))
     {
         <div class="col-xs-6 col-md-3">
             <div>
