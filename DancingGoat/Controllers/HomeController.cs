@@ -18,8 +18,9 @@ namespace DancingGoat.Controllers
         {
             deliveryClient = new DeliveryClient(ConfigurationManager.AppSettings["ProjectId"]);
 
-            // If PersonalizationToken is not set disable personalization
+            // Disable personalization when PersonalizationToken is not set
             var personalizationToken = ConfigurationManager.AppSettings["PersonalizationToken"];
+
             if (!string.IsNullOrWhiteSpace(personalizationToken))
             {
                 personalizationClient = new PersonalizationClient(personalizationToken);
@@ -36,17 +37,16 @@ namespace DancingGoat.Controllers
                 ContentItem = response.Item,
             };
 
-            // default state = show promotional banner
+            // Show promotion banner by default
             var showPromotion = true;
 
-            // If PersonalizationToken is not set disable personalization
             if (personalizationClient != null)
             {
-                // get visitor's tracking id
+                // Get User ID of the current visitor
                 var visitorUid = Request.GetCurrentPersonalizationUid();
                 if (!string.IsNullOrEmpty(visitorUid))
                 {
-                    // find out if visitor filled a form on our page?
+                    // Determine whether the visitor submitted a form
                     var visitorSubmittedForm = await personalizationClient.GetVisitorActionsAsync(visitorUid, ActionTypeEnum.FormSubmit);
                     showPromotion = !visitorSubmittedForm.Activity;
                 }
