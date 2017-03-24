@@ -1247,7 +1247,18 @@ namespace Resources {
                 return ResourceManager.GetString("PartnerCafes.Title", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Partnership.
+        /// </summary>
+        public static string Partnership
+        {
+            get
+            {
+                return ResourceManager.GetString("Partnership", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Reset password.
         /// </summary>

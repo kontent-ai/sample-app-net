@@ -751,4 +751,7 @@ If you did not submit the request please let us know.</value>
   <data name="Brewers.Hario" xml:space="preserve">
     <value>Hario</value>
   </data>
+  <data name="Partnership" xml:space="preserve">
+    <value>Partnership</value>
+  </data>
 </root>
