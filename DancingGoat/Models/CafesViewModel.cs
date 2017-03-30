@@ -5,8 +5,8 @@ namespace DancingGoat.Models
 {
     public class CafesViewModel
     {
-        public List<ContentItem> CompanyCafes { get; set; }
+        public List<Cafe> CompanyCafes { get; set; }
 
-        public List<ContentItem> PartnerCafes { get; set; }
+        public List<Cafe> PartnerCafes { get; set; }
     }
 }

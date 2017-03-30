@@ -9,19 +9,19 @@
     @foreach (var cafe in Model.CompanyCafes)
     {
         <div class="col-md-6">
-            <div class="cafe-image-tile cursor-hand js-scroll-to-map" data-address="@cafe.GetString("city"),@cafe.GetString("street")">
-                <div class="cafe-image-tile-image-wrapper" style="background-image:url('@cafe.GetAssets("photo").First().Url'); background-size: cover; background-position: right center;">
+            <div class="cafe-image-tile cursor-hand js-scroll-to-map" data-address="@cafe.City,@cafe.Street">
+                <div class="cafe-image-tile-image-wrapper" style="background-image:url('@cafe.Photo.First().Url'); background-size: cover; background-position: right center;">
                 </div>
                 <div class="cafe-image-tile-content">
                     <h3 class="cafe-image-tile-name">@cafe.System.Name</h3>
                     <address class="cafe-tile-address">
                         <a href="javascript:void(0)" class="cafe-tile-address-anchor">
-                            @cafe.GetString("street"), @cafe.GetString("city")
+                            @cafe.Street, @cafe.City
                             <br />
-                            @cafe.GetString("zip_code"), @cafe.GetString("country"), @cafe.GetString("state")
+                            @cafe.ZipCode, @cafe.Country, @cafe.State
                         </a>
                     </address>
-                    <p>@cafe.GetString("phone")</p>
+                    <p>@cafe.Phone</p>
                 </div>
             </div>
         </div>
@@ -32,9 +32,9 @@
 <div class="row">
     @foreach (var cafe in Model.PartnerCafes)
     {
-        <h3>@cafe.GetString("city"), @cafe.GetString("country")</h3>
+        <h3>@cafe.City, @cafe.Country</h3>
         <p>
-            @cafe.System.Name, @cafe.GetString("street"), @cafe.GetString("phone")
+            @cafe.System.Name, @cafe.Street, @cafe.Phone
         </p>
     }
 </div>

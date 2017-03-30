@@ -50,9 +50,8 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="KenticoCloud.Delivery, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\KenticoCloud.Delivery.3.0.1\lib\net45\KenticoCloud.Delivery.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="KenticoCloud.Delivery, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\KenticoCloud.Delivery.4.1.0\lib\net45\KenticoCloud.Delivery.dll</HintPath>
     </Reference>
     <Reference Include="KenticoCloud.Personalization, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\KenticoCloud.Personalization.1.0.0\lib\net45\KenticoCloud.Personalization.dll</HintPath>
@@ -188,11 +187,29 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Extensions\HtmlHelperExtensions.cs" />
+    <Compile Include="Models\BrewerPartial.cs" />
+    <Compile Include="Models\CoffeePartial.cs" />
+    <Compile Include="Models\ContentTypes\AboutUs.cs" />
+    <Compile Include="Models\AboutUsViewModel.cs" />
+    <Compile Include="Models\ContentTypes\Accessory.cs" />
+    <Compile Include="Models\ContentTypes\Article.cs" />
+    <Compile Include="Models\ContentTypes\Brewer.cs" />
     <Compile Include="Models\BrewerFilterViewModel.cs" />
+    <Compile Include="Models\ContentTypes\Cafe.cs" />
     <Compile Include="Models\CafesViewModel.cs" />
+    <Compile Include="Models\ContentTypes\Coffee.cs" />
     <Compile Include="Models\CoffeesFilterViewModel.cs" />
     <Compile Include="Models\ContactsViewModel.cs" />
+    <Compile Include="Models\ContentTypes\CustomTypeProvider.cs" />
+    <Compile Include="Models\ContentTypes\FactAboutUs.cs" />
+    <Compile Include="Models\FactAboutUsViewModel.cs" />
+    <Compile Include="Models\ContentTypes\Grinder.cs" />
+    <Compile Include="Models\ContentTypes\HeroUnit.cs" />
+    <Compile Include="Models\ContentTypes\Home.cs" />
     <Compile Include="Models\HomeViewModel.cs" />
+    <Compile Include="Models\ContentTypes\Office.cs" />
+    <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -266,7 +283,9 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -274,18 +293,20 @@
     <Content Include="Views\Articles\Index.cshtml" />
     <Content Include="Views\Articles\Show.cshtml" />
     <Content Include="Views\Brewers\BrewersFilter.cshtml" />
-    <Content Include="Views\Brewers\BrewersList.cshtml" />
+    <Content Include="Views\Shared\ProductListing.cshtml" />
     <Content Include="Views\Brewers\Index.cshtml" />
     <Content Include="Views\Cafes\Index.cshtml" />
     <Content Include="Views\Contacts\Index.cshtml" />
     <Content Include="Views\Coffees\CoffeeFilter.cshtml" />
-    <Content Include="Views\Coffees\CoffeeList.cshtml" />
     <Content Include="Views\Coffees\Index.cshtml" />
     <Content Include="Views\Product\Detail.cshtml" />
-    <Content Include="Views\Shared\DisplayTemplates\ProductListItem.cshtml" />
     <Content Include="Views\Errors\NotFound.cshtml" />
     <Content Include="Views\Shared\_StoreLayout.cshtml" />
     <Content Include="Views\Partnership\Index.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\FactAboutUsViewModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\AboutUsViewModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\ArticleListingItem.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Product.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
