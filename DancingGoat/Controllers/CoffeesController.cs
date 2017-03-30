@@ -13,10 +13,15 @@ namespace DancingGoat.Controllers
     {
         private readonly DeliveryClient client = new DeliveryClient(ConfigurationManager.AppSettings["ProjectId"]);
 
+        public CoffeesController()
+        {
+            client.CodeFirstModelProvider.TypeProvider = new CustomTypeProvider();
+        }
+
         [Route]
         public async Task<ActionResult> Index()
         {
-            var response = await client.GetItemsAsync(
+            var response = await client.GetItemsAsync<Coffee>(
                 new EqualsFilter("system.type", "coffee"),
                 new OrderParameter("elements.product_name"),
                 new ElementsParameter("image", "price", "product_status", "processing"),
@@ -41,9 +46,9 @@ namespace DancingGoat.Controllers
                 parameters.Add(new InFilter("elements.processing", filter));
             }
 
-            var response = await client.GetItemsAsync(parameters);
+            var response = await client.GetItemsAsync<Coffee>(parameters);
 
-            return PartialView("CoffeeList", response.Items);
+            return PartialView("ProductListing", response.Items.Cast<Product>());
         }
     }
 }

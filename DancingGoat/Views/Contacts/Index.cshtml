@@ -8,13 +8,13 @@
     <h2 class="contact-title">@Resources.DancingGoat.Roastery</h2>
     <ul class="contact-info">
         @{
-            var phone = Model.Roastery.GetString("phone");
-            var email = Model.Roastery.GetString("email");
-            var city = Model.Roastery.GetString("city");
-            var street = Model.Roastery.GetString("street");
-            var zipCode = Model.Roastery.GetString("zip_code");
-            var country = Model.Roastery.GetString("country");
-            var state = Model.Roastery.GetString("state");
+            var phone = Model.Roastery.Phone;
+            var email = Model.Roastery.Email;
+            var city = Model.Roastery.City;
+            var street = Model.Roastery.Street;
+            var zipCode = Model.Roastery.ZipCode;
+            var country = Model.Roastery.Country;
+            var state = Model.Roastery.State;
         }
         <li>@phone</li>
         <li><a href="mailto:@email" target="_top">@email</a></li>
@@ -30,12 +30,12 @@
 <div class="row">
     @foreach (var cafe in @Model.Cafes)
     {
-        phone = cafe.GetString("phone");
-        city = cafe.GetString("city");
-        street = cafe.GetString("street");
-        zipCode = cafe.GetString("zip_code");
-        country = cafe.GetString("country");
-        state = cafe.GetString("state");
+        phone = cafe.Phone;
+        city = cafe.City;
+        street = cafe.Street;
+        zipCode = cafe.ZipCode;
+        country = cafe.Country;
+        state = cafe.State;
         <div class="col-md-6 col-lg-3">
             <div class="cafe-tile cursor-hand js-scroll-to-map" data-address="@city, @street">
                 <div class="cafe-tile-content">

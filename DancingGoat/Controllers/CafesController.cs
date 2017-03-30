@@ -13,10 +13,15 @@ namespace DancingGoat.Controllers
     {
         private readonly DeliveryClient client = new DeliveryClient(ConfigurationManager.AppSettings["ProjectId"]);
 
+        public CafesController()
+        {
+            client.CodeFirstModelProvider.TypeProvider = new CustomTypeProvider();
+        }
+
         [Route]
         public async Task<ActionResult> Index()
         {
-            var response = await client.GetItemsAsync(
+            var response = await client.GetItemsAsync<Cafe>(
                 new EqualsFilter("system.type", "cafe"),
                 new OrderParameter("system.name")
             );
@@ -24,8 +29,8 @@ namespace DancingGoat.Controllers
 
             var viewModel = new CafesViewModel
             {
-                CompanyCafes = cafes.Where(c => c.GetString("country") == "USA").ToList(),
-                PartnerCafes = cafes.Where(c => c.GetString("country") != "USA").ToList()
+                CompanyCafes = cafes.Where(c => c.Country == "USA").ToList(),
+                PartnerCafes = cafes.Where(c => c.Country != "USA").ToList()
             };
 
             return View(viewModel);

@@ -1,13 +1,17 @@
-﻿@model KenticoCloud.Delivery.ContentItem
+﻿@model dynamic
 @{
-    ViewBag.Title = Model.System.Name;
-    var image = Model.GetAssets("image").First();
+    string name = Model.System.Name;
+    ViewBag.Title = name;
+    KenticoCloud.Delivery.Asset image = Model.Image[0];
+    Type coffeeType = typeof(DancingGoat.Models.Coffee);
+    int altitude;
+    var altitudeParsed = Int32.TryParse(Model.Altitude, out altitude);
 }
 <article class="product-detail">
     <div class="row">
         <div class="col-md-12">
             <header>
-                <h2>@Model.System.Name</h2>
+                <h2>@name</h2>
             </header>
         </div>
     </div>
@@ -17,26 +21,26 @@
                 <img src="@image.Url" alt="@image.Name" />
             </figure>
             <div class="description">
-                @Html.Raw(Model.GetString("short_description") ?? Model.GetString("long_description"))
-                @if (Model.System.Type == "coffee")
+                @Html.Raw(Model.ShortDescription ?? Model.LongDescription)
+                @if (Model.GetType() == coffeeType)
                 {
                     <div class="product-detail-properties">
                         <h4>@Resources.DancingGoat.Product_Parameters</h4>
                         <dl class="row">
                             <dt class="col-xs-12 col-sm-4">@Resources.DancingGoat.Coffee_Farm</dt>
-                            <dd class="col-xs-12 col-sm-8">@Model.GetString("farm")</dd>
+                            <dd class="col-xs-12 col-sm-8">@Model.Farm</dd>
                             <dt class="col-xs-12 col-sm-4">@Resources.DancingGoat.Coffee_Variety</dt>
-                            <dd class="col-xs-12 col-sm-8">@Model.GetString("variety")</dd>
+                            <dd class="col-xs-12 col-sm-8">@Model.Variety</dd>
                             <dt class="col-xs-12 col-sm-4">@Resources.DancingGoat.Coffee_Processing</dt>
-                            <dd class="col-xs-12 col-sm-8">@Model.GetOptions("processing").First().Name</dd>
+                            <dd class="col-xs-12 col-sm-8">@Model.Processing[0].Name</dd>
                             <dt class="col-xs-12 col-sm-4">@Resources.DancingGoat.Coffee_Altitude</dt>
-                            <dd class="col-xs-12 col-sm-8">@Model.GetNumber("altitude").Value.ToString("N0") ft</dd>
+                            <dd class="col-xs-12 col-sm-8">@altitude.ToString("N0") ft</dd>
                         </dl>
                     </div>
                 }
             </div>
         </div>
-        @if (Model.System.Type == "coffee")
+        @if (Model.GetType() == coffeeType)
         {
             using (Html.BeginForm("FreeTaste", "Product", FormMethod.Post, new { id = "getfreetaste" }))
             {

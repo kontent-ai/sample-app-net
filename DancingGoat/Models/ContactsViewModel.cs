@@ -5,8 +5,8 @@ namespace DancingGoat.Models
 {
     public class ContactsViewModel
     {
-        public ContentItem Roastery { get; set; }
+        public Cafe Roastery { get; set; }
 
-        public IReadOnlyList<ContentItem> Cafes { get; set; }
+        public IReadOnlyList<Cafe> Cafes { get; set; }
     }
 }

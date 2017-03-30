@@ -13,10 +13,15 @@ namespace DancingGoat.Controllers
     {
         private readonly DeliveryClient client = new DeliveryClient(ConfigurationManager.AppSettings["ProjectId"]);
 
+        public ContactsController()
+        {
+            client.CodeFirstModelProvider.TypeProvider = new CustomTypeProvider();
+        }
+
         [Route]
         public async Task<ActionResult> Index()
         {
-            var response = await client.GetItemsAsync(
+            var response = await client.GetItemsAsync<Cafe>(
                 new EqualsFilter("system.type", "cafe"),
                 new EqualsFilter("elements.country", "USA")
             );
@@ -34,7 +39,7 @@ namespace DancingGoat.Controllers
         [ChildActionOnly]
         public ActionResult CompanyAddress()
         {
-            var contact = Task.Run(() => client.GetItemAsync("home", new ElementsParameter("contact"))).Result.Item.GetString("contact");
+            var contact = Task.Run(() => client.GetItemAsync<Home>("home", new ElementsParameter("contact"))).Result.Item.Contact;
 
             return Content(contact);
         }

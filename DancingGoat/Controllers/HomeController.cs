@@ -11,13 +11,13 @@ namespace DancingGoat.Controllers
 {
     public class HomeController : AsyncController
     {
-        private readonly DeliveryClient deliveryClient;
+        private readonly DeliveryClient client = new DeliveryClient(ConfigurationManager.AppSettings["ProjectId"]);
         private readonly PersonalizationClient personalizationClient;
 
         public HomeController()
         {
-            deliveryClient = new DeliveryClient(ConfigurationManager.AppSettings["ProjectId"]);
-
+            client.CodeFirstModelProvider.TypeProvider = new CustomTypeProvider();
+            
             // Disable personalization when PersonalizationToken is not set
             var personalizationToken = ConfigurationManager.AppSettings["PersonalizationToken"];
 
@@ -30,7 +30,7 @@ namespace DancingGoat.Controllers
         [Route]
         public async Task<ActionResult> Index()
         {
-            var response = await deliveryClient.GetItemAsync("home");
+            var response = await client.GetItemAsync<Home>("home");
 
             var viewModel = new HomeViewModel
             {
@@ -54,11 +54,11 @@ namespace DancingGoat.Controllers
 
             if (showPromotion)
             {
-                viewModel.Header = response.Item.GetModularContent("hero_unit").First(x => x.System.Codename == "home_page_promotion");
+                viewModel.Header = response.Item.HeroUnit.Cast<HeroUnit>().First(x => x.System.Codename == "home_page_promotion");
             }
             else
             {
-                viewModel.Header = response.Item.GetModularContent("hero_unit").First(x => x.System.Codename == "home_page_hero_unit");
+                viewModel.Header = response.Item.HeroUnit.Cast<HeroUnit>().First(x => x.System.Codename == "home_page_hero_unit");
             }
             
             return View(viewModel);
