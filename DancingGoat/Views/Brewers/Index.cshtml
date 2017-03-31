@@ -1,8 +1,9 @@
-﻿@model IEnumerable<KenticoCloud.Delivery.ContentItem>
+﻿@model IEnumerable<DancingGoat.Models.Brewer>
 
 @{
     Layout = "~/Views/Shared/_StoreLayout.cshtml";
     ViewBag.Title = Resources.DancingGoat.Brewers;
+    var brewersAsProducts = Model.Cast<DancingGoat.Models.Product>();
 }
 
 <div class="product-page row">
@@ -15,7 +16,7 @@
         </aside>
 
         <div id="product-list" class="col-md-8 col-lg-9 product-list">
-            @Html.Partial("BrewersList", Model)
+            @Html.Partial("ProductListing", brewersAsProducts)
         </div>
     </div>
 </div>

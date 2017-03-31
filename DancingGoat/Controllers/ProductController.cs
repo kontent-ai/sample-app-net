@@ -1,4 +1,5 @@
-﻿using KenticoCloud.Delivery;
+﻿using DancingGoat.Models;
+using KenticoCloud.Delivery;
 using System.Configuration;
 using System.Net;
 using System.Threading.Tasks;
@@ -8,16 +9,14 @@ using System.Web.Mvc;
 namespace DancingGoat.Controllers
 {
     [RoutePrefix("products")]
-    public class ProductController : AsyncController
+    public class ProductController : ControllerBase
     {
-        private readonly DeliveryClient client = new DeliveryClient(ConfigurationManager.AppSettings["ProjectId"]);
-
         [Route("{id}")]
         public async Task<ActionResult> Detail(string id)
         {
             try
             {
-                var response = await client.GetItemAsync(id);
+                var response = await client.GetItemAsync<object>(id);
                 ViewBag.FreeTasteRequested = TempData["formSubmited"] ?? false;
                 ViewBag.Id = id;
                 return View(response.Item);

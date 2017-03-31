@@ -9,15 +9,12 @@ using KenticoCloud.Personalization.MVC;
 
 namespace DancingGoat.Controllers
 {
-    public class HomeController : AsyncController
+    public class HomeController : ControllerBase
     {
-        private readonly DeliveryClient deliveryClient;
         private readonly PersonalizationClient personalizationClient;
 
         public HomeController()
         {
-            deliveryClient = new DeliveryClient(ConfigurationManager.AppSettings["ProjectId"]);
-
             // Disable personalization when PersonalizationToken is not set
             var personalizationToken = ConfigurationManager.AppSettings["PersonalizationToken"];
 
@@ -30,7 +27,7 @@ namespace DancingGoat.Controllers
         [Route]
         public async Task<ActionResult> Index()
         {
-            var response = await deliveryClient.GetItemAsync("home");
+            var response = await client.GetItemAsync<Home>("home");
 
             var viewModel = new HomeViewModel
             {
@@ -51,16 +48,9 @@ namespace DancingGoat.Controllers
                     showPromotion = !visitorSubmittedForm.Activity;
                 }
             }
+            var codeName = showPromotion ? "home_page_promotion" : "home_page_hero_unit";
+            viewModel.Header = response.Item.HeroUnit.Cast<HeroUnit>().First(x => x.System.Codename == codeName);
 
-            if (showPromotion)
-            {
-                viewModel.Header = response.Item.GetModularContent("hero_unit").First(x => x.System.Codename == "home_page_promotion");
-            }
-            else
-            {
-                viewModel.Header = response.Item.GetModularContent("hero_unit").First(x => x.System.Codename == "home_page_hero_unit");
-            }
-            
             return View(viewModel);
         }
     }

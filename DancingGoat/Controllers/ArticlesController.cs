@@ -1,6 +1,5 @@
-﻿using KenticoCloud.Delivery;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using DancingGoat.Models;
+using KenticoCloud.Delivery;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web;
@@ -9,14 +8,12 @@ using System.Web.Mvc;
 namespace DancingGoat.Controllers
 {
     [RoutePrefix("articles")]
-    public class ArticlesController : AsyncController
+    public class ArticlesController : ControllerBase
     {
-        private readonly DeliveryClient client = new DeliveryClient(ConfigurationManager.AppSettings["ProjectId"]);
-
         [Route]
         public async Task<ActionResult> Index()
         {
-            var response = await client.GetItemsAsync(
+            var response = await client.GetItemsAsync<Article>(
                 new EqualsFilter("system.type", "article"),
                 new OrderParameter("elements.post_date", SortOrder.Descending),
                 new ElementsParameter("teaser_image", "post_date", "summary")
@@ -30,7 +27,7 @@ namespace DancingGoat.Controllers
         {
             try
             {
-                var response = await client.GetItemAsync(id);
+                var response = await client.GetItemAsync<Article>(id);
                 return View(response.Item);
             }
             catch (DeliveryException ex)

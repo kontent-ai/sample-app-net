@@ -1,7 +1,5 @@
 ﻿using DancingGoat.Models;
 using KenticoCloud.Delivery;
-using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -9,14 +7,12 @@ using System.Web.Mvc;
 namespace DancingGoat.Controllers
 {
     [RoutePrefix("contacts")]
-    public class ContactsController : AsyncController
+    public class ContactsController : ControllerBase
     {
-        private readonly DeliveryClient client = new DeliveryClient(ConfigurationManager.AppSettings["ProjectId"]);
-
         [Route]
         public async Task<ActionResult> Index()
         {
-            var response = await client.GetItemsAsync(
+            var response = await client.GetItemsAsync<Cafe>(
                 new EqualsFilter("system.type", "cafe"),
                 new EqualsFilter("elements.country", "USA")
             );
@@ -34,7 +30,7 @@ namespace DancingGoat.Controllers
         [ChildActionOnly]
         public ActionResult CompanyAddress()
         {
-            var contact = Task.Run(() => client.GetItemAsync("home", new ElementsParameter("contact"))).Result.Item.GetString("contact");
+            var contact = Task.Run(() => client.GetItemAsync<Home>("home", new ElementsParameter("contact"))).Result.Item.Contact;
 
             return Content(contact);
         }

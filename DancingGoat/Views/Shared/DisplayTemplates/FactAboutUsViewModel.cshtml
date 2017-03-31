@@ -1,0 +1,14 @@
+﻿@using DancingGoat.Helpers.Extensions
+@model DancingGoat.Models.FactAboutUsViewModel
+
+<section class="row text-and-image">
+    <h2 class="col-lg-12">@Model.Fact.Title)</h2>
+    <div class="col-md-6@( Model.Odd ? " col-md-push-6" : "" )">
+        <div class="text-and-image-text@(Model.Odd ? "-right" : "" )">
+            @Html.Raw(Model.Fact.Description)
+        </div>
+    </div>
+    <div class="col-md-6@( Model.Odd ? " col-md-pull-6" : "" )">
+        @Html.AssetImage(Model.Fact.Image.FirstOrDefault(), cssClass: "img-responsive")
+    </div>
+</section>
