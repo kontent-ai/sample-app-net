@@ -11,50 +11,52 @@ We recommend running the sample application in Visual Studio 2013 or later. By d
 To run the aplication:
 
 1. Clone the sample application repository.
-2. Open the solution in Visual Studio (using the _DancingGoat.sln_ file).
-3. Run the application.
+1. Open the solution in Visual Studio (using the _DancingGoat.sln_ file).
+1. Run the application.
 
-The sample application opens in your browser.
+The sample application will open in your browser.
 
 ## Connect your project
 
-If you already have a Kentico Cloud account, you can connect this sample application to a project of your own to access its unpublished content items, and track visitors on the site. For example, you can connect the application to your version of the Sample project. To do this, you will need to modify the application's `web.config` file.
+If you already have a Kentico Cloud account, you can connect this sample application to a project of your own to access its unpublished content items, and track visitors on the site. For example, you can connect the application to your version of the Sample project.
 
-### Previewing unpublished content
+1. Select your project in Kentico Cloud.
+1. Navigate to the **API keys** section.
 
-To preview content in the sample application, follow these steps:
+    * You will be copying the Project ID and API keys for the Delivery Preview API and Personalization API.
 
-1. In Kentico Cloud, select your project.
-2. Navigate to the Development section.
-3. Copy your Project ID and Preview API key.
-4. Open the sample application's `Web.config` file.
-5. Insert the copied Project ID to the value of the `ProjectId` application setting.
-6. Create a new application setting named `PreviewToken` in the `<appSettings>` section.
-7. Use the copied Preview API key as the setting's value.
-8. Save the changes.
+1. Open the `\DancingGoat\Web.config` file.
+1. Use the values from your Kentico Cloud project in the `Web.config` file:
 
-When you now run the application, you will see all project content including the unpublished version of content items. If you want to know more about using the `DeliveryClient`, see the [Delivery .NET SDK documentation](https://github.com/Kentico/delivery-sdk-net#using-the-deliveryclient).
+    * **Project ID**: Insert your project ID into the `ProjectId` application setting.
+    * **Delivery Preview API**: Create a new application setting named `PreviewToken` in the `<appSettings>` section, and use the Delivery Preview API key as its value.
+    * **Personalization API**: Create a new application setting named `PersonalizationToken` in the `<appSettings>` section, and use the Personalization API key as its value.
 
-### Enabling personalization
+    ```xml
+    <appSettings>
+        ...
+        <add key="ProjectId" value="YOUR_PROJECT_ID" />
+        <add key="PreviewToken" value="YOUR_DELIVERY_PREVIEW_API_KEY" />
+        <add key="PersonalizationToken" value="YOUR_PERSONALIZATION_API_KEY" />
+        ...
+    </appSettings>
+    ```
 
-To enable personalization in the sample application, follow these steps:
+1. Save the changes.
+1. Run the application.
 
-1. In Kentico Cloud, select your project.
-2. Navigate to the Development section.
-3. Copy your Project ID and Personalization API key.
-4. Open the sample application's `Web.config` file.
-5. Insert the copied Project ID to the value of the ProjectId application setting.
-6. Create a new application setting named `PersonalizationToken` in the `<appSettings>` section.
-7. Use the copied Personalization API key as the setting's value.
-8. Save the changes.
+After you run the application, Kentico Cloud will track site visits and create new contacts when visitors submit a form. You will also be able to see all project content including the unpublished version of content items.
 
-When you now run the application, Kentico Cloud will track the site visits and create new contacts when visitors submit a form. Fore more information about using the `PersonalizationClient`, see the [Personalization .NET SDK documentation](https://github.com/Kentico/personalization-sdk-net#basic-scenarios).
+For more information about the integrations with the Delivery API and Personalization API, see the following:
+
+* [Delivery .NET SDK documentation](https://github.com/Kentico/delivery-sdk-net#using-the-deliveryclient) on using the `DeliveryClient`
+* [Personalization .NET SDK documentation](https://github.com/Kentico/personalization-sdk-net#basic-scenarios) on using the `PersonalizationClient`
 
 ## Content administration
 
 1. Navigate to <https://app.kenticocloud.com> in your browser.
-2. Sign in with your credentials.
-3. Manage content in the content administration interface of your sample project.
+1. Sign in with your credentials.
+1. Manage content in the content administration interface of your sample project.
 
 You can learn more about content editing with Kentico Cloud in our [Help Center](http://help.kenticocloud.com/).
 
