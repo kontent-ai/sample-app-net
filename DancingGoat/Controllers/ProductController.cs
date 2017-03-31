@@ -9,15 +9,8 @@ using System.Web.Mvc;
 namespace DancingGoat.Controllers
 {
     [RoutePrefix("products")]
-    public class ProductController : AsyncController
+    public class ProductController : ControllerBase
     {
-        private readonly DeliveryClient client = new DeliveryClient(ConfigurationManager.AppSettings["ProjectId"]);
-
-        public ProductController()
-        {
-            client.CodeFirstModelProvider.TypeProvider = new CustomTypeProvider();
-        }
-
         [Route("{id}")]
         public async Task<ActionResult> Detail(string id)
         {

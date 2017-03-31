@@ -1,7 +1,5 @@
 ﻿using DancingGoat.Models;
 using KenticoCloud.Delivery;
-using System.Collections.Generic;
-using System.Configuration;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web;
@@ -10,15 +8,8 @@ using System.Web.Mvc;
 namespace DancingGoat.Controllers
 {
     [RoutePrefix("articles")]
-    public class ArticlesController : AsyncController
+    public class ArticlesController : ControllerBase
     {
-        private readonly DeliveryClient client = new DeliveryClient(ConfigurationManager.AppSettings["ProjectId"]);
-
-        public ArticlesController()
-        {
-            client.CodeFirstModelProvider.TypeProvider = new CustomTypeProvider();
-        }
-
         [Route]
         public async Task<ActionResult> Index()
         {

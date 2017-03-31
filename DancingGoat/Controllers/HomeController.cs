@@ -9,15 +9,12 @@ using KenticoCloud.Personalization.MVC;
 
 namespace DancingGoat.Controllers
 {
-    public class HomeController : AsyncController
+    public class HomeController : ControllerBase
     {
-        private readonly DeliveryClient client = new DeliveryClient(ConfigurationManager.AppSettings["ProjectId"]);
         private readonly PersonalizationClient personalizationClient;
 
         public HomeController()
         {
-            client.CodeFirstModelProvider.TypeProvider = new CustomTypeProvider();
-            
             // Disable personalization when PersonalizationToken is not set
             var personalizationToken = ConfigurationManager.AppSettings["PersonalizationToken"];
 

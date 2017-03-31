@@ -3,9 +3,9 @@
     string name = Model.System.Name;
     ViewBag.Title = name;
     KenticoCloud.Delivery.Asset image = Model.Image[0];
-    Type coffeeType = typeof(DancingGoat.Models.Coffee);
-    int altitude;
-    var altitudeParsed = Int32.TryParse(Model.Altitude, out altitude);
+    bool isCoffee = Model.GetType() == typeof(DancingGoat.Models.Coffee);
+    int altitude = 0;
+    bool altitudeParsed = isCoffee ? Int32.TryParse(Model.Altitude, out altitude) : false;
 }
 <article class="product-detail">
     <div class="row">
@@ -22,7 +22,7 @@
             </figure>
             <div class="description">
                 @Html.Raw(Model.ShortDescription ?? Model.LongDescription)
-                @if (Model.GetType() == coffeeType)
+                @if (isCoffee)
                 {
                     <div class="product-detail-properties">
                         <h4>@Resources.DancingGoat.Product_Parameters</h4>
@@ -40,7 +40,7 @@
                 }
             </div>
         </div>
-        @if (Model.GetType() == coffeeType)
+        @if (isCoffee)
         {
             using (Html.BeginForm("FreeTaste", "Product", FormMethod.Post, new { id = "getfreetaste" }))
             {
