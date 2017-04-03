@@ -8,12 +8,12 @@
 <div class="row">
     @foreach (var cafe in Model.CompanyCafes)
     {
-        <div class="col-md-6">
-            <div class="cafe-image-tile cursor-hand js-scroll-to-map" data-address="@cafe.City,@cafe.Street">
+        <div class="col-md-6 col-lg-3">
+            <div class="cafe-tile cursor-hand js-scroll-to-map" data-address="@cafe.City,@cafe.Street">
                 <div class="cafe-image-tile-image-wrapper" style="background-image:url('@cafe.Photo.First().Url'); background-size: cover; background-position: right center;">
                 </div>
-                <div class="cafe-image-tile-content">
-                    <h3 class="cafe-image-tile-name">@cafe.System.Name</h3>
+                <div class="cafe-tile-content">
+                    <h3 class="cafe-tile-name">@cafe.System.Name</h3>
                     <address class="cafe-tile-address">
                         <a href="javascript:void(0)" class="cafe-tile-address-anchor">
                             @cafe.Street, @cafe.City
@@ -21,7 +21,7 @@
                             @cafe.ZipCode, @cafe.Country, @cafe.State
                         </a>
                     </address>
-                    <p>@cafe.Phone</p>
+                    <p class="cafe-tile-phone">@cafe.Phone</p>
                 </div>
             </div>
         </div>

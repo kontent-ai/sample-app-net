@@ -1,0 +1,14 @@
+﻿@model string
+
+@{ 
+    switch (ViewData.ModelMetadata.DataTypeName)
+    {
+        case "PhoneNumber":
+            string strippedDashes = Model.Replace("-", string.Empty);
+            <a href="tel:@strippedDashes">@Model</a>
+            break;
+        default:
+            Html.DisplayForModel();
+            break;
+        }
+    }
