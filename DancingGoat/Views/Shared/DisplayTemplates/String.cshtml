@@ -9,7 +9,7 @@
             <a href="tel:@strippedDashes">@Model</a>
             break;
         default:
-            @Html.Encode(ViewData.TemplateInfo.FormattedModelValue);
+            @ViewData.TemplateInfo.FormattedModelValue
             break;
     }
 }

@@ -9,6 +9,6 @@
         </div>
     </div>
     <div class="col-md-6@( Model.Odd ? " col-md-pull-6" : "" )">
-        @Html.AssetImage(Model.Fact.Image, 0, cssClass: "img-responsive")
+        @Html.AssetImage(Model.Fact.Image.FirstOrDefault(), cssClass: "img-responsive")
     </div>
 </section>

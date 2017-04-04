@@ -13,23 +13,23 @@ namespace DancingGoat.Helpers.Extensions
         /// Generates an IMG tag for an image file.
         /// </summary>
         /// <param name="htmlHelper">HTML helper.</param>
-        /// <param name="assets">The asset sequence to display the asset from</param>
+        /// <param name="asset">The asset sequence to display the asset from</param>
         /// <param name="index">Index position of the asset</param>
         /// <param name="title">Title</param>
         /// <param name="cssClass">CSS class</param>
         /// <param name="width">Optional width size</param>
         /// <param name="height">Optional height size</param>
-        public static MvcHtmlString AssetImage(this HtmlHelper htmlHelper, IEnumerable<Asset> assets, int index, string title = null, string cssClass = "", int? width = null, int? height = null)
+        public static MvcHtmlString AssetImage(this HtmlHelper htmlHelper, Asset asset, string title = null, string cssClass = "", int? width = null, int? height = null)
         {
-            if (assets == null || !assets.Any() || assets.ElementAt(index) == null)
+            if (asset == null)
             {
                 return MvcHtmlString.Empty;
             }
 
             var image = new TagBuilder("img");
-            image.MergeAttribute("src", assets.ElementAt(index).Url);
+            image.MergeAttribute("src", asset.Url);
             image.AddCssClass(cssClass);
-            string titleToUse = title ?? assets.ElementAt(index).Name ?? string.Empty;
+            string titleToUse = title ?? asset.Name ?? string.Empty;
             image.MergeAttribute("alt", titleToUse);
             image.MergeAttribute("title", titleToUse);
 

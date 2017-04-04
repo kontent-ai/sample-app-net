@@ -33,7 +33,7 @@
             <div class="article-tile article-tile-large">
                 <div class="col-md-12 col-lg-6">
                     <a href="@Url.Action("Show", "Articles", new { id = article.System.Codename })">
-                        @Html.AssetImage(article.TeaserImage, 0, cssClass: "article-tile-image")
+                        @Html.AssetImage(article.TeaserImage.FirstOrDefault(), cssClass: "article-tile-image")
                     </a>
                 </div>
                 <div class="col-md-12 col-lg-6">
@@ -85,7 +85,7 @@
                 <a href="@Url.Action("Index", "Cafes")" class="ourcoffee-tile-link">
                     <h2 class="ourcoffee-tile-text center-text">@cafe.System.Name</h2>
                     <span class="cafe-overlay"> </span>
-                    @Html.AssetImage(cafe.Photo, 0, cssClass: "ourcoffee-tile-image")
+                    @Html.AssetImage(cafe.Photo.FirstOrDefault(), cssClass: "ourcoffee-tile-image")
                 </a>
             </div>
         </div>
