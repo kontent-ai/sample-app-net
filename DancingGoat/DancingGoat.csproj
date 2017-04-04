@@ -313,10 +313,12 @@
     <Content Include="Views\Partnership\Index.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\FactAboutUsViewModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\AboutUsViewModel.cshtml" />
-    <Content Include="Views\Shared\DisplayTemplates\ArticleListingItem.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Article.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Product.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Cafe.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\String.cshtml" />
+    <Content Include="Views\Shared\_CoffeePartial.cshtml" />
+    <Content Include="Views\Shared\_FreeSampleFormPartial.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

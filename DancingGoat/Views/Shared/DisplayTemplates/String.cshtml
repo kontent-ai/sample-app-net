@@ -1,6 +1,7 @@
 ﻿@model string
 
-@{ 
+@{
+    // A switch statement for other possible enum values
     switch (ViewData.ModelMetadata.DataTypeName)
     {
         case "PhoneNumber":
@@ -8,7 +9,7 @@
             <a href="tel:@strippedDashes">@Model</a>
             break;
         default:
-            Html.DisplayForModel();
+            @Html.Encode(ViewData.TemplateInfo.FormattedModelValue);
             break;
-        }
     }
+}

@@ -4,7 +4,7 @@
 <div class="col-md-3">
     <div class="article-tile">
         <a href="@Url.Action("Show", "Articles", new { id = Model.System.Codename })">
-            @Html.AssetImage(Model.TeaserImage.FirstOrDefault(), title: $"Article {Model.System.Name}", cssClass: "article-tile-image")
+            @Html.AssetImage(Model.TeaserImage, 0, title: $"Article {Model.System.Name}", cssClass: "article-tile-image")
         </a>
         <div class="article-tile-date">
             @Html.DateTimeFormatted(Model.PostDate, "M")

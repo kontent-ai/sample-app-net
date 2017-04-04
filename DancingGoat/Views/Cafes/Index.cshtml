@@ -6,35 +6,16 @@
 
 <h2>@Resources.DancingGoat.CompanyCafes</h2>
 <div class="row">
-    @foreach (var cafe in Model.CompanyCafes)
-    {
-        <div class="col-md-6 col-lg-3">
-            <div class="cafe-tile cursor-hand js-scroll-to-map" data-address="@cafe.City,@cafe.Street">
-                <div class="cafe-image-tile-image-wrapper" style="background-image:url('@cafe.Photo.First().Url'); background-size: cover; background-position: right center;">
-                </div>
-                <div class="cafe-tile-content">
-                    <h3 class="cafe-tile-name">@cafe.System.Name</h3>
-                    <address class="cafe-tile-address">
-                        <a href="javascript:void(0)" class="cafe-tile-address-anchor">
-                            @cafe.Street, @cafe.City
-                            <br />
-                            @cafe.ZipCode, @cafe.Country, @cafe.State
-                        </a>
-                    </address>
-                    <p class="cafe-tile-phone">@cafe.Phone</p>
-                </div>
-            </div>
-        </div>
-    }
+    @Html.DisplayFor(vm => vm.CompanyCafes, new { ShowImage = true })
 </div>
 
 <h2>@Resources.DancingGoat.PartnerCafes_Title</h2>
 <div class="row">
     @foreach (var cafe in Model.PartnerCafes)
     {
-        <h3>@cafe.City, @cafe.Country</h3>
+        <h3>@Html.DisplayFor(vm => cafe.City), @Html.DisplayFor(vm => cafe.Country)</h3>
         <p>
-            @cafe.System.Name, @cafe.Street, @cafe.Phone
+            @Html.DisplayFor(vm => cafe.System.Name), @Html.DisplayFor(vm => cafe.Street), @Html.DisplayFor(vm => cafe.Phone)
         </p>
     }
 </div>
