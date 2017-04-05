@@ -1,6 +1,6 @@
 ﻿@using (Html.BeginForm("FreeTaste", "Product", FormMethod.Post, new { id = "getfreetaste" }))
 {
-    <input type="hidden" name="product_id" value="@ViewBag.UrlSlug" />
+    <input type="hidden" name="product_url_slug" value="@ViewBag.UrlSlug" />
 
     if (ViewBag.FreeTasteRequested)
     {
