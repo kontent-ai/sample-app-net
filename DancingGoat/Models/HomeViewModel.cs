@@ -1,6 +1,4 @@
-﻿using KenticoCloud.Delivery;
-
-namespace DancingGoat.Models
+﻿namespace DancingGoat.Models
 {
     public class HomeViewModel
     {
