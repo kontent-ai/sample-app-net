@@ -190,8 +190,12 @@
     </Compile>
     <Compile Include="ContentLinkUrlResolver\CustomContentLinkUrlResolver.cs" />
     <Compile Include="Helpers\Extensions\HtmlHelperExtensions.cs" />
-    <Compile Include="Models\BrewerPartial.cs" />
-    <Compile Include="Models\CoffeePartial.cs" />
+    <Compile Include="Models\ArticleMetadata.cs" />
+    <Compile Include="Models\BrewerMetadata.cs" />
+    <Compile Include="Models\BrewerAsProduct.cs" />
+    <Compile Include="Models\CafeMetadata.cs" />
+    <Compile Include="Models\CoffeeMetadata.cs" />
+    <Compile Include="Models\CoffeeAsProduct.cs" />
     <Compile Include="Models\ContentTypes\AboutUs.cs" />
     <Compile Include="Models\AboutUsViewModel.cs" />
     <Compile Include="Models\ContentTypes\Accessory.cs" />
@@ -205,10 +209,13 @@
     <Compile Include="Models\ContactsViewModel.cs" />
     <Compile Include="Models\ContentTypes\CustomTypeProvider.cs" />
     <Compile Include="Models\ContentTypes\FactAboutUs.cs" />
+    <Compile Include="Models\FactAboutUsMetadata.cs" />
     <Compile Include="Models\FactAboutUsViewModel.cs" />
     <Compile Include="Models\ContentTypes\Grinder.cs" />
     <Compile Include="Models\ContentTypes\HeroUnit.cs" />
     <Compile Include="Models\ContentTypes\Home.cs" />
+    <Compile Include="Models\HeroUnitMetadata.cs" />
+    <Compile Include="Models\HomeMetadata.cs" />
     <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\ContentTypes\Office.cs" />
     <Compile Include="Models\Product.cs" />
@@ -307,8 +314,12 @@
     <Content Include="Views\Partnership\Index.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\FactAboutUsViewModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\AboutUsViewModel.cshtml" />
-    <Content Include="Views\Shared\DisplayTemplates\ArticleListingItem.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Article.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Product.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Cafe.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\String.cshtml" />
+    <Content Include="Views\Shared\_CoffeePartial.cshtml" />
+    <Content Include="Views\Shared\_FreeSampleFormPartial.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

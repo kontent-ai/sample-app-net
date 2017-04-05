@@ -1,12 +1,9 @@
 ﻿using KenticoCloud.Delivery;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace DancingGoat.Models
 {
-    public partial class Brewer : Product
+    public partial class Coffee : Product
     {
         public override ContentItemSystemAttributes ProductSystem
         {

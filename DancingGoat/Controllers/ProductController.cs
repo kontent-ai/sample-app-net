@@ -1,6 +1,4 @@
-﻿using DancingGoat.Models;
-using KenticoCloud.Delivery;
-using System.Configuration;
+﻿using KenticoCloud.Delivery;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web;

@@ -16,9 +16,9 @@
 }
 
 <section class="banner-section" style="background-image: url('@Model.Header.Image.First().Url');">
-    <h2 class="banner-heading">@Model.Header.Title</h2>
+    <h2 class="banner-heading">@Html.DisplayFor(vm => vm.Header.Title)</h2>
     <div class="banner-text">
-        @Html.Raw(@Model.Header.MarketingMessage)
+        @Html.DisplayFor(vm => vm.Header.MarketingMessage)
     </div>
 </section>
 
@@ -33,19 +33,19 @@
             <div class="article-tile article-tile-large">
                 <div class="col-md-12 col-lg-6">
                     <a href="@Url.Action("Show", "Articles", new { id = article.System.Codename })">
-                        <img src="@article.TeaserImage.First().Url" class="article-tile-image" alt="@article.System.Name" />
+                        @Html.AssetImage(article.TeaserImage.FirstOrDefault(), cssClass: "article-tile-image")
                     </a>
                 </div>
                 <div class="col-md-12 col-lg-6">
                     <div class="article-tile-date">
-                        @article.PostDate.Value.ToString("M")
+                        @Html.DateTimeFormatted(article.PostDate, "M")
                     </div>
                     <div class="article-tile-content">
                         <h2>
                             <a href="@Url.Action("Show", "Articles", new { id = article.System.Codename })">@article.System.Name</a>
                         </h2>
                         <p class="article-tile-text lead-paragraph">
-                            @article.Summary
+                            @Html.DisplayFor(vm => article.Summary)
                         </p>
                     </div>
                 </div>
@@ -53,24 +53,7 @@
         }
         else
         {
-            <div class="col-md-3">
-                <div class="article-tile">
-                    <a href="@Url.Action("Show", "Articles", new { id = article.System.Codename })">
-                        <img src="@article.TeaserImage.First().Url" class="article-tile-image" alt="@article.System.Name" />
-                    </a>
-                    <div class="article-tile-date">
-                        @article.PostDate.Value.ToString("M")
-                    </div>
-                    <div class="article-tile-content">
-                        <h2 class="h4">
-                            <a href="@Url.Action("Show", "Articles", new { id = article.System.Codename })">@article.System.Name</a>
-                        </h2>
-                        <p class="article-tile-text">
-                            @article.Summary
-                        </p>
-                    </div>
-                </div>
-            </div>
+            @Html.DisplayFor(vm => article)
         }
     }
 </div>
@@ -83,7 +66,7 @@
         <h1 class="title-tab">@factAboutUs.Title</h1>
         <div class="col-sm-12">
             <div class="ourstory-section center-text" style="background-image: url('@factAboutUs.Image.First().Url');">
-                @Html.Raw(factAboutUs.Description)
+                @Html.DisplayFor(vm => factAboutUs.Description)
             </div>
         </div>
     </div>
@@ -102,7 +85,7 @@
                 <a href="@Url.Action("Index", "Cafes")" class="ourcoffee-tile-link">
                     <h2 class="ourcoffee-tile-text center-text">@cafe.System.Name</h2>
                     <span class="cafe-overlay"> </span>
-                    <img src="@cafe.Photo.First().Url" class="ourcoffee-tile-image" alt="@cafe.System.Name" />
+                    @Html.AssetImage(cafe.Photo.FirstOrDefault(), cssClass: "ourcoffee-tile-image")
                 </a>
             </div>
         </div>

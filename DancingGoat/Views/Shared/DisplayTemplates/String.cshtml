@@ -1,0 +1,15 @@
+﻿@model string
+
+@{
+    // A switch statement for other possible enum values
+    switch (ViewData.ModelMetadata.DataTypeName)
+    {
+        case "PhoneNumber":
+            string strippedDashes = Model.Replace("-", string.Empty);
+            <a href="tel:@strippedDashes">@Model</a>
+            break;
+        default:
+            @ViewData.TemplateInfo.FormattedModelValue
+            break;
+    }
+}

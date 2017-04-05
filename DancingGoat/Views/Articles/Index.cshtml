@@ -5,7 +5,7 @@
 }
 @foreach (var article in Model)
 {
-    @Html.DisplayFor((vm) => article, templateName: "ArticleListingItem")
+    @Html.DisplayFor((vm) => article)
     if (i % 4 == 0)
     {
         <div class="clear"></div>
