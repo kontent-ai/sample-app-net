@@ -3,7 +3,7 @@
 
 <div class="col-md-3">
     <div class="article-tile">
-        <a href="@Url.Action("Show", "Articles", new { id = Model.System.Codename })">
+        <a href="@Url.Action("Show", "Articles", new { urlSlug = Model.UrlPattern })">
             @Html.AssetImage(Model.TeaserImage.FirstOrDefault(), title: $"Article {Model.System.Name}", cssClass: "article-tile-image")
         </a>
         <div class="article-tile-date">
@@ -11,7 +11,7 @@
         </div>
         <div class="article-tile-content">
             <h2 class="h4">
-                <a href="@Url.Action("Show", "Articles", new { id = Model.System.Codename })">@Model.System.Name </a>
+                <a href="@Url.Action("Show", "Articles", new { urlSlug = Model.UrlPattern })">@Model.System.Name </a>
             </h2>
             <p class="article-tile-text">
                 @Html.DisplayFor(vm => vm.Summary)

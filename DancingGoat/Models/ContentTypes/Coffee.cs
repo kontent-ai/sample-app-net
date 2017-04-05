@@ -23,6 +23,7 @@ namespace DancingGoat.Models
         public string Variety { get; set; }
         public IEnumerable<MultipleChoiceOption> Processing { get; set; }
         public string Altitude { get; set; }
+        public string UrlPattern { get; set; }
         public ContentItemSystemAttributes System { get; set; }
     }
 }

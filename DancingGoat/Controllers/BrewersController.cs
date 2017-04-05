@@ -16,7 +16,7 @@ namespace DancingGoat.Controllers
             var response = await client.GetItemsAsync<Brewer>(
                 new EqualsFilter("system.type", "brewer"),
                 new OrderParameter("elements.product_name"),
-                new ElementsParameter("image", "price", "product_status", "processing"),
+                new ElementsParameter("image", "price", "product_status", "processing", "url_pattern"),
                 new DepthParameter(0)
             );
 
@@ -28,7 +28,7 @@ namespace DancingGoat.Controllers
             var parameters = new List<IQueryParameter> {
                 new EqualsFilter("system.type", "brewer"),
                 new OrderParameter("elements.product_name"),
-                new ElementsParameter("image", "price", "product_status", "processing"),
+                new ElementsParameter("image", "price", "product_status", "processing", "url_pattern"),
                 new DepthParameter(0)
             };
 

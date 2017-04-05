@@ -43,5 +43,10 @@ namespace DancingGoat.Models
             get { return LongDescription; }
             set { LongDescription = value; }
         }
+        public override string ProductUrlPattern
+        {
+            get { return UrlPattern; }
+            set { UrlPattern = value; }
+        }
     }
 }

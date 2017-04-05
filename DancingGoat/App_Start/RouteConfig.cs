@@ -13,8 +13,8 @@ namespace DancingGoat
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                url: "{controller}/{action}/{urlSlug}",
+                defaults: new { controller = "Home", action = "Index", urlSlug = UrlParameter.Optional }
             );
 
             routes.MapRoute(

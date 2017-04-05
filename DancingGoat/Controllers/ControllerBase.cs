@@ -16,6 +16,7 @@ namespace DancingGoat.Controllers
         public ControllerBase()
         {
             client.CodeFirstModelProvider.TypeProvider = new CustomTypeProvider();
+            client.ContentLinkUrlResolver = new CustomContentLinkUrlResolver();
         }
     }
 }

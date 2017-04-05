@@ -21,6 +21,7 @@ namespace DancingGoat.Models
         public IEnumerable<object> RelatedArticles { get; set; }
         public string MetaKeywords { get; set; }
         public string MetaDescription { get; set; }
+        public string UrlPattern { get; set; }
         public ContentItemSystemAttributes System { get; set; }
     }
 }

@@ -17,6 +17,7 @@ namespace DancingGoat.Models
         public IEnumerable<object> OurStory { get; set; }
         public IEnumerable<object> Cafes { get; set; }
         public string Contact { get; set; }
+        public string UrlPattern { get; set; }
         public ContentItemSystemAttributes System { get; set; }
     }
 }

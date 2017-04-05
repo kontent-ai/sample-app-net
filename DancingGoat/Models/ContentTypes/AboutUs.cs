@@ -13,6 +13,7 @@ namespace DancingGoat.Models
     public partial class AboutUs
     {
         public IEnumerable<object> Facts { get; set; }
+        public string UrlPattern { get; set; }
         public ContentItemSystemAttributes System { get; set; }
     }
 }

@@ -11,26 +11,20 @@ namespace DancingGoat.Controllers
     [RoutePrefix("products")]
     public class ProductController : ControllerBase
     {
-        [Route("{id}")]
-        public async Task<ActionResult> Detail(string id)
+        [Route("{urlSlug}")]
+        public async Task<ActionResult> Detail(string urlSlug)
         {
-            try
+            var response = await client.GetItemsAsync<object>(new EqualsFilter("elements.url_pattern", urlSlug), new InFilter("system.type", "brewer", "coffee"));
+
+            if (response.Items.Count == 0)
             {
-                var response = await client.GetItemAsync<object>(id);
-                ViewBag.FreeTasteRequested = TempData["formSubmited"] ?? false;
-                ViewBag.Id = id;
-                return View(response.Item);
+                throw new HttpException(404, "Not found");
             }
-            catch (DeliveryException ex)
+            else
             {
-                if (ex.StatusCode == HttpStatusCode.NotFound)
-                {
-                    throw new HttpException(404, "Not found");
-                }
-                else
-                {
-                    throw;
-                }
+                ViewBag.FreeTasteRequested = TempData["formSubmited"] ?? false;
+                ViewBag.UrlSlug = urlSlug;
+                return View(response.Items[0]);
             }
         }
 
@@ -38,7 +32,7 @@ namespace DancingGoat.Controllers
         public ActionResult FreeTaste()
         {
             TempData["formSubmited"] = true;
-            return RedirectToAction("Detail", new { id = Request.Form["product_id"]});
+            return RedirectToAction("Detail", new { urlSlug = Request.Form["product_url_slug"]});
         }
     }
 }

@@ -15,5 +15,6 @@ namespace DancingGoat.Models
         public virtual IEnumerable<TaxonomyTerm> ProductProductStatus { get; set; }
         public virtual string ProductShortDescription { get; set; }
         public virtual string ProductLongDescription { get; set; }
+        public virtual string ProductUrlPattern { get; set; }
     }
 }

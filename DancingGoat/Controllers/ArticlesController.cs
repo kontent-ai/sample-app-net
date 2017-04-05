@@ -1,5 +1,6 @@
 ﻿using DancingGoat.Models;
 using KenticoCloud.Delivery;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web;
@@ -16,30 +17,24 @@ namespace DancingGoat.Controllers
             var response = await client.GetItemsAsync<Article>(
                 new EqualsFilter("system.type", "article"),
                 new OrderParameter("elements.post_date", SortOrder.Descending),
-                new ElementsParameter("teaser_image", "post_date", "summary")
+                new ElementsParameter("teaser_image", "post_date", "summary", "url_pattern")
             );
 
             return View(response.Items);
         }
 
-        [Route("{id}")]
-        public async Task<ActionResult> Show(string id)
+        [Route("{urlSlug}")]
+        public async Task<ActionResult> Show(string urlSlug)
         {
-            try
+            var response = await client.GetItemsAsync<Article>(new EqualsFilter("elements.url_pattern", urlSlug), new EqualsFilter("system.type", "article"));
+
+            if (response.Items.Count == 0)
             {
-                var response = await client.GetItemAsync<Article>(id);
-                return View(response.Item);
+                throw new HttpException(404, "Not found");
             }
-            catch (DeliveryException ex)
+            else
             {
-                if (ex.StatusCode == HttpStatusCode.NotFound)
-                {
-                    throw new HttpException(404, "Not found");
-                }
-                else
-                {
-                    throw;
-                }
+                return View(response.Items[0]);
             }
         }
     }

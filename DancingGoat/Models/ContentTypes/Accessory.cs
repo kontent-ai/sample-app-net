@@ -19,6 +19,7 @@ namespace DancingGoat.Models
         public IEnumerable<TaxonomyTerm> ProductStatus { get; set; }
         public string ShortDescription { get; set; }
         public string LongDescription { get; set; }
+        public string UrlPattern { get; set; }
         public ContentItemSystemAttributes System { get; set; }
     }
 }
