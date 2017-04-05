@@ -1,8 +1,6 @@
 ﻿using KenticoCloud.Delivery;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 namespace DancingGoat.Models
 {
@@ -13,7 +11,11 @@ namespace DancingGoat.Models
         public virtual decimal? ProductPrice { get; set; }
         public virtual IEnumerable<Asset> ProductImage { get; set; }
         public virtual IEnumerable<TaxonomyTerm> ProductProductStatus { get; set; }
+
+        [DataType(DataType.Html)]
         public virtual string ProductShortDescription { get; set; }
+
+        [DataType(DataType.Html)]
         public virtual string ProductLongDescription { get; set; }
     }
 }

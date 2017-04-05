@@ -40,7 +40,7 @@ namespace DancingGoat.Controllers
 
             var response = await client.GetItemsAsync<Coffee>(parameters);
 
-            return PartialView("ProductListing", response.Items.Cast<Product>());
+            return PartialView("ProductListing", response.Items);
         }
     }
 }

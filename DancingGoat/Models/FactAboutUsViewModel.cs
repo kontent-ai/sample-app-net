@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace DancingGoat.Models
+﻿namespace DancingGoat.Models
 {
     public class FactAboutUsViewModel
     {
