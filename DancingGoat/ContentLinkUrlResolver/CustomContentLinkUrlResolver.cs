@@ -8,7 +8,6 @@ namespace DancingGoat
         {
             switch (link.ContentTypeCodename)
             {
-                case "fact_about_us":
                 case "about_us":
                     return $"/about";
                 case "article":
@@ -19,12 +18,8 @@ namespace DancingGoat
                     return $"/cafes";
                 case "coffee":
                     return $"/products/{link.UrlSlug}";
-                case "hero_unit":
                 case "home":
                     return $"/";
-                case "office":
-                case "accessory":
-                case "grinder":
                 default:
                     return $"/not_found";
             }
