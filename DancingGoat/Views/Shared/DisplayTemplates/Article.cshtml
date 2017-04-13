@@ -7,7 +7,8 @@
             @Html.AssetImage(Model.TeaserImage.FirstOrDefault(), title: $"Article {Model.System.Name}", cssClass: "article-tile-image")
         </a>
         <div class="article-tile-date">
-            @Html.DateTimeFormatted(Model.PostDate, "M")
+            @*@Html.Display("PostDate")*@
+            @Html.DateTimeFormattedFor(vm => vm.PostDate, "M")
         </div>
         <div class="article-tile-content">
             <h2 class="h4">
