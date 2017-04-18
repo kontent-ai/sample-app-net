@@ -317,12 +317,12 @@
     <Content Include="Views\Shared\DisplayTemplates\Article.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Product.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Cafe.cshtml" />
-    <Content Include="Views\Shared\DisplayTemplates\String.cshtml" />
     <Content Include="Views\Product\Coffee.cshtml" />
     <Content Include="Views\Shared\_FreeSampleFormPartial.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\RelatedArticle.cshtml" />
     <Content Include="Views\Product\Brewer.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\PhoneNumber.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
