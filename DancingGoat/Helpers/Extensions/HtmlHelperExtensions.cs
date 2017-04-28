@@ -48,8 +48,6 @@ namespace DancingGoat.Helpers.Extensions
         /// <summary>
         /// Displays a <see cref="DateTime"/> in a formatted manner.
         /// </summary>
-        /// <param name="htmlHelper">HTML helper</param>
-        /// <param name="expression">The expression of the model property</param>
         /// <param name="dateTime">The <see cref="DateTime"/> to format</param>
         /// <param name="format">The formatting character</param>
         /// <remarks>The TValue generic parameter is chosen instead of DateTime just to save views from falling to exceptions. With TValue, the views will get rendered, only this helper method will return an empty <see cref="MvcHtmlString"/>.</remarks>
@@ -60,7 +58,7 @@ namespace DancingGoat.Helpers.Extensions
                 return MvcHtmlString.Empty;
             }
 
-            return htmlHelper.DisplayFor(expression, "DateTime", new { FormatCharacter = format });
+            return htmlHelper.DisplayFor(expression, "DateTime", new DateTimeFormatterParameters { FormatCharacter = format });
         }
     }
 }

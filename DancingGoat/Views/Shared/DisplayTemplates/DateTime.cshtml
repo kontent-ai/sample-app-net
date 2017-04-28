@@ -1,7 +1,7 @@
 ﻿@model DateTime
 
 @{
-    string keyName = "FormatCharacter";
+    string keyName = nameof(DancingGoat.Helpers.Extensions.DateTimeFormatterParameters.FormatCharacter);
 
     if (ViewData.ContainsKey(keyName) && !string.IsNullOrEmpty(ViewData[keyName].ToString()))
     {

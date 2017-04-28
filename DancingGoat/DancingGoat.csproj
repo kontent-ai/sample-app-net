@@ -189,6 +189,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="ContentLinkUrlResolver\CustomContentLinkUrlResolver.cs" />
+    <Compile Include="Helpers\Extensions\DateTimeFormatterParameters.cs" />
     <Compile Include="Helpers\Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Models\ArticleMetadata.cs" />
     <Compile Include="Models\BrewerMetadata.cs" />
