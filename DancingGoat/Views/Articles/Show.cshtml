@@ -7,7 +7,7 @@
 <article class="article-detail col-lg-9 col-md-12 article-detail-related-box">
     <h2>@Html.DisplayFor(vm => vm.Title)</h2>
     <div class="article-detail-datetime">
-        @Html.DateTimeFormatted(Model.PostDate, "D")
+        @Html.DateTimeFormattedFor(vm => vm.PostDate, "D")
     </div>
     <div class="row">
         <div class="article-detail-image col-md-push-2 col-md-8">
@@ -25,26 +25,9 @@
     <div class="article-related-articles">
         <h1 class="title-tab">@Resources.DancingGoat.Articles_RelatedArticles</h1>
         <div class="row">
-            @foreach (DancingGoat.Models.Article article in Model.RelatedArticles)
+            @foreach (var relatedArticle in Model.RelatedArticles)
             {
-                <div class="col-lg-3 col-md-6 col-sm-12">
-                    <div class="article-tile">
-                        <a href="@Url.Action("Show", "Articles", new { id = article.System.Codename })">
-                            @Html.AssetImage(article.TeaserImage.FirstOrDefault(), title: "Article" + article.System.Name, cssClass: "article-tile-image")
-                        </a>
-                        <div class="article-tile-date">
-                            @Html.DateTimeFormatted(article.PostDate, "M")
-                        </div>
-                        <div class="article-tile-content">
-                            <h2 class="h4">
-                                <a href="@Url.Action("Show", "Articles", new { id = article.System.Codename })">@article.System.Name</a>
-                            </h2>
-                            <p class="article-tile-text">
-                                @Html.DisplayFor(vm => vm.Summary)
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                @Html.DisplayFor(vm => relatedArticle, "RelatedArticle")
             }
         </div>
     </div>

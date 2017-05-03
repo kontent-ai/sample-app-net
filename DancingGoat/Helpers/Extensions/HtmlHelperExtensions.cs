@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Web.Mvc;
+using System.Web.Mvc.Html;
 using KenticoCloud.Delivery;
+using System.Linq.Expressions;
 
 namespace DancingGoat.Helpers.Extensions
 {
@@ -46,17 +48,13 @@ namespace DancingGoat.Helpers.Extensions
         /// <summary>
         /// Displays a <see cref="DateTime"/> in a formatted manner.
         /// </summary>
-        /// <param name="htmlHelper">HTML helper.</param>
-        /// <param name="dateTime">The <see cref="DateTime"/> to format</param>
+        /// <param name="htmlHelper">HTML helper</param>
+        /// <param name="expression">The expression of the model property</param>
         /// <param name="format">The formatting character</param>
-        public static MvcHtmlString DateTimeFormatted(this HtmlHelper htmlHelper, DateTime? dateTime, string format)
+        /// <remarks>The TValue generic parameter is chosen instead of DateTime just to save views from falling to exceptions. With TValue, the views will get rendered, only this helper method will return an empty <see cref="MvcHtmlString"/>.</remarks>
+        public static MvcHtmlString DateTimeFormattedFor<TModel>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, DateTime?>> expression, string format)
         {
-            if (!dateTime.HasValue || string.IsNullOrEmpty(format))
-            {
-                return MvcHtmlString.Empty;
-            }
-
-            return MvcHtmlString.Create(dateTime.Value.ToString(format));
+            return htmlHelper.DisplayFor(expression, "DateTime", new DateTimeFormatterParameters { FormatCharacter = format });
         }
     }
 }

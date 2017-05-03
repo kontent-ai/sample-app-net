@@ -1,0 +1,14 @@
+﻿@model DateTime?
+
+@{
+    string keyName = nameof(DancingGoat.Helpers.Extensions.DateTimeFormatterParameters.FormatCharacter);
+
+    if (ViewData.ContainsKey(keyName) && !string.IsNullOrEmpty(ViewData[keyName].ToString()) && Model.HasValue)
+    {
+        Output.Write(Model.Value.ToString(ViewData[keyName].ToString()));
+    }
+    else
+    {
+        @ViewData.TemplateInfo.FormattedModelValue
+    }
+}

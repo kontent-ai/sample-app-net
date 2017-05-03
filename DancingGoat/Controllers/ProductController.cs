@@ -1,4 +1,5 @@
 ﻿using KenticoCloud.Delivery;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web;
@@ -12,9 +13,9 @@ namespace DancingGoat.Controllers
         [Route("{urlSlug}")]
         public async Task<ActionResult> Detail(string urlSlug)
         {
-            var response = await client.GetItemsAsync<object>(new EqualsFilter("elements.url_pattern", urlSlug), new InFilter("system.type", "brewer", "coffee"));
+            var item = (await client.GetItemsAsync<object>(new EqualsFilter("elements.url_pattern", urlSlug), new InFilter("system.type", "brewer", "coffee"))).Items.FirstOrDefault();
 
-            if (response.Items.Count == 0)
+            if (item == null)
             {
                 throw new HttpException(404, "Not found");
             }
@@ -22,7 +23,7 @@ namespace DancingGoat.Controllers
             {
                 ViewBag.FreeTasteRequested = TempData["formSubmited"] ?? false;
                 ViewBag.UrlSlug = urlSlug;
-                return View(response.Items[0]);
+                return View(item.GetType().Name, item);
             }
         }
 

@@ -16,7 +16,7 @@
     <RootNamespace>DancingGoat</RootNamespace>
     <AssemblyName>DancingGoat</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <MvcBuildViews>false</MvcBuildViews>
+    <MvcBuildViews>true</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -189,6 +189,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="ContentLinkUrlResolver\CustomContentLinkUrlResolver.cs" />
+    <Compile Include="Helpers\Extensions\DateTimeFormatterParameters.cs" />
     <Compile Include="Helpers\Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Models\ArticleMetadata.cs" />
     <Compile Include="Models\BrewerMetadata.cs" />
@@ -308,7 +309,7 @@
     <Content Include="Views\Contacts\Index.cshtml" />
     <Content Include="Views\Coffees\CoffeeFilter.cshtml" />
     <Content Include="Views\Coffees\Index.cshtml" />
-    <Content Include="Views\Product\Detail.cshtml" />
+    <Content Include="Views\Shared\_ProductLayout.cshtml" />
     <Content Include="Views\Errors\NotFound.cshtml" />
     <Content Include="Views\Shared\_StoreLayout.cshtml" />
     <Content Include="Views\Partnership\Index.cshtml" />
@@ -317,9 +318,12 @@
     <Content Include="Views\Shared\DisplayTemplates\Article.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Product.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Cafe.cshtml" />
-    <Content Include="Views\Shared\DisplayTemplates\String.cshtml" />
-    <Content Include="Views\Shared\_CoffeePartial.cshtml" />
+    <Content Include="Views\Product\Coffee.cshtml" />
     <Content Include="Views\Shared\_FreeSampleFormPartial.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\RelatedArticle.cshtml" />
+    <Content Include="Views\Product\Brewer.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\PhoneNumber.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

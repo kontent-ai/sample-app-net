@@ -38,7 +38,7 @@
                 </div>
                 <div class="col-md-12 col-lg-6">
                     <div class="article-tile-date">
-                        @Html.DateTimeFormatted(article.PostDate, "M")
+                        @Html.DateTimeFormattedFor(vm => article.PostDate, "M")
                     </div>
                     <div class="article-tile-content">
                         <h2>
