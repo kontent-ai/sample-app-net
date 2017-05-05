@@ -12,15 +12,15 @@ namespace DancingGoat.Models
         {
             if (Washed)
             {
-                yield return "Washed";
+                yield return "wet__washed_";
             }
             if (SemiWashed)
             {
-                yield return "Semi-washed";
+                yield return "semi_dry";
             }
             if (Natural)
             {
-                yield return "Natural";
+                yield return "dry__natural_";
             }
         }
     }

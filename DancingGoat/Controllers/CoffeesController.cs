@@ -35,7 +35,7 @@ namespace DancingGoat.Controllers
             var filter = model.GetFilteredValues().ToArray();
             if (filter.Any())
             {
-                parameters.Add(new InFilter("elements.processing", filter));
+                parameters.Add(new AnyFilter("elements.processing", filter));
             }
 
             var response = await client.GetItemsAsync<Coffee>(parameters);
