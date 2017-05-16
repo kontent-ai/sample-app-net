@@ -111,6 +111,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -184,6 +185,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\SelfConfigController.cs" />
+    <Compile Include="Areas\Admin\Models\AuthModel.cs" />
     <Compile Include="Controllers\ArticlesController.cs" />
     <Compile Include="Controllers\CafesController.cs" />
     <Compile Include="Controllers\BrewersController.cs" />
@@ -201,6 +205,8 @@
     <Compile Include="ContentLinkUrlResolver\CustomContentLinkUrlResolver.cs" />
     <Compile Include="Helpers\Extensions\DateTimeFormatterParameters.cs" />
     <Compile Include="Helpers\Extensions\HtmlHelperExtensions.cs" />
+    <Compile Include="Helpers\RedirectHelpers.cs" />
+    <Compile Include="Infrastructure\SelfConfigActionFilter.cs" />
     <Compile Include="Models\ArticleMetadata.cs" />
     <Compile Include="Models\BrewerMetadata.cs" />
     <Compile Include="Models\BrewerAsProduct.cs" />
@@ -276,6 +282,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Areas\Admin\Views\web.config" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\formAutoPost.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
@@ -335,7 +342,10 @@
     <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\PhoneNumber.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Views\SelfConfig\" />
+    <Folder Include="Areas\Admin\Views\Shared\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
       <SubType>Designer</SubType>
