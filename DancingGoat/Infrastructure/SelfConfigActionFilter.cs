@@ -10,44 +10,21 @@ namespace DancingGoat.Infrastructure
 {
     public class SelfConfigActionFilterAttribute : ActionFilterAttribute
     {
-
-
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             base.OnActionExecuting(filterContext);
-            bool selfConfigured;
-            bool selfConfiguredParsed = bool.TryParse(ConfigurationManager.AppSettings["SelfConfigured"], out selfConfigured);
-            DateTime subscriptionExpiresAt;
-            bool subscriptionExpiresAtParsed = DateTime.TryParse(ConfigurationManager.AppSettings["SubscriptionExpiresAt"], out subscriptionExpiresAt);
+            DateTime? subscriptionExpiresAt = Areas.Admin.AppSettingProvider.SubscriptionExpiresAt;
 
-            if (
-                    selfConfiguredParsed &&
-                    (
-                        !selfConfigured ||
-                        (
-                            selfConfigured && subscriptionExpiresAtParsed && subscriptionExpiresAt <= DateTime.Now
-                        )
-                    )
-               )
+            if ((filterContext.HttpContext.Request.HttpMethod == "GET" && !filterContext.ActionParameters.Any()))
             {
-            }
-
-            if (selfConfiguredParsed && subscriptionExpiresAtParsed)
-            {
-                if (!selfConfigured)
+                if (subscriptionExpiresAt == DateTime.MinValue)
                 {
-                    filterContext.Result = Helpers.RedirectHelpers.GetSelfConfigRedirectResult();
-
+                    filterContext.Result = Helpers.RedirectHelpers.GetSelfConfigRedirectResult(null);
                 }
                 else if (subscriptionExpiresAt <= DateTime.Now)
                 {
-                    filterContext.Result = Helpers.RedirectHelpers.GetSelfConfigRecheckResult();
-                }
-
-            }
-            else
-            {
-                // Error message: Could not determine if the app has already configured itself.
+                    filterContext.Result = Helpers.RedirectHelpers.GetSelfConfigRecheckResult(null);
+                } 
             }
         }
     }

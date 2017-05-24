@@ -30,5 +30,17 @@ namespace DancingGoat.Helpers
                 Message = message
             }));
         }
+
+        public static RedirectToRouteResult GetHomeRedirectResult(string message)
+        {
+            //return new RedirectResult("~/");
+            return new RedirectToRouteResult(new RouteValueDictionary(new
+            {
+                Action = "Index",
+                Controller = "Home",
+                Area = "",
+                message = message
+            }));
+        }
     }
 }

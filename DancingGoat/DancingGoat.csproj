@@ -186,8 +186,16 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\AppSettingProvider.cs" />
     <Compile Include="Areas\Admin\Controllers\SelfConfigController.cs" />
+    <Compile Include="Areas\Admin\Helpers.cs" />
     <Compile Include="Areas\Admin\Models\AuthModel.cs" />
+    <Compile Include="Areas\Admin\Models\AuthUpViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\ExpiredViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\IndexViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\ProjectIdUpViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\ProjectModel.cs" />
+    <Compile Include="Areas\Admin\Models\SubscriptionModel.cs" />
     <Compile Include="Controllers\ArticlesController.cs" />
     <Compile Include="Controllers\CafesController.cs" />
     <Compile Include="Controllers\BrewersController.cs" />
@@ -283,6 +291,12 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\SelfConfig\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\SelfConfig\Expired.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_ProjectIdPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\SelfConfig\Activate.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_SharedPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_FreePartial.cshtml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\formAutoPost.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
@@ -303,7 +317,9 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -342,10 +358,7 @@
     <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\PhoneNumber.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Areas\Admin\Views\SelfConfig\" />
-    <Folder Include="Areas\Admin\Views\Shared\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config">
       <SubType>Designer</SubType>

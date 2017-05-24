@@ -1,0 +1,117 @@
+﻿@model DancingGoat.Areas.Admin.Models.IndexViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <h1>Sample Site - Self Configuration</h1>
+    <p>For your sample app to configure itself automatically, you can either sign in using your Kentico Cloud credentials or sign up for a trial. Later, you'll be able to convert to a free plan.</p>
+    
+    @{
+        if (!ViewBag.IsLocal && !ViewBag.IsTls)
+        {
+            <div id="warning">
+                <p>Make sure you either:</p>
+                <ul>
+                    <li>run both your app and the browser in one machine, or</li>
+                    <li>run your app using the TLS protocol (with a url starting with "https://")</li>
+                </ul>
+                <p>Otherwise, malicious users may intercept the security token used for authentication.</p>
+            </div>
+        }
+    }
+    @*@using (Html.BeginForm(null, null, FormMethod.Post, new { @action = @"https://vanilla-kc-dev.e1.loginrocket.com/v1/login", enctype = "multipart/form-data", id = "login" }))*@
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { @action = @"https://horustest.e1.loginrocket.com/v1/login", enctype = "multipart/form-data", id = "login" }))
+    {
+        <h2>Get a Project ID By Signing In</h2>
+        <p>
+            @*@Html.LabelFor(vm => vm.Email)*@
+            @Html.EditorFor(vm => vm.AuthModel)
+            @*@Html.ValidationMessageFor(vm => vm.Email)*@
+        </p>
+        @*<p>
+            @Html.LabelFor(vm => vm.Password)
+            @Html.EditorFor(vm => vm.Password)
+            @Html.ValidationMessageFor(vm => vm.Password)
+        </p>*@
+
+        <input type="submit" value="Sign in" />
+    }
+
+    @Html.Partial("_ProjectIdPartial", new DancingGoat.Areas.Admin.Models.ProjectIdUpViewModel())
+
+    @Html.Partial("_SharedPartial")
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        // jquery extend function
+        $.extend(
+            {
+                redirectPost: function (location, args) {
+                    var form = $('<form></form>');
+                    form.attr("method", "post");
+                    form.attr("action", location);
+
+                    $.each(args, function (key, value) {
+                        var field = $('<input></input>');
+
+                        field.attr("type", "hidden");
+                        field.attr("name", key);
+                        field.attr("value", value);
+
+                        form.append(field);
+                    });
+                    $(form).appendTo('body').submit();
+                }
+            });
+
+        // Attach a submit handler to the form
+        $("#login").submit(function (event) {
+
+            // Stop form from submitting normally
+            event.preventDefault();
+
+            // Get some values from elements on the page:
+            var $form = $(this),
+                email = $form.find("input[name='AuthModel.Email']").val(),
+                password = $form.find("input[name='AuthModel.Password']").val(),
+                url = $form.attr("action");
+
+            var credentials = { email: email, password: password, password_confirmation: password };
+
+            // Send the data using post
+            var posting = $.ajax({
+                url: url,
+                data: JSON.stringify(credentials),
+                processData: false,
+                contentType: 'application/json',
+                dataType: 'json',
+                type: 'post',
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    $("#warning").contents.empty().append('status:' + XMLHttpRequest.status + ', status text: ' + XMLHttpRequest.statusText);
+                },
+                success: function (response) {
+                    if (response.result == 'okay') {
+                        $.redirectPost('/admin/selfconfig/', { 'token': response.token });
+                        //$.redirect('/admin/selfconfig/', { 'token': response.token });
+                        //$.post({ url: "/", data: response.token }).done = function ()
+                        //{
+
+                        //}
+
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

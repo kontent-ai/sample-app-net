@@ -1,0 +1,24 @@
+﻿@model DancingGoat.Areas.Admin.Models.ExpiredViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <section>
+        <h1>Expired Subscription</h1>
+        <p>Your subscription in Kentico Cloud has expired at @Model.EndAt.Value.ToString("m"). Would you like to switch to the free plan? You may wish to lower your resources to fit the limits of the free plan first.</p>
+        @Html.Partial("_FreePartial", Model.Token)
+    </section>
+    <section>
+        @Html.Partial("_SharedPartial")
+    </section>
+</body>
+</html>
