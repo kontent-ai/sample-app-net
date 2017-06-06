@@ -1,4 +1,7 @@
 using System;
+
+using DancingGoat.Models.ContentTypes;
+
 using KenticoCloud.Delivery;
 
 namespace DancingGoat.Models
@@ -31,6 +34,12 @@ namespace DancingGoat.Models
                     return typeof(Home);
                 case "office":
                     return typeof(Office);
+                case "image":
+                    return typeof(Image);
+                case "youtube_video":
+                    return typeof(YoutubeVideo);
+                case "inline_image":
+                    return typeof(InlineImage);
                 default:
                     return null;
             }

@@ -13,6 +13,8 @@ namespace DancingGoat.Controllers
         {
             client.CodeFirstModelProvider.TypeProvider = new CustomTypeProvider();
             client.ContentLinkUrlResolver = new CustomContentLinkUrlResolver();
+            client.InlineContentItemsProcessor.RegisterTypeResolver(new YoutubeVideoResolver());
+            client.InlineContentItemsProcessor.RegisterTypeResolver(new InlineImageResolver());
         }
     }
 }

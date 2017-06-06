@@ -51,8 +51,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="KenticoCloud.Delivery, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\KenticoCloud.Delivery.4.2.0\lib\net45\KenticoCloud.Delivery.dll</HintPath>
-      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\delivery-sdk-net\KenticoCloud.Delivery\bin\Debug\net45\KenticoCloud.Delivery.dll</HintPath>
     </Reference>
     <Reference Include="KenticoCloud.Personalization, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\KenticoCloud.Personalization.1.1.0\lib\net451\KenticoCloud.Personalization.dll</HintPath>
@@ -220,6 +220,10 @@
     <Compile Include="Models\ContactsViewModel.cs" />
     <Compile Include="Models\ContentTypes\CustomTypeProvider.cs" />
     <Compile Include="Models\ContentTypes\FactAboutUs.cs" />
+    <Compile Include="Models\ContentTypes\Image.cs" />
+    <Compile Include="Models\ContentTypes\InlineGif.cs" />
+    <Compile Include="Models\ContentTypes\InlineImage.cs" />
+    <Compile Include="Models\ContentTypes\YoutubeVideo.cs" />
     <Compile Include="Models\FactAboutUsMetadata.cs" />
     <Compile Include="Models\FactAboutUsViewModel.cs" />
     <Compile Include="Models\ContentTypes\Grinder.cs" />
@@ -230,6 +234,8 @@
     <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\ContentTypes\Office.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="ModularContentInRichTextResolver\InlineImageResolver.cs" />
+    <Compile Include="ModularContentInRichTextResolver\YoutubeVideoResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -296,7 +302,9 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -335,7 +343,6 @@
     <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\PhoneNumber.cshtml" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config">
       <SubType>Designer</SubType>
