@@ -26,7 +26,11 @@ namespace DancingGoat.Controllers
         [Route("{urlSlug}")]
         public async Task<ActionResult> Show(string urlSlug)
         {
-            var response = await client.GetItemsAsync<Article>(new EqualsFilter("elements.url_pattern", urlSlug), new EqualsFilter("system.type", "article"));
+            var response = await client.GetItemsAsync<Article>(
+                new EqualsFilter("elements.url_pattern", urlSlug),
+                new EqualsFilter("system.type", "article"),
+                new DepthParameter(1)
+            );
 
             if (response.Items.Count == 0)
             {

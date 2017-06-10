@@ -1,0 +1,7 @@
+﻿@model DancingGoat.Models.Article
+
+<a href="@Url.Action("Show", "Articles", new { urlSlug = Model.UrlPattern })"><h4>@Model.Title</h4></a>
+<img src="@(Model.TeaserImage.FirstOrDefault()?.Url)" style="float: left; width: 200px; padding-right: 10px;" />
+<p>@Model.Summary</p>
+<em style="color: silver">[Inline modular content]</em>
+<div style="clear: both"></div>

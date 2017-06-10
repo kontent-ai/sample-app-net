@@ -1,4 +1,6 @@
 ﻿@using DancingGoat.Helpers.Extensions
+@using KenticoCloud
+@using KenticoCloud.Compose.RichText
 @model DancingGoat.Models.Article
 
 @{
@@ -16,7 +18,7 @@
     </div>
     <div class="row">
         <div class="article-detail-content">
-            @Html.DisplayFor(vm => vm.BodyCopy)
+            @Html.Kentico().RichText(Model.BodyCopy)
         </div>
     </div>
 </article>

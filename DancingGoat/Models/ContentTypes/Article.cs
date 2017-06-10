@@ -7,6 +7,8 @@
 using System;
 using System.Collections.Generic;
 using KenticoCloud.Delivery;
+using KenticoCloud.Compose.RichText;
+using KenticoCloud.Compose.RichText.Models;
 
 namespace DancingGoat.Models
 {
@@ -17,7 +19,8 @@ namespace DancingGoat.Models
         public IEnumerable<Asset> TeaserImage { get; set; }
         public DateTime? PostDate { get; set; }
         public string Summary { get; set; }
-        public string BodyCopy { get; set; }
+        [RichTextContent]
+        public IRichTextContent BodyCopy { get; set; }
         public IEnumerable<object> RelatedArticles { get; set; }
         public string MetaKeywords { get; set; }
         public string MetaDescription { get; set; }

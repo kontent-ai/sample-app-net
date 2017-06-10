@@ -7,7 +7,7 @@ namespace DancingGoat.Controllers
 {
     public class ControllerBase : AsyncController
     {
-        protected readonly DeliveryClient client = new DeliveryClient(ConfigurationManager.AppSettings["ProjectId"]);
+        protected readonly DeliveryClient client = new DeliveryClient(ConfigurationManager.AppSettings["ProjectId"], ConfigurationManager.AppSettings["PreviewToken"]);
 
         public ControllerBase()
         {
