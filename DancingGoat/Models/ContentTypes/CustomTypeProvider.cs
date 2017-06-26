@@ -34,12 +34,10 @@ namespace DancingGoat.Models
                     return typeof(Home);
                 case "office":
                     return typeof(Office);
-                case "image":
-                    return typeof(Image);
-                case "youtube_video":
-                    return typeof(YoutubeVideo);
-                case "inline_image":
-                    return typeof(InlineImage);
+                case "hosted_video":
+                    return typeof(HostedVideo);
+                case "tweet":
+                    return typeof(Tweet);
                 default:
                     return null;
             }
