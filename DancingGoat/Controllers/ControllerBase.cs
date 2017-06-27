@@ -8,14 +8,24 @@ namespace DancingGoat.Controllers
 {
     public class ControllerBase : AsyncController
     {
-        protected readonly DeliveryClient client = new DeliveryClient(ConfigurationManager.AppSettings["ProjectId"]);
+        protected static readonly DeliveryClient client = CreateDeliveryClient();
 
-        public ControllerBase()
+        public static DeliveryClient CreateDeliveryClient()
         {
-            client.CodeFirstModelProvider.TypeProvider = new CustomTypeProvider();
-            client.ContentLinkUrlResolver = new CustomContentLinkUrlResolver();
-            client.InlineContentItemsProcessor.RegisterTypeResolver(new HostedVideoResolver());
-            client.InlineContentItemsProcessor.RegisterTypeResolver(new TweetResolver());
+            var previewToken = ConfigurationManager.AppSettings["PreviewToken"];
+            var projectId = ConfigurationManager.AppSettings["ProjectId"];
+
+            var clientInstance = 
+                !string.IsNullOrEmpty(previewToken) ? 
+                    new DeliveryClient(projectId, previewToken) : 
+                    new DeliveryClient(projectId);
+
+            clientInstance.CodeFirstModelProvider.TypeProvider = new CustomTypeProvider();
+            clientInstance.ContentLinkUrlResolver = new CustomContentLinkUrlResolver();
+            clientInstance.InlineContentItemsProcessor.RegisterTypeResolver(new HostedVideoResolver());
+            clientInstance.InlineContentItemsProcessor.RegisterTypeResolver(new TweetResolver());
+
+            return clientInstance;
         }
     }
 }
