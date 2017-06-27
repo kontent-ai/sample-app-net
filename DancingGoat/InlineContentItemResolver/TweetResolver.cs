@@ -9,7 +9,8 @@ namespace DancingGoat.InlineContentItemResolver
 {
     public class TweetResolver : IInlineContentItemsResolver<Tweet>
     {
-        private static readonly HttpClient Client = new HttpClient {Timeout = TimeSpan.FromSeconds(30)};
+        private static readonly HttpClient Client = new HttpClient { Timeout = TimeSpan.FromSeconds(30) };
+
         public string Resolve(ResolvedContentItemData<Tweet> data)
         {
             var selectedTheme = data.Item.Theme.Any() ? data.Item.Theme.First().Name.ToLower() : "light";
