@@ -15,12 +15,16 @@
     </div>
 }
 
-<section class="banner-section" style="background-image: url('@Model.Header.Image.First().Url');">
-    <h2 class="banner-heading">@Html.DisplayFor(vm => vm.Header.Title)</h2>
-    <div class="banner-text">
-        @Html.DisplayFor(vm => vm.Header.MarketingMessage)
-    </div>
-</section>
+@if (Model.Header != null)
+{
+    var image = Model.Header.Image.FirstOrDefault();
+    <section class="banner-section" style="background-image: url('@(image != null ? image.Url : "")');">
+        <h2 class="banner-heading">@Html.DisplayFor(vm => vm.Header.Title)</h2>
+        <div class="banner-text">
+            @Html.DisplayFor(vm => vm.Header.MarketingMessage)
+        </div>
+    </section>
+}
 
 <div class="row">
     <h1 class="title-tab">@Resources.DancingGoat.Articles_LatestOne</h1>
@@ -62,10 +66,11 @@
 
 @foreach (DancingGoat.Models.FactAboutUs factAboutUs in Model.ContentItem.OurStory)
 {
+    var image = factAboutUs.Image.FirstOrDefault();
     <div class="row">
         <h1 class="title-tab">@factAboutUs.Title</h1>
         <div class="col-sm-12">
-            <div class="ourstory-section center-text" style="background-image: url('@factAboutUs.Image.First().Url');">
+            <div class="ourstory-section center-text" style="background-image: url('@(image != null ? image.Url : "")');">
                 @Html.DisplayFor(vm => factAboutUs.Description)
             </div>
         </div>

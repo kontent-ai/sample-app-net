@@ -13,7 +13,7 @@ namespace DancingGoat.InlineContentItemResolver
 
         public string Resolve(ResolvedContentItemData<Tweet> data)
         {
-            var selectedTheme = data.Item.Theme.Any() ? data.Item.Theme.First().Name.ToLower() : "light";
+            var selectedTheme = data.Item.Theme.FirstOrDefault()?.Name?.ToLower() ?? "light";
             var displayOptions = data.Item.DisplayOptions.ToList();
             var hideThread = displayOptions.Any(o => o.Codename.Equals("hide_thread"));
             var hideMedia = displayOptions.Any(o => o.Codename.Equals("hide_media"));
