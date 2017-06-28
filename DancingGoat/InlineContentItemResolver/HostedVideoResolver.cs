@@ -10,7 +10,8 @@ namespace DancingGoat.InlineContentItemResolver
         {
             var selected = data.Item.VideoHost.FirstOrDefault()?.Codename;
 
-            switch (selected) {
+            switch (selected)
+            {
                 case "vimeo":
                     return
                         $"<iframe class=\"hosted-video__wrapper\" src=\"https://player.vimeo.com/video/{data.Item.VideoId}?title=0&byline=0&portrait=0\" width=\"640\" " +
