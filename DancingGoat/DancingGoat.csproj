@@ -59,8 +59,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="KenticoCloud.Delivery, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\KenticoCloud.Delivery.4.5.0\lib\net45\KenticoCloud.Delivery.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\KenticoCloud.Delivery.4.6.0\lib\net45\KenticoCloud.Delivery.dll</HintPath>
     </Reference>
     <Reference Include="KenticoCloud.Personalization, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\KenticoCloud.Personalization.1.1.0\lib\net451\KenticoCloud.Personalization.dll</HintPath>
@@ -228,6 +227,8 @@
     <Compile Include="Models\ContactsViewModel.cs" />
     <Compile Include="Models\ContentTypes\CustomTypeProvider.cs" />
     <Compile Include="Models\ContentTypes\FactAboutUs.cs" />
+    <Compile Include="Models\ContentTypes\HostedVideo.cs" />
+    <Compile Include="Models\ContentTypes\Tweet.cs" />
     <Compile Include="Models\FactAboutUsMetadata.cs" />
     <Compile Include="Models\FactAboutUsViewModel.cs" />
     <Compile Include="Models\ContentTypes\Grinder.cs" />
@@ -238,6 +239,8 @@
     <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\ContentTypes\Office.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="InlineContentItemResolver\TweetResolver.cs" />
+    <Compile Include="InlineContentItemResolver\HostedVideoResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -304,7 +307,9 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -345,7 +350,6 @@
     <Content Include="Views\Shared\InlineContent\Image.cshtml" />
     <Content Include="Views\Shared\InlineContent\Article.cshtml" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config">
       <SubType>Designer</SubType>
@@ -380,7 +384,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>60473</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:60473/</IISUrl>
+          <IISUrl>http://localhost:60474</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

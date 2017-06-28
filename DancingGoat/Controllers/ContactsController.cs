@@ -20,7 +20,7 @@ namespace DancingGoat.Controllers
 
             var viewModel = new ContactsViewModel
             {
-                Roastery = cafes.First(),
+                Roastery = cafes.FirstOrDefault(),
                 Cafes = cafes
             };
 
