@@ -200,6 +200,7 @@
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\ErrorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InlineContentController.cs" />
     <Compile Include="Controllers\PartnershipController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
@@ -348,7 +349,8 @@
     <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\PhoneNumber.cshtml" />
     <Content Include="Views\Shared\InlineContent\Image.cshtml" />
-    <Content Include="Views\Shared\InlineContent\Article.cshtml" />
+    <Content Include="Views\Shared\InlineContent\HostedVideo.cshtml" />
+    <Content Include="Views\Shared\InlineContent\Tweet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
