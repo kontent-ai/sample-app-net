@@ -48,7 +48,7 @@ namespace DancingGoat.Controllers
                 }
             }
             var codeName = showPromotion ? "home_page_promotion" : "home_page_hero_unit";
-            viewModel.Header = response.Item.HeroUnit.Cast<HeroUnit>().First(x => x.System.Codename == codeName);
+            viewModel.Header = response.Item.HeroUnit.Cast<HeroUnit>().FirstOrDefault(x => x.System.Codename == codeName);
 
             return View(viewModel);
         }
