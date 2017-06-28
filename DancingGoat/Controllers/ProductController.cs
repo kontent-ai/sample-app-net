@@ -27,9 +27,13 @@ namespace DancingGoat.Controllers
             }
         }
 
+        /// <summary>
+        /// Dummy action; form information is being handed over to Kentico Cloud Engagement management service through JavaScript.
+        /// </summary>
         [HttpPost]
         public ActionResult FreeTaste()
         {
+            // If needed, put your code here to work with the uploaded data in MVC.
             TempData["formSubmited"] = true;
             return RedirectToAction("Detail", new { urlSlug = Request.Form["product_url_slug"]});
         }
