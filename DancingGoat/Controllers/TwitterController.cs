@@ -1,30 +1,33 @@
 ﻿using System;
 using System.Linq;
+using System.Web.Mvc;
 using System.Net.Http;
+
 using DancingGoat.Models.ContentTypes;
-using KenticoCloud.Delivery.InlineContentItems;
+
 using Newtonsoft.Json.Linq;
 
-namespace DancingGoat.InlineContentItemResolver
+namespace DancingGoat.Controllers
 {
-    public class TweetResolver : IInlineContentItemsResolver<Tweet>
+    public class TwitterController : Controller
     {
         private static readonly HttpClient Client = new HttpClient { Timeout = TimeSpan.FromSeconds(30) };
 
-        public string Resolve(ResolvedContentItemData<Tweet> data)
+        [ChildActionOnly]
+        public ActionResult Tweet(Tweet item)
         {
-            var selectedTheme = data.Item.Theme.FirstOrDefault()?.Name?.ToLower() ?? "light";
-            var displayOptions = data.Item.DisplayOptions.ToList();
+            var selectedTheme = item.Theme.FirstOrDefault()?.Name?.ToLower() ?? "light";
+            var displayOptions = item.DisplayOptions.ToList();
             var hideThread = displayOptions.Any(o => o.Codename.Equals("hide_thread"));
             var hideMedia = displayOptions.Any(o => o.Codename.Equals("hide_media"));
             var options = $"&hide_thread={hideThread}&hide_media={hideMedia}";
-            var tweetLink = data.Item.TweetLink;
+            var tweetLink = item.TweetLink;
 
             var tweetResponse = Client.GetAsync(
                 $"https://publish.twitter.com/oembed?url={tweetLink}&theme={selectedTheme}" + options).Result;
-            dynamic jsonResponse = JObject.Parse(tweetResponse.Content.ReadAsStringAsync().Result);
+            var jsonResponse = JObject.Parse(tweetResponse.Content.ReadAsStringAsync().Result);
 
-            return "<div class=\"tweet__wrapper\">" + jsonResponse.html + "</div>";
+            return PartialView((object)jsonResponse?.Property("html")?.Value.ToObject<string>());
         }
     }
 }

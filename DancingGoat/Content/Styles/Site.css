@@ -5642,6 +5642,22 @@ footer {
   display: inline-block;
   padding: 0.3rem 1rem;
 }
+.article-inline-image {
+  float: right;
+  margin: 15px;
+  text-align: center;
+}
+.article-inline-image a {
+  text-decoration: none;
+}
+.article-inline-image img {
+  max-width: 200px;
+  max-height: 200px;
+}
+.article-inline-image .inline-image-title {
+  font-style: italic;
+  display: block;
+}
 .title-tab {
   background: black;
   color: white;
@@ -6177,7 +6193,7 @@ footer {
   background-color: #497d04!important;
   padding: 10px 12px;
 }
-/*Inline content modules*/
+/*# Inline content modules #*/
 .tweet__wrapper {
   width: 500px;
   margin: 0 auto;

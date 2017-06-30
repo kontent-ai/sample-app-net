@@ -8,8 +8,6 @@ namespace DancingGoat.Models
     }
 
     public class ArticleMetadata
-    {
-        [DataType(DataType.Html)]
-        public string BodyCopy { get; set; }
+    {        
     }
 }
