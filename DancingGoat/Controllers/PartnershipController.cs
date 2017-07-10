@@ -2,10 +2,8 @@
 
 namespace DancingGoat.Controllers
 {
-    [RoutePrefix("partnership")]
     public class PartnershipController : AsyncController
     {
-        [Route]
         public ActionResult Index()
         {
             ViewBag.PartnershipRequested = TempData["formApplied"] ?? false;
@@ -15,7 +13,6 @@ namespace DancingGoat.Controllers
         /// <summary>
         /// Dummy action; form information is being handed over to Kentico Cloud Engagement management service through JavaScript.
         /// </summary>
-        [Route]
         [HttpPost]
         public ActionResult Application()
         {

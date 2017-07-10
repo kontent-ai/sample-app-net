@@ -38,6 +38,10 @@
                             </li>
                         </ul>
                     </nav>
+                    <span class="navbar-text navbar-right">
+                        @Html.ActionLink("EN", ViewContext.RouteData.Values["action"].ToString(), new { language = "en-us" })
+                        @Html.ActionLink("ES", ViewContext.RouteData.Values["action"].ToString(), new { language = "es-es" })
+                    </span>
                 </div>
             </div>
             <div class="header-row">
@@ -67,17 +71,17 @@
                         <div class="col-md-4 col-lg-4 footer-col">
                             <h3>@Resources.DancingGoat.FollowUs_Title</h3>
                             <a class="followus-link" href="https://www.facebook.com/Dancing.Goat" target="_blank">
-                                <img alt="Follow us on Facebook" class="" src="~/Content/Images/facebook-icon.png" title="Follow us on Facebook">
+                                <img alt="Follow us on Facebook" class="" src="~/Content/Images/facebook-icon.png" title="Follow us on Facebook"><!--TODO: localize-->
                             </a>
                             <a class="followus-link" href="https://twitter.com/DancingGoat78" target="_blank">
-                                <img alt="Follow us on Twitter" class="" src="~/Content/Images/twitter-icon.png" title="Follow us on Twitter">
+                                <img alt="Follow us on Twitter" class="" src="~/Content/Images/twitter-icon.png" title="Follow us on Twitter"><!--TODO: localize-->
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="container copyright">
-                Copyright &copy; @DateTime.Now.Year Dancing Goat. All rights reserved.
+                Copyright &copy; @DateTime.Now.Year Dancing Goat. All rights reserved.  <!--TODO: localize-->
             </div>
         </footer>
     </div>

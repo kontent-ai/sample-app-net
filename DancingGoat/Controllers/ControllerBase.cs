@@ -1,14 +1,26 @@
-﻿using DancingGoat.Models;
+﻿using System;
+using DancingGoat.Models;
 using KenticoCloud.Delivery;
 using System.Configuration;
+using System.Globalization;
+using System.Threading;
 using System.Web.Mvc;
+using DancingGoat.Infrastructure;
 using DancingGoat.InlineContentItemResolver;
 
 namespace DancingGoat.Controllers
 {
     public class ControllerBase : AsyncController
     {
-        protected static readonly DeliveryClient client = CreateDeliveryClient();
+        protected static readonly DeliveryClient baseClient = CreateDeliveryClient();
+        public readonly LanguageClient client;
+
+        public ControllerBase()
+        {
+            var currentCulture = CultureInfo.CurrentUICulture.Name;
+            client = new LanguageClient(baseClient, currentCulture);
+        }
+       
 
         public static DeliveryClient CreateDeliveryClient()
         {
@@ -24,8 +36,8 @@ namespace DancingGoat.Controllers
             clientInstance.ContentLinkUrlResolver = new CustomContentLinkUrlResolver();
             clientInstance.InlineContentItemsProcessor.RegisterTypeResolver(new HostedVideoResolver());
             clientInstance.InlineContentItemsProcessor.RegisterTypeResolver(new TweetResolver());
-
             return clientInstance;
         }
     }
 }
+

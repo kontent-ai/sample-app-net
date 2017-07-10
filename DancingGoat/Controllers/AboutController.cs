@@ -5,10 +5,8 @@ using System.Collections.Generic;
 
 namespace DancingGoat.Controllers
 {
-    [RoutePrefix("about")]
     public class AboutController : ControllerBase
     {
-        [Route]
         public async Task<ActionResult> Index()
         {
             var response = await client.GetItemAsync<AboutUs>("about_us");
