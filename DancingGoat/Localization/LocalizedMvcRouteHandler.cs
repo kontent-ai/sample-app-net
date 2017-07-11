@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
+﻿using System.Globalization;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace DancingGoat.Infrastructure
+namespace DancingGoat.Localization
 {
     public class LocalizedMvcRouteHandler : MvcRouteHandler
     {
@@ -15,22 +12,21 @@ namespace DancingGoat.Infrastructure
 
         public LocalizedMvcRouteHandler(string defaultLanguage)    
         {
-            _defaultLanguage = defaultLanguage; //TODO: decide if this is even necessary
+            _defaultLanguage = defaultLanguage;
         }
         protected override IHttpHandler GetHttpHandler(RequestContext requestContext)
         {
             // Get the requested culture from the route
-            var cultureName = requestContext.RouteData.Values["language"]?.ToString() ?? "en-US";
+            var cultureName = requestContext.RouteData.Values["language"]?.ToString() ?? _defaultLanguage;
 
             CultureInfo culture;
             try
             {
-                //TODO: refactor this slightly
                 culture = new CultureInfo(cultureName);
             }
             catch
             {
-                culture = new CultureInfo("en-US");
+                culture = new CultureInfo(_defaultLanguage);
             }
 
             // Set the culture

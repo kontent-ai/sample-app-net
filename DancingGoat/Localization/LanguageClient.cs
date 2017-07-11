@@ -5,7 +5,7 @@ using KenticoCloud.Delivery;
 using KenticoCloud.Delivery.InlineContentItems;
 using Newtonsoft.Json.Linq;
 
-namespace DancingGoat.Infrastructure
+namespace DancingGoat.Localization
 {
     public class LanguageClient : IDeliveryClient {
 
@@ -66,7 +66,7 @@ namespace DancingGoat.Infrastructure
 
         public Task<ContentType> GetTypeAsync(string codename)
         {
-            throw new System.NotImplementedException();
+            return _client.GetTypeAsync(codename);
         }
 
         public Task<DeliveryTypeListingResponse> GetTypesAsync(params IQueryParameter[] parameters)

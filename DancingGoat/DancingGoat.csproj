@@ -191,6 +191,7 @@
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="Localization\LanguageConstraint.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ArticlesController.cs" />
     <Compile Include="Controllers\CafesController.cs" />
@@ -209,8 +210,8 @@
     <Compile Include="ContentLinkUrlResolver\CustomContentLinkUrlResolver.cs" />
     <Compile Include="Helpers\Extensions\DateTimeFormatterParameters.cs" />
     <Compile Include="Helpers\Extensions\HtmlHelperExtensions.cs" />
-    <Compile Include="Infrastructure\LanguageClient.cs" />
-    <Compile Include="Infrastructure\LocalizedMvcRouteHandler.cs" />
+    <Compile Include="Localization\LanguageClient.cs" />
+    <Compile Include="Localization\LocalizedMvcRouteHandler.cs" />
     <Compile Include="Models\ArticleMetadata.cs" />
     <Compile Include="Models\BrewerMetadata.cs" />
     <Compile Include="Models\BrewerAsProduct.cs" />

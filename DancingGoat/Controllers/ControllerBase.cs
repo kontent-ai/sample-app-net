@@ -5,8 +5,8 @@ using System.Configuration;
 using System.Globalization;
 using System.Threading;
 using System.Web.Mvc;
-using DancingGoat.Infrastructure;
 using DancingGoat.InlineContentItemResolver;
+using DancingGoat.Localization;
 
 namespace DancingGoat.Controllers
 {
