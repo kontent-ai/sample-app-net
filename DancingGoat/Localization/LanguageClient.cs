@@ -8,7 +8,7 @@ using Newtonsoft.Json.Linq;
 namespace DancingGoat.Localization
 {
     public class LanguageClient : IDeliveryClient {
-
+        public const string DEFAULT_LANGUAGE = "en-us";
         private readonly DeliveryClient _client;
         private readonly string _language;
 
