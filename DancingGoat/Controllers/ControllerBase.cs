@@ -13,12 +13,19 @@ namespace DancingGoat.Controllers
     public class ControllerBase : AsyncController
     {
         protected static readonly DeliveryClient baseClient = CreateDeliveryClient();
-        public readonly LanguageClient client;
+        public readonly IDeliveryClient client;
 
         public ControllerBase()
         {
             var currentCulture = CultureInfo.CurrentUICulture.Name;
-            client = new LanguageClient(baseClient, currentCulture);
+            if (currentCulture.Equals(LanguageClient.DEFAULT_LANGUAGE, StringComparison.InvariantCultureIgnoreCase))
+            {
+                client = baseClient;
+            }
+            else
+            {
+                client = new LanguageClient(baseClient, currentCulture);
+            }
         }
        
 
