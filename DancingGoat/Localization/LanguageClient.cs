@@ -30,8 +30,9 @@ namespace DancingGoat.Localization
 
         public Task<DeliveryItemResponse<T>> GetItemAsync<T>(string codename, IEnumerable<IQueryParameter> parameters = null)
         {
-            return parameters != null ? _client.GetItemAsync<T>(codename, new[] { new LanguageParameter(_language) }.Concat(parameters)) : 
-                _client.GetItemAsync<T>(codename, new LanguageParameter(_language));
+            var parametersWithLanguage = parameters != null ? new[] { new LanguageParameter(_language) }.Concat(parameters) :
+            new[] { new LanguageParameter(_language)};
+            return _client.GetItemAsync<T>(codename, parametersWithLanguage);
         }
 
         public Task<DeliveryItemListingResponse> GetItemsAsync(params IQueryParameter[] parameters)
