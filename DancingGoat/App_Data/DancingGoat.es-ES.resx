@@ -123,4 +123,16 @@
   <data name="Articles" xml:space="preserve">
     <value>Artículos</value>
   </data>
+  <data name="Articles.RelatedArticles" xml:space="preserve">
+    <value>Artículos relacionados</value>
+  </data>
+  <data name="Cafes" xml:space="preserve">
+    <value>Cafés</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Contacto</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Inicio</value>
+  </data>
 </root>
