@@ -6,10 +6,8 @@ using System.Web.Mvc;
 
 namespace DancingGoat.Controllers
 {
-    [RoutePrefix("contacts")]
     public class ContactsController : ControllerBase
     {
-        [Route]
         public async Task<ActionResult> Index()
         {
             var response = await client.GetItemsAsync<Cafe>(

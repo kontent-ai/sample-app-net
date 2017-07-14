@@ -184,8 +184,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DancingGoat.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_Data\DancingGoat.es-ES.Designer.cs">
+      <DependentUpon>DancingGoat.es-ES.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="Localization\LanguageConstraint.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ArticlesController.cs" />
     <Compile Include="Controllers\CafesController.cs" />
@@ -204,6 +210,8 @@
     <Compile Include="ContentLinkUrlResolver\CustomContentLinkUrlResolver.cs" />
     <Compile Include="Helpers\Extensions\DateTimeFormatterParameters.cs" />
     <Compile Include="Helpers\Extensions\HtmlHelperExtensions.cs" />
+    <Compile Include="Localization\LanguageClient.cs" />
+    <Compile Include="Localization\LocalizedMvcRouteHandler.cs" />
     <Compile Include="Models\ArticleMetadata.cs" />
     <Compile Include="Models\BrewerMetadata.cs" />
     <Compile Include="Models\BrewerAsProduct.cs" />
@@ -356,6 +364,12 @@
     <EmbeddedResource Include="App_Data\DancingGoat.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DancingGoat.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="App_Data\DancingGoat.es-ES.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DancingGoat.es-ES.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>

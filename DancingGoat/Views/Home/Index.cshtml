@@ -46,7 +46,7 @@
                     </div>
                     <div class="article-tile-content">
                         <h2>
-                            <a href="@Url.Action("Show", "Articles", new { urlSlug = article.UrlPattern })">@article.System.Name</a>
+                            <a href="@Url.Action("Show", "Articles", new { urlSlug = article.UrlPattern })">@article.Title</a>
                         </h2>
                         <p class="article-tile-text lead-paragraph">
                             @Html.DisplayFor(vm => article.Summary)
