@@ -1,0 +1,4 @@
+﻿@model DancingGoat.Areas.Admin.Models.ProjectModel
+
+@Html.RadioButtonFor(vm => vm, Model.ProjectGuid, new { id = Model.ProjectGuid })
+@Html.LabelFor(vm => vm.ProjectName, new { @for = Model.ProjectGuid})

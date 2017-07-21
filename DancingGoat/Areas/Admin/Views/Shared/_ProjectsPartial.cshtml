@@ -1,0 +1,9 @@
+﻿@model IEnumerable<DancingGoat.Areas.Admin.Models.ProjectModel>
+
+<h2>Select Among Active Projects</h2>
+<p>Pick one of the active projects you have access to.</p>
+
+@foreach(var project in Model)
+{
+    @Html.DisplayFor(vm => project)
+}

@@ -1,13 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
+using System.ComponentModel.DataAnnotations;
+
 namespace DancingGoat.Areas.Admin.Models
 {
-    public class AuthUpViewModel
+    public class SignUpViewModel
     {
+        [Display(Name = "First name")]
+        [Required]
+        public string FirstName { get; set; }
+
+        [Display(Name = "Last name")]
+        [Required]
+        public string LastName { get; set; }
+
         [Display(Name = "Email")]
         [Required]
         [DataType(DataType.EmailAddress, ErrorMessage = "Incorrect e-mail format.")]

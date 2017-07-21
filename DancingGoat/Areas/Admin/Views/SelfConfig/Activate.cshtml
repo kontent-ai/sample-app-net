@@ -1,24 +1,12 @@
 ﻿@model string
 
-@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
-<body>
-    <section>
-        <h1>Inactive Non-Expired Subscription</h1>
-        <p>Your subscription in Kentico Cloud is <em>inactive</em>. You may wish to activate it and let the app finish the configuration.</p>
-        @Html.Partial("_FreePartial", Model)
-    </section>
-    <section>
-        @Html.Partial("_SharedPartial")
-    </section>
-</body>
-</html>
+<section>
+    <h1>Inactive Non-Expired Subscription</h1>
+    <p>Your subscription in Kentico Cloud is <em>inactive</em>. You may wish to get in touch with <a href="mailto:support@kentico.com">support@kentico.com</a> to activate it. Then, you can run the app again.</p>
+</section>
+<section>
+    @Html.Partial("_FreePartial", Model)
+</section>
+<section>
+    @Html.Partial("_SharedGeneralPartial")
+</section>

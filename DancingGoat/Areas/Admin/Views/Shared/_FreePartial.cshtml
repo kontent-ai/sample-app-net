@@ -1,8 +1,9 @@
 ﻿@model string
 
-<h2>Convert To The Free Plan</h2>
+<h2>Convert To the Free Plan</h2>
 @using (Html.BeginForm("Free", "SelfConfig"))
 {
-    <input type="hidden" name="token" value="@Model" />
+    @*<input type="hidden" name="token" value="@Model" />*@
+    @Html.HiddenFor(vm => vm, new { Name = "token" })
     <input type="submit" value="Convert to free plan" />
 }

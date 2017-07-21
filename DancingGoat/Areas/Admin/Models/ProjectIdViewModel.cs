@@ -6,7 +6,7 @@ using System.Web;
 
 namespace DancingGoat.Areas.Admin.Models
 {
-    public class ProjectIdUpViewModel
+    public class ProjectIdViewModel
     {
         [Display(Name = "Custom Project ID")]
         public string OwnProjectGuid { get; set; }

@@ -9,7 +9,7 @@ namespace DancingGoat.Helpers
 {
     public static class RedirectHelpers
     {
-        public static RedirectToRouteResult GetSelfConfigRedirectResult(string message)
+        public static RedirectToRouteResult GetSelfConfigIndexResult(string message)
         {
             return new RedirectToRouteResult(new RouteValueDictionary(new
             {
@@ -20,7 +20,7 @@ namespace DancingGoat.Helpers
             }));
         }
 
-        public static RedirectToRouteResult GetSelfConfigRecheckResult(string message)
+        public static RedirectToRouteResult GetSelfConfigErrorResult(string message)
         {
             return new RedirectToRouteResult(new RouteValueDictionary(new
             {

@@ -7,7 +7,8 @@ namespace DancingGoat.Areas.Admin.Models
 {
     public class IndexViewModel
     {
-        public AuthUpViewModel AuthModel { get; set; }
-        public ProjectIdUpViewModel ProjectIdModel { get; set; }
+        public SignInViewModel SignInModel { get; set; }
+        public SignUpViewModel SignUpModel { get; set; }
+        public ProjectIdViewModel ProjectIdModel { get; set; }
     }
 }

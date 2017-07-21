@@ -1,13 +1,11 @@
-﻿@model DancingGoat.Areas.Admin.Models.ProjectIdUpViewModel
+﻿@model DancingGoat.Areas.Admin.Models.ProjectIdViewModel
 
-@using (Html.BeginForm("ProjectId", "SelfConfig"))
+@using (Html.BeginForm("UseProjectId", "SelfConfig"))
 {
     <h2>Submit A Project ID Directly</h2>
-    <p>Alternatively, you can configure your app directly by submitting a project ID below.</p>
+    <p>Alternatively, you can configure your app manually by submitting a project ID below.</p>
     <p>
-        @*@Html.LabelFor(vm => vm.OwnProjectGuid)*@
         @Html.EditorForModel()
-        @*@Html.ValidationMessageFor(vm => vm.OwnProjectGuid)*@
     </p>
 
     <input type="submit" value="Submit" />
