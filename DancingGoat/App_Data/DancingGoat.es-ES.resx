@@ -123,16 +123,49 @@
   <data name="Articles" xml:space="preserve">
     <value>Artículos</value>
   </data>
+  <data name="Articles.More" xml:space="preserve">
+    <value>Más Artículos</value>
+  </data>
   <data name="Articles.RelatedArticles" xml:space="preserve">
     <value>Artículos relacionados</value>
   </data>
   <data name="Cafes" xml:space="preserve">
     <value>Cafés</value>
   </data>
+  <data name="Cafes.MapTitle" xml:space="preserve">
+    <value>Encuentre la cafetería más cercana</value>
+  </data>
+  <data name="Cafes.More" xml:space="preserve">
+    <value>Más cafés</value>
+  </data>
+  <data name="CompanyCafes" xml:space="preserve">
+    <value>Probar nuestro café</value>
+  </data>
+  <data name="CompanyCafes.Title" xml:space="preserve">
+    <value>Probar nuestro café </value>
+  </data>
   <data name="Contact" xml:space="preserve">
     <value>Contacto</value>
   </data>
+  <data name="ContactUs.MapTitle" xml:space="preserve">
+    <value>Pase por nuestros cafés</value>
+  </data>
+  <data name="FollowUs.Title" xml:space="preserve">
+    <value>Síguenos</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Inicio</value>
+  </data>
+  <data name="PartnerCafes.Title" xml:space="preserve">
+    <value>Otros lugares donde puede tomar nuestro café</value>
+  </data>
+  <data name="Partnership" xml:space="preserve">
+    <value>Afiliados</value>
+  </data>
+  <data name="Store" xml:space="preserve">
+    <value>Tienda</value>
+  </data>
+  <data name="Story.WholeStory" xml:space="preserve">
+    <value>Más sobre nosotros</value>
   </data>
 </root>
