@@ -20,7 +20,7 @@ namespace DancingGoat.Helpers
             }));
         }
 
-        public static RedirectToRouteResult GetSelfConfigErrorResult(string message)
+        public static RedirectToRouteResult GetSelfConfigRecheckResult(string message)
         {
             return new RedirectToRouteResult(new RouteValueDictionary(new
             {
@@ -33,7 +33,6 @@ namespace DancingGoat.Helpers
 
         public static RedirectToRouteResult GetHomeRedirectResult(string message)
         {
-            //return new RedirectResult("~/");
             return new RedirectToRouteResult(new RouteValueDictionary(new
             {
                 Action = "Index",

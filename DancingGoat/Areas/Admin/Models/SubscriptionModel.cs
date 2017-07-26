@@ -8,73 +8,73 @@ namespace DancingGoat.Areas.Admin.Models
 {
     public class SubscriptionModel
     {
-        [JsonProperty(PropertyName = "subscriptionId")]
+        [JsonProperty("subscriptionId")]
         public Guid? SubscriptionId { get; set; }
 
-        [JsonProperty(PropertyName = "subscriptionRef")]
+        [JsonProperty("subscriptionRef")]
         public object subscriptionRef { get; set; }
 
-        [JsonProperty(PropertyName = "tags")]
+        [JsonProperty("tags")]
         public object Tags { get; set; }
 
-        [JsonProperty(PropertyName = "userId")]
+        [JsonProperty("userId")]
         public string UserId { get; set; }
 
-        //[JsonProperty(PropertyName = "accountId")]
+        //[JsonProperty("accountId")]
         //public Guid? AccountId { get; set; }
 
-        [JsonProperty(PropertyName = "planName")]
+        [JsonProperty("planName")]
         public string PlanName { get; set; }
 
-        [JsonProperty(PropertyName = "planDisplayName")]
+        [JsonProperty("planDisplayName")]
         public string PlanDisplayName { get; set; }
 
-        [JsonProperty(PropertyName = "maxUsers")]
+        [JsonProperty("maxUsers")]
         public int MaxUsers { get; set; }
 
-        [JsonProperty(PropertyName = "quantity")]
+        [JsonProperty("quantity")]
         public int Quantity { get; set; }
 
-        [JsonProperty(PropertyName = "status")]
+        [JsonProperty("status")]
         public string Status { get; set; }
 
-        [JsonProperty(PropertyName = "statusReason")]
+        [JsonProperty("statusReason")]
         public string StatusReason { get; set; }
 
-        [JsonProperty(PropertyName = "createdAt")]
+        [JsonProperty("createdAt")]
         public DateTime? CreatedAt { get; set; }
 
-        [JsonProperty(PropertyName = "nextBilling")]
+        [JsonProperty("nextBilling")]
         public object NextBilling { get; set; }
 
-        [JsonProperty(PropertyName = "isTrial")]
+        [JsonProperty("isTrial")]
         public bool? IsTrial { get; set; }
 
-        [JsonProperty(PropertyName = "startAt")]
+        [JsonProperty("startAt")]
         public DateTime? StartAt { get; set; }
 
-        [JsonProperty(PropertyName = "endAt")]
+        [JsonProperty("endAt")]
         public DateTime? EndAt { get; set; }
 
-        [JsonProperty(PropertyName = "nextPeriodMaxUsers")]
+        [JsonProperty("nextPeriodMaxUsers")]
         public object NextPeriodMaxUsers { get; set; }
 
-        [JsonProperty(PropertyName = "nextPeriodQuantity")]
+        [JsonProperty("nextPeriodQuantity")]
         public object NextPeriodQuantity { get; set; }
 
-        [JsonProperty(PropertyName = "deliverRequestsLimit")]
+        [JsonProperty("deliverRequestsLimit")]
         public object DeliverRequestsLimit { get; set; }
 
-        [JsonProperty(PropertyName = "deliverTrafficLimit")]
+        [JsonProperty("deliverTrafficLimit")]
         public object DeliverTrafficLimit { get; set; }
 
-        [JsonProperty(PropertyName = "deliverStorageLimit")]
+        [JsonProperty("deliverStorageLimit")]
         public object DeliverStorageLimit { get; set; }
 
-        [JsonProperty(PropertyName = "deliverSlaLevel")]
+        [JsonProperty("deliverSlaLevel")]
         public object DeliverSlaLevel { get; set; }
 
-        [JsonProperty(PropertyName = "deliverSupportLevel")]
+        [JsonProperty("deliverSupportLevel")]
         public object DeliverSupportLevel { get; set; }
     }
 }

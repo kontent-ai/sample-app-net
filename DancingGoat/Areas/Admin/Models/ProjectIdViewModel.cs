@@ -9,6 +9,6 @@ namespace DancingGoat.Areas.Admin.Models
     public class ProjectIdViewModel
     {
         [Display(Name = "Custom Project ID")]
-        public string OwnProjectGuid { get; set; }
+        public string OwnProjectId { get; set; }
     }
 }

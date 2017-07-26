@@ -1,6 +1,11 @@
-﻿@model IEnumerable<DancingGoat.Areas.Admin.Models.ProjectModel>
+﻿@model DancingGoat.Areas.Admin.Models.SelectProjectViewModel
 
 <h1>Select or Create a Project</h1>
 <p>You may wish to either select from existing projects or create a new sample project. The app will be configured with its Project ID.</p>
 @Html.Partial("_ProjectsPartial", Model)
-@Html.Partial("_DeploySamplePartial")
+@Html.Partial("_DeploySamplePartial", Model.Token)
+
+@section Scripts
+{
+    @Scripts.Render("~/Areas/Admin/Scripts/selectProject.js")
+}

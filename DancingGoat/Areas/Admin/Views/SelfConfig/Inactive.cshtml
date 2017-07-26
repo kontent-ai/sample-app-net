@@ -1,8 +1,8 @@
 ﻿@model DancingGoat.Areas.Admin.Models.SelectProjectViewModel
 
 <section>
-    <h1>Expired Subscriptions</h1>
-    <p>Your associated subscriptions in Kentico Cloud are expired. The last one expired at @ViewBag.EndAt.ToString("m").</p>
+    <h1>Inactive Non-Expired Subscriptions</h1>
+    <p>Your subscriptions in Kentico Cloud are <em>inactive</em>. If you own one of them, you may wish to get in touch with <a href="mailto:support@kentico.com">support@kentico.com</a> to activate it.</p>
 </section>
 @if (Model.Projects != null)
 {
@@ -14,7 +14,7 @@
 else
 {
     <section>
-        @Html.Partial("_FreePartial")
+        @Html.Partial("_FreePartial", Model.Token)
     </section>
     <section>
         @Html.Partial("_SharedGeneralPartial")

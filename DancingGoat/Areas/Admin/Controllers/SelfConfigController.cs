@@ -1,81 +1,95 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+
+using System.Net.Http;
 using System.Web.Mvc;
+using Newtonsoft.Json;
+using DancingGoat.Areas.Admin.Infrastructure;
+using DancingGoat.Areas.Admin.Helpers;
+using DancingGoat.Areas.Admin.Models;
 
 namespace DancingGoat.Areas.Admin.Controllers
 {
     public class SelfConfigController : Controller
     {
-        //protected const string KC_BASE_URL = @"https://app.kenticocloud.com/api/";
-        protected const string KC_BASE_URL = @"https://kenticolabs-cdn-develop.azurewebsites.net/api/";
-        protected const string MESSAGE_UNAUTHENTICATED = "You haven't successfully authenticated with Kentico Cloud credentials. Please check your credentials and log in.";
+        protected const string MESSAGE_UNAUTHENTICATED = "You haven't authenticated with proper Kentico Cloud credentials. Please close the browser window and log in.";
         protected const string MESSAGE_GENERAL_ERROR = "An unknown error occurred.";
         protected const string SHARED_PROJECT_ID = "975bf280-fd91-488c-994c-2f04416e5ee3";
         protected const string STATUS_ACTIVE = "active";
+        protected const string PROJECT_RENAME_PATTERN = "Sample Project (MVC Sample App, {0})";
+        protected const string COOKIE_NAME = "kcToken";
 
         protected readonly HttpClient _httpClient = new HttpClient();
 
         [HttpGet]
         public ActionResult Index()
         {
-            //ViewBag.Url = HttpUtility.UrlEncode(Request.Url.ToString());
             ViewBag.IsTls = Request.IsSecureConnection;
             ViewBag.IsLocal = Request.IsLocal;
 
-            return View();
+            return View(new IndexViewModel() { SignInModel = new SignInViewModel() });
         }
 
         [HttpPost]
         public async Task<ActionResult> Index(string token)
         {
-            //if (!string.IsNullOrEmpty(Request.Headers["X-Auth"]))
-            if (!string.IsNullOrEmpty(token))
-            {
-                IEnumerable<Models.SubscriptionModel> subscriptions;
+            string actualToken = token ?? GetToken();
 
-                try
+            if (!string.IsNullOrEmpty(actualToken))
+            {
+                if (!string.IsNullOrEmpty(token))
                 {
-                    subscriptions = await GetSubscriptionsAsync(token);
+                    AddCookie(token);
                 }
-                catch (UnauthorizedAccessException ex)
+
+                var user = await AdminHelpers.GetUserAsync(actualToken, _httpClient, AdminHelpers.KC_BASE_URL);
+
+                IEnumerable<SubscriptionModel> subscriptions;
+
+                if (user != null)
                 {
-                    // No need to work with 'ex'.
+                    subscriptions = await GetSubscriptionsAsync(actualToken);
+                }
+                else
+                {
                     return DancingGoat.Helpers.RedirectHelpers.GetSelfConfigIndexResult(MESSAGE_UNAUTHENTICATED);
                 }
 
                 if (subscriptions == null || !subscriptions.Any())
                 {
-                    Guid projectId = await StartTrialAndSampleAsync(token);
+                    var subscriptionAndProject = await StartTrialAndSampleAsync(actualToken);
 
-                    return SetProject(projectId, DateTime.Now.AddDays(30));
+                    if (subscriptionAndProject.subscription != null && subscriptionAndProject.project != null)
+                    {
+                        return SetProject(actualToken, subscriptionAndProject.project.ProjectId.Value, subscriptionAndProject.subscription.EndAt.Value);
+                    }
+                    else
+                    {
+                        return SetSharedProject(actualToken, "There was an error when creating the sample site.");
+                    }
                 }
                 else
                 {
-                    var activeProjects = await GetActiveProjectsAsync(token);
-                    ActionResult result = await CheckInactiveSubscriptions(token, subscriptions, activeProjects);
+                    var activeProjects = await GetProjectsAsync(actualToken);
+                    ActionResult result = await CheckInactiveSubscriptions(actualToken, subscriptions, activeProjects);
 
                     if (result == null)
                     {
                         if (activeProjects.Any())
                         {
-                            return View("ChooseOrDeployProject", activeProjects);
+                            return View("SelectOrCreateProject", BuildSelectProjectViewModel(activeProjects));
                         }
                         else
                         {
-                            Guid projectId = await DeploySampleAsync(token);
-
-                            return SetProject(projectId, DateTime.MaxValue);
-                        } 
+                            return await DeploySampleInOwnedSubscriptionAsync(actualToken, user, subscriptions);
+                        }
                     }
 
-                    // A formal line of code to satisfy the compiler check. The "result" is either null or the MVC pipeline got shortcut already (an ActionResult was returned to the browser).
-                    return DancingGoat.Helpers.RedirectHelpers.GetSelfConfigErrorResult(MESSAGE_GENERAL_ERROR);
+                    return result;
                 }
             }
             else
@@ -84,22 +98,36 @@ namespace DancingGoat.Areas.Admin.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult Recheck()
+        {
+            ViewBag.IsTls = Request.IsSecureConnection;
+            ViewBag.IsLocal = Request.IsLocal;
+
+            return View(new SignInViewModel());
+        }
+
         [HttpPost]
         public async Task<ActionResult> Recheck(string token)
         {
-            //if (!string.IsNullOrEmpty(Request.Headers["X-Auth"]))
-            if (!string.IsNullOrEmpty(token))
+            string actualToken = token ?? GetToken();
+
+            if (!string.IsNullOrEmpty(actualToken))
             {
-                IEnumerable<Models.SubscriptionModel> subscriptions;
+                if (!string.IsNullOrEmpty(token))
+                {
+                    AddCookie(token);
+                }
+
+                IEnumerable<SubscriptionModel> subscriptions;
 
                 try
                 {
-                    subscriptions = await GetSubscriptionsAsync(token);
+                    subscriptions = await GetSubscriptionsAsync(actualToken);
                 }
-                catch (UnauthorizedAccessException ex)
+                catch (UnauthorizedAccessException)
                 {
-                    // No need to work with 'ex'.
-                    return DancingGoat.Helpers.RedirectHelpers.GetSelfConfigIndexResult(MESSAGE_UNAUTHENTICATED);
+                    return DancingGoat.Helpers.RedirectHelpers.GetSelfConfigRecheckResult(MESSAGE_UNAUTHENTICATED);
                 }
 
                 if (subscriptions == null || !subscriptions.Any())
@@ -108,15 +136,15 @@ namespace DancingGoat.Areas.Admin.Controllers
                 }
                 else
                 {
-                    var activeProjects = await GetActiveProjectsAsync(token);
+                    var activeProjects = await GetProjectsAsync(actualToken);
 
                     // The trial period expired, but the web job hasn't converted the trial to the free plan yet.
-                    ActionResult result = await CheckInactiveSubscriptions(token, subscriptions, activeProjects);
+                    ActionResult result = await CheckInactiveSubscriptions(actualToken, subscriptions, activeProjects);
 
                     // The trial was converted to the free plan by the web job.
                     if (result == null)
                     {
-                        if (activeProjects.Any(p => p.ProjectGuid == AppSettingProvider.ProjectId))
+                        if (activeProjects.Any(p => p.ProjectId == AppSettingProvider.ProjectId))
                         {
                             AppSettingProvider.SubscriptionExpiresAt = DateTime.MaxValue;
 
@@ -124,78 +152,65 @@ namespace DancingGoat.Areas.Admin.Controllers
                         }
                         else
                         {
-                            return View("ChooseOrDeployProject", activeProjects);
+                            return View("SelectOrCreateProject", BuildSelectProjectViewModel(activeProjects));
                         }
                     }
 
-                    // A formal line of code to satisfy the compiler check. The "result" is either null or the MVC pipeline got shortcut already (an ActionResult was returned to the browser).
-                    return DancingGoat.Helpers.RedirectHelpers.GetSelfConfigErrorResult(MESSAGE_GENERAL_ERROR);
+                    return result;
                 }
             }
             else
             {
-                return DancingGoat.Helpers.RedirectHelpers.GetSelfConfigErrorResult(MESSAGE_UNAUTHENTICATED);
+                return DancingGoat.Helpers.RedirectHelpers.GetSelfConfigRecheckResult(MESSAGE_UNAUTHENTICATED);
             }
         }
 
-        [HttpGet]
-        public ActionResult Expired(string token, DateTime? endAt)
-        {
-            return View(new Models.ExpiredViewModel { EndAt = endAt, Token = token });
-        }
-
         [HttpPost]
-        public async Task<ActionResult> Free(string token)
+        [KenticoCloudAuthorize]
+        public async Task<ActionResult> Free()
         {
-            bool isAuthenticated = false;
-            isAuthenticated = await ChechAuthenticationAsync(token);
+            string token = GetToken();
+            SubscriptionModel subscription;
 
-            if (isAuthenticated)
+            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, $"{AdminHelpers.KC_BASE_URL}subscription/free"))
+            using (HttpResponseMessage response = await AdminHelpers.GetStandardResponseAsync(token, _httpClient, request))
             {
-                Models.SubscriptionModel subscription;
+                subscription = await AdminHelpers.GetResultAsync<SubscriptionModel>(response);
 
-                using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, $"{KC_BASE_URL}subscription/free"))
-                using (HttpResponseMessage response = await GetStandardResponseAsync(token, request))
+                if (subscription != null && subscription.PlanName == "free")
                 {
-                    subscription = await GetResultAsync<Models.SubscriptionModel>(response);
+                    AppSettingProvider.SubscriptionExpiresAt = DateTime.MaxValue;
 
-                    if (subscription != null && subscription.PlanName == "free")
-                    {
-                        AppSettingProvider.SubscriptionExpiresAt = DateTime.MaxValue;
-
-                        return DancingGoat.Helpers.RedirectHelpers.GetHomeRedirectResult("You've converted your subscription to a free plan.");
-                    }
-                    else
-                    {
-                        return DancingGoat.Helpers.RedirectHelpers.GetHomeRedirectResult("We couldn't convert your subscription to a free plan. Make sure you've lowered your resources in Kentico Cloud to meet the limits of the free plan.");
-                    }
+                    return DancingGoat.Helpers.RedirectHelpers.GetHomeRedirectResult("You've converted your subscription to a free plan.");
                 }
-            }
-            else
-            {
-                return DancingGoat.Helpers.RedirectHelpers.GetSelfConfigIndexResult(MESSAGE_UNAUTHENTICATED);
+                else
+                {
+                    return View("Error", new ErrorModel { Caption = "Too Many Resources", Message = "We couldn't convert your subscription to the free plan. Please make sure you've lowered your resources in Kentico Cloud to meet the limits of the free plan." });
+                }
             }
         }
 
         [HttpPost]
-        public ActionResult SetProjectId(Models.ProjectIdViewModel model)
+        [KenticoCloudAuthorize]
+        public ActionResult SelectProject(SelectProjectViewModel model)
         {
-            Guid ownProjectId;
+            string token = GetToken();
 
-            if (Guid.TryParse(model.OwnProjectGuid, out ownProjectId))
+            if (model.ProjectId != Guid.Empty)
             {
-                AppSettingProvider.ProjectId = ownProjectId;
+                AppSettingProvider.ProjectId = model.ProjectId;
                 AppSettingProvider.SubscriptionExpiresAt = DateTime.MaxValue;
 
-                return DancingGoat.Helpers.RedirectHelpers.GetHomeRedirectResult($"You've configured your app with a Project ID \"{model.OwnProjectGuid}\".");
+                return DancingGoat.Helpers.RedirectHelpers.GetHomeRedirectResult($"You've configured your app with a Project ID \"{model.ProjectId}\".");
             }
             else
             {
-                return DancingGoat.Helpers.RedirectHelpers.GetHomeRedirectResult($"There was an error configuring the Project ID. Make sure the ID has the form of a GUID and try again.");
+                return SetSharedProject(token, "The Project ID could not be found.");
             }
         }
 
         [HttpPost]
+        [KenticoCloudAuthorize]
         public ActionResult UseShared()
         {
             AppSettingProvider.ProjectId = Guid.Parse(SHARED_PROJECT_ID);
@@ -204,202 +219,198 @@ namespace DancingGoat.Areas.Admin.Controllers
             return DancingGoat.Helpers.RedirectHelpers.GetHomeRedirectResult("You've configured your app to with a Project ID of a shared Kentico Cloud project.");
         }
 
-        [HttpGet]
-        public ActionResult Activate(string token)
-        {
-            return View(token);
-        }
-
-        [HttpGet]
-        public async Task<ActionResult> ActiveProjects(string token)
-        {
-            return View((await GetActiveProjectsAsync(token)).Where(p => p.Inactive == false));
-        }
-
         [HttpPost]
-        public async Task<ActionResult> DeploySample(string token)
+        [KenticoCloudAuthorize]
+        public async Task<ActionResult> DeploySample()
         {
-            Guid projectId = await DeploySampleAsync(token);
-
-            return SetProject(projectId, DateTime.MaxValue);
+            string token = GetToken();
+            var user = await AdminHelpers.GetUserAsync(token, _httpClient, AdminHelpers.KC_BASE_URL);
+            var subscriptions = await GetSubscriptionsAsync(token);
+            return await DeploySampleInOwnedSubscriptionAsync(token, user, subscriptions);
         }
 
-        private async Task<ActionResult> CheckInactiveSubscriptions(string token, IEnumerable<Models.SubscriptionModel> subscriptions = null, IEnumerable<Models.ProjectModel> projects = null)
+        private async Task<ActionResult> CheckInactiveSubscriptions(string token, IEnumerable<SubscriptionModel> subscriptions = null, IEnumerable<ProjectModel> projects = null)
         {
-            var activeProjects = projects?.Where(p => p.Inactive == false) ?? await GetActiveProjectsAsync(token);
+            var activeProjects = projects?.Where(p => p.Inactive == false) ?? await GetProjectsAsync(token);
             var allSubscriptions = subscriptions ?? await GetSubscriptionsAsync(token);
             var activeSubscriptions = allSubscriptions?.Where(s => s.Status.Equals(STATUS_ACTIVE, StringComparison.InvariantCultureIgnoreCase));
 
             // Inactive expired subscriptions. 
-            if (!activeSubscriptions.Any() && !allSubscriptions.Any(s => s.EndAt > DateTime.Now))
+            if (!activeSubscriptions.Any() && !allSubscriptions.All(s => s.EndAt > DateTime.Now))
             {
-                var subscriptionsExpiringInFuture = allSubscriptions.Where(s => s.EndAt > DateTime.Now).OrderByDescending(s => s.EndAt);
+                var latestExpiredSubscriptions = allSubscriptions.OrderByDescending(s => s.EndAt);
 
-                // Will allow to either convert to the free plan or to use shared project.
+                // Will allow to either convert to the free plan or to use the shared project.
                 if (!activeProjects.Any())
                 {
-                    return RedirectToAction("Expired", new { Token = token, EndAt = subscriptionsExpiringInFuture.FirstOrDefault().EndAt });
+                    ViewBag.EndAt = latestExpiredSubscriptions.FirstOrDefault().EndAt.Value;
+
+                    // Project = null means the project selection won't be displayed.
+                    return View("Expired", new SelectProjectViewModel { Projects = null });
                 }
 
                 // Will allow to do the same, and to pick among active projects.
                 else
                 {
-                    return RedirectToAction("ExpiredSelectProject", new { Token = token, EndAt = subscriptionsExpiringInFuture.FirstOrDefault().EndAt, Projects = activeProjects });
+                    ViewBag.EndAt = latestExpiredSubscriptions.FirstOrDefault().EndAt.Value;
+
+                    return View("Expired", new SelectProjectViewModel { Projects = activeProjects });
                 }
             }
 
             // Inactive non-expired subscriptions.
-            else if (!activeSubscriptions.Any() && allSubscriptions.Any(s => s.EndAt > DateTime.Now))
+            else if (!activeSubscriptions.Any() && allSubscriptions.Any(s => s.EndAt <= DateTime.Now))
             {
-                // Will suggest to activate one of them (manually) and continue.
+                // Will suggest activating one of them (manually) and continue.
                 if (!activeProjects.Any())
                 {
-                    return RedirectToAction("Activate", new { Token = token });
+                    // Project = null means the project selection won't be displayed.
+                    return View("Inactive", new SelectProjectViewModel { Projects = null });
                 }
 
-                // Will suggest to do the same, alternatively allow to pick among active projects.
+                // Will suggest doing the same, alternatively allows to pick among active projects.
                 else
                 {
-                    return RedirectToAction("ActivateSelectProject", new { Token = token, Projects = activeProjects });
+                    return View("Inactive", new SelectProjectViewModel { Projects = activeProjects });
                 }
             }
 
             return null;
         }
 
-        private ActionResult SetProject(Guid projectId, DateTime subscriptionExpiresAt, string message = null)
+        private ActionResult SetSharedProject(string token, string message)
+        {
+            return SetProject(token, Guid.Parse(SHARED_PROJECT_ID), DateTime.MaxValue, $"{message} The app will use the shared Project ID (\"{SHARED_PROJECT_ID}\").");
+        }
+
+        private async Task<ActionResult> DeploySampleInOwnedSubscriptionAsync(string token, UserModel user, IEnumerable<SubscriptionModel> subscriptions)
+        {
+            var administeredSubscriptionId = user.AdministeredSubscriptions.FirstOrDefault()?.SubscriptionId.Value;
+
+            if (administeredSubscriptionId != null)
+            {
+                var project = await DeploySampleAsync(token, administeredSubscriptionId.Value);
+
+                return SetProject(token, project.ProjectId.Value, subscriptions.FirstOrDefault(s => s.SubscriptionId == administeredSubscriptionId.Value).EndAt.Value);
+            }
+            else
+            {
+                return SetSharedProject(token, "There was an error when creating the sample site.");
+            }
+        }
+
+        private ActionResult SetProject(string token, Guid projectId, DateTime subscriptionExpiresAt, string message = null)
         {
             if (projectId != Guid.Empty)
             {
-                SetIdAndRename(projectId, subscriptionExpiresAt);
+                SetIdAndRename(token, projectId, subscriptionExpiresAt);
 
                 return DancingGoat.Helpers.RedirectHelpers.GetHomeRedirectResult(message);
             }
             else
             {
-                return DancingGoat.Helpers.RedirectHelpers.GetSelfConfigErrorResult($"There was a problem when setting the \"ProjectId\" environment variable to \"{projectId}\". You can set it up manually in your environment.");
+                return DancingGoat.Helpers.RedirectHelpers.GetSelfConfigRecheckResult($"There was a problem when setting the \"ProjectId\" environment variable to \"{projectId}\". You can set it up manually in your environment (App service - Application Settings, web.config etc.).");
             }
         }
 
-        private void SetIdAndRename(Guid projectId, DateTime subscriptionExpiresAt)
+        private void SetIdAndRename(string token, Guid projectId, DateTime subscriptionExpiresAt)
         {
             AppSettingProvider.ProjectId = projectId;
             AppSettingProvider.SubscriptionExpiresAt = subscriptionExpiresAt;
 
             // Fire-and-forget. Assigned to 'task' just to avoid warnings.
-            var task = RenameProjectAsync(projectId);
+            var task = RenameProjectAsync(token, projectId);
         }
 
-        private Task RenameProjectAsync(Guid projectGuid)
+        private async Task RenameProjectAsync(string token, Guid projectId)
         {
-            throw new NotImplementedException();
-        }
-
-        private async Task<Guid> StartTrialAndSampleAsync(string token)
-        {
-
-            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, $"{KC_BASE_URL}subscription/trial"))
-            using (HttpResponseMessage response = await GetStandardResponseAsync(token, request))
+            string deployedAt = DateTime.Now.ToString("m");
+            var project = new ProjectModel
             {
-                var subscription = await GetResultAsync<Models.SubscriptionModel>(response);
+                ProjectId = projectId,
+                ProjectName = string.Format(PROJECT_RENAME_PATTERN, deployedAt),
+                ProjectType = "deliver"
+            };
+
+            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Put, $"{AdminHelpers.KC_BASE_URL}project/{projectId}"))
+            {
+                string contentString = JsonConvert.SerializeObject(project, Formatting.None, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+                request.Content = new StringContent(contentString, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await AdminHelpers.GetStandardResponseAsync(token, _httpClient, request);
+                response.Dispose();
+            }
+        }
+
+        private async Task<(SubscriptionModel subscription, ProjectModel project)> StartTrialAndSampleAsync(string token)
+        {
+            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, $"{AdminHelpers.KC_BASE_URL}subscription/trial"))
+            using (HttpResponseMessage response = await AdminHelpers.GetStandardResponseAsync(token, _httpClient, request))
+            {
+                var subscription = await AdminHelpers.GetResultAsync<SubscriptionModel>(response);
 
                 if (subscription != null && subscription.SubscriptionId.HasValue)
                 {
-                    return await DeploySampleAsync(token);
+                    var project = await DeploySampleAsync(token, subscription.SubscriptionId.Value);
+
+                    return (subscription, project);
                 }
                 else
                 {
-                    return Guid.Empty;
+                    return (null, null);
                 }
             }
         }
 
-        private async Task<Guid> DeploySampleAsync(string token)
+        private async Task<ProjectModel> DeploySampleAsync(string token, Guid subscriptionId)
         {
-            bool sampleReady = false;
-            Models.ProjectModel project;
-
-            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, $"{KC_BASE_URL}project/sample"))
-            using (HttpResponseMessage response = await GetStandardResponseAsync(token, request))
+            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, $"{AdminHelpers.KC_BASE_URL}project/sample/undersubscription/{subscriptionId}"))
+            using (HttpResponseMessage response = await AdminHelpers.GetStandardResponseAsync(token, _httpClient, request))
             {
-                project = await GetResultAsync<Models.ProjectModel>(response);
-
-                if (project != null && project.ProjectGuid.HasValue)
-                {
-                    sampleReady = true;
-                }
-            }
-
-            return sampleReady ? project.ProjectGuid.Value : Guid.Empty;
-        }
-
-        private async Task<IEnumerable<Models.ProjectModel>> GetActiveProjectsAsync(string token)
-        {
-            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, $"{KC_BASE_URL}project"))
-            using (HttpResponseMessage response = await GetStandardResponseAsync(token, request))
-            {
-                return (await GetResultAsync<IEnumerable<Models.ProjectModel>>(response)).Where(p => p.Inactive == false);
+                return await AdminHelpers.GetResultAsync<ProjectModel>(response);
             }
         }
 
-        private async Task<TResult> GetResultAsync<TResult>(HttpResponseMessage response)
-            where TResult : class
+        private async Task<IEnumerable<ProjectModel>> GetProjectsAsync(string token, bool onlyActive = false)
         {
-            TResult result = null;
-
-            // TODO Deal with it upper in the call stack.
-            try
+            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, $"{AdminHelpers.KC_BASE_URL}project"))
+            using (HttpResponseMessage response = await AdminHelpers.GetStandardResponseAsync(token, _httpClient, request))
             {
-                result = JsonConvert.DeserializeObject<TResult>(await response.Content.ReadAsStringAsync());
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
+                var projects = await AdminHelpers.GetResultAsync<IEnumerable<ProjectModel>>(response);
 
-            return result;
-        }
-
-        private async Task<HttpResponseMessage> GetStandardResponseAsync(string token, HttpRequestMessage request)
-        {
-            AddStandardHeaders(token, request);
-            HttpResponseMessage response = await _httpClient.SendAsync(request);
-
-            return response;
-        }
-
-        private async Task<IEnumerable<Models.SubscriptionModel>> GetSubscriptionsAsync(string token)
-        {
-            bool isAuthenticated = false;
-            isAuthenticated = await ChechAuthenticationAsync(token);
-
-            if (isAuthenticated)
-            {
-                using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, $"{KC_BASE_URL}subscription"))
-                using (HttpResponseMessage response = await GetStandardResponseAsync(token, request))
-                {
-                    return await GetResultAsync<IEnumerable<Models.SubscriptionModel>>(response);
-                }
-            }
-            else
-            {
-                // HACK Avoid throwing in a private method.
-                throw new UnauthorizedAccessException();
+                return onlyActive ? projects : projects.Where(p => p.Inactive == false);
             }
         }
 
-        private async Task<bool> ChechAuthenticationAsync(string token)
+        private string GetToken()
         {
-            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, $"{KC_BASE_URL}auth"))
-            using (HttpResponseMessage response = await GetStandardResponseAsync(token, request))
+            return Request.Cookies[COOKIE_NAME]?.Value;
+        }
+
+        private async Task<IEnumerable<SubscriptionModel>> GetSubscriptionsAsync(string token)
+        {
+            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, $"{AdminHelpers.KC_BASE_URL}subscription"))
+            using (HttpResponseMessage response = await AdminHelpers.GetStandardResponseAsync(token, _httpClient, request))
             {
-                return response.IsSuccessStatusCode;
+                return await AdminHelpers.GetResultAsync<IEnumerable<SubscriptionModel>>(response);
             }
         }
 
-        private static void AddStandardHeaders(string token, HttpRequestMessage request)
+        private void AddCookie(string token)
         {
-            request.Headers.Add("X-Auth", token);
+            if (string.IsNullOrEmpty(Request.Cookies["kcToken"]?.Value))
+            {
+                var cookie = new HttpCookie("kcToken", token);
+                cookie.Expires = DateTime.Now.AddDays(1);
+                Response.Cookies.Add(cookie);
+            }
+        }
+
+        private static SelectProjectViewModel BuildSelectProjectViewModel(IEnumerable<ProjectModel> activeProjects)
+        {
+            return new SelectProjectViewModel
+            {
+                Projects = activeProjects
+            };
         }
     }
 }

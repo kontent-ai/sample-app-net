@@ -5,28 +5,28 @@ namespace DancingGoat.Areas.Admin.Models
 {
     public class AuthModel
     {
-        [JsonProperty(PropertyName = "projectPermissions")]
+        [JsonProperty("projectPermissions")]
         public object[] ProjectPermissions { get; set; }
 
-        [JsonProperty(PropertyName = "identity")]
+        [JsonProperty("identity")]
         public string Identity { get; set; }
 
-        [JsonProperty(PropertyName = "userId")]
+        [JsonProperty("userId")]
         public Guid? UserId { get; set; }
 
-        [JsonProperty(PropertyName = "firstName")]
+        [JsonProperty("firstName")]
         public string FirstName { get; set; }
 
-        [JsonProperty(PropertyName = "lastName")]
+        [JsonProperty("lastName")]
         public string LastName { get; set; }
 
-        [JsonProperty(PropertyName = "fullName")]
+        [JsonProperty("fullName")]
         public string FullName { get; set; }
 
-        [JsonProperty(PropertyName = "businessType")]
+        [JsonProperty("businessType")]
         public object BusinessType { get; set; }
 
-        [JsonProperty(PropertyName = "createdAt")]
+        [JsonProperty("createdAt")]
         public DateTime? CreatedAt { get; set; }
     }
 }

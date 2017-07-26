@@ -112,6 +112,9 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IdentityModel" />
+    <Reference Include="System.ValueTuple, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.3.1\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -188,15 +191,18 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\AppSettingProvider.cs" />
     <Compile Include="Areas\Admin\Controllers\SelfConfigController.cs" />
-    <Compile Include="Areas\Admin\Helpers.cs" />
+    <Compile Include="Areas\Admin\Helpers\AdminHelpers.cs" />
+    <Compile Include="Areas\Admin\Infrastructure\KenticoCloudAuthorizeAttribute.cs" />
     <Compile Include="Areas\Admin\Models\AuthModel.cs" />
+    <Compile Include="Areas\Admin\Models\ErrorModel.cs" />
+    <Compile Include="Areas\Admin\Models\SelectProjectViewModel.cs" />
     <Compile Include="Areas\Admin\Models\SignInViewModel.cs" />
-    <Compile Include="Areas\Admin\Models\ExpiredViewModel.cs" />
     <Compile Include="Areas\Admin\Models\IndexViewModel.cs" />
     <Compile Include="Areas\Admin\Models\ProjectIdViewModel.cs" />
     <Compile Include="Areas\Admin\Models\ProjectModel.cs" />
     <Compile Include="Areas\Admin\Models\SignUpViewModel.cs" />
     <Compile Include="Areas\Admin\Models\SubscriptionModel.cs" />
+    <Compile Include="Areas\Admin\Models\UserModel.cs" />
     <Compile Include="Controllers\ArticlesController.cs" />
     <Compile Include="Controllers\CafesController.cs" />
     <Compile Include="Controllers\BrewersController.cs" />
@@ -249,6 +255,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\Scripts\selectProject.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -295,17 +302,21 @@
     <Content Include="Areas\Admin\Views\SelfConfig\Index.cshtml" />
     <Content Include="Areas\Admin\Views\SelfConfig\Expired.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_ProjectIdPartial.cshtml" />
-    <Content Include="Areas\Admin\Views\SelfConfig\Activate.cshtml" />
+    <Content Include="Areas\Admin\Views\SelfConfig\Inactive.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_SharedGeneralPartial.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_FreePartial.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\DisplayTemplates\ProjectModel.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\EditorTemplates\ProjectModel.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_ProjectsPartial.cshtml" />
     <Content Include="Areas\Admin\Views\SelfConfig\NoSubscriptions.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_SharedPartial.cshtml" />
-    <Content Include="Areas\Admin\Views\SelfConfig\ChooseOrDeployProject.cshtml" />
+    <Content Include="Areas\Admin\Views\SelfConfig\SelectOrCreateProject.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_DeploySamplePartial.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Error.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_SignInPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\SelfConfig\Recheck.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_WarningPartial.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\formAutoPost.js" />
@@ -368,7 +379,6 @@
     <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\PhoneNumber.cshtml" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config">
       <SubType>Designer</SubType>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web;
+
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -24,7 +25,7 @@ namespace DancingGoat.Infrastructure
                 }
                 else if (subscriptionExpiresAt <= DateTime.Now)
                 {
-                    filterContext.Result = Helpers.RedirectHelpers.GetSelfConfigErrorResult(null);
+                    filterContext.Result = Helpers.RedirectHelpers.GetSelfConfigRecheckResult(null);
                 } 
             }
         }

@@ -1,9 +1,9 @@
 ﻿@model string
 
 <h2>Convert To the Free Plan</h2>
+<p>Alternatively, you may wish to convert your subscription to the free plan. You may wish to lower your resources to fit the limits of the free plan first.</p>
 @using (Html.BeginForm("Free", "SelfConfig"))
 {
-    @*<input type="hidden" name="token" value="@Model" />*@
     @Html.HiddenFor(vm => vm, new { Name = "token" })
     <input type="submit" value="Convert to free plan" />
 }

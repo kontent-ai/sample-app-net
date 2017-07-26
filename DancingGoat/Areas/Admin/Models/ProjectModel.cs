@@ -5,22 +5,25 @@ namespace DancingGoat.Areas.Admin.Models
 {
     public class ProjectModel
     {
-        [JsonProperty(PropertyName = "projectGuid")]
-        public Guid? ProjectGuid { get; set; }
+        [JsonProperty("projectGuid")]
+        public Guid? ProjectId { get; set; }
 
-        [JsonProperty(PropertyName = "projectName")]
+        [JsonProperty("projectName")]
         public string ProjectName { get; set; }
 
-        [JsonProperty(PropertyName = "projectType")]
+        [JsonProperty("projectType")]
         public string ProjectType { get; set; }
 
-        [JsonProperty(PropertyName = "inactive")]
+        [JsonProperty("inactive")]
         public bool? Inactive { get; set; }
 
-        [JsonProperty(PropertyName = "deactivateAt")]
+        [JsonProperty("deactivateAt")]
         public DateTime? DeactivatedAt { get; set; }
 
-        [JsonProperty(PropertyName = "activateAt")]
+        [JsonProperty("activateAt")]
         public DateTime? ActivatedAt { get; set; }
+
+        [JsonProperty("subscriptionId")]
+        public Guid? SubscriptionId { get; set; }
     }
 }

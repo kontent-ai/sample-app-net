@@ -1,0 +1,13 @@
+﻿<section id="warning">
+    @{
+        if (!ViewBag.IsLocal && !ViewBag.IsTls)
+        {
+            <p>Make sure you either:</p>
+                <ul>
+                    <li>run both your app and the browser in one machine, or</li>
+                    <li>run your app using the TLS protocol (with a url starting with "https://")</li>
+                </ul>
+                <p>Otherwise, malicious users may intercept the security token used for authentication.</p>
+        }
+    }
+</section>

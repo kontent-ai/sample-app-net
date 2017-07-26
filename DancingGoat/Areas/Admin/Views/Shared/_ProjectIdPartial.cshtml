@@ -1,11 +1,11 @@
-﻿@model DancingGoat.Areas.Admin.Models.ProjectIdViewModel
+﻿@model DancingGoat.Areas.Admin.Models.SelectProjectViewModel
 
-@using (Html.BeginForm("UseProjectId", "SelfConfig"))
+@using (Html.BeginForm("SelectProject", "SelfConfig"))
 {
     <h2>Submit A Project ID Directly</h2>
     <p>Alternatively, you can configure your app manually by submitting a project ID below.</p>
     <p>
-        @Html.EditorForModel()
+        @Html.EditorFor(vm => vm.ProjectId)
     </p>
 
     <input type="submit" value="Submit" />

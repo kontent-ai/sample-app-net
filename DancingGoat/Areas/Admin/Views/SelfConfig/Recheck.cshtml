@@ -1,0 +1,13 @@
+﻿@model DancingGoat.Areas.Admin.Models.SignInViewModel
+
+<section>
+    <h1>Sign In</h1>
+    <p>For your sample app to configure itself according to the changes in your subscription, you need to sign in using your Kentico Cloud credentials.</p>
+
+    @Html.Partial("_WarningPartial")
+
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { @action = @"https://horusproduction.e1.loginrocket.com/v1/login", enctype = "multipart/form-data", id = "signin" }))
+    {
+        @Html.Partial("_SignInPartial", Model)
+    }
+</section>

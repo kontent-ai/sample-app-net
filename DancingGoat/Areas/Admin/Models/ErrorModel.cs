@@ -5,9 +5,9 @@ using System.Web;
 
 namespace DancingGoat.Areas.Admin.Models
 {
-    public class ExpiredViewModel
+    public class ErrorModel
     {
-        public string Token { get; set; }
-        public DateTime? EndAt { get; set; }
+        public string Caption { get; set; }
+        public string Message { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace DancingGoat.Areas.Admin.Models
 {
@@ -26,5 +27,9 @@ namespace DancingGoat.Areas.Admin.Models
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+
+        //[Display(Name = "")]
+        //[Required]
+        //public bool? TermsAccepted { get; set; } = false;
     }
 }

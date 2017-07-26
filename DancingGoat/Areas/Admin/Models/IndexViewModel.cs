@@ -9,6 +9,6 @@ namespace DancingGoat.Areas.Admin.Models
     {
         public SignInViewModel SignInModel { get; set; }
         public SignUpViewModel SignUpModel { get; set; }
-        public ProjectIdViewModel ProjectIdModel { get; set; }
+        public SelectProjectViewModel SelectProjectModel { get; set; }
     }
 }
