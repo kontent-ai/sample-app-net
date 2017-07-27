@@ -30,9 +30,11 @@ namespace DancingGoat.Areas.Admin.Helpers
         public static async Task<Models.UserModel> GetUserAsync(string token, HttpClient httpClient, string baseUrl)
         {
             using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, $"{baseUrl}auth"))
-            using (HttpResponseMessage response = await GetStandardResponseAsync(token, httpClient, request))
             {
-                return await GetResultAsync<Models.UserModel>(response);
+                using (HttpResponseMessage response = await GetStandardResponseAsync(token, httpClient, request))
+                {
+                    return await GetResultAsync<Models.UserModel>(response);
+                }
             }
         }
 

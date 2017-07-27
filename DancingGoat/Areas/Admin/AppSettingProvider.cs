@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Web;
 using System.Web.Configuration;
 
 namespace DancingGoat.Areas.Admin
@@ -21,9 +18,8 @@ namespace DancingGoat.Areas.Admin
             {
                 DateTime subscriptionExpiresAt;
                 bool subscriptionExpiresAtParsed = DateTime.TryParse(ConfigurationManager.AppSettings[SUBSCRIPTION_EXPIRES_KEY_NAME], out subscriptionExpiresAt);
-                Nullable<DateTime> @null = null;
 
-                return subscriptionExpiresAtParsed ? subscriptionExpiresAt : @null;
+                return subscriptionExpiresAtParsed ? subscriptionExpiresAt : (DateTime?)null;
             }
             set
             {
@@ -47,7 +43,7 @@ namespace DancingGoat.Areas.Admin
                 Guid projectId;
                 bool parsed = Guid.TryParse(ConfigurationManager.AppSettings[PROJECT_ID_KEY_NAME], out projectId);
 
-                return parsed ? new Nullable<Guid>(projectId) : null;
+                return parsed ? new Guid?(projectId) : null;
             }
             set
             {

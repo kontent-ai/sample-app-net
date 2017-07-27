@@ -17,7 +17,6 @@ namespace DancingGoat.Areas.Admin.Controllers
     public class SelfConfigController : Controller
     {
         protected const string MESSAGE_UNAUTHENTICATED = "You haven't authenticated with proper Kentico Cloud credentials. Please close the browser window and log in.";
-        protected const string MESSAGE_GENERAL_ERROR = "An unknown error occurred.";
         protected const string SHARED_PROJECT_ID = "975bf280-fd91-488c-994c-2f04416e5ee3";
         protected const string STATUS_ACTIVE = "active";
         protected const string PROJECT_RENAME_PATTERN = "Sample Project (MVC Sample App, {0})";
@@ -31,7 +30,7 @@ namespace DancingGoat.Areas.Admin.Controllers
             ViewBag.IsTls = Request.IsSecureConnection;
             ViewBag.IsLocal = Request.IsLocal;
 
-            return View(new IndexViewModel() { SignInModel = new SignInViewModel() });
+            return View(new IndexViewModel { SignInModel = new SignInViewModel() });
         }
 
         [HttpPost]
@@ -170,22 +169,23 @@ namespace DancingGoat.Areas.Admin.Controllers
         public async Task<ActionResult> Free()
         {
             string token = GetToken();
-            SubscriptionModel subscription;
 
             using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, $"{AdminHelpers.KC_BASE_URL}subscription/free"))
-            using (HttpResponseMessage response = await AdminHelpers.GetStandardResponseAsync(token, _httpClient, request))
             {
-                subscription = await AdminHelpers.GetResultAsync<SubscriptionModel>(response);
-
-                if (subscription != null && subscription.PlanName == "free")
+                using (HttpResponseMessage response = await AdminHelpers.GetStandardResponseAsync(token, _httpClient, request))
                 {
-                    AppSettingProvider.SubscriptionExpiresAt = DateTime.MaxValue;
+                    var subscription = await AdminHelpers.GetResultAsync<SubscriptionModel>(response);
 
-                    return DancingGoat.Helpers.RedirectHelpers.GetHomeRedirectResult("You've converted your subscription to a free plan.");
-                }
-                else
-                {
-                    return View("Error", new ErrorModel { Caption = "Too Many Resources", Message = "We couldn't convert your subscription to the free plan. Please make sure you've lowered your resources in Kentico Cloud to meet the limits of the free plan." });
+                    if (subscription != null && subscription.PlanName == "free")
+                    {
+                        AppSettingProvider.SubscriptionExpiresAt = DateTime.MaxValue;
+
+                        return DancingGoat.Helpers.RedirectHelpers.GetHomeRedirectResult("You've converted your subscription to a free plan.");
+                    }
+                    else
+                    {
+                        return View("Error", new ErrorModel { Caption = "Too Many Resources", Message = "We couldn't convert your subscription to the free plan. Please make sure you've lowered your resources in Kentico Cloud to meet the limits of the free plan." });
+                    }
                 }
             }
         }
@@ -344,19 +344,21 @@ namespace DancingGoat.Areas.Admin.Controllers
         private async Task<(SubscriptionModel subscription, ProjectModel project)> StartTrialAndSampleAsync(string token)
         {
             using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, $"{AdminHelpers.KC_BASE_URL}subscription/trial"))
-            using (HttpResponseMessage response = await AdminHelpers.GetStandardResponseAsync(token, _httpClient, request))
             {
-                var subscription = await AdminHelpers.GetResultAsync<SubscriptionModel>(response);
-
-                if (subscription != null && subscription.SubscriptionId.HasValue)
+                using (HttpResponseMessage response = await AdminHelpers.GetStandardResponseAsync(token, _httpClient, request))
                 {
-                    var project = await DeploySampleAsync(token, subscription.SubscriptionId.Value);
+                    var subscription = await AdminHelpers.GetResultAsync<SubscriptionModel>(response);
 
-                    return (subscription, project);
-                }
-                else
-                {
-                    return (null, null);
+                    if (subscription?.SubscriptionId != null)
+                    {
+                        var project = await DeploySampleAsync(token, subscription.SubscriptionId.Value);
+
+                        return (subscription, project);
+                    }
+                    else
+                    {
+                        return (null, null);
+                    }
                 }
             }
         }
@@ -364,20 +366,24 @@ namespace DancingGoat.Areas.Admin.Controllers
         private async Task<ProjectModel> DeploySampleAsync(string token, Guid subscriptionId)
         {
             using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, $"{AdminHelpers.KC_BASE_URL}project/sample/undersubscription/{subscriptionId}"))
-            using (HttpResponseMessage response = await AdminHelpers.GetStandardResponseAsync(token, _httpClient, request))
             {
-                return await AdminHelpers.GetResultAsync<ProjectModel>(response);
+                using (HttpResponseMessage response = await AdminHelpers.GetStandardResponseAsync(token, _httpClient, request))
+                {
+                    return await AdminHelpers.GetResultAsync<ProjectModel>(response);
+                }
             }
         }
 
         private async Task<IEnumerable<ProjectModel>> GetProjectsAsync(string token, bool onlyActive = false)
         {
             using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, $"{AdminHelpers.KC_BASE_URL}project"))
-            using (HttpResponseMessage response = await AdminHelpers.GetStandardResponseAsync(token, _httpClient, request))
             {
-                var projects = await AdminHelpers.GetResultAsync<IEnumerable<ProjectModel>>(response);
+                using (HttpResponseMessage response = await AdminHelpers.GetStandardResponseAsync(token, _httpClient, request))
+                {
+                    var projects = await AdminHelpers.GetResultAsync<IEnumerable<ProjectModel>>(response);
 
-                return onlyActive ? projects : projects.Where(p => p.Inactive == false);
+                    return onlyActive ? projects : projects.Where(p => p.Inactive == false);
+                }
             }
         }
 
@@ -399,8 +405,7 @@ namespace DancingGoat.Areas.Admin.Controllers
         {
             if (string.IsNullOrEmpty(Request.Cookies["kcToken"]?.Value))
             {
-                var cookie = new HttpCookie("kcToken", token);
-                cookie.Expires = DateTime.Now.AddDays(1);
+                var cookie = new HttpCookie("kcToken", token) { Expires = DateTime.Now.AddDays(1) };
                 Response.Cookies.Add(cookie);
             }
         }
