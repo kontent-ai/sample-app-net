@@ -64,11 +64,11 @@ namespace DancingGoat.Areas.Admin.Controllers
 
                     if (subscriptionAndProject.subscription != null && subscriptionAndProject.project != null)
                     {
-                        return SetProject(actualToken, subscriptionAndProject.project.ProjectId.Value, subscriptionAndProject.subscription.EndAt.Value);
+                        return await SetProject(actualToken, subscriptionAndProject.project.ProjectId.Value, subscriptionAndProject.subscription.EndAt.Value);
                     }
                     else
                     {
-                        return SetSharedProject(actualToken, "There was an error when creating the sample site.");
+                        return await SetSharedProject(actualToken, "There was an error when creating the sample site.");
                     }
                 }
                 else
@@ -192,7 +192,7 @@ namespace DancingGoat.Areas.Admin.Controllers
 
         [HttpPost]
         [KenticoCloudAuthorize]
-        public ActionResult SelectProject(SelectProjectViewModel model)
+        public async Task<ActionResult> SelectProject(SelectProjectViewModel model)
         {
             string token = GetToken();
 
@@ -205,7 +205,7 @@ namespace DancingGoat.Areas.Admin.Controllers
             }
             else
             {
-                return SetSharedProject(token, "The Project ID could not be found.");
+                return await SetSharedProject(token, "The Project ID could not be found.");
             }
         }
 
@@ -278,9 +278,9 @@ namespace DancingGoat.Areas.Admin.Controllers
             return null;
         }
 
-        private ActionResult SetSharedProject(string token, string message)
+        private async Task<ActionResult> SetSharedProject(string token, string message)
         {
-            return SetProject(token, Guid.Parse(SHARED_PROJECT_ID), DateTime.MaxValue, $"{message} The app will use the shared Project ID (\"{SHARED_PROJECT_ID}\").");
+            return await SetProject(token, Guid.Parse(SHARED_PROJECT_ID), DateTime.MaxValue, $"{message} The app will use the shared Project ID (\"{SHARED_PROJECT_ID}\").");
         }
 
         private async Task<ActionResult> DeploySampleInOwnedSubscriptionAsync(string token, UserModel user, IEnumerable<SubscriptionModel> subscriptions)
@@ -291,19 +291,19 @@ namespace DancingGoat.Areas.Admin.Controllers
             {
                 var project = await DeploySampleAsync(token, administeredSubscriptionId.Value);
 
-                return SetProject(token, project.ProjectId.Value, subscriptions.FirstOrDefault(s => s.SubscriptionId == administeredSubscriptionId.Value).EndAt.Value);
+                return await SetProject(token, project.ProjectId.Value, subscriptions.FirstOrDefault(s => s.SubscriptionId == administeredSubscriptionId.Value).EndAt.Value);
             }
             else
             {
-                return SetSharedProject(token, "There was an error when creating the sample site.");
+                return await SetSharedProject(token, "There was an error when creating the sample site.");
             }
         }
 
-        private ActionResult SetProject(string token, Guid projectId, DateTime subscriptionExpiresAt, string message = null)
+        private async Task<ActionResult> SetProject(string token, Guid projectId, DateTime subscriptionExpiresAt, string message = null)
         {
             if (projectId != Guid.Empty)
             {
-                SetIdAndRename(token, projectId, subscriptionExpiresAt);
+                await SetIdAndRename(token, projectId, subscriptionExpiresAt);
 
                 return DancingGoat.Helpers.RedirectHelpers.GetHomeRedirectResult(message);
             }
@@ -313,13 +313,13 @@ namespace DancingGoat.Areas.Admin.Controllers
             }
         }
 
-        private void SetIdAndRename(string token, Guid projectId, DateTime subscriptionExpiresAt)
+        private async Task SetIdAndRename(string token, Guid projectId, DateTime subscriptionExpiresAt)
         {
             AppSettingProvider.ProjectId = projectId;
             AppSettingProvider.SubscriptionExpiresAt = subscriptionExpiresAt;
 
-            // Fire-and-forget. Assigned to 'task' just to avoid warnings.
-            var task = RenameProjectAsync(token, projectId);
+            // Assigned to 'task' just to avoid warnings.
+            await RenameProjectAsync(token, projectId);
         }
 
         private async Task RenameProjectAsync(string token, Guid projectId)
