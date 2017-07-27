@@ -123,6 +123,9 @@
   <data name="Articles" xml:space="preserve">
     <value>Artículos</value>
   </data>
+  <data name="Articles.LatestOne" xml:space="preserve">
+    <value>Último Artículo</value>
+  </data>
   <data name="Articles.More" xml:space="preserve">
     <value>Más Artículos</value>
   </data>
