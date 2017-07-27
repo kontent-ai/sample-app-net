@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
-
 using System.Net.Http;
 using Newtonsoft.Json;
 
@@ -17,9 +13,7 @@ namespace DancingGoat.Areas.Admin.Helpers
         public static async Task<HttpResponseMessage> GetStandardResponseAsync(string token, HttpClient httpClient, HttpRequestMessage request)
         {
             AddStandardHeaders(token, request);
-            HttpResponseMessage response = await httpClient.SendAsync(request);
-
-            return response;
+            return await httpClient.SendAsync(request);
         }
 
         public static void AddStandardHeaders(string token, HttpRequestMessage request)
@@ -41,19 +35,15 @@ namespace DancingGoat.Areas.Admin.Helpers
         public static async Task<TResult> GetResultAsync<TResult>(HttpResponseMessage response)
             where TResult : class
         {
-            TResult result = null;
-
             // TODO Deal with it upper in the call stack.
             try
             {
-                result = JsonConvert.DeserializeObject<TResult>(await response.Content.ReadAsStringAsync());
+                return JsonConvert.DeserializeObject<TResult>(await response.Content.ReadAsStringAsync());
             }
             catch (Exception)
             {
                 return null;
             }
-
-            return result;
         }
     }
 }
