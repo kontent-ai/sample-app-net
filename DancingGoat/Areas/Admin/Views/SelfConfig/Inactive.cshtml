@@ -8,13 +8,13 @@
 {
     <section>
         @Html.Partial("_ProjectsPartial", Model)
-        <p>The app will be configured with the Project ID of the selected project.</p>
+        <p>The app will be configured with the project ID of the selected project.</p>
     </section>
 }
 else
 {
     <section>
-        @Html.Partial("_FreePartial", Model.Token)
+        @Html.Partial("_FreePartial")
     </section>
     <section>
         @Html.Partial("_SharedGeneralPartial")

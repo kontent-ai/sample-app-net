@@ -1,0 +1,9 @@
+﻿@model DancingGoat.Areas.Admin.Models.SignUpViewModel
+
+<p>
+    @Html.EditorForModel()
+    <input type="checkbox" id="termsAccepted" />
+    <label for="termsAccepted">I accept the <a href="https://kenticocloud.com/terms-of-service">Terms of Service</a>.</label>
+    <span id="termsAcceptedValidation" style="display:none">You need to accept the terms.</span>
+</p>
+<input type="submit" value="Sign up" />

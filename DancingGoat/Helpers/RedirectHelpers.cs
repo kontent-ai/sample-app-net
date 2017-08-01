@@ -38,7 +38,7 @@ namespace DancingGoat.Helpers
                 Action = "Index",
                 Controller = "Home",
                 Area = "",
-                message = message
+                Message = message
             }));
         }
     }

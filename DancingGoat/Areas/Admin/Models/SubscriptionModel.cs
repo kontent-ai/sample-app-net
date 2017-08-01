@@ -2,26 +2,33 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+
 using Newtonsoft.Json;
 
 namespace DancingGoat.Areas.Admin.Models
 {
     public class SubscriptionModel
     {
+        [JsonProperty("projects")]
+        public IEnumerable<SubscriptionProjectModel> Projects { get; set; }
+
+        [JsonProperty("currentPlan")]
+        public PlanModel CurrentPlan { get; set; }
+
         [JsonProperty("subscriptionId")]
-        public Guid? SubscriptionId { get; set; }
+        public Guid SubscriptionId { get; set; }
+
+        [JsonProperty("subscriptionName")]
+        public string SubscriptionName { get; set; }
 
         [JsonProperty("subscriptionRef")]
-        public object subscriptionRef { get; set; }
+        public string SubscriptionRef { get; set; }
 
         [JsonProperty("tags")]
-        public object Tags { get; set; }
+        public string Tags { get; set; }
 
         [JsonProperty("userId")]
         public string UserId { get; set; }
-
-        //[JsonProperty("accountId")]
-        //public Guid? AccountId { get; set; }
 
         [JsonProperty("planName")]
         public string PlanName { get; set; }
@@ -42,39 +49,51 @@ namespace DancingGoat.Areas.Admin.Models
         public string StatusReason { get; set; }
 
         [JsonProperty("createdAt")]
-        public DateTime? CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         [JsonProperty("nextBilling")]
-        public object NextBilling { get; set; }
+        public DateTime? NextBilling { get; set; }
 
         [JsonProperty("isTrial")]
-        public bool? IsTrial { get; set; }
+        public bool IsTrial { get; set; }
 
         [JsonProperty("startAt")]
-        public DateTime? StartAt { get; set; }
+        public DateTime StartAt { get; set; }
 
         [JsonProperty("endAt")]
         public DateTime? EndAt { get; set; }
 
         [JsonProperty("nextPeriodMaxUsers")]
-        public object NextPeriodMaxUsers { get; set; }
+        public int? NextPeriodMaxUsers { get; set; }
 
         [JsonProperty("nextPeriodQuantity")]
-        public object NextPeriodQuantity { get; set; }
+        public int? NextPeriodQuantity { get; set; }
 
         [JsonProperty("deliverRequestsLimit")]
-        public object DeliverRequestsLimit { get; set; }
+        public long? DeliverRequestsLimit { get; set; }
 
         [JsonProperty("deliverTrafficLimit")]
-        public object DeliverTrafficLimit { get; set; }
+        public long? DeliverTrafficLimit { get; set; }
 
         [JsonProperty("deliverStorageLimit")]
-        public object DeliverStorageLimit { get; set; }
+        public long? DeliverStorageLimit { get; set; }
 
         [JsonProperty("deliverSlaLevel")]
-        public object DeliverSlaLevel { get; set; }
+        public string DeliverSlaLevel { get; set; }
 
         [JsonProperty("deliverSupportLevel")]
-        public object DeliverSupportLevel { get; set; }
+        public string DeliverSupportLevel { get; set; }
+
+        [JsonProperty("billingStartAt")]
+        public DateTime? BillingStartAt { get; set; }
+
+        [JsonProperty("nextPeriodStartAt")]
+        public DateTime? NextPeriodStartAt { get; set; }
+
+        [JsonProperty("fsSubscriptionRef")]
+        public string FsSubscriptionRef { get; set; }
+
+        [JsonProperty("currentPlanId")]
+        public Guid? CurrentPlanId { get; set; }
     }
 }

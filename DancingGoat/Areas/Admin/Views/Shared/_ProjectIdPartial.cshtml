@@ -2,11 +2,11 @@
 
 @using (Html.BeginForm("SelectProject", "SelfConfig"))
 {
-    <h2>Submit A Project ID Directly</h2>
+    <h2>Set A Project ID Manually</h2>
     <p>Alternatively, you can configure your app manually by submitting a project ID below.</p>
     <p>
         @Html.EditorFor(vm => vm.ProjectId)
     </p>
 
-    <input type="submit" value="Submit" />
+    <input type="submit" value="Set project ID" />
 }

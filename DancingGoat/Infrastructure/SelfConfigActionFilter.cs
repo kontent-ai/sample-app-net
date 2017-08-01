@@ -1,6 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Web;
+
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace DancingGoat.Infrastructure
 {
@@ -10,18 +15,15 @@ namespace DancingGoat.Infrastructure
         {
             base.OnActionExecuting(filterContext);
             DateTime? subscriptionExpiresAt = Areas.Admin.AppSettingProvider.SubscriptionExpiresAt;
+            Guid? projectId = Areas.Admin.AppSettingProvider.ProjectId;
 
-            // TODO Make it work without heavy checks below.
-            if ((filterContext.HttpContext.Request.HttpMethod == "GET" && !filterContext.ActionParameters.Any()))
+            if (!projectId.HasValue)
             {
-                if (subscriptionExpiresAt == DateTime.MinValue)
-                {
-                    filterContext.Result = Helpers.RedirectHelpers.GetSelfConfigIndexResult(null);
-                }
-                else if (subscriptionExpiresAt <= DateTime.Now)
-                {
-                    filterContext.Result = Helpers.RedirectHelpers.GetSelfConfigRecheckResult(null);
-                } 
+                filterContext.Result = Helpers.RedirectHelpers.GetSelfConfigIndexResult(null);
+            }
+            else if (subscriptionExpiresAt.HasValue && subscriptionExpiresAt <= DateTime.Now)
+            {
+                filterContext.Result = Helpers.RedirectHelpers.GetSelfConfigRecheckResult(null);
             }
         }
     }

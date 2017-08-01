@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
 using System.Web.Mvc;
-using DancingGoat.Areas.Admin.Helpers;
 using System.Threading.Tasks;
+using DancingGoat.Areas.Admin.Helpers;
 using DancingGoat.Areas.Admin.Models;
 
 namespace DancingGoat.Areas.Admin.Infrastructure
@@ -11,10 +15,9 @@ namespace DancingGoat.Areas.Admin.Infrastructure
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             base.OnActionExecuting(filterContext);
-
             var token = filterContext.HttpContext.Request.Cookies["kcToken"]?.Value;
-
             UserModel user = null;
+            
             if (!string.IsNullOrEmpty(token))
             {
                 user = Task.Run(() => AdminHelpers.GetUserAsync(token, new System.Net.Http.HttpClient(), AdminHelpers.KC_BASE_URL)).Result;
@@ -24,7 +27,9 @@ namespace DancingGoat.Areas.Admin.Infrastructure
             {
                 DateTime? subscriptionExpiresAt = AppSettingProvider.SubscriptionExpiresAt;
                 string message = "You haven't authenticated with proper Kentico Cloud credentials. Please close the browser window and log in.";
-                filterContext.Result = subscriptionExpiresAt == DateTime.MinValue ? DancingGoat.Helpers.RedirectHelpers.GetSelfConfigIndexResult(message) : DancingGoat.Helpers.RedirectHelpers.GetSelfConfigRecheckResult(message);
+                filterContext.Result = subscriptionExpiresAt == DateTime.MinValue ?
+                    DancingGoat.Helpers.RedirectHelpers.GetSelfConfigIndexResult(message) :
+                    DancingGoat.Helpers.RedirectHelpers.GetSelfConfigRecheckResult(message);
             }
         }
     }

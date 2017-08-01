@@ -45,6 +45,6 @@ namespace DancingGoat.Areas.Admin.Models
         public DateTime? InvitationExpiresAt { get; set; }
 
         [JsonProperty("administratedSubscriptions")]
-        public IEnumerable<SubscriptionModel> AdministeredSubscriptions { get; set; }
+        public IEnumerable<AdministeredSubscriptionModel> AdministeredSubscriptions { get; set; }
     }
 }

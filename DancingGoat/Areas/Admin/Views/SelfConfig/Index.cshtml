@@ -2,7 +2,7 @@
 
 <section>
     <h1>Sample Site - Self Configuration</h1>
-    <p>For your sample app to configure itself automatically with a proper Project ID, you can either get it by signing in using your Kentico Cloud credentials or by signing up for a trial. Later, it will be converted to a free plan.</p>
+    <p>For your sample app to configure itself automatically with a proper project ID, you can either get it by signing in using your Kentico Cloud credentials or by signing up for a trial. Later, it will be converted to a free plan.</p>
 
     @Html.Partial("_WarningPartial")
 
@@ -15,13 +15,7 @@
     <h2>Get a Project ID By Signing Up</h2>
     @using (Html.BeginForm(null, null, FormMethod.Post, new { @action = @"https://horusproduction.e1.loginrocket.com/v1/signup", enctype = "multipart/form-data", id = "signup" }))
     {
-        <p>
-            @Html.EditorFor(vm => vm.SignUpModel)
-            <input type="checkbox" id="termsAccepted" />
-            <label for="termsAccepted">I accept the <a href="https://kenticocloud.com/terms-of-service">Terms of Service</a>.</label>
-            <span id="termsAcceptedValidation" style="display:none">You need to accept the terms.</span>
-        </p>
-        <input type="submit" value="Sign up" />
+        @Html.Partial("_SignUpPartial", Model.SignUpModel)
     }
 </section>
 <section>
@@ -33,101 +27,5 @@
 
 @section Scripts
 {
-    <script>
-        // jquery extend function
-        $.extend(
-            {
-                redirectPost: function (location, args) {
-                    var form = $('<form></form>');
-                    form.attr("method", "post");
-                    form.attr("action", location);
-
-                    $.each(args, function (key, value) {
-                        var field = $('<input></input>');
-
-                        field.attr("type", "hidden");
-                        field.attr("name", key);
-                        field.attr("value", value);
-
-                        form.append(field);
-                    });
-                    $(form).appendTo('body').submit();
-                }
-            });
-
-        // Sign in
-        $("#signin").submit(function (event) {
-
-            // Stop form from submitting normally
-            event.preventDefault();
-
-            // Get some values from elements on the page:
-            var $form = $(this),
-                email = $form.find("input[name='Email']").val(),
-                password = $form.find("input[name='Password']").val(),
-                url = $form.attr("action");
-
-            var credentials = { username: email, password: password };
-
-            // Send the data using post
-            var posting = $.ajax({
-                url: url,
-                data: JSON.stringify(credentials),
-                processData: false,
-                contentType: 'application/json',
-                dataType: 'json',
-                type: 'post',
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    $("#warning").html('').append('An error occurred. Status:' + XMLHttpRequest.status + ', status text: ' + XMLHttpRequest.statusText);
-                },
-                success: function (response) {
-                    if (response.result == 'okay') {
-                        $.redirectPost('/admin/selfconfig/', { 'token': response.token });
-                    }
-                }
-            });
-        });
-
-        // Sign up
-        // Duplicate code to the above one; should be unified eventually.
-        $("#signup").submit(function (event) {
-
-            // Stop form from submitting normally
-            event.preventDefault();
-
-            if (!$("#termsAccepted").is(":checked")) {
-                $("#termsAcceptedValidation").show();
-            }
-            else {
-                // Get some values from elements on the page:
-                var $form = $(this),
-                    firstName = $form.find("input[name='SignUpModel.FirstName']").val(),
-                    lastName = $form.find("input[name='SignUpModel.LastName']").val(),
-                    email = $form.find("input[name='SignUpModel.Email']").val(),
-                    password = $form.find("input[name='SignUpModel.Password']").val(),
-                    url = $form.attr("action");
-
-                var credentials = { email: email, password: password, password_confirmation: password, first_name: firstName, last_name: lastName };
-
-                // Send the data using post
-                var posting = $.ajax({
-                    url: url,
-                    data: JSON.stringify(credentials),
-                    processData: false,
-                    contentType: 'application/json',
-                    dataType: 'json',
-                    type: 'post',
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        $("#warning").html('').append('An error occurred. Status:' + XMLHttpRequest.status + ', status text: ' + XMLHttpRequest.statusText);
-                    },
-                    success: function (response) {
-                        if (response.result == 'okay') {
-                            $.redirectPost('/admin/selfconfig/', { 'token': response.token });
-                        }
-                    }
-                });
-            }
-        });
-
-    </script>
+    @Scripts.Render("~/Areas/Admin/Scripts/identityForms.js")
 }

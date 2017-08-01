@@ -27,9 +27,5 @@ namespace DancingGoat.Areas.Admin.Models
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-
-        //[Display(Name = "")]
-        //[Required]
-        //public bool? TermsAccepted { get; set; } = false;
     }
 }

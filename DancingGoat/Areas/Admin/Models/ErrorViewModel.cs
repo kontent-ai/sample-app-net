@@ -8,9 +8,9 @@ using System.Web.Mvc;
 
 namespace DancingGoat.Areas.Admin.Models
 {
-    public class ProjectIdViewModel
+    public class ErrorViewModel
     {
-        [Display(Name = "Custom project ID")]
-        public string OwnProjectId { get; set; }
+        public string Caption { get; set; }
+        public string Message { get; set; }
     }
 }

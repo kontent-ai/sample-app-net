@@ -11,15 +11,17 @@ using Newtonsoft.Json;
 using DancingGoat.Areas.Admin.Infrastructure;
 using DancingGoat.Areas.Admin.Helpers;
 using DancingGoat.Areas.Admin.Models;
+using System.Configuration;
 
 namespace DancingGoat.Areas.Admin.Controllers
 {
     public class SelfConfigController : Controller
     {
         protected const string MESSAGE_UNAUTHENTICATED = "You haven't authenticated with proper Kentico Cloud credentials. Please close the browser window and log in.";
-        protected const string SHARED_PROJECT_ID = "975bf280-fd91-488c-994c-2f04416e5ee3";
-        protected const string STATUS_ACTIVE = "active";
-        protected const string PROJECT_RENAME_PATTERN = "Sample Project (MVC Sample App, {0})";
+        protected const string MESSAGE_GENERAL_ERROR = "An unknown error occurred.";
+        protected const string MESSAGE_CONFIGURATION_WRITE_ERROR_CAPTION = "Configuration Save Error";
+        protected const string MESSAGE_CONFIGURATION_WRITE_ERROR = "There was an error when setting the project ID. Make sure the worker process has permissions to set the environment settings and try again.";
+        protected const string MESSAGE_DESERIALIZATION_ERROR_CAPTION = "API Response Deserialization Error";
         protected const string COOKIE_NAME = "kcToken";
 
         protected readonly HttpClient _httpClient = new HttpClient();
@@ -27,10 +29,9 @@ namespace DancingGoat.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            ViewBag.IsTls = Request.IsSecureConnection;
-            ViewBag.IsLocal = Request.IsLocal;
+            AddSecurityInfoToViewBag();
 
-            return View(new IndexViewModel { SignInModel = new SignInViewModel() });
+            return View(new IndexViewModel() { SignInModel = new SignInViewModel(), SelectProjectModel = new SelectProjectViewModel(), SignUpModel = new SignUpViewModel() });
         }
 
         [HttpPost]
@@ -40,55 +41,87 @@ namespace DancingGoat.Areas.Admin.Controllers
 
             if (!string.IsNullOrEmpty(actualToken))
             {
-                if (!string.IsNullOrEmpty(token))
+                try
                 {
-                    AddCookie(token);
-                }
-
-                var user = await AdminHelpers.GetUserAsync(actualToken, _httpClient, AdminHelpers.KC_BASE_URL);
-
-                IEnumerable<SubscriptionModel> subscriptions;
-
-                if (user != null)
-                {
-                    subscriptions = await GetSubscriptionsAsync(actualToken);
-                }
-                else
-                {
-                    return DancingGoat.Helpers.RedirectHelpers.GetSelfConfigIndexResult(MESSAGE_UNAUTHENTICATED);
-                }
-
-                if (subscriptions == null || !subscriptions.Any())
-                {
-                    var subscriptionAndProject = await StartTrialAndSampleAsync(actualToken);
-
-                    if (subscriptionAndProject.subscription != null && subscriptionAndProject.project != null)
+                    if (!string.IsNullOrEmpty(token))
                     {
-                        return await SetProject(actualToken, subscriptionAndProject.project.ProjectId.Value, subscriptionAndProject.subscription.EndAt.Value);
+                        AddAuthenticationCookie(token);
+                    }
+
+                    var user = await AdminHelpers.GetUserAsync(actualToken, _httpClient, AdminHelpers.KC_BASE_URL);
+
+                    IEnumerable<SubscriptionModel> subscriptions;
+
+                    if (user != null)
+                    {
+                        subscriptions = await AdminHelpers.GetSubscriptionsAsync(actualToken, _httpClient);
                     }
                     else
                     {
-                        return await SetSharedProject(actualToken, "There was an error when creating the sample site.");
+                        return DancingGoat.Helpers.RedirectHelpers.GetSelfConfigIndexResult(MESSAGE_UNAUTHENTICATED);
                     }
-                }
-                else
-                {
-                    var activeProjects = await GetProjectsAsync(actualToken);
-                    ActionResult result = await CheckInactiveSubscriptions(actualToken, subscriptions, activeProjects);
 
-                    if (result == null)
+                    if (subscriptions == null || !subscriptions.Any())
                     {
-                        if (activeProjects.Any())
+                        var subscriptionAndProject = await AdminHelpers.StartTrialAndSampleAsync(actualToken, _httpClient);
+
+                        if (subscriptionAndProject.subscription != null && subscriptionAndProject.project != null)
                         {
-                            return View("SelectOrCreateProject", BuildSelectProjectViewModel(activeProjects));
+                            try
+                            { // TODO Check if EndAt contains a value.
+                                return await AdminHelpers.SetProjectAsync(actualToken, _httpClient, subscriptionAndProject.project.ProjectId.Value, subscriptionAndProject.subscription.EndAt.Value);
+                            }
+                            catch (ConfigurationErrorsException)
+                            {
+                                return DancingGoat.Helpers.RedirectHelpers.GetSelfConfigIndexResult(MESSAGE_CONFIGURATION_WRITE_ERROR);
+                            }
                         }
                         else
                         {
-                            return await DeploySampleInOwnedSubscriptionAsync(actualToken, user, subscriptions);
+                            try
+                            {
+                                return await AdminHelpers.SetSharedProjectAsync(actualToken, _httpClient, "There was an error when creating the sample site.");
+                            }
+                            catch (ConfigurationErrorsException)
+                            {
+                                return DancingGoat.Helpers.RedirectHelpers.GetSelfConfigIndexResult(MESSAGE_CONFIGURATION_WRITE_ERROR);
+                            }
                         }
                     }
+                    else
+                    {
+                        var activeProjects = await AdminHelpers.GetProjectsAsync(actualToken, _httpClient);
+                        AdminHelperResults result = await AdminHelpers.CheckInactiveSubscriptions(actualToken, _httpClient, subscriptions, activeProjects);
 
-                    return result;
+                        if (string.IsNullOrEmpty(result?.ViewName))
+                        {
+                            if (activeProjects.Any())
+                            {
+                                AddSecurityInfoToViewBag();
+
+                                return View("SelectOrCreateProject", new SelectProjectViewModel { Projects = activeProjects });
+                            }
+                            else
+                            {
+                                try
+                                {
+                                    return await AdminHelpers.DeploySampleInOwnedSubscriptionAsync(actualToken, _httpClient, user);
+                                }
+                                catch (ConfigurationErrorsException)
+                                {
+                                    return DancingGoat.Helpers.RedirectHelpers.GetSelfConfigIndexResult(MESSAGE_CONFIGURATION_WRITE_ERROR);
+                                }
+                            }
+                        }
+
+                        ViewBag.EndAt = result.EndAt;
+
+                        return View(result.ViewName, result.Model);
+                    }
+                }
+                catch (JsonException ex)
+                {
+                    return DancingGoat.Helpers.RedirectHelpers.GetSelfConfigIndexResult($"{MESSAGE_DESERIALIZATION_ERROR_CAPTION}: {ex.Message}");
                 }
             }
             else
@@ -100,8 +133,7 @@ namespace DancingGoat.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Recheck()
         {
-            ViewBag.IsTls = Request.IsSecureConnection;
-            ViewBag.IsLocal = Request.IsLocal;
+            AddSecurityInfoToViewBag();
 
             return View(new SignInViewModel());
         }
@@ -113,49 +145,69 @@ namespace DancingGoat.Areas.Admin.Controllers
 
             if (!string.IsNullOrEmpty(actualToken))
             {
-                if (!string.IsNullOrEmpty(token))
-                {
-                    AddCookie(token);
-                }
-
-                IEnumerable<SubscriptionModel> subscriptions;
-
                 try
                 {
-                    subscriptions = await GetSubscriptionsAsync(actualToken);
-                }
-                catch (UnauthorizedAccessException)
-                {
-                    return DancingGoat.Helpers.RedirectHelpers.GetSelfConfigRecheckResult(MESSAGE_UNAUTHENTICATED);
-                }
-
-                if (subscriptions == null || !subscriptions.Any())
-                {
-                    return View("NoSubscriptions");
-                }
-                else
-                {
-                    var activeProjects = await GetProjectsAsync(actualToken);
-
-                    // The trial period expired, but the web job hasn't converted the trial to the free plan yet.
-                    ActionResult result = await CheckInactiveSubscriptions(actualToken, subscriptions, activeProjects);
-
-                    // The trial was converted to the free plan by the web job.
-                    if (result == null)
+                    if (!string.IsNullOrEmpty(token))
                     {
-                        if (activeProjects.Any(p => p.ProjectId == AppSettingProvider.ProjectId))
-                        {
-                            AppSettingProvider.SubscriptionExpiresAt = DateTime.MaxValue;
-
-                            return DancingGoat.Helpers.RedirectHelpers.GetHomeRedirectResult(null);
-                        }
-                        else
-                        {
-                            return View("SelectOrCreateProject", BuildSelectProjectViewModel(activeProjects));
-                        }
+                        AddAuthenticationCookie(token);
                     }
 
-                    return result;
+                    IEnumerable<SubscriptionModel> subscriptions;
+
+                    try
+                    {
+                        subscriptions = await AdminHelpers.GetSubscriptionsAsync(actualToken, _httpClient);
+                    }
+                    catch (UnauthorizedAccessException)
+                    {
+                        return DancingGoat.Helpers.RedirectHelpers.GetSelfConfigRecheckResult(MESSAGE_UNAUTHENTICATED);
+                    }
+
+                    if (subscriptions == null || !subscriptions.Any())
+                    {
+                        return View("NoSubscriptions");
+                    }
+                    else
+                    {
+                        var activeProjects = await AdminHelpers.GetProjectsAsync(actualToken, _httpClient);
+
+                        // The trial period has expired but the web job hasn't converted the trial to the free plan yet.
+                        AdminHelperResults result = await AdminHelpers.CheckInactiveSubscriptions(actualToken, _httpClient, subscriptions, activeProjects);
+
+                        // The trial was converted to the free plan by the web job.
+                        if (string.IsNullOrEmpty(result?.ViewName))
+                        {
+                            if (activeProjects.Any(p => p.ProjectId == AppSettingProvider.ProjectId))
+                            {
+                                var user = await AdminHelpers.GetUserAsync(actualToken, _httpClient, AdminHelpers.KC_BASE_URL);
+
+                                try
+                                {
+                                    AppSettingProvider.SubscriptionExpiresAt = subscriptions.FirstOrDefault(s => s.Projects.Any(p => p.Id == AppSettingProvider.ProjectId))?.CurrentPlan?.EndAt;
+                                }
+                                catch (ConfigurationErrorsException)
+                                {
+                                    return DancingGoat.Helpers.RedirectHelpers.GetSelfConfigRecheckResult(MESSAGE_CONFIGURATION_WRITE_ERROR);
+                                }
+
+                                return DancingGoat.Helpers.RedirectHelpers.GetHomeRedirectResult(null);
+                            }
+                            else
+                            {
+                                AddSecurityInfoToViewBag();
+
+                                return View("SelectOrCreateProject", new SelectProjectViewModel { Projects = activeProjects });
+                            }
+                        }
+
+                        ViewBag.EndAt = result.EndAt;
+
+                        return View(result.ViewName, result.Model);
+                    }
+                }
+                catch (JsonException ex)
+                {
+                    return DancingGoat.Helpers.RedirectHelpers.GetSelfConfigRecheckResult($"{MESSAGE_DESERIALIZATION_ERROR_CAPTION}: {ex.Message}");
                 }
             }
             else
@@ -169,22 +221,37 @@ namespace DancingGoat.Areas.Admin.Controllers
         public async Task<ActionResult> Free()
         {
             string token = GetToken();
+            SubscriptionModel subscription;
 
             using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, $"{AdminHelpers.KC_BASE_URL}subscription/free"))
             {
-                using (HttpResponseMessage response = await AdminHelpers.GetStandardResponseAsync(token, _httpClient, request))
+                using (HttpResponseMessage response = await AdminHelpers.GetResponseAsync(token, _httpClient, request))
                 {
-                    var subscription = await AdminHelpers.GetResultAsync<SubscriptionModel>(response);
-
-                    if (subscription != null && subscription.PlanName == "free")
+                    try
                     {
-                        AppSettingProvider.SubscriptionExpiresAt = DateTime.MaxValue;
+                        subscription = await AdminHelpers.GetResultAsync<SubscriptionModel>(response);
 
-                        return DancingGoat.Helpers.RedirectHelpers.GetHomeRedirectResult("You've converted your subscription to a free plan.");
+                        if (subscription != null && subscription.PlanName == "free")
+                        {
+                            try
+                            {
+                                AppSettingProvider.SubscriptionExpiresAt = DateTime.MaxValue;
+                            }
+                            catch (ConfigurationErrorsException)
+                            {
+                                return DancingGoat.Helpers.RedirectHelpers.GetHomeRedirectResult(MESSAGE_CONFIGURATION_WRITE_ERROR);
+                            }
+
+                            return DancingGoat.Helpers.RedirectHelpers.GetHomeRedirectResult("You've converted your subscription to a free plan.");
+                        }
+                        else
+                        {
+                            return View("Error", new ErrorViewModel { Caption = "Too Many Resources", Message = "We couldn't convert your subscription to the free plan. Please make sure you've lowered your resources in Kentico Cloud to meet the limits of the free plan." });
+                        }
                     }
-                    else
+                    catch (JsonSerializationException ex)
                     {
-                        return View("Error", new ErrorModel { Caption = "Too Many Resources", Message = "We couldn't convert your subscription to the free plan. Please make sure you've lowered your resources in Kentico Cloud to meet the limits of the free plan." });
+                        return GetDeserializationErrorResult(ex);
                     }
                 }
             }
@@ -196,16 +263,40 @@ namespace DancingGoat.Areas.Admin.Controllers
         {
             string token = GetToken();
 
-            if (model.ProjectId != Guid.Empty)
+            try
             {
-                AppSettingProvider.ProjectId = model.ProjectId;
-                AppSettingProvider.SubscriptionExpiresAt = DateTime.MaxValue;
+                if (model.ProjectId != Guid.Empty)
+                {
+                    var user = await AdminHelpers.GetUserAsync(token, _httpClient, AdminHelpers.KC_BASE_URL);
+                    var subscriptions = await AdminHelpers.GetSubscriptionsAsync(token, _httpClient);
 
-                return DancingGoat.Helpers.RedirectHelpers.GetHomeRedirectResult($"You've configured your app with a Project ID \"{model.ProjectId}\".");
+                    try
+                    {
+                        AppSettingProvider.ProjectId = model.ProjectId;
+                        AppSettingProvider.SubscriptionExpiresAt = subscriptions.FirstOrDefault(s => s.Projects.Any(p => p.Id == AppSettingProvider.ProjectId))?.CurrentPlan?.EndAt;
+                    }
+                    catch (ConfigurationErrorsException)
+                    {
+                        return View("Error", new ErrorViewModel { Caption = MESSAGE_CONFIGURATION_WRITE_ERROR_CAPTION, Message = MESSAGE_CONFIGURATION_WRITE_ERROR });
+                    }
+
+                    return DancingGoat.Helpers.RedirectHelpers.GetHomeRedirectResult($"You've configured your app with a project ID \"{model.ProjectId}\".");
+                }
+                else
+                {
+                    try
+                    {
+                        return await AdminHelpers.SetSharedProjectAsync(token, _httpClient, "The project ID could not be found.");
+                    }
+                    catch (ConfigurationErrorsException)
+                    {
+                        return View("Error", new ErrorViewModel { Caption = MESSAGE_CONFIGURATION_WRITE_ERROR_CAPTION, Message = MESSAGE_CONFIGURATION_WRITE_ERROR });
+                    }
+                }
             }
-            else
+            catch (JsonSerializationException ex)
             {
-                return await SetSharedProject(token, "The Project ID could not be found.");
+                return GetDeserializationErrorResult(ex);
             }
         }
 
@@ -213,10 +304,21 @@ namespace DancingGoat.Areas.Admin.Controllers
         [KenticoCloudAuthorize]
         public ActionResult UseShared()
         {
-            AppSettingProvider.ProjectId = Guid.Parse(SHARED_PROJECT_ID);
-            AppSettingProvider.SubscriptionExpiresAt = DateTime.MaxValue;
+            try
+            {
+                AppSettingProvider.ProjectId = AppSettingProvider.SharedProjectId;
+                AppSettingProvider.SubscriptionExpiresAt = DateTime.MaxValue;
+            }
+            catch (ConfigurationErrorsException)
+            {
+                return View("Error", new ErrorViewModel { Caption = MESSAGE_CONFIGURATION_WRITE_ERROR_CAPTION, Message = MESSAGE_CONFIGURATION_WRITE_ERROR });
+            }
+            catch (JsonSerializationException ex)
+            {
+                return GetDeserializationErrorResult(ex);
+            }
 
-            return DancingGoat.Helpers.RedirectHelpers.GetHomeRedirectResult("You've configured your app to with a Project ID of a shared Kentico Cloud project.");
+            return DancingGoat.Helpers.RedirectHelpers.GetHomeRedirectResult("You've configured your app to with a project ID of a shared Kentico Cloud project.");
         }
 
         [HttpPost]
@@ -224,166 +326,27 @@ namespace DancingGoat.Areas.Admin.Controllers
         public async Task<ActionResult> DeploySample()
         {
             string token = GetToken();
-            var user = await AdminHelpers.GetUserAsync(token, _httpClient, AdminHelpers.KC_BASE_URL);
-            var subscriptions = await GetSubscriptionsAsync(token);
-            return await DeploySampleInOwnedSubscriptionAsync(token, user, subscriptions);
-        }
+            UserModel user;
 
-        private async Task<ActionResult> CheckInactiveSubscriptions(string token, IEnumerable<SubscriptionModel> subscriptions = null, IEnumerable<ProjectModel> projects = null)
-        {
-            var activeProjects = projects?.Where(p => p.Inactive == false) ?? await GetProjectsAsync(token);
-            var allSubscriptions = subscriptions ?? await GetSubscriptionsAsync(token);
-            var activeSubscriptions = allSubscriptions?.Where(s => s.Status.Equals(STATUS_ACTIVE, StringComparison.InvariantCultureIgnoreCase));
-
-            // Inactive expired subscriptions. 
-            if (!activeSubscriptions.Any() && !allSubscriptions.All(s => s.EndAt > DateTime.Now))
+            try
             {
-                var latestExpiredSubscriptions = allSubscriptions.OrderByDescending(s => s.EndAt);
+                user = await AdminHelpers.GetUserAsync(token, _httpClient, AdminHelpers.KC_BASE_URL);
 
-                // Will allow to either convert to the free plan or to use the shared project.
-                if (!activeProjects.Any())
+                try
                 {
-                    ViewBag.EndAt = latestExpiredSubscriptions.FirstOrDefault().EndAt.Value;
-
-                    // Project = null means the project selection won't be displayed.
-                    return View("Expired", new SelectProjectViewModel { Projects = null });
+                    return await AdminHelpers.DeploySampleInOwnedSubscriptionAsync(token, _httpClient, user);
                 }
-
-                // Will allow to do the same, and to pick among active projects.
-                else
+                catch (ConfigurationErrorsException)
                 {
-                    ViewBag.EndAt = latestExpiredSubscriptions.FirstOrDefault().EndAt.Value;
+                    var activeProjects = await AdminHelpers.GetProjectsAsync(token, _httpClient, true);
+                    ViewBag.WarningMessage = MESSAGE_CONFIGURATION_WRITE_ERROR;
 
-                    return View("Expired", new SelectProjectViewModel { Projects = activeProjects });
+                    return View("SelectOrCreateProjects", new SelectProjectViewModel { Projects = activeProjects });
                 }
             }
-
-            // Inactive non-expired subscriptions.
-            else if (!activeSubscriptions.Any() && allSubscriptions.Any(s => s.EndAt <= DateTime.Now))
+            catch (JsonSerializationException ex)
             {
-                // Will suggest activating one of them (manually) and continue.
-                if (!activeProjects.Any())
-                {
-                    // Project = null means the project selection won't be displayed.
-                    return View("Inactive", new SelectProjectViewModel { Projects = null });
-                }
-
-                // Will suggest doing the same, alternatively allows to pick among active projects.
-                else
-                {
-                    return View("Inactive", new SelectProjectViewModel { Projects = activeProjects });
-                }
-            }
-
-            return null;
-        }
-
-        private async Task<ActionResult> SetSharedProject(string token, string message)
-        {
-            return await SetProject(token, Guid.Parse(SHARED_PROJECT_ID), DateTime.MaxValue, $"{message} The app will use the shared Project ID (\"{SHARED_PROJECT_ID}\").");
-        }
-
-        private async Task<ActionResult> DeploySampleInOwnedSubscriptionAsync(string token, UserModel user, IEnumerable<SubscriptionModel> subscriptions)
-        {
-            var administeredSubscriptionId = user.AdministeredSubscriptions.FirstOrDefault()?.SubscriptionId.Value;
-
-            if (administeredSubscriptionId != null)
-            {
-                var project = await DeploySampleAsync(token, administeredSubscriptionId.Value);
-
-                return await SetProject(token, project.ProjectId.Value, subscriptions.FirstOrDefault(s => s.SubscriptionId == administeredSubscriptionId.Value).EndAt.Value);
-            }
-            else
-            {
-                return await SetSharedProject(token, "There was an error when creating the sample site.");
-            }
-        }
-
-        private async Task<ActionResult> SetProject(string token, Guid projectId, DateTime subscriptionExpiresAt, string message = null)
-        {
-            if (projectId != Guid.Empty)
-            {
-                await SetIdAndRename(token, projectId, subscriptionExpiresAt);
-
-                return DancingGoat.Helpers.RedirectHelpers.GetHomeRedirectResult(message);
-            }
-            else
-            {
-                return DancingGoat.Helpers.RedirectHelpers.GetSelfConfigRecheckResult($"There was a problem when setting the \"ProjectId\" environment variable to \"{projectId}\". You can set it up manually in your environment (App service - Application Settings, web.config etc.).");
-            }
-        }
-
-        private async Task SetIdAndRename(string token, Guid projectId, DateTime subscriptionExpiresAt)
-        {
-            AppSettingProvider.ProjectId = projectId;
-            AppSettingProvider.SubscriptionExpiresAt = subscriptionExpiresAt;
-
-            // Assigned to 'task' just to avoid warnings.
-            await RenameProjectAsync(token, projectId);
-        }
-
-        private async Task RenameProjectAsync(string token, Guid projectId)
-        {
-            string deployedAt = DateTime.Now.ToString("m");
-            var project = new ProjectModel
-            {
-                ProjectId = projectId,
-                ProjectName = string.Format(PROJECT_RENAME_PATTERN, deployedAt),
-                ProjectType = "deliver"
-            };
-
-            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Put, $"{AdminHelpers.KC_BASE_URL}project/{projectId}"))
-            {
-                string contentString = JsonConvert.SerializeObject(project, Formatting.None, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
-                request.Content = new StringContent(contentString, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await AdminHelpers.GetStandardResponseAsync(token, _httpClient, request);
-                response.Dispose();
-            }
-        }
-
-        private async Task<(SubscriptionModel subscription, ProjectModel project)> StartTrialAndSampleAsync(string token)
-        {
-            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, $"{AdminHelpers.KC_BASE_URL}subscription/trial"))
-            {
-                using (HttpResponseMessage response = await AdminHelpers.GetStandardResponseAsync(token, _httpClient, request))
-                {
-                    var subscription = await AdminHelpers.GetResultAsync<SubscriptionModel>(response);
-
-                    if (subscription?.SubscriptionId != null)
-                    {
-                        var project = await DeploySampleAsync(token, subscription.SubscriptionId.Value);
-
-                        return (subscription, project);
-                    }
-                    else
-                    {
-                        return (null, null);
-                    }
-                }
-            }
-        }
-
-        private async Task<ProjectModel> DeploySampleAsync(string token, Guid subscriptionId)
-        {
-            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, $"{AdminHelpers.KC_BASE_URL}project/sample/undersubscription/{subscriptionId}"))
-            {
-                using (HttpResponseMessage response = await AdminHelpers.GetStandardResponseAsync(token, _httpClient, request))
-                {
-                    return await AdminHelpers.GetResultAsync<ProjectModel>(response);
-                }
-            }
-        }
-
-        private async Task<IEnumerable<ProjectModel>> GetProjectsAsync(string token, bool onlyActive = false)
-        {
-            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, $"{AdminHelpers.KC_BASE_URL}project"))
-            {
-                using (HttpResponseMessage response = await AdminHelpers.GetStandardResponseAsync(token, _httpClient, request))
-                {
-                    var projects = await AdminHelpers.GetResultAsync<IEnumerable<ProjectModel>>(response);
-
-                    return onlyActive ? projects : projects.Where(p => p.Inactive == false);
-                }
+                return GetDeserializationErrorResult(ex);
             }
         }
 
@@ -392,30 +355,31 @@ namespace DancingGoat.Areas.Admin.Controllers
             return Request.Cookies[COOKIE_NAME]?.Value;
         }
 
-        private async Task<IEnumerable<SubscriptionModel>> GetSubscriptionsAsync(string token)
+        private void AddAuthenticationCookie(string token)
         {
-            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, $"{AdminHelpers.KC_BASE_URL}subscription"))
-            using (HttpResponseMessage response = await AdminHelpers.GetStandardResponseAsync(token, _httpClient, request))
-            {
-                return await AdminHelpers.GetResultAsync<IEnumerable<SubscriptionModel>>(response);
-            }
-        }
+            var cookie = new HttpCookie(COOKIE_NAME, token);
+            cookie.Expires = DateTime.Now.AddDays(1);
 
-        private void AddCookie(string token)
-        {
-            if (string.IsNullOrEmpty(Request.Cookies["kcToken"]?.Value))
+            if (string.IsNullOrEmpty(Request.Cookies[COOKIE_NAME]?.Value))
             {
-                var cookie = new HttpCookie("kcToken", token) { Expires = DateTime.Now.AddDays(1) };
                 Response.Cookies.Add(cookie);
             }
+            else
+            {
+                Response.Cookies[COOKIE_NAME].Value = cookie.Value;
+                Response.Cookies[COOKIE_NAME].Expires = cookie.Expires;
+            }
         }
 
-        private static SelectProjectViewModel BuildSelectProjectViewModel(IEnumerable<ProjectModel> activeProjects)
+        private ActionResult GetDeserializationErrorResult(Exception ex)
         {
-            return new SelectProjectViewModel
-            {
-                Projects = activeProjects
-            };
+            return View("Error", new ErrorViewModel { Caption = MESSAGE_DESERIALIZATION_ERROR_CAPTION, Message = ex.Message });
+        }
+
+        private void AddSecurityInfoToViewBag()
+        {
+            ViewBag.IsTls = Request.IsSecureConnection;
+            ViewBag.IsLocal = Request.IsLocal;
         }
     }
 }
