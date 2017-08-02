@@ -193,8 +193,11 @@
     <Compile Include="Areas\Admin\Controllers\SelfConfigController.cs" />
     <Compile Include="Areas\Admin\Helpers\AdminHelpers.cs" />
     <Compile Include="Areas\Admin\Infrastructure\KenticoCloudAuthorizeAttribute.cs" />
+    <Compile Include="Areas\Admin\Models\AdminHelperResults.cs" />
+    <Compile Include="Areas\Admin\Models\AdministeredSubscriptionModel.cs" />
     <Compile Include="Areas\Admin\Models\AuthModel.cs" />
-    <Compile Include="Areas\Admin\Models\ErrorModel.cs" />
+    <Compile Include="Areas\Admin\Models\ErrorViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\PlanModel.cs" />
     <Compile Include="Areas\Admin\Models\SelectProjectViewModel.cs" />
     <Compile Include="Areas\Admin\Models\SignInViewModel.cs" />
     <Compile Include="Areas\Admin\Models\IndexViewModel.cs" />
@@ -202,6 +205,7 @@
     <Compile Include="Areas\Admin\Models\ProjectModel.cs" />
     <Compile Include="Areas\Admin\Models\SignUpViewModel.cs" />
     <Compile Include="Areas\Admin\Models\SubscriptionModel.cs" />
+    <Compile Include="Areas\Admin\Models\SubscriptionProjectModel.cs" />
     <Compile Include="Areas\Admin\Models\UserModel.cs" />
     <Compile Include="Controllers\ArticlesController.cs" />
     <Compile Include="Controllers\CafesController.cs" />
@@ -255,7 +259,9 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\Scripts\identityForms.js" />
     <Content Include="Areas\Admin\Scripts\selectProject.js" />
+    <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -298,7 +304,6 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\SelfConfig\Index.cshtml" />
     <Content Include="Areas\Admin\Views\SelfConfig\Expired.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_ProjectIdPartial.cshtml" />
@@ -317,6 +322,7 @@
     <Content Include="Areas\Admin\Views\Shared\_SignInPartial.cshtml" />
     <Content Include="Areas\Admin\Views\SelfConfig\Recheck.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_WarningPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_SignUpPartial.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\formAutoPost.js" />

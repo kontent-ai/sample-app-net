@@ -68,7 +68,7 @@ namespace DancingGoat.Areas.Admin.Controllers
                         if (subscriptionAndProject.subscription != null && subscriptionAndProject.project != null)
                         {
                             try
-                            { // TODO Check if EndAt contains a value.
+                            {
                                 return await AdminHelpers.SetProjectAsync(actualToken, _httpClient, subscriptionAndProject.project.ProjectId.Value, subscriptionAndProject.subscription.EndAt.Value);
                             }
                             catch (ConfigurationErrorsException)
