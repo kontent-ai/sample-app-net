@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -18,7 +17,6 @@ namespace DancingGoat.Areas.Admin.Controllers
     public class SelfConfigController : Controller
     {
         protected const string MESSAGE_UNAUTHENTICATED = "You haven't authenticated with proper Kentico Cloud credentials. Please close the browser window and log in.";
-        protected const string MESSAGE_GENERAL_ERROR = "An unknown error occurred.";
         protected const string MESSAGE_CONFIGURATION_WRITE_ERROR_CAPTION = "Configuration Save Error";
         protected const string MESSAGE_CONFIGURATION_WRITE_ERROR = "There was an error when setting the project ID. Make sure the worker process has permissions to set the environment settings and try again.";
         protected const string MESSAGE_DESERIALIZATION_ERROR_CAPTION = "API Response Deserialization Error";
@@ -221,7 +219,6 @@ namespace DancingGoat.Areas.Admin.Controllers
         public async Task<ActionResult> Free()
         {
             string token = GetToken();
-            SubscriptionModel subscription;
 
             using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, $"{AdminHelpers.KC_BASE_URL}subscription/free"))
             {
@@ -229,7 +226,7 @@ namespace DancingGoat.Areas.Admin.Controllers
                 {
                     try
                     {
-                        subscription = await AdminHelpers.GetResultAsync<SubscriptionModel>(response);
+                        var subscription = await AdminHelpers.GetResultAsync<SubscriptionModel>(response);
 
                         if (subscription != null && subscription.PlanName == "free")
                         {
@@ -267,7 +264,6 @@ namespace DancingGoat.Areas.Admin.Controllers
             {
                 if (model.ProjectId != Guid.Empty)
                 {
-                    var user = await AdminHelpers.GetUserAsync(token, _httpClient, AdminHelpers.KC_BASE_URL);
                     var subscriptions = await AdminHelpers.GetSubscriptionsAsync(token, _httpClient);
 
                     try
@@ -326,11 +322,10 @@ namespace DancingGoat.Areas.Admin.Controllers
         public async Task<ActionResult> DeploySample()
         {
             string token = GetToken();
-            UserModel user;
 
             try
             {
-                user = await AdminHelpers.GetUserAsync(token, _httpClient, AdminHelpers.KC_BASE_URL);
+                var user = await AdminHelpers.GetUserAsync(token, _httpClient, AdminHelpers.KC_BASE_URL);
 
                 try
                 {
@@ -357,8 +352,7 @@ namespace DancingGoat.Areas.Admin.Controllers
 
         private void AddAuthenticationCookie(string token)
         {
-            var cookie = new HttpCookie(COOKIE_NAME, token);
-            cookie.Expires = DateTime.Now.AddDays(1);
+            var cookie = new HttpCookie(COOKIE_NAME, token) { Expires = DateTime.Now.AddDays(1) };
 
             if (string.IsNullOrEmpty(Request.Cookies[COOKIE_NAME]?.Value))
             {

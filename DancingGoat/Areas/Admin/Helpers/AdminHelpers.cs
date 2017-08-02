@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
-
 using System.Net.Http;
 using System.Web.Mvc;
 using Newtonsoft.Json;
@@ -69,9 +67,6 @@ namespace DancingGoat.Areas.Admin.Helpers
                         // Projects = null means the project selection won't be displayed.
                         Model = new SelectProjectViewModel { Projects = null }
                     };
-                    //ViewBag.EndAt = latestExpiredSubscriptions.FirstOrDefault().EndAt.Value,
-
-                    //return View("Expired", new SelectProjectViewModel { Projects = null });
                 }
 
                 // Will allow to either convert to the free plan, to use the shared project, or to pick among active projects.
@@ -83,9 +78,6 @@ namespace DancingGoat.Areas.Admin.Helpers
                         ViewName = "Expired",
                         Model = new SelectProjectViewModel { Projects = activeProjects }
                     };
-                    //ViewBag.EndAt = latestExpiredSubscriptions.FirstOrDefault().EndAt.Value;
-
-                    //return View("Expired", new SelectProjectViewModel { Projects = activeProjects });
                 }
             }
 
@@ -100,7 +92,6 @@ namespace DancingGoat.Areas.Admin.Helpers
                         ViewName = "Inactive",
                         Model = new SelectProjectViewModel { Projects = null }
                     };
-                    //return View("Inactive", new SelectProjectViewModel { Projects = null });
                 }
 
                 // Will suggest activating subscriptions (manually) or picking among active projects.
@@ -111,7 +102,6 @@ namespace DancingGoat.Areas.Admin.Helpers
                         ViewName = "Inactive",
                         Model = new SelectProjectViewModel { Projects = activeProjects }
                     };
-                    //return View("Inactive", new SelectProjectViewModel { Projects = activeProjects });
                 }
             }
 
@@ -120,7 +110,7 @@ namespace DancingGoat.Areas.Admin.Helpers
 
         public static async Task<ActionResult> SetSharedProjectAsync(string token, HttpClient httpClient, string message)
         {
-            return await SetProjectAsync(token, httpClient, projectId: Guid.Parse(SHARED_PROJECT_ID), subscriptionExpiresAt: DateTime.MaxValue, message: $"{message} The app will use the shared project ID (\"{SHARED_PROJECT_ID}\").");
+            return await SetProjectAsync(token, httpClient, Guid.Parse(SHARED_PROJECT_ID), DateTime.MaxValue, $"{message} The app will use the shared project ID (\"{SHARED_PROJECT_ID}\").");
         }
 
         public static async Task<ActionResult> DeploySampleInOwnedSubscriptionAsync(string token, HttpClient httpClient, UserModel user, IEnumerable<SubscriptionModel> subscriptions = null)
@@ -131,13 +121,13 @@ namespace DancingGoat.Areas.Admin.Helpers
 
             if (administeredSubscriptionId.HasValue && administeredSubscription != null)
             {
-                var project = await DeploySampleAsync(token, httpClient, subscriptionId: administeredSubscriptionId.Value);
+                var project = await DeploySampleAsync(token, httpClient, administeredSubscriptionId.Value);
 
-                return await SetProjectAsync(token, httpClient, projectId: project.ProjectId.Value, subscriptionExpiresAt: administeredSubscription.CurrentPlan.EndAt.Value);
+                return await SetProjectAsync(token, httpClient, project.ProjectId.Value, administeredSubscription.CurrentPlan.EndAt.Value);
             }
             else
             {
-                return await SetSharedProjectAsync(token, httpClient, message: "There was an error when creating the sample site.");
+                return await SetSharedProjectAsync(token, httpClient, "There was an error when creating the sample site.");
             }
         }
 
@@ -145,7 +135,7 @@ namespace DancingGoat.Areas.Admin.Helpers
         {
             if (projectId != Guid.Empty)
             {
-                await SetIdAndRenameAsync(token, httpClient, projectId: projectId, subscriptionExpiresAt: subscriptionExpiresAt);
+                await SetIdAndRenameAsync(token, httpClient, projectId, subscriptionExpiresAt);
 
                 return DancingGoat.Helpers.RedirectHelpers.GetHomeRedirectResult(message);
             }
@@ -160,7 +150,7 @@ namespace DancingGoat.Areas.Admin.Helpers
             AppSettingProvider.ProjectId = projectId;
             AppSettingProvider.SubscriptionExpiresAt = subscriptionExpiresAt;
 
-            await RenameProjectAsync(token, httpClient, projectId: projectId);
+            await RenameProjectAsync(token, httpClient, projectId);
         }
 
         public static async Task RenameProjectAsync(string token, HttpClient httpClient, Guid projectId)
@@ -192,7 +182,7 @@ namespace DancingGoat.Areas.Admin.Helpers
 
                     if (subscription != null)
                     {
-                        var project = await DeploySampleAsync(token, httpClient, subscriptionId: subscription.SubscriptionId);
+                        var project = await DeploySampleAsync(token, httpClient, subscription.SubscriptionId);
 
                         return (subscription, project);
                     }
@@ -238,8 +228,5 @@ namespace DancingGoat.Areas.Admin.Helpers
                 }
             }
         }
-
-
-
     }
 }
