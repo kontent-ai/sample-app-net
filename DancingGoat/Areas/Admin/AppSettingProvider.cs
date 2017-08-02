@@ -94,7 +94,7 @@ namespace DancingGoat.Areas.Admin
             }
         }
 
-        internal static Guid? SharedProjectId
+        internal static Guid? DefaultProjectId
         {
             get
             {
@@ -104,7 +104,7 @@ namespace DancingGoat.Areas.Admin
                 }
                 else
                 {
-                    if (Guid.TryParse(ConfigurationManager.AppSettings["SharedProjectId"], out Guid projectId))
+                    if (Guid.TryParse(ConfigurationManager.AppSettings["DefaultProjectId"], out Guid projectId))
                     {
                         _sharedProjectId = projectId;
 

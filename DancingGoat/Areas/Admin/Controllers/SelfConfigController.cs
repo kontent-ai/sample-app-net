@@ -306,7 +306,7 @@ namespace DancingGoat.Areas.Admin.Controllers
         {
             try
             {
-                AppSettingProvider.ProjectId = AppSettingProvider.SharedProjectId;
+                AppSettingProvider.ProjectId = AppSettingProvider.DefaultProjectId;
                 AppSettingProvider.SubscriptionExpiresAt = DateTime.MaxValue;
             }
             catch (ConfigurationErrorsException)
