@@ -1,7 +1,11 @@
-﻿@model DancingGoat.Areas.Admin.Models.SignUpViewModel
+﻿@using DancingGoat.Helpers.Extensions
+@model DancingGoat.Areas.Admin.Models.SignUpViewModel
 
 <p>
-    @Html.EditorForModel()
+    @Html.ValidatedEditorFor(vm => vm.FirstName)
+    @Html.ValidatedEditorFor(vm => vm.LastName)
+    @Html.ValidatedEditorFor(vm => vm.Email)
+    @Html.ValidatedEditorFor(vm => vm.Password)
     <input type="checkbox" id="termsAccepted" />
     <label for="termsAccepted">I accept the <a href="https://kenticocloud.com/terms-of-service">Terms of Service</a>.</label>
     <span id="termsAcceptedValidation" style="display:none">You need to accept the terms.</span>

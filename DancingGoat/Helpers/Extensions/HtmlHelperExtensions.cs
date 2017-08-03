@@ -56,5 +56,37 @@ namespace DancingGoat.Helpers.Extensions
         {
             return htmlHelper.DisplayFor(expression, "DateTime", new DateTimeFormatterParameters { FormatCharacter = format });
         }
+
+        /// <summary>
+        /// Returns an HTML input element with a label and validation fields for each property in the object that is represented by the <see cref="Expression"/> expression.
+        /// </summary>
+        /// <typeparam name="TModel">The type of the model.</typeparam>
+        /// <typeparam name="TValue">The type of the value.</typeparam>
+        /// <param name="html">The HTML helper instance that this method extends.</param>
+        /// <param name="expression">An expression that identifies the object that contains the displayed properties.</param>
+        /// <param name="explanationText">An explanation text describing usage of the rendered field.</param>
+        public static MvcHtmlString ValidatedEditorFor<TModel, TValue>(this HtmlHelper<TModel> html, Expression<Func<TModel, TValue>> expression, string explanationText = "")
+        {
+            var label = html.LabelFor(expression).ToString();
+            var editor = html.EditorFor(expression).ToString();
+            var message = html.ValidationMessageFor(expression).ToString();
+            var explanationTextHtml = "";
+
+            if (!string.IsNullOrEmpty(explanationText))
+            {
+                explanationTextHtml = "<div class=\"explanation-text\">" + explanationText + "</div>";
+            }
+
+            var generatedHtml = string.Format(@"
+<div class=""form-group"">
+    <div class=""form-group-label"">{0}</div>
+    <div class=""form-group-input"">{1}
+       {2}
+    </div>
+    <div class=""message message-error"">{3}</div>
+</div>", label, editor, explanationTextHtml, message);
+
+            return MvcHtmlString.Create(generatedHtml);
+        }
     }
 }

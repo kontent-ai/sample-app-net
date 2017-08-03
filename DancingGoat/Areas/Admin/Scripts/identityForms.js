@@ -22,15 +22,15 @@
         });
 
     // Sign in
-    $("#signin").submit(function (event) {
+    $("#signInForm").submit(function (event) {
 
         // Stop form from submitting normally
         event.preventDefault();
 
         // Get some values from elements on the page:
         var $form = $(this),
-            email = $form.find("input[name='Email']").val(),
-            password = $form.find("input[name='Password']").val(),
+            email = $form.find("input[id='Email']").val(),
+            password = $form.find("input[id='Password']").val(),
             url = $form.attr("action");
 
         var credentials = { username: email, password: password };
@@ -40,7 +40,7 @@
     });
 
     // Sign up
-    $("#signup").submit(function (event) {
+    $("#signUpForm").submit(function (event) {
 
         // Stop form from submitting normally
         event.preventDefault();
@@ -51,10 +51,10 @@
         else {
             // Get some values from elements on the page:
             var $form = $(this),
-                firstName = $form.find("input[name='SignUpModel.FirstName']").val(),
-                lastName = $form.find("input[name='SignUpModel.LastName']").val(),
-                email = $form.find("input[name='SignUpModel.Email']").val(),
-                password = $form.find("input[name='SignUpModel.Password']").val(),
+                firstName = $form.find("input[id='FirstName']").val(),
+                lastName = $form.find("input[id='LastName']").val(),
+                email = $form.find("input[id='Email']").val(),
+                password = $form.find("input[id='Password']").val(),
                 url = $form.attr("action");
 
             var credentials = { email: email, password: password, password_confirmation: password, first_name: firstName, last_name: lastName };

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Configuration;
 using System.Web.Configuration;
 
@@ -38,7 +39,7 @@ namespace DancingGoat.Areas.Admin
             }
             set
             {
-                if (DateTime.TryParse(ConfigurationManager.AppSettings[SUBSCRIPTION_EXPIRES_KEY_NAME], out DateTime subscriptionExpiresAt))
+                if (ConfigurationManager.AppSettings.AllKeys.Contains(SUBSCRIPTION_EXPIRES_KEY_NAME))
                 {
                     _configuration.AppSettings.Settings[SUBSCRIPTION_EXPIRES_KEY_NAME].Value = value.Value.ToString("o");
                 }
@@ -76,7 +77,7 @@ namespace DancingGoat.Areas.Admin
             }
             set
             {
-                if (Guid.TryParse(ConfigurationManager.AppSettings[PROJECT_ID_KEY_NAME], out Guid projectId))
+                if (ConfigurationManager.AppSettings.AllKeys.Contains(PROJECT_ID_KEY_NAME))
                 {
                     _configuration.AppSettings.Settings[PROJECT_ID_KEY_NAME].Value = value.ToString();
                 }

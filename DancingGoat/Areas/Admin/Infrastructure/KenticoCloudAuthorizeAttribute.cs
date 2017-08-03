@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Web.Mvc;
+
 using System.Threading.Tasks;
-using DancingGoat.Areas.Admin.Helpers;
+using System.Net.Http;
 using DancingGoat.Areas.Admin.Models;
 
 namespace DancingGoat.Areas.Admin.Infrastructure
@@ -16,7 +17,7 @@ namespace DancingGoat.Areas.Admin.Infrastructure
             
             if (!string.IsNullOrEmpty(token))
             {
-                user = Task.Run(() => AdminHelpers.GetUserAsync(token, new System.Net.Http.HttpClient(), AdminHelpers.KC_BASE_URL)).Result;
+                user = Task.Run(() => (new AuthenticationProvider(new HttpClient())).GetUserAsync(token)).Result;
             }
 
             if (user == null)

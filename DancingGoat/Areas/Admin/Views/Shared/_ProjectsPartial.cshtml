@@ -1,11 +1,12 @@
-﻿@model DancingGoat.Areas.Admin.Models.SelectProjectViewModel
+﻿@using DancingGoat.Helpers.Extensions
+@model DancingGoat.Areas.Admin.Models.SelectProjectViewModel
 
 <h2>Select Among Active Projects</h2>
 <p>Pick one of the active projects you have access to.</p>
 
 @using (Html.BeginForm("SelectProject", "SelfConfig", FormMethod.Post, new { Id = "selectProject" }))
 {
-    @Html.EditorFor(vm => vm.Projects)
+    @Html.ValidatedEditorFor(vm => vm.Projects)
     <input type="submit" value="Set project ID"/>
     <p id="selectProjectValidation"></p>
 }

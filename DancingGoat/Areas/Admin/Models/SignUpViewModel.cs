@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace DancingGoat.Areas.Admin.Models
 {
-    public class SignUpViewModel
+    public class SignUpViewModel : SignInViewModel
     {
         [Display(Name = "First name")]
         [Required]
@@ -17,15 +17,5 @@ namespace DancingGoat.Areas.Admin.Models
         [Display(Name = "Last name")]
         [Required]
         public string LastName { get; set; }
-
-        [Display(Name = "Email")]
-        [Required]
-        [DataType(DataType.EmailAddress, ErrorMessage = "Incorrect e-mail format.")]
-        public string Email { get; set; }
-
-        [Display(Name = "Password")]
-        [Required]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
     }
 }

@@ -7,13 +7,13 @@
     @Html.Partial("_WarningPartial")
 
     <h2>Get a Project ID By Signing In</h2>
-    @using (Html.BeginForm(null, null, FormMethod.Post, new { @action = @"https://horusproduction.e1.loginrocket.com/v1/login", enctype = "multipart/form-data", id = "signin" }))
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { @action = @"https://horusproduction.e1.loginrocket.com/v1/login", enctype = "multipart/form-data", id = "signInForm" }))
     {
         @Html.Partial("_SignInPartial", Model.SignInModel)
     }
 
     <h2>Get a Project ID By Signing Up</h2>
-    @using (Html.BeginForm(null, null, FormMethod.Post, new { @action = @"https://horusproduction.e1.loginrocket.com/v1/signup", enctype = "multipart/form-data", id = "signup" }))
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { @action = @"https://horusproduction.e1.loginrocket.com/v1/signup", enctype = "multipart/form-data", id = "signUpForm" }))
     {
         @Html.Partial("_SignUpPartial", Model.SignUpModel)
     }

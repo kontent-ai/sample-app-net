@@ -1,5 +1,5 @@
 ﻿$("#selectProject").submit(function (event) {
-    if (!$("input[name='ProjectId']:checked").val()) {
+    if (!$("input[name='projectId']:checked").val()) {
         event.preventDefault();
         $("#selectProjectValidation").text("You need to select a project.");
     }

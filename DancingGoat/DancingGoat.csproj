@@ -191,17 +191,19 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\AppSettingProvider.cs" />
     <Compile Include="Areas\Admin\Controllers\SelfConfigController.cs" />
-    <Compile Include="Areas\Admin\Helpers\AdminHelpers.cs" />
+    <Compile Include="Areas\Admin\Infrastructure\SelfConfigManager.cs" />
+    <Compile Include="Areas\Admin\Infrastructure\AuthenticationProvider.cs" />
     <Compile Include="Areas\Admin\Infrastructure\KenticoCloudAuthorizeAttribute.cs" />
-    <Compile Include="Areas\Admin\Models\AdminHelperResults.cs" />
+    <Compile Include="Areas\Admin\Infrastructure\ProjectProvider.cs" />
+    <Compile Include="Areas\Admin\Infrastructure\ProviderBase.cs" />
+    <Compile Include="Areas\Admin\Infrastructure\SubscriptionProvider.cs" />
+    <Compile Include="Areas\Admin\Models\SubscriptionStatusResults.cs" />
     <Compile Include="Areas\Admin\Models\AdministeredSubscriptionModel.cs" />
-    <Compile Include="Areas\Admin\Models\AuthModel.cs" />
     <Compile Include="Areas\Admin\Models\ErrorViewModel.cs" />
     <Compile Include="Areas\Admin\Models\PlanModel.cs" />
     <Compile Include="Areas\Admin\Models\SelectProjectViewModel.cs" />
     <Compile Include="Areas\Admin\Models\SignInViewModel.cs" />
     <Compile Include="Areas\Admin\Models\IndexViewModel.cs" />
-    <Compile Include="Areas\Admin\Models\ProjectIdViewModel.cs" />
     <Compile Include="Areas\Admin\Models\ProjectModel.cs" />
     <Compile Include="Areas\Admin\Models\SignUpViewModel.cs" />
     <Compile Include="Areas\Admin\Models\SubscriptionModel.cs" />
@@ -400,6 +402,9 @@
       <CustomToolNamespace>Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Shared\EditorTemplates\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

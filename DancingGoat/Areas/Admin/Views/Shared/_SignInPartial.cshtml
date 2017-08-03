@@ -1,6 +1,8 @@
-﻿@model DancingGoat.Areas.Admin.Models.SignInViewModel
+﻿@using DancingGoat.Helpers.Extensions
+@model DancingGoat.Areas.Admin.Models.SignInViewModel
 
 <p>
-    @Html.EditorForModel()
+    @Html.ValidatedEditorFor(vm => vm.Email)
+    @Html.ValidatedEditorFor(vm => vm.Password)
 </p>
 <input type="submit" value="Sign in" />
