@@ -38,6 +38,18 @@
                             </li>
                         </ul>
                     </nav>
+                    <div class="additional-menu-buttons user-menu">
+                        <nav role="navigation">
+                            <ul class="dropdown-items-list dropdown-desktop-visible">
+                                <li>
+                                    @Html.ActionLink("English", ViewContext.RouteData.Values["action"].ToString(), new { language = "en-us" })
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Español", ViewContext.RouteData.Values["action"].ToString(), new { language = "es-es" })
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
                 </div>
             </div>
             <div class="header-row">
@@ -67,10 +79,10 @@
                         <div class="col-md-4 col-lg-4 footer-col">
                             <h3>@Resources.DancingGoat.FollowUs_Title</h3>
                             <a class="followus-link" href="https://www.facebook.com/Dancing.Goat" target="_blank">
-                                <img alt="Follow us on Facebook" class="" src="~/Content/Images/facebook-icon.png" title="Follow us on Facebook">
+                                <img alt="@Resources.DancingGoat.FollowUsOnFacebook" class="" src="~/Content/Images/facebook-icon.png" title="@Resources.DancingGoat.FollowUsOnFacebook">
                             </a>
                             <a class="followus-link" href="https://twitter.com/DancingGoat78" target="_blank">
-                                <img alt="Follow us on Twitter" class="" src="~/Content/Images/twitter-icon.png" title="Follow us on Twitter">
+                                <img alt="@Resources.DancingGoat.FollowUsOnTwitter" class="" src="~/Content/Images/twitter-icon.png" title="@Resources.DancingGoat.FollowUsOnTwitter">
                             </a>
                         </div>
                     </div>

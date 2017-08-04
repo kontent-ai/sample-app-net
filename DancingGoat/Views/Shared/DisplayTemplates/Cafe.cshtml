@@ -4,7 +4,8 @@
     <div class="cafe-tile cursor-hand js-scroll-to-map" data-address="@Model.City, @Model.Street">
         @if (ViewData.ContainsKey("ShowImage") && (bool)ViewData["ShowImage"] == true)
         {
-            <div class="cafe-image-tile-image-wrapper" style="background-image:url('@Model.Photo.First().Url'); background-size: cover; background-position: right center;"></div>
+            var photo = Model.Photo.FirstOrDefault();
+            <div class="cafe-image-tile-image-wrapper" style="background-image:url('@(photo != null ? photo.Url: "")'); background-size: cover; background-position: right center;"></div>
         }
         <div class="cafe-tile-content">
             <h3 class="cafe-tile-name">@Html.DisplayFor(vm => vm.System.Name)</h3>

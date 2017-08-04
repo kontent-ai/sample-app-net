@@ -4,14 +4,14 @@
 <div class="col-md-3">
     <div class="article-tile">
         <a href="@Url.Action("Show", "Articles", new { urlSlug = Model.UrlPattern })">
-            @Html.AssetImage(Model.TeaserImage.FirstOrDefault(), title: $"Article {Model.System.Name}", cssClass: "article-tile-image")
+            @Html.AssetImage(Model.TeaserImage.FirstOrDefault(), title: $"Article {Model.Title}", cssClass: "article-tile-image")
         </a>
         <div class="article-tile-date">
             @Html.DateTimeFormattedFor(vm => vm.PostDate, "M")
         </div>
         <div class="article-tile-content">
             <h2 class="h4">
-                <a href="@Url.Action("Show", "Articles", new { urlSlug = Model.UrlPattern })">@Model.System.Name </a>
+                <a href="@Url.Action("Show", "Articles", new { urlSlug = Model.UrlPattern })">@Model.Title</a>
             </h2>
             <p class="article-tile-text">
                 @Html.DisplayFor(vm => vm.Summary)

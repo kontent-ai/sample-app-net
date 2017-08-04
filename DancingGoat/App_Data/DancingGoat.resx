@@ -754,4 +754,89 @@ If you did not submit the request please let us know.</value>
   <data name="Partnership" xml:space="preserve">
     <value>Partnership</value>
   </data>
+  <data name="Partnership.LeftInfoItem1" xml:space="preserve">
+    <value>Multiple sale levels of up to 25% based on the quarterly quota</value>
+  </data>
+  <data name="Partnership.LeftInfoItem2" xml:space="preserve">
+    <value>Free tableware and merchandise</value>
+  </data>
+  <data name="Partnership.LeftInfoItem3" xml:space="preserve">
+    <value>Promotional materials</value>
+  </data>
+  <data name="Partnership.LeftInfoTitle" xml:space="preserve">
+    <value>Wholesale Partner Program</value>
+  </data>
+  <data name="Partnership.RightInfoTitle" xml:space="preserve">
+    <value>Partner Café Program</value>
+  </data>
+  <data name="FollowUsOnFacebook" xml:space="preserve">
+    <value>Follow us on Facebook</value>
+  </data>
+  <data name="FollowUsOnTwitter" xml:space="preserve">
+    <value>Follow us on Twitter</value>
+  </data>
+  <data name="Partnership.ApplicationText" xml:space="preserve">
+    <value>Your business is also our business. Become a part of our brand and benefit from it.</value>
+  </data>
+  <data name="Partnership.ApplicationTitle" xml:space="preserve">
+    <value>Partnership Application</value>
+  </data>
+  <data name="Partnership.Form.Apply" xml:space="preserve">
+    <value>APPLY</value>
+  </data>
+  <data name="Partnership.Form.CompanyName" xml:space="preserve">
+    <value>Company name</value>
+  </data>
+  <data name="Partnership.Form.Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Partnership.Form.FirstName" xml:space="preserve">
+    <value>First name</value>
+  </data>
+  <data name="Partnership.Form.Interest" xml:space="preserve">
+    <value>I am interested in...</value>
+  </data>
+  <data name="Partnership.Form.Interest.PartnerCafe" xml:space="preserve">
+    <value>Becoming a partner café</value>
+  </data>
+  <data name="Partnership.Form.Interest.WholesalePartner" xml:space="preserve">
+    <value>Becoming a wholesale partner</value>
+  </data>
+  <data name="Partnership.Form.LastName" xml:space="preserve">
+    <value>Last name</value>
+  </data>
+  <data name="Partnership.Form.Phone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="Partnership.RequestLabel" xml:space="preserve">
+    <value>We'll contact you within 48 hours to discuss details and explain any question of yours regarding the partnership.</value>
+  </data>
+  <data name="Partnership.RightInfoItem1" xml:space="preserve">
+    <value>for café owners only</value>
+  </data>
+  <data name="Partnership.RightInfoItem2" xml:space="preserve">
+    <value>Multiple sale levels of up to 25% based on the quarterly quota</value>
+  </data>
+  <data name="Partnership.RightInfoItem3" xml:space="preserve">
+    <value>Professional coffee machine rental and leasing</value>
+  </data>
+  <data name="Partnership.RightInfoItem4" xml:space="preserve">
+    <value>Promotion by Dancing Goat</value>
+  </data>
+  <data name="Partnership.RightInfoItem5" xml:space="preserve">
+    <value>Barista, promotion, and management training</value>
+  </data>
+  <data name="Partnership.RightInfoItem6" xml:space="preserve">
+    <value>Special merchandise and access to limited editions</value>
+  </data>
+  <data name="Partnership.Text" xml:space="preserve">
+    <value>If your company buys in our on-line store regularly, we'd like to reward you and offer you our wholesale partner program. Register on the form below and we'll contact you within two days with a newly created business account with which you can buy discounted products. The discount is of up to 25% and is settled on a quarterly basis according to your purchases the quarter before. Besides that, you get free tableware and merchandise along with other promotional materials.&lt;/br&gt;&lt;/br&gt;
+
+If you have a café or you want to open one and you'd like to be referred to as our partner café, we offer a partner café program in which you can also buy for discounted prices and get free tableware and merchandise. Dancing Goat also offers the rental and leasing of professional café equipment to our partner cafés and access to limited editions of our special merchandise. &lt;/br&gt; &lt;/br&gt;
+
+Just register and wait two days for our sales person to contact you. We do the magic and then you can start making the profit.</value>
+  </data>
+  <data name="Partnership.Title" xml:space="preserve">
+    <value>How does it work?</value>
+  </data>
 </root>

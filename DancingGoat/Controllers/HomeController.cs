@@ -23,7 +23,6 @@ namespace DancingGoat.Controllers
             }
         }
 
-        [Route]
         public async Task<ActionResult> Index()
         {
             var response = await client.GetItemAsync<Home>("home");

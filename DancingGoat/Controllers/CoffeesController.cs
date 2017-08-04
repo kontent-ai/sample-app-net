@@ -7,10 +7,8 @@ using System.Web.Mvc;
 
 namespace DancingGoat.Controllers
 {
-    [RoutePrefix("product-catalog/coffees")]
     public class CoffeesController : ControllerBase
     {
-        [Route]
         public async Task<ActionResult> Index()
         {
             var response = await client.GetItemsAsync<Coffee>(
