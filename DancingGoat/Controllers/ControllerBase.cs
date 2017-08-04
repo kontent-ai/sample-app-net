@@ -1,4 +1,5 @@
-﻿using DancingGoat.Areas.Admin;
+﻿using System;
+using DancingGoat.Areas.Admin;
 using DancingGoat.Infrastructure;
 using DancingGoat.Models;
 using KenticoCloud.Delivery;
@@ -13,10 +14,13 @@ namespace DancingGoat.Controllers
 
         public ControllerBase()
         {
-            var projectId = AppSettingProvider.ProjectId ?? AppSettingProvider.DefaultProjectId;
-            client = new DeliveryClient(projectId.Value.ToString());
-            client.CodeFirstModelProvider.TypeProvider = new CustomTypeProvider();
-            client.ContentLinkUrlResolver = new CustomContentLinkUrlResolver();
+            Guid? projectId = AppSettingProvider.ProjectId ?? AppSettingProvider.DefaultProjectId;
+
+            client = new DeliveryClient(projectId.Value.ToString())
+            {
+                CodeFirstModelProvider = {TypeProvider = new CustomTypeProvider()},
+                ContentLinkUrlResolver = new CustomContentLinkUrlResolver()
+            };
         }
     }
 }

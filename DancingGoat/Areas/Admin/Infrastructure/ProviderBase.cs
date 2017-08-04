@@ -13,7 +13,7 @@ namespace DancingGoat.Areas.Admin.Infrastructure
 
         protected readonly HttpClient _httpClient;
 
-        public ProviderBase(HttpClient httpClient)
+        protected ProviderBase(HttpClient httpClient)
         {
             _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
         }

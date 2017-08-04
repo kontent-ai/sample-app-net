@@ -4,9 +4,9 @@ using DancingGoat.Areas.Admin.Models;
 
 namespace DancingGoat.Areas.Admin.Infrastructure
 {
-    public class AuthenticationProvider : ProviderBase
+    public class UserProvider : ProviderBase
     {
-        public AuthenticationProvider(HttpClient httpClient) : base(httpClient)
+        public UserProvider(HttpClient httpClient) : base(httpClient)
         {
         }
 

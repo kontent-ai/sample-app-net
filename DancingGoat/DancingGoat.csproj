@@ -192,7 +192,7 @@
     <Compile Include="Areas\Admin\AppSettingProvider.cs" />
     <Compile Include="Areas\Admin\Controllers\SelfConfigController.cs" />
     <Compile Include="Areas\Admin\Infrastructure\SelfConfigManager.cs" />
-    <Compile Include="Areas\Admin\Infrastructure\AuthenticationProvider.cs" />
+    <Compile Include="Areas\Admin\Infrastructure\UserProvider.cs" />
     <Compile Include="Areas\Admin\Infrastructure\KenticoCloudAuthorizeAttribute.cs" />
     <Compile Include="Areas\Admin\Infrastructure\ProjectProvider.cs" />
     <Compile Include="Areas\Admin\Infrastructure\ProviderBase.cs" />

@@ -25,17 +25,17 @@ namespace DancingGoat.Areas.Admin.Controllers
         protected const string AUTHENTICATION_COOKIE_NAME = "kcToken";
 
         protected readonly HttpClient _httpClient = new HttpClient();
-        protected readonly AuthenticationProvider _authenticationProvider;
+        protected readonly UserProvider _authenticationProvider;
         protected readonly ProjectProvider _projectProvider;
         protected readonly SubscriptionProvider _subscriptionProvider;
         protected readonly SelfConfigManager _selfConfigManager;
 
         public SelfConfigController()
         {
-            _authenticationProvider = new AuthenticationProvider(_httpClient);
+            _authenticationProvider = new UserProvider(_httpClient);
             _projectProvider = new ProjectProvider(_httpClient);
             _subscriptionProvider = new SubscriptionProvider(_httpClient, _projectProvider);
-            _selfConfigManager = new SelfConfigManager(_httpClient, _subscriptionProvider, _projectProvider);
+            _selfConfigManager = new SelfConfigManager(_subscriptionProvider, _projectProvider);
         }
 
         [HttpGet]
@@ -43,7 +43,7 @@ namespace DancingGoat.Areas.Admin.Controllers
         {
             AddSecurityInfoToViewBag();
 
-            return View(new IndexViewModel() { SignInModel = new SignInViewModel(), SelectProjectModel = new SelectProjectViewModel(), SignUpModel = new SignUpViewModel() });
+            return View(new IndexViewModel { SignInModel = new SignInViewModel(), SelectProjectModel = new SelectProjectViewModel(), SignUpModel = new SignUpViewModel() });
         }
 
         [HttpPost]
@@ -81,7 +81,7 @@ namespace DancingGoat.Areas.Admin.Controllers
                         {
                             try
                             {
-                                _selfConfigManager.SetProjectIdAndExpirationAsync(actualToken, subscriptionAndProject.project.ProjectId.Value, subscriptionAndProject.subscription.EndAt.Value);
+                                _selfConfigManager.SetProjectIdAndExpirationAsync(subscriptionAndProject.project.ProjectId.Value, subscriptionAndProject.subscription.EndAt.Value);
                                 await _projectProvider.RenameProjectAsync(token, subscriptionAndProject.project.ProjectId.Value);
 
                                 return RedirectHelpers.GetHomeRedirectResult(string.Format(MESSAGE_NEW_SAMPLE_PROJECT, subscriptionAndProject.project.ProjectId.Value));
@@ -95,7 +95,7 @@ namespace DancingGoat.Areas.Admin.Controllers
                         {
                             try
                             {
-                                _selfConfigManager.SetSharedProjectIdAsync(actualToken);
+                                _selfConfigManager.SetSharedProjectIdAsync();
 
                                 return RedirectHelpers.GetHomeRedirectResult(MESSAGE_SHARED_PROJECT);
                             }
@@ -277,7 +277,7 @@ namespace DancingGoat.Areas.Admin.Controllers
                     {
                         // Projects may not always be owned by the user. Getting subscription EndAt date might not be possible. Hence DateTime.MaxValue.
                         var endAt = subscriptions.FirstOrDefault(s => s.Projects.Any(p => p.Id == AppSettingProvider.ProjectId))?.CurrentPlan?.EndAt.Value ?? DateTime.MaxValue;
-                        _selfConfigManager.SetProjectIdAndExpirationAsync(token, model.ProjectId, endAt);
+                        _selfConfigManager.SetProjectIdAndExpirationAsync(model.ProjectId, endAt);
                     }
                     catch (ConfigurationErrorsException ex)
                     {
@@ -290,7 +290,7 @@ namespace DancingGoat.Areas.Admin.Controllers
                 {
                     try
                     {
-                        _selfConfigManager.SetSharedProjectIdAsync(token);
+                        _selfConfigManager.SetSharedProjectIdAsync();
 
                         return View("Error", new ErrorViewModel { Caption = "Missing project ID", Message = "The project ID could not be found. Make sure you select a project and try again." });
                     }
@@ -308,13 +308,13 @@ namespace DancingGoat.Areas.Admin.Controllers
 
         [HttpPost]
         [KenticoCloudAuthorize]
-        public async Task<ActionResult> UseShared()
+        public ActionResult UseShared()
         {
             string token = GetToken();
 
             try
             {
-                _selfConfigManager.SetProjectIdAndExpirationAsync(token, AppSettingProvider.DefaultProjectId.Value, DateTime.MaxValue);
+                _selfConfigManager.SetProjectIdAndExpirationAsync(AppSettingProvider.DefaultProjectId.Value, DateTime.MaxValue);
 
                 return RedirectHelpers.GetHomeRedirectResult(MESSAGE_SHARED_PROJECT);
             }

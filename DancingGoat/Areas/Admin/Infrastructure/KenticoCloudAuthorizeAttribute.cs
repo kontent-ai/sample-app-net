@@ -17,7 +17,7 @@ namespace DancingGoat.Areas.Admin.Infrastructure
             
             if (!string.IsNullOrEmpty(token))
             {
-                user = Task.Run(() => (new AuthenticationProvider(new HttpClient())).GetUserAsync(token)).Result;
+                user = Task.Run(() => (new UserProvider(new HttpClient())).GetUserAsync(token)).Result;
             }
 
             if (user == null)
