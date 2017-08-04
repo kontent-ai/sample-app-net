@@ -1,10 +1,11 @@
 ﻿using System;
+
+using System.Globalization;
+using System.Web.Mvc;
+using KenticoCloud.Delivery;
 using DancingGoat.Areas.Admin;
 using DancingGoat.Infrastructure;
 using DancingGoat.Models;
-using KenticoCloud.Delivery;
-using System.Configuration;
-using System.Web.Mvc;
 using DancingGoat.InlineContentItemResolver;
 using DancingGoat.Localization;
 
@@ -32,8 +33,8 @@ namespace DancingGoat.Controllers
 
         public static DeliveryClient CreateDeliveryClient()
         {
-            var previewToken = ConfigurationManager.AppSettings["PreviewToken"];
-            Guid? projectId = AppSettingProvider.ProjectId ?? AppSettingProvider.DefaultProjectId;
+            var previewToken = AppSettingProvider.PreviewToken;
+            var projectId = AppSettingProvider.ProjectId ?? AppSettingProvider.DefaultProjectId;
 
             var clientInstance = 
                 !string.IsNullOrEmpty(previewToken) ? 

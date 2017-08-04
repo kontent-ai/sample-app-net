@@ -1,12 +1,17 @@
 ﻿@using DancingGoat.Helpers.Extensions
 @model DancingGoat.Areas.Admin.Models.SelectProjectViewModel
 
+@{ 
+    Model.ManualInput = true;
+}
+
 @using (Html.BeginForm("SelectProject", "SelfConfig"))
 {
     <h2>Set A Project ID Manually</h2>
     <p>Alternatively, you can configure your app manually by submitting a project ID below.</p>
     <p>
         @Html.ValidatedEditorFor(vm => vm.ProjectId)
+        @Html.HiddenFor(vm => vm.ManualInput)
     </p>
 
     <input type="submit" value="Set project ID" />

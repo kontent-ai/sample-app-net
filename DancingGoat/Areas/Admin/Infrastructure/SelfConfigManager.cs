@@ -22,7 +22,7 @@ namespace DancingGoat.Areas.Admin.Helpers
 
         public void SetSharedProjectIdAsync()
         {
-            SetProjectIdAndExpirationAsync(AppSettingProvider.DefaultProjectId.Value, DateTime.MaxValue);
+            SetProjectIdAndExpirationAsync(AppSettingProvider.DefaultProjectId.Value);
         }
 
         public async Task<Guid> DeployAndSetSampleProject(string token, UserModel user, IEnumerable<SubscriptionModel> subscriptions = null)
@@ -45,12 +45,16 @@ namespace DancingGoat.Areas.Admin.Helpers
             }
         }
 
-        public void SetProjectIdAndExpirationAsync(Guid projectId, DateTime subscriptionExpiresAt)
+        public void SetProjectIdAndExpirationAsync(Guid projectId, DateTime? subscriptionExpiresAt = null)
         {
             try
             {
                 AppSettingProvider.ProjectId = projectId;
-                AppSettingProvider.SubscriptionExpiresAt = subscriptionExpiresAt;
+
+                if (subscriptionExpiresAt.HasValue)
+                {
+                    AppSettingProvider.SubscriptionExpiresAt = subscriptionExpiresAt;
+                }
             }
             catch (ConfigurationErrorsException ex)
             {

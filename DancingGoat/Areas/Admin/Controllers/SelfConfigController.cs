@@ -25,14 +25,14 @@ namespace DancingGoat.Areas.Admin.Controllers
         protected const string AUTHENTICATION_COOKIE_NAME = "kcToken";
 
         protected readonly HttpClient _httpClient = new HttpClient();
-        protected readonly UserProvider _authenticationProvider;
+        protected readonly UserProvider _userProvider;
         protected readonly ProjectProvider _projectProvider;
         protected readonly SubscriptionProvider _subscriptionProvider;
         protected readonly SelfConfigManager _selfConfigManager;
 
         public SelfConfigController()
         {
-            _authenticationProvider = new UserProvider(_httpClient);
+            _userProvider = new UserProvider(_httpClient);
             _projectProvider = new ProjectProvider(_httpClient);
             _subscriptionProvider = new SubscriptionProvider(_httpClient, _projectProvider);
             _selfConfigManager = new SelfConfigManager(_subscriptionProvider, _projectProvider);
@@ -60,7 +60,7 @@ namespace DancingGoat.Areas.Admin.Controllers
                         AddAuthenticationCookie(token);
                     }
 
-                    var user = await _authenticationProvider.GetUserAsync(actualToken);
+                    var user = await _userProvider.GetUserAsync(actualToken);
 
                     IEnumerable<SubscriptionModel> subscriptions;
 
@@ -262,21 +262,33 @@ namespace DancingGoat.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [KenticoCloudAuthorize]
         public async Task<ActionResult> SelectProject(SelectProjectViewModel model)
         {
-            string token = GetToken();
-
             try
             {
                 if (model.ProjectId != Guid.Empty)
                 {
-                    var subscriptions = await _subscriptionProvider.GetSubscriptionsAsync(token);
+                    DateTime? endAt = null;
+
+                    if (model.ManualInput.HasValue && model.ManualInput.Value)
+                    {
+                        string token = GetToken();
+
+                        if ((await _userProvider.GetUserAsync(token)) != null)
+                        {
+                            var subscriptions = await _subscriptionProvider.GetSubscriptionsAsync(token);
+
+                            // Projects may not always be owned by the user. Getting subscription EndAt date might not be possible. Hence the allowed null outcome.
+                            endAt = subscriptions.FirstOrDefault(s => s.Projects.Any(p => p.Id == AppSettingProvider.ProjectId))?.CurrentPlan?.EndAt;
+                        }
+                        else
+                        {
+                            return View("Error", new ErrorViewModel { Caption = "Unauthenticated", Message = MESSAGE_UNAUTHENTICATED });
+                        }
+                    }
 
                     try
                     {
-                        // Projects may not always be owned by the user. Getting subscription EndAt date might not be possible. Hence DateTime.MaxValue.
-                        var endAt = subscriptions.FirstOrDefault(s => s.Projects.Any(p => p.Id == AppSettingProvider.ProjectId))?.CurrentPlan?.EndAt.Value ?? DateTime.MaxValue;
                         _selfConfigManager.SetProjectIdAndExpirationAsync(model.ProjectId, endAt);
                     }
                     catch (ConfigurationErrorsException ex)
@@ -292,7 +304,7 @@ namespace DancingGoat.Areas.Admin.Controllers
                     {
                         _selfConfigManager.SetSharedProjectIdAsync();
 
-                        return View("Error", new ErrorViewModel { Caption = "Missing project ID", Message = "The project ID could not be found. Make sure you select a project and try again." });
+                        return View("Error", new ErrorViewModel { Caption = "Missing project ID", Message = "The submitted project ID was an empty GUID. The app was configured with the shared project ID instead. You may wish to reconfigure the project ID in your environment settings (Azure application settings, web.config, etc.)." });
                     }
                     catch (ConfigurationErrorsException ex)
                     {
@@ -307,14 +319,11 @@ namespace DancingGoat.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [KenticoCloudAuthorize]
         public ActionResult UseShared()
         {
-            string token = GetToken();
-
             try
             {
-                _selfConfigManager.SetProjectIdAndExpirationAsync(AppSettingProvider.DefaultProjectId.Value, DateTime.MaxValue);
+                _selfConfigManager.SetProjectIdAndExpirationAsync(AppSettingProvider.DefaultProjectId.Value);
 
                 return RedirectHelpers.GetHomeRedirectResult(MESSAGE_SHARED_PROJECT);
             }
@@ -336,7 +345,7 @@ namespace DancingGoat.Areas.Admin.Controllers
 
             try
             {
-                var user = await _authenticationProvider.GetUserAsync(token);
+                var user = await _userProvider.GetUserAsync(token);
 
                 try
                 {

@@ -9,11 +9,13 @@ namespace DancingGoat.Areas.Admin
     {
         private const string PROJECT_ID_KEY_NAME = "ProjectId";
         private const string SUBSCRIPTION_EXPIRES_KEY_NAME = "SubscriptionExpiresAt";
+        private const string PREVIEW_TOKEN = "PreviewToken";
 
         private static readonly Configuration _configuration = WebConfigurationManager.OpenWebConfiguration("~");
         private static DateTime? _subscriptionExpiresAt;
         private static Guid? _projectId;
         private static Guid? _sharedProjectId;
+        private static string _previewToken;
 
         internal static DateTime? SubscriptionExpiresAt
         {
@@ -106,6 +108,30 @@ namespace DancingGoat.Areas.Admin
                         _sharedProjectId = projectId;
 
                         return _sharedProjectId;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+        }
+
+        internal static string PreviewToken
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(_previewToken))
+                {
+                    return _previewToken;
+                }
+                else
+                {
+                    if (ConfigurationManager.AppSettings.AllKeys.Contains(PREVIEW_TOKEN))
+                    {
+                        _previewToken = ConfigurationManager.AppSettings[PREVIEW_TOKEN];
+
+                        return _previewToken;
                     }
                     else
                     {

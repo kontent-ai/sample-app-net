@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using System.Threading.Tasks;
 using System.Net.Http;
 using DancingGoat.Areas.Admin.Models;
+using DancingGoat.Helpers;
 
 namespace DancingGoat.Areas.Admin.Infrastructure
 {
@@ -24,9 +25,7 @@ namespace DancingGoat.Areas.Admin.Infrastructure
             {
                 DateTime? subscriptionExpiresAt = AppSettingProvider.SubscriptionExpiresAt;
                 string message = "You haven't authenticated with proper Kentico Cloud credentials. Please close the browser window and log in.";
-                filterContext.Result = subscriptionExpiresAt == DateTime.MinValue ?
-                    DancingGoat.Helpers.RedirectHelpers.GetSelfConfigIndexResult(message) :
-                    DancingGoat.Helpers.RedirectHelpers.GetSelfConfigRecheckResult(message);
+                filterContext.Result = subscriptionExpiresAt == null ? RedirectHelpers.GetSelfConfigIndexResult(message) : RedirectHelpers.GetSelfConfigRecheckResult(message);
             }
         }
     }
