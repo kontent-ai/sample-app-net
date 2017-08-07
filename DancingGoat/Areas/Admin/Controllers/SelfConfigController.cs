@@ -374,7 +374,7 @@ namespace DancingGoat.Areas.Admin.Controllers
 
         private void AddAuthenticationCookie(string token)
         {
-            var cookie = new HttpCookie(AUTHENTICATION_COOKIE_NAME, token) { Expires = DateTime.Now.AddDays(1) };
+            var cookie = new HttpCookie(AUTHENTICATION_COOKIE_NAME, token) { Expires = DateTime.Now.AddDays(1), HttpOnly = true };
 
             if (string.IsNullOrEmpty(Request.Cookies[AUTHENTICATION_COOKIE_NAME]?.Value))
             {
