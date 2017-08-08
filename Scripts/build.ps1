@@ -25,7 +25,7 @@ Param(
     [string]$Target = "Default",
 
     # The build configuration to use.
-    [ValidateSet("Release", "Debug", "Develop", "QA")]
+    [ValidateSet("Release", "Debug")]
     [string]$Configuration = "Debug",
     
     # Publish settings downloaded from Azure Portal.
