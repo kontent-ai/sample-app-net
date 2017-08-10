@@ -1,13 +1,13 @@
 ﻿@model DancingGoat.Models.Product
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = Model.ProductSystem.Name;
+    ViewBag.Title = Model.ProductProductName;
 }
 <article class="product-detail">
     <div class="row">
         <div class="col-md-12">
             <header>
-                <h2>@Html.DisplayFor(vm => vm.ProductSystem.Name)</h2>
+                <h2>@Html.DisplayFor(vm => vm.ProductProductName)</h2>
             </header>
         </div>
     </div>

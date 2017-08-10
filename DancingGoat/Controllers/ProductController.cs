@@ -7,10 +7,8 @@ using System.Web.Mvc;
 
 namespace DancingGoat.Controllers
 {
-    [RoutePrefix("products")]
     public class ProductController : ControllerBase
     {
-        [Route("{urlSlug}")]
         public async Task<ActionResult> Detail(string urlSlug)
         {
             var item = (await client.GetItemsAsync<object>(new EqualsFilter("elements.url_pattern", urlSlug), new InFilter("system.type", "brewer", "coffee"))).Items.FirstOrDefault();

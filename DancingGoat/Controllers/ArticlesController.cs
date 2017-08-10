@@ -8,22 +8,19 @@ using System.Web.Mvc;
 
 namespace DancingGoat.Controllers
 {
-    [RoutePrefix("articles")]
     public class ArticlesController : ControllerBase
     {
-        [Route]
         public async Task<ActionResult> Index()
         {
             var response = await client.GetItemsAsync<Article>(
                 new EqualsFilter("system.type", "article"),
                 new OrderParameter("elements.post_date", SortOrder.Descending),
-                new ElementsParameter("teaser_image", "post_date", "summary", "url_pattern")
+                new ElementsParameter("teaser_image", "post_date", "summary", "url_pattern", "title")
             );
 
             return View(response.Items);
         }
 
-        [Route("{urlSlug}")]
         public async Task<ActionResult> Show(string urlSlug)
         {
             var response = await client.GetItemsAsync<Article>(

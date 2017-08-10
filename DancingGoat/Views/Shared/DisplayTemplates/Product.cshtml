@@ -6,7 +6,7 @@
 
 <article class="product-tile">
     <a href="@Url.Action("Detail", "Product", new {urlSlug = Model.ProductUrlPattern})">
-        <h1 class="product-heading">@Model.ProductSystem.Name</h1>
+        <h1 class="product-heading">@Model.ProductProductName</h1>
         @if (Model.ProductProductStatus.Any())
         {
             <span class="product-tile-status">

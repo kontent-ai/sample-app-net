@@ -898,6 +898,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Follow us on Facebook.
+        /// </summary>
+        public static string FollowUsOnFacebook {
+            get {
+                return ResourceManager.GetString("FollowUsOnFacebook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Follow us on Twitter.
+        /// </summary>
+        public static string FollowUsOnTwitter {
+            get {
+                return ResourceManager.GetString("FollowUsOnTwitter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Forgotten password.
         /// </summary>
         public static string ForgottenPassword {
@@ -1247,18 +1265,243 @@ namespace Resources {
                 return ResourceManager.GetString("PartnerCafes.Title", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Partnership.
         /// </summary>
-        public static string Partnership
-        {
-            get
-            {
+        public static string Partnership {
+            get {
                 return ResourceManager.GetString("Partnership", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your business is also our business. Become a part of our brand and benefit from it..
+        /// </summary>
+        public static string Partnership_ApplicationText {
+            get {
+                return ResourceManager.GetString("Partnership.ApplicationText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Partnership Application.
+        /// </summary>
+        public static string Partnership_ApplicationTitle {
+            get {
+                return ResourceManager.GetString("Partnership.ApplicationTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to APPLY.
+        /// </summary>
+        public static string Partnership_Form_Apply {
+            get {
+                return ResourceManager.GetString("Partnership.Form.Apply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Company name.
+        /// </summary>
+        public static string Partnership_Form_CompanyName {
+            get {
+                return ResourceManager.GetString("Partnership.Form.CompanyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        public static string Partnership_Form_Email {
+            get {
+                return ResourceManager.GetString("Partnership.Form.Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First name.
+        /// </summary>
+        public static string Partnership_Form_FirstName {
+            get {
+                return ResourceManager.GetString("Partnership.Form.FirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I am interested in....
+        /// </summary>
+        public static string Partnership_Form_Interest {
+            get {
+                return ResourceManager.GetString("Partnership.Form.Interest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Becoming a partner café.
+        /// </summary>
+        public static string Partnership_Form_Interest_PartnerCafe {
+            get {
+                return ResourceManager.GetString("Partnership.Form.Interest.PartnerCafe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Becoming a wholesale partner.
+        /// </summary>
+        public static string Partnership_Form_Interest_WholesalePartner {
+            get {
+                return ResourceManager.GetString("Partnership.Form.Interest.WholesalePartner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last name.
+        /// </summary>
+        public static string Partnership_Form_LastName {
+            get {
+                return ResourceManager.GetString("Partnership.Form.LastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone.
+        /// </summary>
+        public static string Partnership_Form_Phone {
+            get {
+                return ResourceManager.GetString("Partnership.Form.Phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Multiple sale levels of up to 25% based on the quarterly quota.
+        /// </summary>
+        public static string Partnership_LeftInfoItem1 {
+            get {
+                return ResourceManager.GetString("Partnership.LeftInfoItem1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Free tableware and merchandise.
+        /// </summary>
+        public static string Partnership_LeftInfoItem2 {
+            get {
+                return ResourceManager.GetString("Partnership.LeftInfoItem2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Promotional materials.
+        /// </summary>
+        public static string Partnership_LeftInfoItem3 {
+            get {
+                return ResourceManager.GetString("Partnership.LeftInfoItem3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wholesale Partner Program.
+        /// </summary>
+        public static string Partnership_LeftInfoTitle {
+            get {
+                return ResourceManager.GetString("Partnership.LeftInfoTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We&apos;ll contact you within 48 hours to discuss details and explain any question of yours regarding the partnership..
+        /// </summary>
+        public static string Partnership_RequestLabel {
+            get {
+                return ResourceManager.GetString("Partnership.RequestLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to for café owners only.
+        /// </summary>
+        public static string Partnership_RightInfoItem1 {
+            get {
+                return ResourceManager.GetString("Partnership.RightInfoItem1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Multiple sale levels of up to 25% based on the quarterly quota.
+        /// </summary>
+        public static string Partnership_RightInfoItem2 {
+            get {
+                return ResourceManager.GetString("Partnership.RightInfoItem2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Professional coffee machine rental and leasing.
+        /// </summary>
+        public static string Partnership_RightInfoItem3 {
+            get {
+                return ResourceManager.GetString("Partnership.RightInfoItem3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Promotion by Dancing Goat.
+        /// </summary>
+        public static string Partnership_RightInfoItem4 {
+            get {
+                return ResourceManager.GetString("Partnership.RightInfoItem4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Barista, promotion, and management training.
+        /// </summary>
+        public static string Partnership_RightInfoItem5 {
+            get {
+                return ResourceManager.GetString("Partnership.RightInfoItem5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Special merchandise and access to limited editions.
+        /// </summary>
+        public static string Partnership_RightInfoItem6 {
+            get {
+                return ResourceManager.GetString("Partnership.RightInfoItem6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Partner Café Program.
+        /// </summary>
+        public static string Partnership_RightInfoTitle {
+            get {
+                return ResourceManager.GetString("Partnership.RightInfoTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If your company buys in our on-line store regularly, we&apos;d like to reward you and offer you our wholesale partner program. Register on the form below and we&apos;ll contact you within two days with a newly created business account with which you can buy discounted products. The discount is of up to 25% and is settled on a quarterly basis according to your purchases the quarter before. Besides that, you get free tableware and merchandise along with other promotional materials.&lt;/br&gt;&lt;/br&gt;
+        ///
+        ///If you have a café or yo [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string Partnership_Text {
+            get {
+                return ResourceManager.GetString("Partnership.Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to How does it work?.
+        /// </summary>
+        public static string Partnership_Title {
+            get {
+                return ResourceManager.GetString("Partnership.Title", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Reset password.
         /// </summary>
