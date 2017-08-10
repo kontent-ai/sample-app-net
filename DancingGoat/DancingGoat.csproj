@@ -54,10 +54,6 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="KenticoCloud.Compose, Version=0.9.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\KenticoCloud.Compose.0.9.17\lib\net461\KenticoCloud.Compose.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="KenticoCloud.Delivery, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\KenticoCloud.Delivery.4.6.0\lib\net45\KenticoCloud.Delivery.dll</HintPath>
     </Reference>
