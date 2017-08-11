@@ -24,7 +24,7 @@ namespace DancingGoat.Areas.Admin.Infrastructure
             if (user == null)
             {
                 DateTime? subscriptionExpiresAt = AppSettingProvider.SubscriptionExpiresAt;
-                string message = "You haven't authenticated with proper Kentico Cloud credentials. Please close the browser window and log in.";
+                var message = new MessageModel { Caption = null, Message = "You haven't authenticated with proper Kentico Cloud credentials. Please close the browser window and log in.", MessageType = MessageType.Error };
                 filterContext.Result = subscriptionExpiresAt == null ? RedirectHelpers.GetSelfConfigIndexResult(message) : RedirectHelpers.GetSelfConfigRecheckResult(message);
             }
         }

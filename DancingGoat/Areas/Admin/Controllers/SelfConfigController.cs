@@ -20,7 +20,7 @@ namespace DancingGoat.Areas.Admin.Controllers
         protected const string MESSAGE_UNAUTHENTICATED = "You haven't authenticated with proper Kentico Cloud credentials. Please close the browser window and log in.";
         protected const string CAPTION_CONFIGURATION_WRITE_ERROR = "Configuration Save Error";
         protected const string CAPTION_DESERIALIZATION_ERROR = "API Response Deserialization Error";
-        protected const string MESSAGE_NEW_SAMPLE_PROJECT = "You've configured your app with a project ID \"{0}\" of the newly created sample project.";
+        protected const string MESSAGE_NEW_SAMPLE_PROJECT = "You've configured your app with a project ID \"{0}\" of the newly created sample project. You can edit its contents at https://app.kenticocloud.com/.";
         protected const string MESSAGE_SHARED_PROJECT = "You've configured your app to with a project ID of a shared Kentico Cloud project.";
         protected const string AUTHENTICATION_COOKIE_NAME = "kcToken";
 
@@ -70,7 +70,7 @@ namespace DancingGoat.Areas.Admin.Controllers
                     }
                     else
                     {
-                        return RedirectHelpers.GetSelfConfigIndexResult(MESSAGE_UNAUTHENTICATED);
+                        return RedirectHelpers.GetSelfConfigIndexResult(new MessageModel { Caption = null, Message = MESSAGE_UNAUTHENTICATED, MessageType = MessageType.Error });
                     }
 
                     if (subscriptions == null || !subscriptions.Any())
@@ -84,11 +84,11 @@ namespace DancingGoat.Areas.Admin.Controllers
                                 _selfConfigManager.SetProjectIdAndExpirationAsync(subscriptionAndProject.project.ProjectId.Value, subscriptionAndProject.subscription.EndAt.Value);
                                 await _projectProvider.RenameProjectAsync(token, subscriptionAndProject.project.ProjectId.Value);
 
-                                return RedirectHelpers.GetHomeRedirectResult(string.Format(MESSAGE_NEW_SAMPLE_PROJECT, subscriptionAndProject.project.ProjectId.Value));
+                                return RedirectHelpers.GetHomeRedirectResult(new MessageModel { Caption = null, Message = string.Format(MESSAGE_NEW_SAMPLE_PROJECT, subscriptionAndProject.project.ProjectId.Value), MessageType = MessageType.Info });
                             }
                             catch (ConfigurationErrorsException ex)
                             {
-                                return RedirectHelpers.GetSelfConfigIndexResult(ex.Message);
+                                return RedirectHelpers.GetSelfConfigIndexResult(new MessageModel { Caption = null, Message = ex.Message, MessageType = MessageType.Error });
                             }
                         }
                         else
@@ -97,11 +97,11 @@ namespace DancingGoat.Areas.Admin.Controllers
                             {
                                 _selfConfigManager.SetSharedProjectIdAsync();
 
-                                return RedirectHelpers.GetHomeRedirectResult(MESSAGE_SHARED_PROJECT);
+                                return RedirectHelpers.GetHomeRedirectResult(new MessageModel { Caption = null, Message = MESSAGE_SHARED_PROJECT, MessageType = MessageType.Info });
                             }
                             catch (ConfigurationErrorsException ex)
                             {
-                                return RedirectHelpers.GetSelfConfigIndexResult(ex.Message);
+                                return RedirectHelpers.GetSelfConfigIndexResult(new MessageModel { Caption = null, Message = ex.Message, MessageType = MessageType.Error });
                             }
                         }
                     }
@@ -123,11 +123,11 @@ namespace DancingGoat.Areas.Admin.Controllers
                                 {
                                     var projectId = await _selfConfigManager.DeployAndSetSampleProject(actualToken, user);
 
-                                    return RedirectHelpers.GetHomeRedirectResult(string.Format(MESSAGE_NEW_SAMPLE_PROJECT, projectId));
+                                    return RedirectHelpers.GetHomeRedirectResult(new MessageModel { Caption = null, Message = string.Format(MESSAGE_NEW_SAMPLE_PROJECT, projectId), MessageType = MessageType.Info });
                                 }
                                 catch (ConfigurationErrorsException ex)
                                 {
-                                    return RedirectHelpers.GetSelfConfigIndexResult(ex.Message);
+                                    return RedirectHelpers.GetSelfConfigIndexResult(new MessageModel { Caption = null, Message = ex.Message, MessageType = MessageType.Error });
                                 }
                             }
                         }
@@ -141,12 +141,12 @@ namespace DancingGoat.Areas.Admin.Controllers
                 }
                 catch (JsonException ex)
                 {
-                    return RedirectHelpers.GetSelfConfigIndexResult($"{CAPTION_DESERIALIZATION_ERROR}: {ex.Message}");
+                    return RedirectHelpers.GetSelfConfigIndexResult(new MessageModel { Caption = null, Message = $"{CAPTION_DESERIALIZATION_ERROR}: {ex.Message}", MessageType = MessageType.Error });
                 }
             }
             else
             {
-                return RedirectHelpers.GetSelfConfigIndexResult(MESSAGE_UNAUTHENTICATED);
+                return RedirectHelpers.GetSelfConfigIndexResult(new MessageModel { Caption = null, Message = MESSAGE_UNAUTHENTICATED, MessageType = MessageType.Error });
             }
         }
 
@@ -180,7 +180,7 @@ namespace DancingGoat.Areas.Admin.Controllers
                     }
                     catch (UnauthorizedAccessException)
                     {
-                        return RedirectHelpers.GetSelfConfigRecheckResult(MESSAGE_UNAUTHENTICATED);
+                        return RedirectHelpers.GetSelfConfigRecheckResult(new MessageModel { Caption = null, Message = MESSAGE_UNAUTHENTICATED, MessageType = MessageType.Error });
                     }
 
                     if (subscriptions == null || !subscriptions.Any())
@@ -201,7 +201,7 @@ namespace DancingGoat.Areas.Admin.Controllers
                                 }
                                 catch (ConfigurationErrorsException ex)
                                 {
-                                    return RedirectHelpers.GetSelfConfigRecheckResult(ex.Message);
+                                    return RedirectHelpers.GetSelfConfigRecheckResult(new MessageModel { Caption = null, Message = ex.Message, MessageType = MessageType.Error });
                                 }
 
                                 return RedirectHelpers.GetHomeRedirectResult(null);
@@ -223,12 +223,12 @@ namespace DancingGoat.Areas.Admin.Controllers
                 }
                 catch (JsonException ex)
                 {
-                    return RedirectHelpers.GetSelfConfigRecheckResult($"{CAPTION_DESERIALIZATION_ERROR}: {ex.Message}");
+                    return RedirectHelpers.GetSelfConfigRecheckResult(new MessageModel { Caption = null, Message = $"{CAPTION_DESERIALIZATION_ERROR}: {ex.Message}", MessageType = MessageType.Error });
                 }
             }
             else
             {
-                return RedirectHelpers.GetSelfConfigRecheckResult(MESSAGE_UNAUTHENTICATED);
+                return RedirectHelpers.GetSelfConfigRecheckResult(new MessageModel { Caption = null, Message = MESSAGE_UNAUTHENTICATED, MessageType = MessageType.Error });
             }
         }
 
@@ -244,16 +244,16 @@ namespace DancingGoat.Areas.Admin.Controllers
 
                 if (subscription != null)
                 {
-                    return RedirectHelpers.GetHomeRedirectResult($"You've converted your subscription {subscription.SubscriptionId} to a free plan.");
+                    return RedirectHelpers.GetHomeRedirectResult(new MessageModel { Caption = null, Message = $"You've converted your subscription {subscription.SubscriptionId} to a free plan.", MessageType = MessageType.Info });
                 }
                 else
                 {
-                    return View("Error", new ErrorViewModel { Caption = "Too Many Resources", Message = "We couldn't convert your subscription to the free plan. Please make sure you've lowered your resources in Kentico Cloud to meet the limits of the free plan." });
+                    return View("Error", new MessageModel { Caption = "Too Many Resources", Message = "We couldn't convert your subscription to the free plan. Please make sure you've lowered your resources in Kentico Cloud to meet the limits of the free plan.", MessageType = MessageType.Error });
                 }
             }
             catch (ConfigurationErrorsException ex)
             {
-                return RedirectHelpers.GetHomeRedirectResult(ex.Message);
+                return RedirectHelpers.GetHomeRedirectResult(new MessageModel { Caption = null, Message = ex.Message, MessageType = MessageType.Error });
             }
             catch (JsonSerializationException ex)
             {
@@ -266,7 +266,7 @@ namespace DancingGoat.Areas.Admin.Controllers
         {
             try
             {
-                if (model.ProjectId != Guid.Empty)
+                if (model.ProjectId.HasValue)
                 {
                     DateTime? endAt = null;
 
@@ -283,20 +283,20 @@ namespace DancingGoat.Areas.Admin.Controllers
                         }
                         else
                         {
-                            return View("Error", new ErrorViewModel { Caption = "Unauthenticated", Message = MESSAGE_UNAUTHENTICATED });
+                            return View("Error", new MessageModel { Caption = "Unauthenticated", Message = MESSAGE_UNAUTHENTICATED, MessageType = MessageType.Error });
                         }
                     }
 
                     try
                     {
-                        _selfConfigManager.SetProjectIdAndExpirationAsync(model.ProjectId, endAt);
+                        _selfConfigManager.SetProjectIdAndExpirationAsync(model.ProjectId.Value, endAt);
                     }
                     catch (ConfigurationErrorsException ex)
                     {
-                        return View("Error", new ErrorViewModel { Caption = CAPTION_CONFIGURATION_WRITE_ERROR, Message = ex.Message });
+                        return View("Error", new MessageModel { Caption = CAPTION_CONFIGURATION_WRITE_ERROR, Message = ex.Message, MessageType = MessageType.Error });
                     }
 
-                    return RedirectHelpers.GetHomeRedirectResult($"You've configured your app with a project ID \"{model.ProjectId}\".");
+                    return RedirectHelpers.GetHomeRedirectResult(new MessageModel { Caption = null, Message = $"You've configured your app with a project ID \"{model.ProjectId}\".", MessageType = MessageType.Info });
                 }
                 else
                 {
@@ -304,11 +304,11 @@ namespace DancingGoat.Areas.Admin.Controllers
                     {
                         _selfConfigManager.SetSharedProjectIdAsync();
 
-                        return View("Error", new ErrorViewModel { Caption = "Missing project ID", Message = "The submitted project ID was an empty GUID. The app was configured with the shared project ID instead. You may wish to reconfigure the project ID in your environment settings (Azure application settings, web.config, etc.)." });
+                        return View("Error", new MessageModel { Caption = "Missing project ID", Message = "The submitted project ID was an empty GUID. The app was configured with the shared project ID instead. You may wish to reconfigure the project ID in your environment settings (Azure application settings, web.config, etc.).", MessageType = MessageType.Error });
                     }
                     catch (ConfigurationErrorsException ex)
                     {
-                        return View("Error", new ErrorViewModel { Caption = CAPTION_CONFIGURATION_WRITE_ERROR, Message = ex.Message });
+                        return View("Error", new MessageModel { Caption = CAPTION_CONFIGURATION_WRITE_ERROR, Message = ex.Message, MessageType = MessageType.Error });
                     }
                 }
             }
@@ -325,11 +325,11 @@ namespace DancingGoat.Areas.Admin.Controllers
             {
                 _selfConfigManager.SetProjectIdAndExpirationAsync(AppSettingProvider.DefaultProjectId.Value);
 
-                return RedirectHelpers.GetHomeRedirectResult(MESSAGE_SHARED_PROJECT);
+                return RedirectHelpers.GetHomeRedirectResult(new MessageModel { Caption = null, Message = MESSAGE_SHARED_PROJECT, MessageType = MessageType.Info });
             }
             catch (ConfigurationErrorsException ex)
             {
-                return View("Error", new ErrorViewModel { Caption = CAPTION_CONFIGURATION_WRITE_ERROR, Message = ex.Message });
+                return View("Error", new MessageModel { Caption = CAPTION_CONFIGURATION_WRITE_ERROR, Message = ex.Message, MessageType = MessageType.Error });
             }
             catch (JsonSerializationException ex)
             {
@@ -351,12 +351,12 @@ namespace DancingGoat.Areas.Admin.Controllers
                 {
                     var projectId = await _selfConfigManager.DeployAndSetSampleProject(token, user);
 
-                    return RedirectHelpers.GetHomeRedirectResult(string.Format(MESSAGE_NEW_SAMPLE_PROJECT, projectId));
+                    return RedirectHelpers.GetHomeRedirectResult(new MessageModel { Caption = null, Message = string.Format(MESSAGE_NEW_SAMPLE_PROJECT, projectId), MessageType = MessageType.Info });
                 }
                 catch (ConfigurationErrorsException ex)
                 {
                     var activeProjects = await _projectProvider.GetProjectsAsync(token, true);
-                    ViewBag.WarningMessage = ex.Message;
+                    ViewBag.Message = new MessageModel { Caption = null, Message = ex.Message, MessageType = MessageType.Error };
 
                     return View("SelectOrCreateProjects", new SelectProjectViewModel { Projects = activeProjects });
                 }
@@ -389,7 +389,7 @@ namespace DancingGoat.Areas.Admin.Controllers
 
         private ActionResult GetDeserializationErrorResult(Exception ex)
         {
-            return View("Error", new ErrorViewModel { Caption = CAPTION_DESERIALIZATION_ERROR, Message = ex.Message });
+            return View("Error", new MessageModel { Caption = CAPTION_DESERIALIZATION_ERROR, Message = ex.Message, MessageType = MessageType.Error });
         }
 
         private void AddSecurityInfoToViewBag()

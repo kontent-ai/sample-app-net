@@ -41,6 +41,7 @@ namespace DancingGoat.Areas.Admin
             }
             set
             {
+                // Creating new settings cannot be done through the indexer, hence .Add().
                 if (ConfigurationManager.AppSettings.AllKeys.Contains(SUBSCRIPTION_EXPIRES_KEY_NAME))
                 {
                     _configuration.AppSettings.Settings[SUBSCRIPTION_EXPIRES_KEY_NAME].Value = value.Value.ToString("o");
@@ -79,6 +80,7 @@ namespace DancingGoat.Areas.Admin
             }
             set
             {
+                // Creating new settings cannot be done through the indexer, hence .Add().
                 if (ConfigurationManager.AppSettings.AllKeys.Contains(PROJECT_ID_KEY_NAME))
                 {
                     _configuration.AppSettings.Settings[PROJECT_ID_KEY_NAME].Value = value.ToString();

@@ -1,29 +1,47 @@
 ﻿@model DancingGoat.Areas.Admin.Models.IndexViewModel
 
+<header>
+    <div class="content">
+        <h1>Sample Site &ndash; Self Configuration</h1>
+        <p>For your sample app to configure itself automatically with a proper project ID, you can either get it by signing in using your Kentico Cloud credentials or by signing up for a trial. Later, it will be converted to a free plan.</p>
+    </div>
+</header>
+@Html.Partial("_MessagesPartial")
 <section>
-    <h1>Sample Site - Self Configuration</h1>
-    <p>For your sample app to configure itself automatically with a proper project ID, you can either get it by signing in using your Kentico Cloud credentials or by signing up for a trial. Later, it will be converted to a free plan.</p>
+    <h2>Get a Project ID</h2>
+    <div class="form-panel-group">
+        <div class="form-panel-tabs"></div>
+        <div class="form-panels">
+            @{
+                ViewBag.ButtonType = "primary";
+                ViewBag.ShowSwitcher = true;
+            }
 
-    @Html.Partial("_WarningPartial")
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { @Action = @"https://horusproduction.e1.loginrocket.com/v1/login", Enctype = "multipart/form-data", Id = "signInForm", @Class = "form-panel", Data_Origin = "index" }))
+            {
+                @Html.Partial("_SignInPartial", Model.SignInModel)
+            }
 
-    <h2>Get a Project ID By Signing In</h2>
-    @using (Html.BeginForm(null, null, FormMethod.Post, new { @action = @"https://horusproduction.e1.loginrocket.com/v1/login", enctype = "multipart/form-data", id = "signInForm" }))
-    {
-        @Html.Partial("_SignInPartial", Model.SignInModel)
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { @Action = @"https://horusproduction.e1.loginrocket.com/v1/signup", Enctype = "multipart/form-data", Id = "signUpForm", @Class = "form-panel" }))
+            {
+                @Html.Partial("_SignUpPartial", Model.SignUpModel)
+            }
+        </div>
+    </div>
+</section>
+<div class="content sections-secondary divided">
+
+    @{
+        ViewBag.ButtonType = "secondary";
     }
 
-    <h2>Get a Project ID By Signing Up</h2>
-    @using (Html.BeginForm(null, null, FormMethod.Post, new { @action = @"https://horusproduction.e1.loginrocket.com/v1/signup", enctype = "multipart/form-data", id = "signUpForm" }))
-    {
-        @Html.Partial("_SignUpPartial", Model.SignUpModel)
-    }
-</section>
-<section>
-    @Html.Partial("_ProjectIdPartial", Model.SelectProjectModel)
-</section>
-<section>
-    @Html.Partial("_SharedGeneralPartial")
-</section>
+    <section class="section-secondary">
+        @Html.Partial("_ProjectIdPartial", Model.SelectProjectModel)
+    </section>
+    <section class="section-secondary">
+        @Html.Partial("_SharedGeneralPartial")
+    </section>
+</div>
 
 @section Scripts
 {

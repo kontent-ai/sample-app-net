@@ -1,40 +1,45 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 
+using DancingGoat.Areas.Admin.Models;
+
 namespace DancingGoat.Helpers
 {
     public static class RedirectHelpers
     {
-        public static RedirectToRouteResult GetSelfConfigIndexResult(string message)
+        public static RedirectToRouteResult GetSelfConfigIndexResult(MessageModel message)
         {
             return new RedirectToRouteResult(new RouteValueDictionary(new
             {
                 Action = "Index",
                 Controller = "SelfConfig",
                 Area = "Admin",
-                Message = message
+                MessageBody = message?.Message,
+                MessageType = message?.MessageType
             }));
         }
 
-        public static RedirectToRouteResult GetSelfConfigRecheckResult(string message)
+        public static RedirectToRouteResult GetSelfConfigRecheckResult(MessageModel message)
         {
             return new RedirectToRouteResult(new RouteValueDictionary(new
             {
                 Action = "Recheck",
                 Controller = "SelfConfig",
                 Area = "Admin",
-                Message = message
+                MessageBody = message?.Message,
+                MessageType = message?.MessageType
             }));
         }
 
-        public static RedirectToRouteResult GetHomeRedirectResult(string message)
+        public static RedirectToRouteResult GetHomeRedirectResult(MessageModel message)
         {
             return new RedirectToRouteResult(new RouteValueDictionary(new
             {
                 Action = "Index",
                 Controller = "Home",
                 Area = "",
-                Message = message
+                MessageBody = message?.Message,
+                MessageType = message?.MessageType
             }));
         }
     }

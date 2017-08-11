@@ -2050,7 +2050,7 @@ dd.product-price--retail {
   font-variant: normal;
   text-transform: none;
   line-height: 1;
-  font-size: 16px;
+  font-size: 18px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-image: none;
@@ -5153,8 +5153,8 @@ dd.product-price--retail {
   display: inline-block;
   cursor: pointer;
   position: relative;
-  padding-left: 24px;
-  line-height: 20px;
+  padding-left: 27px;
+  line-height: 22.5px;
   font-weight: normal;
 }
 .radio label:before,
@@ -5162,14 +5162,14 @@ dd.product-price--retail {
 .radio label:after,
 .checkbox label:after {
   content: "";
-  width: 15px;
-  height: 15px;
-  line-height: 16px;
+  width: 17px;
+  height: 17px;
+  line-height: 18px;
   display: inline-block;
   box-sizing: border-box;
   position: absolute;
   left: 0;
-  top: 2px;
+  top: 2.25px;
   background-color: #ffffff;
 }
 .radio label:after,
@@ -5218,7 +5218,7 @@ dd.product-price--retail {
 .radio input + label:after,
 .checkbox input + label:after {
   font-family: "Core-icons";
-  font-size: 16px;
+  font-size: 18px;
   text-align: center;
 }
 .radio input + label:before,
@@ -5236,11 +5236,11 @@ dd.product-price--retail {
   color: #1175ae;
 }
 .Safari .checkbox label:after {
-  height: 16px;
+  height: 18px;
 }
 .Chrome .checkbox label:before,
 .Chrome .checkbox label:after {
-  height: 16px;
+  height: 18px;
 }
 .radio input ~ label:before {
   content: "\e626";
@@ -5264,12 +5264,12 @@ dd.product-price--retail {
   content: "\e6b0";
 }
 .checkbox:not(.checkbox-no-label) label {
-  margin-right: 8px;
+  margin-right: 9px;
 }
 .radio-list-vertical,
 .checkbox-list-vertical {
-  margin-top: 6px;
-  margin-right: 8px;
+  margin-top: 6.5px;
+  margin-right: 9px;
 }
 .radio-list-vertical label:not(:first-of-type),
 .checkbox-list-vertical label:not(:first-of-type),
@@ -5279,7 +5279,7 @@ dd.product-price--retail {
 .checkbox-list-vertical .radio + .radio,
 .radio-list-vertical .checkbox + .checkbox,
 .checkbox-list-vertical .checkbox + .checkbox {
-  margin-top: 4px;
+  margin-top: 4.5px;
 }
 .radio-list-vertical.first-on-page,
 .checkbox-list-vertical.first-on-page {
@@ -5293,7 +5293,7 @@ dd.product-price--retail {
 }
 .radio-list-horizontal label,
 .checkbox-list-horizontal label {
-  margin-right: 16px;
+  margin-right: 18px;
 }
 .media-gallery {
   margin-top: 2.5rem;
@@ -5419,6 +5419,33 @@ dd.product-price--retail {
 }
 .order-detail .status {
   font-size: 2rem;
+}
+.user-message {
+  background-repeat: no-repeat;
+  background-position: 28px 28px;
+  background-size: 2em 2em;
+  border-collapse: separate;
+  color: #FFFFFF;
+  padding: 2em;
+}
+.message-info {
+  background-color: #89cffa;
+}
+.message-warning {
+  background-color: #ff9776;
+}
+.message-error {
+  background-color: #f38480;
+}
+.user-message img,
+.user-message p {
+  margin: 0;
+}
+.user-message p {
+  padding: 0 0 0 20px;
+}
+table.user-message td {
+  vertical-align: top;
 }
 /*# Page wrap #*/
 html,
@@ -6177,7 +6204,7 @@ footer {
   background-color: #497d04!important;
   padding: 10px 12px;
 }
-/*Inline content modules*/
+/*# Inline content modules #*/
 .tweet__wrapper {
   width: 500px;
   margin: 0 auto;

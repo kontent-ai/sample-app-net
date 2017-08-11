@@ -1,7 +1,25 @@
-﻿<h1>No Subscriptions Found</h1>
-<p>You are no longer associated with any subscriptions.</p>
+﻿<header>
+    <div class="content">
+        <h1>No Subscriptions Found</h1>
+        <p>You are no longer associated with any subscriptions.</p>
+    </div>
+</header>
+@Html.Partial("_MessagesPartial")
+<section>
+    <h2>Use the Shared Project ID</h2>
+    <p>If you haven't modified the code, you can configure the app with the shared project ID.</p>
 
-<h2>Use the Shared Project ID</h2>
-<p>If you haven't modified the code, you can configure the app with the shared project ID.</p>
-@Html.Partial("_SharedPartial")
-@Html.Partial("_ProjectIdPartial", new DancingGoat.Areas.Admin.Models.SelectProjectViewModel())
+    @{
+        ViewBag.ButtonType = "primary";
+    }
+
+    @Html.Partial("_SharedPartial")
+</section>
+<section class="divided">
+
+    @{
+        ViewBag.ButtonType = "secondary";
+    }
+
+    @Html.Partial("_ProjectIdPartial", new DancingGoat.Areas.Admin.Models.SelectProjectViewModel())
+</section>

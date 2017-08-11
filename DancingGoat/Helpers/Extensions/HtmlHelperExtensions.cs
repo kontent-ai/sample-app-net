@@ -83,8 +83,36 @@ namespace DancingGoat.Helpers.Extensions
     <div class=""form-group-input"">{1}
        {2}
     </div>
-    <div class=""message message-error"">{3}</div>
+    <div class=""message-validation"">{3}</div>
 </div>", label, editor, explanationTextHtml, message);
+
+            return MvcHtmlString.Create(generatedHtml);
+        }
+
+        public static MvcHtmlString StyledCheckBoxFor<TModel>(this HtmlHelper<TModel> html, Expression<Func<TModel, bool>> expression, object htmlAttributes, string labelText)
+        {
+            var checkBox = html.CheckBoxFor(expression, htmlAttributes).ToString();
+            var label = html.LabelFor(expression, labelText);
+            var generatedHtml = string.Format(@"
+<div class=""styled-checkbox"">
+    {0}
+    <span></span>
+    {1}
+</div>", checkBox, label);
+
+            return MvcHtmlString.Create(generatedHtml);
+        }
+
+        public static MvcHtmlString StyledRadioButtonFor<TModel, TProperty>(this HtmlHelper<TModel> html, Expression<Func<TModel, TProperty>> expression, object value, object htmlAttributes, string labelText)
+        {
+            var radioButton = html.RadioButtonFor(expression, value, htmlAttributes).ToString();
+            var label = html.LabelFor(expression, labelText, new { @Class = "visible" });
+            var generatedHtml = string.Format(@"
+<div class=""styled-radio"">
+    {0}
+    <span></span>
+    {1}
+</div>", radioButton, label);
 
             return MvcHtmlString.Create(generatedHtml);
         }

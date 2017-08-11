@@ -14,7 +14,7 @@ namespace DancingGoat.Areas.Admin.Models
 
         [Required]
         [Display(Name = "Project ID")]
-        public Guid ProjectId { get; set; }
+        public Guid? ProjectId { get; set; }
 
         [HiddenInput]
         public bool? ManualInput { get; set; }

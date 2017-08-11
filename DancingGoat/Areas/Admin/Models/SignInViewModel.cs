@@ -10,7 +10,7 @@ namespace DancingGoat.Areas.Admin.Models
 {
     public class SignInViewModel
     {
-        [Display(Name = "Email")]
+        [Display(Name = "E-mail Address")]
         [Required]
         [DataType(DataType.EmailAddress, ErrorMessage = "Incorrect e-mail format.")]
         public string Email { get; set; }

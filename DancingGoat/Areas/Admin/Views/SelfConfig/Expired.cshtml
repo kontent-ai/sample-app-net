@@ -1,26 +1,41 @@
 ﻿@model DancingGoat.Areas.Admin.Models.SelectProjectViewModel
 
-<section>
-    <h1>Expired Subscriptions</h1>
-    <p>Your associated subscriptions in Kentico Cloud are expired. The last one expired at @ViewBag.EndAt.ToString("m").</p>
-</section>
+<header>
+    <div class="content">
+        <h1>Expired Subscriptions</h1>
+        <p>Your associated subscriptions in Kentico Cloud are expired. The last one expired at @ViewBag.EndAt.ToString("m").</p>
+    </div>
+</header>
+@Html.Partial("_MessagesPartial")
+
 @if (Model.Projects != null)
 {
     <section>
+
+        @{
+            ViewBag.ButtonType = "primary";
+        }
+
         @Html.Partial("_ProjectsPartial", Model)
-        <p>Alternatively, you can select among your active projects. Note: In these projects, you may not be able to edit content models and the content itself.</p>
-        <p>The app will be configured with the project ID of the selected project.</p>
     </section>
 }
-else
-{
-    <section>
+
+<div class="content sections-secondary divided">
+    <section class="section-secondary">
+        @{
+            ViewBag.ButtonType = "secondary";
+        }
+
         @Html.Partial("_FreePartial")
     </section>
-    <section>
+    <section class="section-secondary">
+        @{
+            ViewBag.ButtonType = "secondary";
+        }
+
         @Html.Partial("_SharedGeneralPartial")
     </section>
-}
+</div>
 
 @section Scripts
 {

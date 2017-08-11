@@ -9,10 +9,11 @@
 {
     <h2>Set A Project ID Manually</h2>
     <p>Alternatively, you can configure your app manually by submitting a project ID below.</p>
-    <p>
-        @Html.ValidatedEditorFor(vm => vm.ProjectId)
-        @Html.HiddenFor(vm => vm.ManualInput)
-    </p>
-
-    <input type="submit" value="Set project ID" />
+    <div class="inline-controls">
+        <p>
+            @Html.ValidatedEditorFor(vm => vm.ProjectId)
+            @Html.HiddenFor(vm => vm.ManualInput)
+        </p>
+        <input type="submit" class="button-@ViewBag.ButtonType" value="Submit" />
+    </div>
 }
