@@ -430,21 +430,36 @@ label:not(.visible) {
     z-index: 10000;
 }
 
+#centered() {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+}
+
+.percentage {
+    #centered;
+    color: #FFFFFF;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 82px;
+    height: 82px;
+    width: 82px;
+    margin-left: -26px;
+    margin-top: -26px;
+}
+
 .spinner {
+    #centered;
     animation: spin 2s linear infinite;
     border: 16px solid @gray-darkest;
     border-radius: 50%;
     border-top: 16px solid @blue-main;
-    height: 52px;
-    left: 50%;
+    height: 50px;
     margin-left: -25px;
     margin-top: -25px;
     overflow: auto;
-    position: fixed;
-    text-align: center;
-    top: 50%;
     width: 50px;
-    z-index: 10001;
+    //z-index: 10002;
     -webkit-animation: spin 2s linear infinite;
 }
 
