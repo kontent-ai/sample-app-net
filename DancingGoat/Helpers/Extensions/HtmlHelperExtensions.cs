@@ -65,10 +65,22 @@ namespace DancingGoat.Helpers.Extensions
         /// <param name="html">The HTML helper instance that this method extends.</param>
         /// <param name="expression">An expression that identifies the object that contains the displayed properties.</param>
         /// <param name="explanationText">An explanation text describing usage of the rendered field.</param>
-        public static MvcHtmlString ValidatedEditorFor<TModel, TValue>(this HtmlHelper<TModel> html, Expression<Func<TModel, TValue>> expression, string explanationText = "")
+        public static MvcHtmlString ValidatedEditorFor<TModel, TValue>(this HtmlHelper<TModel> html, Expression<Func<TModel, TValue>> expression, string explanationText = "", string id = "")
         {
-            var label = html.LabelFor(expression).ToString();
-            var editor = html.EditorFor(expression).ToString();
+            string label;
+            string editor;
+
+            if (!string.IsNullOrEmpty(id))
+            {
+                label = html.LabelFor(expression, new { @for = id }).ToString();
+                editor = html.EditorFor(expression, new { id = id }).ToString();
+            }
+            else
+            {
+                editor = html.EditorFor(expression).ToString();
+                label = html.LabelFor(expression).ToString();
+            }
+
             var message = html.ValidationMessageFor(expression).ToString();
             var explanationTextHtml = "";
 
@@ -106,7 +118,7 @@ namespace DancingGoat.Helpers.Extensions
         public static MvcHtmlString StyledRadioButtonFor<TModel, TProperty>(this HtmlHelper<TModel> html, Expression<Func<TModel, TProperty>> expression, object value, object htmlAttributes, string labelText)
         {
             var radioButton = html.RadioButtonFor(expression, value, htmlAttributes).ToString();
-            var label = html.LabelFor(expression, labelText, new { @Class = "visible" });
+            var label = html.LabelFor(expression, labelText, new { @class = "visible" });
             var generatedHtml = string.Format(@"
 <div class=""styled-radio"">
     {0}

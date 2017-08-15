@@ -1,4 +1,4 @@
-﻿; (function ($, identityForm, window, document, undefined) {
+﻿; (function ($, identityForms, window, document, undefined) {
     var token = null;
 
     // Add form tabs dynamically.
@@ -7,8 +7,8 @@
 
     headings.each(function (index) {
         var contents = $(this).contents()[0].textContent;
-        var bareId = $(this).parent()[0].id;
-        $(".form-panel-tabs").first().append("<h3><a href=\"#" + bareId + "\" id=\"formTab-" + bareId + "\">" + contents + "</a></h3>");
+        var wholeId = "formTab-" + $(this).parent()[0].id;
+        $(".form-panel-tabs").first().append("<h3><a href=\"#" + wholeId + "\" id=\"" + wholeId + "\">" + contents + "</a></h3>");
     });
 
     // Set correct width for tabs.
@@ -51,12 +51,11 @@
     $("a.form-tab-switcher").click(function (eventData, handler) {
         var caller = $(eventData.target)[0];
         var hrefAttribute = caller.getAttribute("href");
-        var id = hrefAttribute.substring(1, hrefAttribute.length);
+        var id = hrefAttribute.substring(9, hrefAttribute.length);
         switchTabsAndForms(id);
     });
 
     var switchTabsAndForms = (function (id) {
-
         // Change the active tab.
         $(".form-panel-tabs h3").removeClass("tab-active").addClass("tab-inactive");
         var tabId = "#formTab-" + id;
@@ -90,49 +89,46 @@
 
     // Sign in
     $("#signInForm").submit(function (event) {
+        if ($(this).valid()) {
+            // Stop form from submitting normally.
+            event.preventDefault();
 
-        // Stop form from submitting normally.
-        event.preventDefault();
+            // Get some values from elements on the page:
+            var $form = $(this),
+                email = $form.find("input[id='signInFormEmail']").val(),
+                password = $form.find("input[id='signInFormPassword']").val(),
+                url = $form.attr("action");
 
-        // Get some values from elements on the page:
-        var $form = $(this),
-            email = $form.find("input[id='Email']").val(),
-            password = $form.find("input[id='Password']").val(),
-            url = $form.attr("action");
+            var credentials = { username: email, password: password };
 
-        var credentials = { username: email, password: password };
+            // Send the data using post.
+            var jqXhr = ajax(url, credentials);
 
-        // Send the data using post.
-        var jqXhr = ajax(url, credentials);
-
-        jqXhr.done(function (result) {
-            if (token != undefined && token !== null) {
-                if ($(event.target).data("origin") === "index") {
-                    $.redirectPost('/Admin/SelfConfig/Index', { 'token': token });
+            jqXhr.done(function (result) {
+                if (token !== undefined && token !== null) {
+                    if ($(event.target).data("origin") === "index") {
+                        $.redirectPost('/Admin/SelfConfig/Index', { 'token': token });
+                    }
+                    else if ($(event.target).data("origin") === "recheck") {
+                        $.redirectPost('/Admin/SelfConfig/Recheck', { 'token': token });
+                    }
                 }
-                else if ($(event.target).data("origin") === "recheck") {
-                    $.redirectPost('/Admin/SelfConfig/Recheck', { 'token': token });
-                }
-            }
-        });
+            });
+        }
     });
 
     // Sign up
     $("#signUpForm").submit(function (event) {
+        if ($(this).valid()) {
+            // Stop form from submitting normally.
+            event.preventDefault();
 
-        // Stop form from submitting normally.
-        event.preventDefault();
-
-        if (!$("#termsAccepted").is(":checked")) {
-            $("#termsAcceptedValidation").show();
-        }
-        else {
             // Get some values from elements on the page:
             var $form = $(this),
                 firstName = $form.find("input[id='FirstName']").val(),
                 lastName = $form.find("input[id='LastName']").val(),
-                email = $form.find("input[id='Email']").val(),
-                password = $form.find("input[id='Password']").val(),
+                email = $form.find("input[id='signUpFormEmail']").val(),
+                password = $form.find("input[id='signUpFormPassword']").val(),
                 url = $form.attr("action");
 
             var credentials = { email: email, password: password, password_confirmation: password, first_name: firstName, last_name: lastName };
@@ -146,6 +142,10 @@
                 }
             });
         }
+        else if (!$("#termsAccepted").is(":checked")) {
+            $("#termsAcceptedValidation").show();
+            return false;
+        }
     });
 
     var ajax = (function (url, credentials) {
@@ -153,17 +153,26 @@
             url: url,
             data: JSON.stringify(credentials),
             processData: false,
-            contentType: 'application/json',
-            dataType: 'json',
-            type: 'post',
+            contentType: "application/json",
+            dataType: "json",
+            type: "post",
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                $(".messages")[0].html('').append('An error occurred. Status:' + XMLHttpRequest.status + ', status text: ' + XMLHttpRequest.statusText);
+                displayErrorHideSpinner(XMLHttpRequest.status, XMLHttpRequest.statusText);
             },
             success: function (response) {
-                if (response.result == 'okay') {
+                if (response.result === "okay") {
                     token = response.token;
+                }
+                else if (response.result === "error") {
+                    displayErrorHideSpinner(response.error, "none.");
                 }
             }
         });
+    });
+
+    var displayErrorHideSpinner = (function (status, statusText) {
+        $("#spinner").hide();
+        $(".messages").show();
+        $(".messages p.message-text").show().html('').append("An error occurred. Status: \"" + status + "\", status text: " + statusText);
     });
 }(jQuery, window._identityForms = window._identityForms, window, document));

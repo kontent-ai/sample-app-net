@@ -7,7 +7,6 @@
         }).bind("ajaxError", function () {
             $(this).hide();
         });
-
     });
 
     $(document).ready(function () {
@@ -17,4 +16,4 @@
             }
         });
     });
-}(jQuery, window, document));
+}(jQuery, window._spinner = window._spinner, window, document));

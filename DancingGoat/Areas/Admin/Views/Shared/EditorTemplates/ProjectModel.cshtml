@@ -2,5 +2,6 @@
 @model DancingGoat.Areas.Admin.Models.ProjectModel
 
 <div>
-    @Html.StyledRadioButtonFor(vm => vm, Model.ProjectId, new { Name = "projectId" }, Model.ProjectName)
+    @*Use "Name", not "name"*@
+    @Html.StyledRadioButtonFor(vm => vm, Model.ProjectId, new { Name = "projectId", data_val = "true", data_val_required = "Required" }, Model.ProjectName)
 </div>

@@ -1,3 +1,13 @@
 ﻿@model string
 
-@Html.TextBoxFor(vm => vm, new { Placeholder = Html.DisplayNameForModel() })
+@{
+    if (ViewBag.id != null)
+    {
+        var id = ViewBag.id.ToString();
+        @Html.TextBoxFor(vm => vm, new { placeholder = Html.DisplayNameForModel(), id = id })
+    }
+    else
+    {
+        @Html.TextBoxFor(vm => vm, new { placeholder = Html.DisplayNameForModel()})
+    }
+}

@@ -20,16 +20,22 @@
     }
 }
 
+@helper MessageImage(string source, string altText)
+{
+    <img src="@source" height="44" width="44" alt="@altText" />
+}
+
 @if ((ViewBag.IsLocal != null && !ViewBag.IsLocal && ViewBag.IsTls != null && !ViewBag.IsTls) || (!string.IsNullOrEmpty(ViewBag.ErrorMessage)) || (!string.IsNullOrEmpty(routeDataMessageBody)))
 {
     <section class="messages">
+        <h2 class="hidden">Message</h2>
         @{
             if (ViewBag.IsLocal != null && !ViewBag.IsLocal && ViewBag.IsTls != null && !ViewBag.IsTls)
             {
                 <table class="user-message message-warning">
                     <tr>
                         <td>
-                            <img src="@Url.Content(string.Format(imagePathPattern, "warning"))" height="44" width="44" />
+                            @MessageImage(Url.Content(string.Format(imagePathPattern, "warning")), "Warning")
                         </td>
                         <td>
                             <p>The current configuration of your app is not secure enough for transferring your credentials. Make sure you either:</p>
@@ -48,7 +54,7 @@
                 <table class="user-message message-@imageName">
                     <tr>
                         <td>
-                            <img src="@Url.Content(imagePath)" height="44" width="44" />
+                            @MessageImage(Url.Content(imagePath), string.Empty)
                         </td>
                         <td>
                             <p>
@@ -64,7 +70,7 @@
                 <table class="user-message message-@imageName">
                     <tr>
                         <td>
-                            <img src="@Url.Content(imagePath)" height="44" width="44" />
+                            @MessageImage(Url.Content(imagePath), string.Empty)
                         </td>
                         <td>
                             <p>
@@ -75,5 +81,21 @@
                 </table>
             }
         }
+    </section>
+}
+else
+{
+    <section class="messages" style="display:none">
+        <h2 class="hidden">Message</h2>
+        <table class="user-message message-error">
+            <tr>
+                <td>
+                    @MessageImage(Url.Content(string.Format(imagePathPattern, "error")), "Error")
+                </td>
+                <td>
+                    <p class="message-text"></p>
+                </td>
+            </tr>
+        </table>
     </section>
 }

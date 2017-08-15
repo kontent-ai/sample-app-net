@@ -10,9 +10,12 @@ namespace DancingGoat.Areas.Admin.Models
 {
     public class SignInViewModel
     {
+        private const string EMAIL_VALIDATION_MESSAGE = "Incorrect e-mail format.";
+
         [Display(Name = "E-mail Address")]
         [Required]
-        [DataType(DataType.EmailAddress, ErrorMessage = "Incorrect e-mail format.")]
+        [EmailAddress(ErrorMessage = EMAIL_VALIDATION_MESSAGE)]
+        [DataType(DataType.EmailAddress, ErrorMessage = EMAIL_VALIDATION_MESSAGE)]
         public string Email { get; set; }
 
         [Display(Name = "Password")]

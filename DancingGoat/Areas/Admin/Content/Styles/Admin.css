@@ -250,6 +250,15 @@ textarea {
   position: absolute;
   left: -999em;
 }
+.styled-checkbox > label,
+.styled-radio > label {
+  background-color: transparent;
+  display: block;
+  left: 0;
+  padding-left: 30px;
+  position: relative;
+  top: -10px;
+}
 .styled-checkbox > input[type="checkbox"] + span {
   background-position: left top;
   background-repeat: no-repeat;
@@ -262,15 +271,6 @@ textarea {
   top: 9px;
   width: 18px;
   background-image: url(../Images/checkbox-unchecked.svg);
-}
-.styled-checkbox > label,
-.styled-radio > label {
-  background-color: transparent;
-  display: block;
-  left: 0;
-  padding-left: 30px;
-  position: relative;
-  top: -10px;
 }
 .styled-checkbox > input[type="checkbox"]:checked + span {
   background-position: left top;
@@ -369,7 +369,8 @@ form.form-panel .text-input {
   padding: 0.5em 0 0.5em 0;
 }
 .field-validation-error,
-#selectProjectValidation {
+#selectProjectValidation,
+#termsAcceptedValidation {
   color: #f05d4e;
   display: inherit;
   padding: 1em 0 1em 0;
@@ -397,6 +398,10 @@ label:not(.visible) {
   overflow: visible;
   padding-left: 30px;
   padding-right: 30px;
+}
+.padded-top-bottom {
+  padding-top: 1em;
+  padding-bottom: 1em;
 }
 .no-left-padding {
   padding-left: 0;
