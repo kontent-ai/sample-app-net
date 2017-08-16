@@ -93,24 +93,13 @@ namespace DancingGoat.Areas.Admin.Infrastructure
             }
         }
 
-        public async Task<Tuple<SubscriptionModel, ProjectModel>> StartTrialAndSampleAsync(string token)
+        public async Task<SubscriptionModel> StartTrial(string token)
         {
             using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, $"{KC_BASE_URL}subscription/trial"))
             {
                 using (HttpResponseMessage response = await GetResponseAsync(token, request))
                 {
-                    var subscription = await GetResultAsync<SubscriptionModel>(response);
-
-                    if (subscription != null)
-                    {
-                        var project = await _projectProvider.DeploySampleAsync(token, subscription.SubscriptionId);
-
-                        return new Tuple<SubscriptionModel, ProjectModel>(subscription, project);
-                    }
-                    else
-                    {
-                        return new Tuple<SubscriptionModel, ProjectModel>(null, null);
-                    }
+                    return await GetResultAsync<SubscriptionModel>(response);
                 }
             }
         }

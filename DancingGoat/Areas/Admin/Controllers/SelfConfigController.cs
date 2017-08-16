@@ -76,25 +76,29 @@ namespace DancingGoat.Areas.Admin.Controllers
 
                     if (subscriptions == null || !subscriptions.Any())
                     {
-                        Tuple<SubscriptionModel, ProjectModel> subscriptionAndProject = null;
+                        SubscriptionModel subscription = await _subscriptionProvider.StartTrial(actualToken);
+                        ProjectModel project = null;
 
                         try
                         {
-                            subscriptionAndProject = await _subscriptionProvider.StartTrialAndSampleAsync(actualToken);
+                            if (subscription != null)
+                            {
+                                project = await _projectProvider.DeploySampleAsync(token, subscription.SubscriptionId);
+                            }
                         }
                         catch (DeliveryException)
                         {
                             return UseSharedPrivate();
                         }
 
-                        if (subscriptionAndProject.Item1 != null && subscriptionAndProject.Item2 != null)
+                        if (subscription != null && project != null)
                         {
                             try
                             {
-                                _selfConfigManager.SetProjectIdAndExpirationAsync(subscriptionAndProject.Item2.ProjectId.Value, subscriptionAndProject.Item1.EndAt.Value);
-                                await _projectProvider.RenameProjectAsync(token, subscriptionAndProject.Item2.ProjectId.Value);
+                                _selfConfigManager.SetProjectIdAndExpirationAsync(project.ProjectId.Value, subscription.EndAt.Value);
+                                await _projectProvider.RenameProjectAsync(token, project.ProjectId.Value);
 
-                                return RedirectHelpers.GetHomeRedirectResult(new MessageModel { Caption = null, Message = string.Format(MESSAGE_NEW_SAMPLE_PROJECT, subscriptionAndProject.Item2.ProjectId.Value), MessageType = MessageType.Info });
+                                return RedirectHelpers.GetHomeRedirectResult(new MessageModel { Caption = null, Message = string.Format(MESSAGE_NEW_SAMPLE_PROJECT, project.ProjectId.Value), MessageType = MessageType.Info });
                             }
                             catch (ConfigurationErrorsException ex)
                             {
