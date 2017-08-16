@@ -82,7 +82,7 @@ namespace DancingGoat.Areas.Admin.Controllers
                         {
                             subscriptionAndProject = await _subscriptionProvider.StartTrialAndSampleAsync(actualToken);
                         }
-                        catch (DeliveryException ex)
+                        catch (DeliveryException)
                         {
                             return UseSharedPrivate();
                         }
