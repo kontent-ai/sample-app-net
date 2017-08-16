@@ -6,17 +6,31 @@ You can register your account for free at <https://app.kenticocloud.com>.
 
 ## Application setup
 
-We recommend running the sample application in Visual Studio 2013 or later. By default, the application uses the default Kentico Cloud Sample project to serve content.
+You can run the app in two following ways:
 
-To run the aplication:
+* by cloning the code and running it via Visual Studio 2013 or later;
+* by deploying the app to a new Azure App Service instance in your Azure subscription.
 
-1. Clone the sample application repository.
+### Running via Visual Studio
+
+To run the app:
+1. Clone the app repository.
 1. Open the solution in Visual Studio (using the _DancingGoat.sln_ file).
-1. Run the application.
+1. Run the app.
 
-The sample application will open in your browser.
+### Running in Azure
 
-## Connect your project
+To run the app, just click the below "Deploy to Azure" button.
+
+[![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/)
+
+### Post-deployment Steps
+
+At the first run of the app, you'll be presented with a configuration page. It will allow you to connect the app to your Kentico Cloud project or create a new one. You'll also be able to start a trial and convert to a free plan when the trial expires.
+
+Alternatively, you can connect your project manually as per the chapter below.
+
+## Connect Your Project Manually
 
 If you already have a Kentico Cloud account, you can connect this sample application to a project of your own to access its unpublished content items, and track visitors on the site. For example, you can connect the application to your version of the Sample project.
 

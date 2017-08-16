@@ -1,0 +1,50 @@
+﻿@model DancingGoat.Areas.Admin.Models.IndexViewModel
+
+@{
+    ViewBag.Title = "Sample Site—Configuration";
+}
+
+<header>
+    <div class="content">
+        <h1>@ViewBag.Title</h1>
+        <p>For your sample app to work, you should have a Kentico Cloud project containing content. Your app should be then configured with its project ID. You can either get it by signing in using your Kentico Cloud credentials or by signing up for a trial. Later, it will be converted to a free plan.</p>
+    </div>
+</header>
+@Html.Partial("_MessagesPartial")
+<section>
+    <h2>Get a Project ID</h2>
+    <div class="form-panel-group">
+        <div class="form-panel-tabs"></div>
+        <div class="form-panels">
+            @{
+                ViewBag.ButtonType = "primary";
+                ViewBag.ShowSwitcher = true;
+            }
+
+            <form action="https://horusproduction.e1.loginrocket.com/v1/login" class="form-panel" data-origin="index" enctype="multipart/form-data" id="signInForm" method="post">
+                @Html.Partial("_SignInPartial", Model.SignInModel)
+            </form>
+            <form action="https://horusproduction.e1.loginrocket.com/v1/signup" class="form-panel" data-origin="index" enctype="multipart/form-data" id="signUpForm" method="post">
+                @Html.Partial("_SignUpPartial", Model.SignUpModel)
+            </form>
+        </div>
+    </div>
+</section>
+<div class="content sections-secondary divided">
+
+    @{
+        ViewBag.ButtonType = "secondary";
+    }
+
+    <section class="section-secondary">
+        @Html.Partial("_ProjectIdPartial", Model.SelectProjectModel)
+    </section>
+    <section class="section-secondary">
+        @Html.Partial("_SharedGeneralPartial")
+    </section>
+</div>
+
+@section Scripts
+{
+    @Scripts.Render("~/Areas/Admin/Scripts/identityForms.js")
+}

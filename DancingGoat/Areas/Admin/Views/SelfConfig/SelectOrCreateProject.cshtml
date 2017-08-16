@@ -1,0 +1,36 @@
+﻿@model DancingGoat.Areas.Admin.Models.SelectProjectViewModel
+
+@{
+    ViewBag.Title = "Select or Create a Project";
+}
+
+<header>
+    <div class="content">
+        <h1>@ViewBag.Title</h1>
+        <p>You may wish to either select from existing projects or create a new sample project. The app will be configured with its project ID.</p>
+    </div>
+</header>
+@Html.Partial("_MessagesPartial")
+<div class="content sections-secondary">
+    <section class="section-secondary">
+
+        @{
+            ViewBag.ButtonType = "primary";
+        }
+
+        @Html.Partial("_ProjectsPartial", Model)
+    </section>
+    <section class="section-secondary">
+
+        @{
+            ViewBag.ButtonType = "tertiary";
+        }
+
+        @Html.Partial("_DeploySamplePartial")
+    </section>
+</div>
+
+@section Scripts
+{
+    @Scripts.Render("~/Areas/Admin/Scripts/selectProject.js")
+}

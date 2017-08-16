@@ -1,0 +1,101 @@
+﻿@{
+    const string imagePathPattern = "~/Areas/Admin/Content/Images/{0}.svg";
+    var routeDataMessageBody = Request.QueryString["MessageBody"];
+    var routeDataMessageType = Request.QueryString["MessageType"];
+    DancingGoat.Areas.Admin.Models.MessageModel viewBagMessage = null;
+    string imageName = null;
+    string imagePath = null;
+
+    if (!string.IsNullOrEmpty(ViewBag.Message))
+    {
+        viewBagMessage = ViewBag.Message;
+        imageName = viewBagMessage.MessageType.ToString().ToLowerInvariant();
+        imagePath = string.Format(imagePathPattern, imageName);
+    }
+
+    if (!string.IsNullOrEmpty(routeDataMessageType))
+    {
+        imageName = routeDataMessageType.ToLowerInvariant();
+        imagePath = string.Format(imagePathPattern, imageName);
+    }
+}
+
+@helper MessageImage(string source, string altText)
+{
+    <img src="@source" height="44" width="44" alt="@altText" />
+}
+
+@if ((ViewBag.IsLocal != null && !ViewBag.IsLocal && ViewBag.IsTls != null && !ViewBag.IsTls) || (!string.IsNullOrEmpty(ViewBag.ErrorMessage)) || (!string.IsNullOrEmpty(routeDataMessageBody)))
+{
+    <section class="messages">
+        <h2 class="hidden">Message</h2>
+        @{
+            if (ViewBag.IsLocal != null && !ViewBag.IsLocal && ViewBag.IsTls != null && !ViewBag.IsTls)
+            {
+                <table class="user-message message-warning">
+                    <tr>
+                        <td>
+                            @MessageImage(Url.Content(string.Format(imagePathPattern, "warning")), "Warning")
+                        </td>
+                        <td>
+                            <p>The current configuration of your app is not secure enough for transferring your credentials. Make sure you either:</p>
+                            <ul>
+                                <li>run both your app and the browser in one single machine, or</li>
+                                <li>run your app using the TLS protocol (with a url starting with "https://")</li>
+                            </ul>
+                            <p>Otherwise, malicious users may intercept your security token used for authentication.</p>
+                        </td>
+                    </tr>
+                </table>
+            }
+
+            if (viewBagMessage != null)
+            {
+                <table class="user-message message-@imageName">
+                    <tr>
+                        <td>
+                            @MessageImage(Url.Content(imagePath), string.Empty)
+                        </td>
+                        <td>
+                            <p>
+                                @viewBagMessage.Message
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            }
+
+            if (!string.IsNullOrEmpty(routeDataMessageBody) && !string.IsNullOrEmpty(routeDataMessageType))
+            {
+                <table class="user-message message-@imageName">
+                    <tr>
+                        <td>
+                            @MessageImage(Url.Content(imagePath), string.Empty)
+                        </td>
+                        <td>
+                            <p>
+                                @routeDataMessageBody
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            }
+        }
+    </section>
+}
+else
+{
+    <section class="messages" style="display:none">
+        <h2 class="hidden">Message</h2>
+        <table class="user-message message-error">
+            <tr>
+                <td>
+                    @MessageImage(Url.Content(string.Format(imagePathPattern, "error")), "Error")
+                </td>
+                <td>
+                    <p class="message-text"></p>
+                </td>
+            </tr>
+        </table>
+    </section>
+}
