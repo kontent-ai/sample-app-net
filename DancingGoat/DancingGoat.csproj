@@ -276,6 +276,13 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\Content\Images\checkbox-checked.svg" />
+    <Content Include="Areas\Admin\Content\Images\checkbox-unchecked.svg" />
+    <Content Include="Areas\Admin\Content\Images\error.svg" />
+    <Content Include="Areas\Admin\Content\Images\info.svg" />
+    <Content Include="Areas\Admin\Content\Images\radio-button-checked.svg" />
+    <Content Include="Areas\Admin\Content\Images\radio-button.svg" />
+    <Content Include="Areas\Admin\Content\Images\warning.svg" />
     <Content Include="Areas\Admin\Content\Styles\Admin.css" />
     <Content Include="Areas\Admin\Scripts\identityForms.js" />
     <Content Include="Areas\Admin\Scripts\selectProject.js" />
@@ -434,7 +441,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Admin\Content\Images\" />
     <Folder Include="Views\Shared\EditorTemplates\" />
   </ItemGroup>
   <PropertyGroup>
