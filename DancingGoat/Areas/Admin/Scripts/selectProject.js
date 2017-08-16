@@ -1,4 +1,4 @@
-﻿; (function ($, selectProject, window, document, undefined) {
+﻿(function ($, selectProject, window, document, undefined) {
     $("#selectProject").submit(function (event) {
         if (!$(this).valid()) {
             event.preventDefault();

@@ -222,7 +222,7 @@ namespace DancingGoat.Areas.Admin.Controllers
                                     return RedirectHelpers.GetSelfConfigRecheckResult(new MessageModel { Caption = null, Message = ex.Message, MessageType = MessageType.Error });
                                 }
 
-                                return RedirectHelpers.GetHomeRedirectResult(null);
+                                return RedirectHelpers.GetHomeRedirectResult(new MessageModel { Caption = null, Message = "The previously known expiration date of your subscription does not apply anymore. You can run your sample app as before.", MessageType = MessageType.Info });
                             }
                             else
                             {

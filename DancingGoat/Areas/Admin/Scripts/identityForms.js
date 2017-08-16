@@ -1,4 +1,4 @@
-﻿; (function ($, identityForms, window, document, undefined) {
+﻿(function ($, identityForms, window, document, undefined) {
     var token = null;
 
     // Add form tabs dynamically.
@@ -55,7 +55,7 @@
         switchTabsAndForms(id);
     });
 
-    var switchTabsAndForms = (function (id) {
+    var switchTabsAndForms = function (id) {
         // Change the active tab.
         $(".form-panel-tabs h3").removeClass("tab-active").addClass("tab-inactive");
         var tabId = "#formTab-" + id;
@@ -64,7 +64,7 @@
         // Change the active panel.
         $(".form-panels form.form-panel").addClass("hidden");
         $("#" + id).removeClass("hidden");
-    });
+    };
 
     // Redirect the original POST via a dummy form.
     $.extend(
@@ -137,7 +137,7 @@
             var jqXhr = ajax(url, credentials);
 
             jqXhr.done(function (result) {
-                if (token != undefined && token !== null) {
+                if (token !== undefined && token !== null) {
                     $.redirectPost('/Admin/SelfConfig/Index', { 'token': token });
                 }
             });
@@ -148,7 +148,7 @@
         }
     });
 
-    var ajax = (function (url, credentials) {
+    var ajax = function (url, credentials) {
         return $.ajax({
             url: url,
             data: JSON.stringify(credentials),
@@ -164,15 +164,19 @@
                     token = response.token;
                 }
                 else if (response.result === "error") {
-                    displayErrorHideSpinner(response.error, "none.");
+                    displayErrorHideSpinner(response.error, null);
                 }
             }
         });
-    });
+    };
 
-    var displayErrorHideSpinner = (function (status, statusText) {
+    var displayErrorHideSpinner = function (status, statusText) {
         $("#spinner").hide();
         $(".messages").show();
-        $(".messages p.message-text").show().html('').append("An error occurred. Status: \"" + status + "\", status text: " + statusText);
-    });
+        $(".messages p.message-text").html("").append("An error occurred. Status: \"" + status + "\"");
+        if (statusText !== undefined && statusText !== null) {
+            $(".messages p.message-text").append(" Status text: " + statusText + "\"");
+        }
+        $(".messages p.message-text").show();
+    };
 }(jQuery, window._identityForms = window._identityForms, window, document));
