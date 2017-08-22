@@ -1,7 +1,8 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using DancingGoat.Models;
 using System.Collections.Generic;
+using KenticoCloud.Delivery;
 
 namespace DancingGoat.Controllers
 {
@@ -13,12 +14,24 @@ namespace DancingGoat.Controllers
 
             var viewModel = new AboutUsViewModel
             {
-                FactViewModels = new List<FactAboutUsViewModel>()
+                FactViewModels = MapFactsAboutUs(response)
             };
+
+            return View(viewModel);
+        }
+
+        private IList<FactAboutUsViewModel> MapFactsAboutUs(DeliveryItemResponse<AboutUs> response)
+        {
+            var facts = new List<FactAboutUsViewModel>();
+
+            if (response.Item == null)
+            {
+                return facts;
+            }
 
             int i = 0;
 
-            foreach (var fact in response.Item?.Facts)
+            foreach (var fact in response.Item.Facts)
             {
                 var factViewModel = new FactAboutUsViewModel
                 {
@@ -30,10 +43,10 @@ namespace DancingGoat.Controllers
                     factViewModel.Odd = true;
                 }
 
-                viewModel.FactViewModels.Add(factViewModel);
+                facts.Add(factViewModel);
             }
 
-            return View(viewModel);
+            return facts;
         }
     }
 }
