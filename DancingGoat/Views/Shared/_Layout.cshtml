@@ -42,10 +42,10 @@
                         <nav role="navigation">
                             <ul class="dropdown-items-list dropdown-desktop-visible">
                                 <li>
-                                    @Html.ActionLink("English", ViewContext.RouteData.Values["action"].ToString(), new { language = "en-us" })
+                                    @Html.ActionLink("English", ViewContext.RouteData.Values["action"].ToString(), new { language = "en-us", urlSlug = ViewContext.RouteData.Values["urlSlug"]?.ToString() ?? string.Empty })
                                 </li>
                                 <li>
-                                    @Html.ActionLink("Español", ViewContext.RouteData.Values["action"].ToString(), new { language = "es-es" })
+                                    @Html.ActionLink("Español", ViewContext.RouteData.Values["action"].ToString(), new { language = "es-es", urlSlug = ViewContext.RouteData.Values["urlSlug"]?.ToString() ?? string.Empty })
                                 </li>
                             </ul>
                         </nav>
