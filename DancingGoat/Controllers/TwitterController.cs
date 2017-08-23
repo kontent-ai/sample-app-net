@@ -3,7 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Net.Http;
 
-using DancingGoat.Models.ContentTypes;
+using DancingGoat.Models;
 
 using Newtonsoft.Json.Linq;
 

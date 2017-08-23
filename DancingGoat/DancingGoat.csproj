@@ -268,11 +268,8 @@
     <Compile Include="Localization\LocalizedMvcRouteHandler.cs" />
     <Compile Include="Helpers\RedirectHelpers.cs" />
     <Compile Include="Infrastructure\SelfConfigActionFilter.cs" />
-    <Compile Include="Models\ArticleMetadata.cs" />
-    <Compile Include="Models\BrewerMetadata.cs" />
     <Compile Include="Models\BrewerAsProduct.cs" />
     <Compile Include="Models\CafeMetadata.cs" />
-    <Compile Include="Models\CoffeeMetadata.cs" />
     <Compile Include="Models\CoffeeAsProduct.cs" />
     <Compile Include="Models\ContentTypes\AboutUs.cs" />
     <Compile Include="Models\AboutUsViewModel.cs" />
@@ -289,13 +286,10 @@
     <Compile Include="Models\ContentTypes\FactAboutUs.cs" />
     <Compile Include="Models\ContentTypes\HostedVideo.cs" />
     <Compile Include="Models\ContentTypes\Tweet.cs" />
-    <Compile Include="Models\FactAboutUsMetadata.cs" />
     <Compile Include="Models\FactAboutUsViewModel.cs" />
     <Compile Include="Models\ContentTypes\Grinder.cs" />
     <Compile Include="Models\ContentTypes\HeroUnit.cs" />
     <Compile Include="Models\ContentTypes\Home.cs" />
-    <Compile Include="Models\HeroUnitMetadata.cs" />
-    <Compile Include="Models\HomeMetadata.cs" />
     <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\ContentTypes\Office.cs" />
     <Compile Include="Models\Product.cs" />
@@ -448,6 +442,7 @@
     <Content Include="Views\Articles\DisplayTemplates\HostedVideo.cshtml" />
     <Content Include="Views\Twitter\Tweet.cshtml" />
     <Content Include="Views\Articles\DisplayTemplates\Tweet.cshtml" />
+    <Content Include="Views\Home\CompanyAddress.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
