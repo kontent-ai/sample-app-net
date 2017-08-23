@@ -24,13 +24,5 @@ namespace DancingGoat.Controllers
 
             return View(viewModel);
         }
-
-        [ChildActionOnly]
-        public ActionResult CompanyAddress()
-        {
-            var contact = Task.Run(() => client.GetItemAsync<Home>("home", new ElementsParameter("contact"))).Result.Item.Contact;
-
-            return Content(contact);
-        }
     }
 }
