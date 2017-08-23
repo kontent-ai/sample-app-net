@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "No Subscriptions Found";
+}
+
+<header>
+    <div class="content">
+        <h1>@ViewBag.Title</h1>
+        <p>You are no longer associated with any subscriptions.</p>
+    </div>
+</header>
+@Html.Partial("_MessagesPartial")
+<section>
+    <h2>Use the Shared Project ID</h2>
+    <p>If you haven't modified the code, you can configure the app with the shared project ID.</p>
+
+    @{
+        ViewBag.ButtonType = "primary";
+    }
+
+    @Html.Partial("_SharedPartial")
+</section>
+<section class="divided">
+
+    @{
+        ViewBag.ButtonType = "secondary";
+    }
+
+    @Html.Partial("_ProjectIdPartial", new DancingGoat.Areas.Admin.Models.SelectProjectViewModel())
+</section>

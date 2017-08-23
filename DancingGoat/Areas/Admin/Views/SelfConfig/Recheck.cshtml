@@ -1,0 +1,31 @@
+﻿@model DancingGoat.Areas.Admin.Models.SignInViewModel
+
+@{
+    ViewBag.Title = "Sign In";
+}
+
+<header>
+    <div class="content">
+        <h1>@ViewBag.Title</h1>
+        <p>For your sample app to automatically check for changes in your subscription, you should sign in using your Kentico Cloud credentials.</p>
+    </div>
+</header>
+@Html.Partial("_MessagesPartial")
+<section class="detached">
+    <div class="form-panels">
+
+        @{
+            ViewBag.ButtonType = "primary";
+            ViewBag.ShowSwitcher = false;
+        }
+
+        <form action="https://horusproduction.e1.loginrocket.com/v1/login" class="form-panel" data-origin="recheck" enctype="multipart/form-data" id="signInForm" method="post">
+            @Html.Partial("_SignInPartial", Model)
+        </form>
+    </div>
+</section>
+
+@section Scripts
+{
+    @Scripts.Render("~/Areas/Admin/Scripts/identityForms.js")
+}

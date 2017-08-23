@@ -3,13 +3,17 @@
         less: {
             development: {
                 files: {
-                    "Content/Styles/Site.css": "Content/Styles/Site.less"
+                    "Content/Styles/Site.css": "Content/Styles/Site.less",
+                    "Areas/Admin/Content/Styles/Admin.css": "Areas/Admin/Content/Styles/Admin.less"
                 }
             }
         },
         watch: {
             styles: {
-                files: ['Content/Styles/**/*.less'],
+                files: [
+                    'Content/Styles/**/*.less',
+                    'Areas/Admin/Content/Styles/**/*.less'
+                ],
                 tasks: ['less'],
                 options: {
                     nospawn: true

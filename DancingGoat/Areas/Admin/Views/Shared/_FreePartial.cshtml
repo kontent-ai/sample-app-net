@@ -1,0 +1,6 @@
+﻿<h2>Convert To the Free Plan</h2>
+<p>Alternatively, you may wish to convert your subscription to the free plan. You may wish to lower your resources to fit the limits of the free plan first.</p>
+@using (Html.BeginForm("Free", "SelfConfig"))
+{
+    <input type="submit" class="button-@ViewBag.ButtonType" value="Convert to free plan" />
+}

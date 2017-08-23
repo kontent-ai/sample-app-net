@@ -1,0 +1,13 @@
+﻿@using DancingGoat.Helpers.Extensions
+@model DancingGoat.Areas.Admin.Models.SelectProjectViewModel
+
+<h2>Select Among Active Projects</h2>
+<p>You can select among your active projects. The app will be configured with the project ID of the selected project.</p>
+<p><strong>Note:</strong> You can edit content models and the content itself only in projects you have enough permissions to.</p>
+
+@using (Html.BeginForm("SelectProject", "SelfConfig", FormMethod.Post, new { id = "selectProject" }))
+{
+    @Html.ValidatedEditorFor(vm => vm.Projects)
+    <input type="submit" class="button-@ViewBag.ButtonType" value="Set project ID"/>
+    <div id="selectProjectValidation"></div>
+}

@@ -1,9 +1,11 @@
-﻿@model DancingGoat.Models.ContactsViewModel
+@model DancingGoat.Models.ContactsViewModel
 
 @{
     ViewBag.Title = Resources.DancingGoat.Contact;
 }
 
+@if (Model.Roastery != null)
+{
 <div class="col-md-12">
     <h2 class="contact-title">@Resources.DancingGoat.Roastery</h2>
     <ul class="contact-info">
@@ -17,6 +19,7 @@
     </li>
 </ul>
 </div>
+}
 
 <h2>@Resources.DancingGoat.CompanyCafes</h2>
 <div class="row">

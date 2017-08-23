@@ -55,7 +55,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="KenticoCloud.Delivery, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\KenticoCloud.Delivery.4.6.0\lib\net45\KenticoCloud.Delivery.dll</HintPath>
+      <HintPath>..\packages\KenticoCloud.Delivery.4.8.0\lib\net45\KenticoCloud.Delivery.dll</HintPath>
     </Reference>
     <Reference Include="KenticoCloud.Personalization, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\KenticoCloud.Personalization.1.1.0\lib\net451\KenticoCloud.Personalization.dll</HintPath>
@@ -70,6 +70,24 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.Configuration, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.1.0.0\lib\netstandard1.1\Microsoft.Extensions.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.1.0.0\lib\netstandard1.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Binder, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Binder.1.0.0\lib\netstandard1.1\Microsoft.Extensions.Configuration.Binder.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.1.0.0\lib\netstandard1.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.1.0.0\lib\netstandard1.0\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.1.0.0\lib\netstandard1.0\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
       <Private>True</Private>
@@ -111,9 +129,23 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Annotations, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.3.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.Primitives, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Primitives.4.1.0\lib\net45\System.ComponentModel.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.TypeConverter, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.TypeConverter.4.1.0\lib\net45\System.ComponentModel.TypeConverter.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.ValueTuple, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.3.1\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -193,6 +225,27 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="Localization\LanguageConstraint.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\AppSettingProvider.cs" />
+    <Compile Include="Areas\Admin\Controllers\SelfConfigController.cs" />
+    <Compile Include="Areas\Admin\Infrastructure\SelfConfigManager.cs" />
+    <Compile Include="Areas\Admin\Infrastructure\UserProvider.cs" />
+    <Compile Include="Areas\Admin\Infrastructure\KenticoCloudAuthorizeAttribute.cs" />
+    <Compile Include="Areas\Admin\Infrastructure\ProjectProvider.cs" />
+    <Compile Include="Areas\Admin\Infrastructure\ProviderBase.cs" />
+    <Compile Include="Areas\Admin\Infrastructure\SubscriptionProvider.cs" />
+    <Compile Include="Areas\Admin\Models\SubscriptionStatusResults.cs" />
+    <Compile Include="Areas\Admin\Models\AdministeredSubscriptionModel.cs" />
+    <Compile Include="Areas\Admin\Models\MessageModel.cs" />
+    <Compile Include="Areas\Admin\Models\PlanModel.cs" />
+    <Compile Include="Areas\Admin\Models\SelectProjectViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\SignInViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\IndexViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\ProjectModel.cs" />
+    <Compile Include="Areas\Admin\Models\SignUpViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\SubscriptionModel.cs" />
+    <Compile Include="Areas\Admin\Models\SubscriptionProjectModel.cs" />
+    <Compile Include="Areas\Admin\Models\UserModel.cs" />
     <Compile Include="Controllers\ArticlesController.cs" />
     <Compile Include="Controllers\CafesController.cs" />
     <Compile Include="Controllers\BrewersController.cs" />
@@ -213,6 +266,8 @@
     <Compile Include="Helpers\Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Localization\LanguageClient.cs" />
     <Compile Include="Localization\LocalizedMvcRouteHandler.cs" />
+    <Compile Include="Helpers\RedirectHelpers.cs" />
+    <Compile Include="Infrastructure\SelfConfigActionFilter.cs" />
     <Compile Include="Models\ArticleMetadata.cs" />
     <Compile Include="Models\BrewerMetadata.cs" />
     <Compile Include="Models\BrewerAsProduct.cs" />
@@ -248,6 +303,19 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\Content\Images\checkbox-checked.svg" />
+    <Content Include="Areas\Admin\Content\Images\checkbox-unchecked.svg" />
+    <Content Include="Areas\Admin\Content\Images\error.svg" />
+    <Content Include="Areas\Admin\Content\Images\info.svg" />
+    <Content Include="Areas\Admin\Content\Images\radio-button-checked.svg" />
+    <Content Include="Areas\Admin\Content\Images\radio-button.svg" />
+    <Content Include="Areas\Admin\Content\Images\warning.svg" />
+    <Content Include="Areas\Admin\Content\Styles\Admin.css" />
+    <Content Include="Areas\Admin\Scripts\identityForms.js" />
+    <Content Include="Areas\Admin\Scripts\selectProject.js" />
+    <Content Include="Areas\Admin\Scripts\spinner.js" />
+    <Content Include="Areas\Admin\Views\Shared\EditorTemplates\EmailAddress.cshtml" />
+    <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -290,6 +358,32 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Areas\Admin\Views\SelfConfig\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\SelfConfig\Expired.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_ProjectIdPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\SelfConfig\Inactive.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_SharedGeneralPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_FreePartial.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\EditorTemplates\ProjectModel.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_ProjectsPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\SelfConfig\NoSubscriptions.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_SharedPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\SelfConfig\SelectOrCreateProject.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_DeploySamplePartial.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Error.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_SignInPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\SelfConfig\Recheck.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_MessagesPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_SignUpPartial.cshtml" />
+    <Content Include="Areas\Admin\Content\Styles\Admin.less" />
+    <Content Include="Areas\Admin\Content\Styles\variables.less" />
+    <Content Include="Areas\Admin\Views\Shared\EditorTemplates\String.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\EditorTemplates\Password.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\EditorTemplates\Guid.cshtml" />
+    <Content Include="Areas\Admin\Content\Styles\UserMessage.less" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\formAutoPost.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
@@ -376,6 +470,9 @@
       <CustomToolNamespace>Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Shared\EditorTemplates\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

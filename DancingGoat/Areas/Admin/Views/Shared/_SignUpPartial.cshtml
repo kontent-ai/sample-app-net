@@ -1,0 +1,18 @@
+﻿@using DancingGoat.Helpers.Extensions
+@model DancingGoat.Areas.Admin.Models.SignUpViewModel
+
+<h3>Sign Up</h3>
+<div class="padded-top-bottom">
+    @Html.ValidatedEditorFor(vm => vm.FirstName)
+    @Html.ValidatedEditorFor(vm => vm.LastName)
+    @Html.ValidatedEditorFor(vm => vm.Email, id: "signUpFormEmail")
+    @Html.ValidatedEditorFor(vm => vm.Password, id: "signUpFormPassword")
+</div>
+<div class="styled-checkbox no-left-padding">
+    <input type="checkbox" id="termsAccepted" name="termsAccepted" required />
+    <span></span>
+    <label class="visible" for="termsAccepted">I accept the <a href="https://kenticocloud.com/terms-of-service">Terms of Service</a>.</label>
+</div>
+<span id="termsAcceptedValidation" style="display:none">You need to accept the terms.</span>
+<input type="submit" class="button-@ViewBag.ButtonType" value="Sign up" />
+<p><a class="form-tab-switcher" href="#formTab-signInForm">Already have an account? Sign in.</a></p>

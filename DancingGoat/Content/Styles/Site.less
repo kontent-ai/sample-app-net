@@ -8,6 +8,7 @@
 @import "./Controls.less";
 @import "./Gallery.less";
 @import "./YourAccount.less";
+@import "../../Areas/Admin/Content/Styles/UserMessage.less";
 
 /*# Page wrap #*/
 html, body {
@@ -272,26 +273,6 @@ footer {
     background-color: #E2E2E2;
     display: inline-block;
     padding: 0.3rem 1rem;
-}
-
-.article-inline-image {
-    float: right;
-    margin: 15px;
-    text-align: center;
-    
-    a {
-        text-decoration: none;
-    }
-
-    img {
-        max-width: 200px;
-        max-height: 200px;
-    }
-
-    .inline-image-title {
-        font-style: italic;
-        display: block;
-    }
 }
 
 .title-tab {
@@ -939,4 +920,30 @@ footer {
 .hosted-video__wrapper {
     display: block;
     margin: 30px auto;
+}
+
+.hidden {
+    display: none;
+}
+
+.article-inline-image {
+    margin: 30px;
+    text-align: center;
+
+    a {
+        text-decoration: none;
+    }
+
+    figure {
+        margin: 10px;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    .inline-image-title {
+        font-style: italic;
+        display: block;
+    }
 }
