@@ -1,12 +1,12 @@
 ﻿using System;
-
 using System.Globalization;
 using System.Web.Mvc;
+
 using KenticoCloud.Delivery;
+
 using DancingGoat.Areas.Admin;
 using DancingGoat.Infrastructure;
 using DancingGoat.Models;
-using DancingGoat.InlineContentItemResolver;
 using DancingGoat.Localization;
 
 namespace DancingGoat.Controllers
@@ -43,8 +43,6 @@ namespace DancingGoat.Controllers
 
             clientInstance.CodeFirstModelProvider.TypeProvider = new CustomTypeProvider();
             clientInstance.ContentLinkUrlResolver = new CustomContentLinkUrlResolver();
-            clientInstance.InlineContentItemsProcessor.RegisterTypeResolver(new HostedVideoResolver());
-            clientInstance.InlineContentItemsProcessor.RegisterTypeResolver(new TweetResolver());
             return clientInstance;
         }
     }

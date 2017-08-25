@@ -12,6 +12,10 @@ namespace DancingGoat.Models
 {
     public partial class AboutUs
     {
+        public const string Codename = "about_us";
+        public const string FactsCodename = "facts";
+        public const string UrlPatternCodename = "url_pattern";
+
         public IEnumerable<object> Facts { get; set; }
         public string UrlPattern { get; set; }
         public ContentItemSystemAttributes System { get; set; }

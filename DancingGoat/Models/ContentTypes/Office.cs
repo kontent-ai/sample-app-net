@@ -12,6 +12,16 @@ namespace DancingGoat.Models
 {
     public partial class Office
     {
+        public const string Codename = "office";
+        public const string NameCodename = "name";
+        public const string StreetCodename = "street";
+        public const string CityCodename = "city";
+        public const string CountryCodename = "country";
+        public const string StateCodename = "state";
+        public const string ZipCodeCodename = "zip_code";
+        public const string PhoneCodename = "phone";
+        public const string EmailCodename = "email";
+
         public string Name { get; set; }
         public string Street { get; set; }
         public string City { get; set; }

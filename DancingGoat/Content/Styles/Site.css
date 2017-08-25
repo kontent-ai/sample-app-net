@@ -6216,3 +6216,20 @@ footer {
 .hidden {
   display: none;
 }
+.article-inline-image {
+  margin: 30px;
+  text-align: center;
+}
+.article-inline-image a {
+  text-decoration: none;
+}
+.article-inline-image figure {
+  margin: 10px;
+}
+.article-inline-image img {
+  max-width: 100%;
+}
+.article-inline-image .inline-image-title {
+  font-style: italic;
+  display: block;
+}

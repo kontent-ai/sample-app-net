@@ -97,7 +97,9 @@ namespace DancingGoat.Localization
             get { return _client.CodeFirstModelProvider; }
             set { _client.CodeFirstModelProvider = value; }
         }
-        public InlineContentItemsProcessor InlineContentItemsProcessor => _client.InlineContentItemsProcessor;
+
+        public IInlineContentItemsProcessor InlineContentItemsProcessor => _client.InlineContentItemsProcessor;
+
         public Task<JObject> GetItemJsonAsync(string codename, params string[] parameters)
         {
             return _client.GetItemJsonAsync(codename, new[] {new LanguageParameter(_language).GetQueryStringParameter()}.Concat(parameters).ToArray());

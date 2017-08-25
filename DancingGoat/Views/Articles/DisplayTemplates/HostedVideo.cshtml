@@ -1,0 +1,27 @@
+﻿@model DancingGoat.Models.HostedVideo
+
+@{ 
+    var host = Model.VideoHost.FirstOrDefault()?.Codename;
+    if (host == "vimeo") {
+        <iframe class="hosted-video__wrapper"
+                src="https://player.vimeo.com/video/@(Model.VideoId)?title =0&byline =0&portrait =0"
+                width="640"
+                height="360"
+                frameborder="0"
+                webkitallowfullscreen
+                mozallowfullscreen
+                allowfullscreen
+                >
+        </iframe>
+    }
+    else if (host == "youtube") {
+        <iframe class="hosted-video__wrapper"
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/@(Model.VideoId)"
+                frameborder="0"
+                allowfullscreen
+                >
+        </iframe>
+    }
+}

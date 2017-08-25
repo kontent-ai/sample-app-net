@@ -1,7 +1,5 @@
 using System;
 
-using DancingGoat.Models.ContentTypes;
-
 using KenticoCloud.Delivery;
 
 namespace DancingGoat.Models
