@@ -7,9 +7,6 @@ namespace DancingGoat
 {
     public class DancingGoatApplication : System.Web.HttpApplication
     {
-        public string AzureWebsiteName = Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME");
-        //public bool
-
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
