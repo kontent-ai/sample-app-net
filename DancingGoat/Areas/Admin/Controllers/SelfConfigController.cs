@@ -296,7 +296,7 @@ namespace DancingGoat.Areas.Admin.Controllers
                         {
                             var subscriptions = await _subscriptionProvider.GetSubscriptionsAsync(token);
 
-                            // Projects may not always be owned by the user. Getting subscription EndAt date might not be possible. Hence the allowed null outcome.
+                            // The user does not have to be logged in and projects may not always be owned by the user. Getting subscription EndAt date might not be possible. Hence the allowed null outcome.
                             endAt = subscriptions.FirstOrDefault(s => s.Projects.Any(p => p.Id == AppSettingProvider.ProjectId))?.CurrentPlan?.EndAt;
                         }
                         else
@@ -352,19 +352,26 @@ namespace DancingGoat.Areas.Admin.Controllers
             {
                 var user = await _userProvider.GetUserAsync(token);
 
-                try
+                if (user != null)
                 {
-                    var projectId = await _selfConfigManager.DeployAndSetSampleProject(token, user);
+                    try
+                    {
+                        var projectId = await _selfConfigManager.DeployAndSetSampleProject(token, user);
 
-                    return RedirectHelpers.GetHomeRedirectResult(new MessageModel { Caption = null, Message = string.Format(MESSAGE_NEW_SAMPLE_PROJECT, projectId), MessageType = MessageType.Info });
+                        return RedirectHelpers.GetHomeRedirectResult(new MessageModel { Caption = null, Message = string.Format(MESSAGE_NEW_SAMPLE_PROJECT, projectId), MessageType = MessageType.Info });
+                    }
+                    catch (ConfigurationErrorsException ex)
+                    {
+                        return await HandleSampleDeploymentExceptions(token, ex);
+                    }
+                    catch (DeliveryException ex)
+                    {
+                        return await HandleSampleDeploymentExceptions(token, ex);
+                    }
                 }
-                catch (ConfigurationErrorsException ex)
+                else
                 {
-                    return await HandleSampleDeploymentExceptions(token, ex);
-                }
-                catch (DeliveryException ex)
-                {
-                    return await HandleSampleDeploymentExceptions(token, ex);
+                    return RedirectHelpers.GetSelfConfigIndexResult(new MessageModel { Caption = null, Message = MESSAGE_UNAUTHENTICATED, MessageType = MessageType.Error });
                 }
             }
             catch (JsonSerializationException ex)

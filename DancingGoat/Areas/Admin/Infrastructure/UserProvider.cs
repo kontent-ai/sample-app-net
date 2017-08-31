@@ -16,7 +16,14 @@ namespace DancingGoat.Areas.Admin.Infrastructure
             {
                 using (HttpResponseMessage response = await GetResponseAsync(token, request))
                 {
-                    return await GetResultAsync<UserModel>(response);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return await GetResultAsync<UserModel>(response);
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 }
             }
         }
