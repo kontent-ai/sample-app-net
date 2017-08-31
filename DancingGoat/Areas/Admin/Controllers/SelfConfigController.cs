@@ -299,10 +299,6 @@ namespace DancingGoat.Areas.Admin.Controllers
                             // The user does not have to be logged in and projects may not always be owned by the user. Getting subscription EndAt date might not be possible. Hence the allowed null outcome.
                             endAt = subscriptions.FirstOrDefault(s => s.Projects.Any(p => p.Id == AppSettingProvider.ProjectId))?.CurrentPlan?.EndAt;
                         }
-                        else
-                        {
-                            return View("Error", new MessageModel { Caption = "Unauthenticated", Message = MESSAGE_UNAUTHENTICATED, MessageType = MessageType.Error });
-                        }
                     }
 
                     try
