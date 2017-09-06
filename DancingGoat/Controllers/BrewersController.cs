@@ -11,14 +11,27 @@ namespace DancingGoat.Controllers
     {
         public async Task<ActionResult> Index()
         {
-            var response = await client.GetItemsAsync<Brewer>(
+            var itemsTask = client.GetItemsAsync<Brewer>(
                 new EqualsFilter("system.type", "brewer"),
                 new OrderParameter("elements.product_name"),
-                new ElementsParameter("image", "price", "product_status", "processing", "url_pattern"),
+                new ElementsParameter("image", "price", "product_status", "url_pattern"),
                 new DepthParameter(0)
             );
 
-            return View(response.Items);
+            var statusTask = client.GetTaxonomyAsync("product_status");
+            var manufacturerTask = client.GetTaxonomyAsync("manufacturer_type");
+
+            var model = new BrewersViewModel
+            {
+                Items = (await itemsTask).Items,
+                Filter = new BrewerFilterViewModel
+                {
+                    AvailableStatusTypes = GetTaxonomiesAsSelectList(await statusTask),
+                    AvailableManufacturers = GetTaxonomiesAsSelectList(await manufacturerTask)
+                }
+            };
+
+            return View(model);
         }
 
         public async Task<ActionResult> Filter(BrewerFilterViewModel model)
@@ -26,19 +39,30 @@ namespace DancingGoat.Controllers
             var parameters = new List<IQueryParameter> {
                 new EqualsFilter("system.type", "brewer"),
                 new OrderParameter("elements.product_name"),
-                new ElementsParameter("image", "price", "product_status", "processing", "url_pattern"),
+                new ElementsParameter("image", "price", "product_status", "url_pattern"),
                 new DepthParameter(0)
             };
 
-            var manufacturers = model.GetManufacturerFilters().ToArray();
+            var manufacturers = model.GetFilteredManufacturers().ToArray();
             if (manufacturers.Any())
             {
-                parameters.Add(new InFilter("elements.manufacturer", manufacturers));
+                parameters.Add(new AnyFilter($"elements.{Brewer.ManufacturerNewCodename}", manufacturers));
+            }
+
+            var statusTypes = model.GetFilteredStatusTypes().ToArray();
+            if (statusTypes.Any())
+            {
+                parameters.Add(new AnyFilter($"elements.{Brewer.ProductStatusCodename}", statusTypes));
             }
 
             var response = await client.GetItemsAsync<Brewer>(parameters);
 
             return PartialView("ProductListing", response.Items);
+        }
+
+        private IList<SelectListItem> GetTaxonomiesAsSelectList(TaxonomyGroup taxonomyGroup)
+        {
+            return taxonomyGroup.Terms.Select(x => new SelectListItem{Text = x.Name, Value = x.Codename}).ToList();
         }
     }
 }
