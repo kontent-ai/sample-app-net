@@ -11,14 +11,27 @@ namespace DancingGoat.Controllers
     {
         public async Task<ActionResult> Index()
         {
-            var response = await client.GetItemsAsync<Coffee>(
+            var itemsTask = client.GetItemsAsync<Coffee>(
                 new EqualsFilter("system.type", "coffee"),
                 new OrderParameter("elements.product_name"),
-                new ElementsParameter("image", "price", "product_status", "processing", "url_pattern"),
+                new ElementsParameter("image", "price", "product_status", "url_pattern"),
                 new DepthParameter(0)
             );
 
-            return View(response.Items);
+            var processingTask = client.GetTaxonomyAsync("processing_type");
+            var statusTask = client.GetTaxonomyAsync("product_status");
+
+            var model = new CoffeesViewModel
+            {
+                Items = (await itemsTask).Items,
+                Filter = new CoffeesFilterViewModel
+                {
+                    AvailableProcessingTypes = GetTaxonomiesAsSelectList(await processingTask),
+                    AvailableStatusTypes = GetTaxonomiesAsSelectList(await statusTask)
+                }
+            };
+
+            return View(model);
         }
 
         public async Task<ActionResult> Filter(CoffeesFilterViewModel model)
@@ -26,19 +39,30 @@ namespace DancingGoat.Controllers
             var parameters = new List<IQueryParameter> {
                 new EqualsFilter("system.type", "coffee"),
                 new OrderParameter("elements.product_name"),
-                new ElementsParameter("image", "price", "product_status", "processing", "url_pattern"),
+                new ElementsParameter("image", "price", "product_status", "url_pattern"),
                 new DepthParameter(0),
             };
 
-            var filter = model.GetFilteredValues().ToArray();
-            if (filter.Any())
+            var filterProcessing = model.GetFilteredProcessingTypes().ToArray();
+            if (filterProcessing.Any())
             {
-                parameters.Add(new AnyFilter("elements.processing", filter));
+                parameters.Add(new AnyFilter($"elements.{Coffee.ProcessingTypeCodename}", filterProcessing));
+            }
+
+            var filterStatus = model.GetFilteredStatusTypes().ToArray();
+            if (filterStatus.Any())
+            {
+                parameters.Add(new AnyFilter($"elements.{Coffee.ProductStatusCodename}", filterStatus));
             }
 
             var response = await client.GetItemsAsync<Coffee>(parameters);
 
             return PartialView("ProductListing", response.Items);
+        }
+
+        private IList<SelectListItem> GetTaxonomiesAsSelectList(TaxonomyGroup taxonomyGroup)
+        {
+            return taxonomyGroup.Terms.Select(x => new SelectListItem { Text = x.Name, Value = x.Codename }).ToList();
         }
     }
 }
