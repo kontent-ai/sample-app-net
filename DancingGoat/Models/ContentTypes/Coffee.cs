@@ -4,7 +4,6 @@
 // Changes to this file may cause incorrect behavior and will be lost if the code is regenerated. 
 // For further modifications of the class, create a separate file with the partial class.
 
-using System;
 using System.Collections.Generic;
 using KenticoCloud.Delivery;
 
@@ -22,9 +21,9 @@ namespace DancingGoat.Models
         public const string FarmCodename = "farm";
         public const string CountryCodename = "country";
         public const string VarietyCodename = "variety";
-        public const string ProcessingCodename = "processing";
         public const string AltitudeCodename = "altitude";
         public const string UrlPatternCodename = "url_pattern";
+        public const string ProcessingCodename = "processing";
 
         public string ProductName { get; set; }
         public decimal? Price { get; set; }
@@ -35,9 +34,9 @@ namespace DancingGoat.Models
         public string Farm { get; set; }
         public string Country { get; set; }
         public string Variety { get; set; }
-        public IEnumerable<MultipleChoiceOption> Processing { get; set; }
         public string Altitude { get; set; }
         public string UrlPattern { get; set; }
+        public IEnumerable<TaxonomyTerm> Processing { get; set; }
         public ContentItemSystemAttributes System { get; set; }
     }
 }

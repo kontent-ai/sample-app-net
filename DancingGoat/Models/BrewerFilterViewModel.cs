@@ -1,32 +1,19 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace DancingGoat.Models
 {
     public class BrewerFilterViewModel
     {
-        public bool Aerobie { get; set; }
-        public bool Chemex { get; set; }
-        public bool Espro { get; set; }
-        public bool Hario { get; set; }
+        public IList<SelectListItem> AvailableManufacturers { get; set; } = new List<SelectListItem>();
+        public IList<SelectListItem> AvailableProductStatuses { get; set; } = new List<SelectListItem>();
 
-        public IEnumerable<string> GetManufacturerFilters()
-        {
-            if (Aerobie)
-            {
-                yield return "Aerobie";
-            }
-            if (Chemex)
-            {
-                yield return "Chemex";
-            }
-            if (Espro)
-            {
-                yield return "Espro";
-            }
-            if (Hario)
-            {
-                yield return "Hario";
-            }
-        }
+        public IEnumerable<string> GetFilteredManufacturers()
+            => AvailableManufacturers.Where(x => x.Selected).Select(x => x.Value);
+
+        public IEnumerable<string> GetFilteredProductStatuses()
+            => AvailableProductStatuses.Where(x => x.Selected).Select(x => x.Value);
+
     }
 }

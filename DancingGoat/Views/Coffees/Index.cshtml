@@ -1,9 +1,9 @@
-﻿@model IEnumerable<DancingGoat.Models.Coffee>
+﻿@model DancingGoat.Models.CoffeesViewModel
 
 @{
     Layout = "~/Views/Shared/_StoreLayout.cshtml";
     ViewBag.Title = Resources.DancingGoat.Coffees;
-    var coffeeAsProducts = Model.Cast<DancingGoat.Models.Product>();
+    var coffeeAsProducts = Model.Items.Cast<DancingGoat.Models.Product>();
 }
 
 <div class="product-page row">
@@ -11,7 +11,7 @@
         <aside class="col-md-4 col-lg-3 product-filter">
             @using (Html.BeginForm("Filter", "Coffees"))
             {
-                @Html.Partial("CoffeeFilter", new DancingGoat.Models.CoffeesFilterViewModel())
+                @Html.Partial("CoffeeFilter", Model.Filter)
             }
         </aside>
 

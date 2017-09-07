@@ -2,15 +2,22 @@
 
 <h4>@Resources.DancingGoat.Coffees_CoffeeProcessing</h4>
 
-<span class="checkbox js-postback">
-    @Html.CheckBoxFor(m => m.Washed)
-    @Html.LabelFor(m => m.Washed, Resources.DancingGoat.Coffees_Washed)
-</span>
-<span class="checkbox js-postback">
-    @Html.CheckBoxFor(m => m.SemiWashed)
-    @Html.LabelFor(m => m.SemiWashed, Resources.DancingGoat.Coffees_Semiwashed)
-</span>
-<span class="checkbox js-postback">
-    @Html.CheckBoxFor(m => m.Natural)
-    @Html.LabelFor(m => m.Natural, Resources.DancingGoat.Coffees_Natural)
-</span>
+@for (var i = 0; i < Model.AvailableProcessings.Count; ++i)
+{
+    <span class="checkbox js-postback">
+        @Html.HiddenFor(m => m.AvailableProcessings[i].Value)
+        @Html.CheckBoxFor(m => m.AvailableProcessings[i].Selected)
+        @Html.LabelFor(m => m.AvailableProcessings[i].Selected, Model.AvailableProcessings[i].Text)
+    </span>
+}
+
+<h4>@Resources.DancingGoat.Brewers_PublicStatus</h4>
+
+@for (var i = 0; i < Model.AvailableProductStatuses.Count; ++i)
+{
+    <span class="checkbox js-postback">
+        @Html.HiddenFor(m => m.AvailableProductStatuses[i].Value)
+        @Html.CheckBoxFor(m => m.AvailableProductStatuses[i].Selected)
+        @Html.LabelFor(m => m.AvailableProductStatuses[i].Selected, Model.AvailableProductStatuses[i].Text)
+    </span>
+}

@@ -4,7 +4,6 @@
 // Changes to this file may cause incorrect behavior and will be lost if the code is regenerated. 
 // For further modifications of the class, create a separate file with the partial class.
 
-using System;
 using System.Collections.Generic;
 using KenticoCloud.Delivery;
 
@@ -26,7 +25,7 @@ namespace DancingGoat.Models
         public decimal? Price { get; set; }
         public IEnumerable<Asset> Image { get; set; }
         public IEnumerable<TaxonomyTerm> ProductStatus { get; set; }
-        public string Manufacturer { get; set; }
+        public IEnumerable<TaxonomyTerm> Manufacturer { get; set; }
         public IRichTextContent ShortDescription { get; set; }
         public IRichTextContent LongDescription { get; set; }
         public string UrlPattern { get; set; }

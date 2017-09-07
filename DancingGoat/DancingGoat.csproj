@@ -56,7 +56,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="KenticoCloud.Delivery, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\KenticoCloud.Delivery.4.8.0\lib\net45\KenticoCloud.Delivery.dll</HintPath>
+      <HintPath>..\packages\KenticoCloud.Delivery.4.9.0\lib\net45\KenticoCloud.Delivery.dll</HintPath>
     </Reference>
     <Reference Include="KenticoCloud.Personalization, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\KenticoCloud.Personalization.1.1.1\lib\net451\KenticoCloud.Personalization.dll</HintPath>
@@ -140,6 +140,9 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
     </Reference>
@@ -266,8 +269,10 @@
     <Compile Include="Helpers\RedirectHelpers.cs" />
     <Compile Include="Infrastructure\SelfConfigActionFilter.cs" />
     <Compile Include="Models\BrewerAsProduct.cs" />
+    <Compile Include="Models\BrewersViewModel.cs" />
     <Compile Include="Models\CafeMetadata.cs" />
     <Compile Include="Models\CoffeeAsProduct.cs" />
+    <Compile Include="Models\CoffeesViewModel.cs" />
     <Compile Include="Models\ContentTypes\AboutUs.cs" />
     <Compile Include="Models\AboutUsViewModel.cs" />
     <Compile Include="Models\ContentTypes\Accessory.cs" />
