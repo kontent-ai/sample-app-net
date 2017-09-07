@@ -18,8 +18,8 @@ namespace DancingGoat.Controllers
                 new DepthParameter(0)
             );
 
-            var statusTask = client.GetTaxonomyAsync("product_status");
-            var manufacturerTask = client.GetTaxonomyAsync("manufacturer_type");
+            var statusTask = client.GetTaxonomyAsync(Brewer.ProductStatusCodename);
+            var manufacturerTask = client.GetTaxonomyAsync(Brewer.ManufacturerCodename);
 
             var model = new BrewersViewModel
             {
@@ -46,7 +46,7 @@ namespace DancingGoat.Controllers
             var manufacturers = model.GetFilteredManufacturers().ToArray();
             if (manufacturers.Any())
             {
-                parameters.Add(new AnyFilter($"elements.{Brewer.ManufacturerNewCodename}", manufacturers));
+                parameters.Add(new AnyFilter($"elements.{Brewer.ManufacturerCodename}", manufacturers));
             }
 
             var statusTypes = model.GetFilteredStatusTypes().ToArray();

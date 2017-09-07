@@ -18,8 +18,8 @@ namespace DancingGoat.Controllers
                 new DepthParameter(0)
             );
 
-            var processingTask = client.GetTaxonomyAsync("processing_type");
-            var statusTask = client.GetTaxonomyAsync("product_status");
+            var processingTask = client.GetTaxonomyAsync(Coffee.ProcessingCodename);
+            var statusTask = client.GetTaxonomyAsync(Coffee.ProductStatusCodename);
 
             var model = new CoffeesViewModel
             {
@@ -46,7 +46,7 @@ namespace DancingGoat.Controllers
             var filterProcessing = model.GetFilteredProcessingTypes().ToArray();
             if (filterProcessing.Any())
             {
-                parameters.Add(new AnyFilter($"elements.{Coffee.ProcessingTypeCodename}", filterProcessing));
+                parameters.Add(new AnyFilter($"elements.{Coffee.ProcessingCodename}", filterProcessing));
             }
 
             var filterStatus = model.GetFilteredStatusTypes().ToArray();

@@ -16,7 +16,7 @@ namespace DancingGoat.Models
         public const string PriceCodename = "price";
         public const string ImageCodename = "image";
         public const string ProductStatusCodename = "product_status";
-        public const string ManufacturerNewCodename = "manufacturer_type";
+        public const string ManufacturerCodename = "manufacturer";
         public const string ShortDescriptionCodename = "short_description";
         public const string LongDescriptionCodename = "long_description";
         public const string UrlPatternCodename = "url_pattern";
@@ -25,7 +25,7 @@ namespace DancingGoat.Models
         public decimal? Price { get; set; }
         public IEnumerable<Asset> Image { get; set; }
         public IEnumerable<TaxonomyTerm> ProductStatus { get; set; }
-        public IEnumerable<TaxonomyTerm> ManufacturerType { get; set; }
+        public IEnumerable<TaxonomyTerm> Manufacturer { get; set; }
         public IRichTextContent ShortDescription { get; set; }
         public IRichTextContent LongDescription { get; set; }
         public string UrlPattern { get; set; }

@@ -23,7 +23,7 @@ namespace DancingGoat.Models
         public const string VarietyCodename = "variety";
         public const string AltitudeCodename = "altitude";
         public const string UrlPatternCodename = "url_pattern";
-        public const string ProcessingTypeCodename = "processing_type";
+        public const string ProcessingCodename = "processing";
 
         public string ProductName { get; set; }
         public decimal? Price { get; set; }
@@ -36,7 +36,7 @@ namespace DancingGoat.Models
         public string Variety { get; set; }
         public string Altitude { get; set; }
         public string UrlPattern { get; set; }
-        public IEnumerable<TaxonomyTerm> ProcessingType { get; set; }
+        public IEnumerable<TaxonomyTerm> Processing { get; set; }
         public ContentItemSystemAttributes System { get; set; }
     }
 }
