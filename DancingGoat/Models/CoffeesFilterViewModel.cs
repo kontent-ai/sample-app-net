@@ -6,13 +6,13 @@ namespace DancingGoat.Models
 {
     public class CoffeesFilterViewModel
     {
-        public IList<SelectListItem> AvailableProcessingTypes { get; set; } = new List<SelectListItem>();
-        public IList<SelectListItem> AvailableStatusTypes { get; set; } = new List<SelectListItem>();
+        public IList<SelectListItem> AvailableProcessings { get; set; } = new List<SelectListItem>();
+        public IList<SelectListItem> AvailableProductStatuses { get; set; } = new List<SelectListItem>();
 
-        public IEnumerable<string> GetFilteredProcessingTypes()
-            => AvailableProcessingTypes.Where(x => x.Selected).Select(x => x.Value);
+        public IEnumerable<string> GetFilteredProcessings()
+            => AvailableProcessings.Where(x => x.Selected).Select(x => x.Value);
 
-        public IEnumerable<string> GetFilteredStatusTypes()
-            => AvailableStatusTypes.Where(x => x.Selected).Select(x => x.Value);
+        public IEnumerable<string> GetFilteredProductStatuses()
+            => AvailableProductStatuses.Where(x => x.Selected).Select(x => x.Value);
     }
 }

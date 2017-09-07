@@ -14,7 +14,7 @@ namespace DancingGoat.Controllers
             var itemsTask = client.GetItemsAsync<Brewer>(
                 new EqualsFilter("system.type", "brewer"),
                 new OrderParameter("elements.product_name"),
-                new ElementsParameter("image", "price", "product_status", "url_pattern"),
+                new ElementsParameter(Brewer.ImageCodename, Brewer.PriceCodename, Brewer.ProductStatusCodename, Brewer.ProductNameCodename, Brewer.UrlPatternCodename),
                 new DepthParameter(0)
             );
 
@@ -26,7 +26,7 @@ namespace DancingGoat.Controllers
                 Items = (await itemsTask).Items,
                 Filter = new BrewerFilterViewModel
                 {
-                    AvailableStatusTypes = GetTaxonomiesAsSelectList(await statusTask),
+                    AvailableProductStatuses = GetTaxonomiesAsSelectList(await statusTask),
                     AvailableManufacturers = GetTaxonomiesAsSelectList(await manufacturerTask)
                 }
             };
@@ -39,7 +39,7 @@ namespace DancingGoat.Controllers
             var parameters = new List<IQueryParameter> {
                 new EqualsFilter("system.type", "brewer"),
                 new OrderParameter("elements.product_name"),
-                new ElementsParameter("image", "price", "product_status", "url_pattern"),
+                new ElementsParameter(Brewer.ImageCodename, Brewer.PriceCodename, Brewer.ProductStatusCodename, Brewer.ProductNameCodename, Brewer.UrlPatternCodename),
                 new DepthParameter(0)
             };
 
@@ -49,7 +49,7 @@ namespace DancingGoat.Controllers
                 parameters.Add(new AnyFilter($"elements.{Brewer.ManufacturerCodename}", manufacturers));
             }
 
-            var statusTypes = model.GetFilteredStatusTypes().ToArray();
+            var statusTypes = model.GetFilteredProductStatuses().ToArray();
             if (statusTypes.Any())
             {
                 parameters.Add(new AnyFilter($"elements.{Brewer.ProductStatusCodename}", statusTypes));

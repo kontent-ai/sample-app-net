@@ -14,7 +14,7 @@ namespace DancingGoat.Controllers
             var itemsTask = client.GetItemsAsync<Coffee>(
                 new EqualsFilter("system.type", "coffee"),
                 new OrderParameter("elements.product_name"),
-                new ElementsParameter("image", "price", "product_status", "url_pattern"),
+                new ElementsParameter(Coffee.ImageCodename, Coffee.PriceCodename, Coffee.ProductStatusCodename, Coffee.ProductNameCodename, Coffee.UrlPatternCodename),
                 new DepthParameter(0)
             );
 
@@ -26,8 +26,8 @@ namespace DancingGoat.Controllers
                 Items = (await itemsTask).Items,
                 Filter = new CoffeesFilterViewModel
                 {
-                    AvailableProcessingTypes = GetTaxonomiesAsSelectList(await processingTask),
-                    AvailableStatusTypes = GetTaxonomiesAsSelectList(await statusTask)
+                    AvailableProcessings = GetTaxonomiesAsSelectList(await processingTask),
+                    AvailableProductStatuses = GetTaxonomiesAsSelectList(await statusTask)
                 }
             };
 
@@ -39,17 +39,17 @@ namespace DancingGoat.Controllers
             var parameters = new List<IQueryParameter> {
                 new EqualsFilter("system.type", "coffee"),
                 new OrderParameter("elements.product_name"),
-                new ElementsParameter("image", "price", "product_status", "url_pattern"),
+                new ElementsParameter(Coffee.ImageCodename, Coffee.PriceCodename, Coffee.ProductStatusCodename, Coffee.ProductNameCodename, Coffee.UrlPatternCodename),
                 new DepthParameter(0),
             };
 
-            var filterProcessing = model.GetFilteredProcessingTypes().ToArray();
+            var filterProcessing = model.GetFilteredProcessings().ToArray();
             if (filterProcessing.Any())
             {
                 parameters.Add(new AnyFilter($"elements.{Coffee.ProcessingCodename}", filterProcessing));
             }
 
-            var filterStatus = model.GetFilteredStatusTypes().ToArray();
+            var filterStatus = model.GetFilteredProductStatuses().ToArray();
             if (filterStatus.Any())
             {
                 parameters.Add(new AnyFilter($"elements.{Coffee.ProductStatusCodename}", filterStatus));
