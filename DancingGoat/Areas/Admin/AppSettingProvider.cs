@@ -14,7 +14,7 @@ namespace DancingGoat.Areas.Admin
         private static readonly Configuration _configuration = WebConfigurationManager.OpenWebConfiguration("~");
         private static DateTime? _subscriptionExpiresAt;
         private static Guid? _projectId;
-        private static Guid? _sharedProjectId;
+        private static Guid? _defaultProjectId;
         private static string _previewToken;
 
         internal static DateTime? SubscriptionExpiresAt
@@ -99,17 +99,17 @@ namespace DancingGoat.Areas.Admin
         {
             get
             {
-                if (_projectId.HasValue)
+                if (_defaultProjectId.HasValue)
                 {
-                    return _sharedProjectId;
+                    return _defaultProjectId;
                 }
                 else
                 {
                     if (Guid.TryParse(ConfigurationManager.AppSettings["DefaultProjectId"], out Guid projectId))
                     {
-                        _sharedProjectId = projectId;
+                        _defaultProjectId = projectId;
 
-                        return _sharedProjectId;
+                        return _defaultProjectId;
                     }
                     else
                     {

@@ -129,7 +129,7 @@ namespace DancingGoat.Areas.Admin.Controllers
                             {
                                 AddSecurityInfoToViewBag();
 
-                                return View("SelectOrCreateProject", new SelectProjectViewModel { Projects = results.Projects });
+                                return View("SelectOrCreateProject", new SelectProjectViewModel { Projects = results.Projects.Where(p => p.Inactive == false) });
                             }
                             else
                             {
@@ -153,7 +153,7 @@ namespace DancingGoat.Areas.Admin.Controllers
                         {
                             ViewBag.EndAt = results.EndAt;
 
-                            return View(results.Status.ToString(), new SelectProjectViewModel { Projects = results.Projects });
+                            return View(results.Status.ToString(), new SelectProjectViewModel { Projects = results.Projects.Where(p => p.Inactive == false) });
                         }
                     }
                 }
@@ -228,14 +228,14 @@ namespace DancingGoat.Areas.Admin.Controllers
                             {
                                 AddSecurityInfoToViewBag();
 
-                                return View("SelectOrCreateProject", new SelectProjectViewModel { Projects = results.Projects });
+                                return View("SelectOrCreateProject", new SelectProjectViewModel { Projects = results.Projects.Where(p => p.Inactive == false) });
                             }
                         }
                         else
                         {
                             ViewBag.EndAt = results.EndAt;
 
-                            return View(results.Status.ToString(), new SelectProjectViewModel { Projects = results.Projects });
+                            return View(results.Status.ToString(), new SelectProjectViewModel { Projects = results.Projects.Where(p => p.Inactive == false) });
                         }
                     }
                 }
