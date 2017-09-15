@@ -33,14 +33,14 @@ namespace DancingGoat.Controllers
 
         public static DeliveryClient CreateDeliveryClient()
         {
-            var previewToken = AppSettingProvider.PreviewToken;
-            var projectId = AppSettingProvider.ProjectId ?? AppSettingProvider.DefaultProjectId;
+            // Use the provider to get environment variables.
+            var provider = new ConfigurationManagerProvider();
 
-            var clientInstance = 
-                !string.IsNullOrEmpty(previewToken) ? 
-                    new DeliveryClient(projectId.Value.ToString(), previewToken) : 
-                    new DeliveryClient(projectId.Value.ToString());
+            // Build DeliveryOptions with default or explicit values.
+            var options = provider.GetDeliveryOptions();
 
+            options.ProjectId = options.ProjectId ?? AppSettingProvider.DefaultProjectId.ToString();
+            var clientInstance = new DeliveryClient(options);
             clientInstance.CodeFirstModelProvider.TypeProvider = new CustomTypeProvider();
             clientInstance.ContentLinkUrlResolver = new CustomContentLinkUrlResolver();
             return clientInstance;

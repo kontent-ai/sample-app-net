@@ -9,13 +9,13 @@ namespace DancingGoat.Areas.Admin
     {
         private const string PROJECT_ID_KEY_NAME = "ProjectId";
         private const string SUBSCRIPTION_EXPIRES_KEY_NAME = "SubscriptionExpiresAt";
-        private const string PREVIEW_TOKEN = "PreviewToken";
+        private const string PREVIEW_API_KEY = "PreviewApiKey";
 
         private static readonly Configuration _configuration = WebConfigurationManager.OpenWebConfiguration("~");
         private static DateTime? _subscriptionExpiresAt;
         private static Guid? _projectId;
         private static Guid? _defaultProjectId;
-        private static string _previewToken;
+        private static string _previewApiKey;
         private static string _kenticoCloudUrl;
 
         internal static DateTime? SubscriptionExpiresAt
@@ -120,21 +120,21 @@ namespace DancingGoat.Areas.Admin
             }
         }
 
-        internal static string PreviewToken
+        internal static string PreviewApiKey
         {
             get
             {
-                if (!string.IsNullOrEmpty(_previewToken))
+                if (!string.IsNullOrEmpty(_previewApiKey))
                 {
-                    return _previewToken;
+                    return _previewApiKey;
                 }
                 else
                 {
-                    if (ConfigurationManager.AppSettings.AllKeys.Contains(PREVIEW_TOKEN))
+                    if (ConfigurationManager.AppSettings.AllKeys.Contains(PREVIEW_API_KEY))
                     {
-                        _previewToken = ConfigurationManager.AppSettings[PREVIEW_TOKEN];
+                        _previewApiKey = ConfigurationManager.AppSettings[PREVIEW_API_KEY];
 
-                        return _previewToken;
+                        return _previewApiKey;
                     }
                     else
                     {
