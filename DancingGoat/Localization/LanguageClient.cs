@@ -86,6 +86,31 @@ namespace DancingGoat.Localization
             return _client.GetContentElementAsync(contentTypeCodename, contentElementCodename);
         }
 
+        public Task<JObject> GetTaxonomyJsonAsync(string codename)
+        {
+            return _client.GetTaxonomyJsonAsync(codename);
+        }
+
+        public Task<JObject> GetTaxonomiesJsonAsync(params string[] parameters)
+        {
+            return _client.GetTaxonomiesJsonAsync(parameters);
+        }
+
+        public Task<TaxonomyGroup> GetTaxonomyAsync(string codename)
+        {
+            return _client.GetTaxonomyAsync(codename);
+        }
+
+        public Task<DeliveryTaxonomyListingResponse> GetTaxonomiesAsync(params IQueryParameter[] parameters)
+        {
+            return _client.GetTaxonomiesAsync(parameters);
+        }
+
+        public Task<DeliveryTaxonomyListingResponse> GetTaxonomiesAsync(IEnumerable<IQueryParameter> parameters)
+        {
+            return _client.GetTaxonomiesAsync(parameters);
+        }
+
         public IContentLinkUrlResolver ContentLinkUrlResolver
         {
             get { return _client.ContentLinkUrlResolver; }
@@ -97,7 +122,9 @@ namespace DancingGoat.Localization
             get { return _client.CodeFirstModelProvider; }
             set { _client.CodeFirstModelProvider = value; }
         }
-        public InlineContentItemsProcessor InlineContentItemsProcessor => _client.InlineContentItemsProcessor;
+
+        public IInlineContentItemsProcessor InlineContentItemsProcessor => _client.InlineContentItemsProcessor;
+
         public Task<JObject> GetItemJsonAsync(string codename, params string[] parameters)
         {
             return _client.GetItemJsonAsync(codename, new[] {new LanguageParameter(_language).GetQueryStringParameter()}.Concat(parameters).ToArray());

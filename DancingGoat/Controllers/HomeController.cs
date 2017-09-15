@@ -2,9 +2,12 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+
 using DancingGoat.Models;
+
 using KenticoCloud.Personalization;
 using KenticoCloud.Personalization.MVC;
+using KenticoCloud.Delivery;
 
 namespace DancingGoat.Controllers
 {
@@ -51,5 +54,15 @@ namespace DancingGoat.Controllers
 
             return View(viewModel);
         }
+
+
+        [ChildActionOnly]
+        public ActionResult CompanyAddress()
+        {
+            var contact = Task.Run(() => client.GetItemAsync<Home>("home", new ElementsParameter("contact"))).Result.Item.Contact;
+
+            return PartialView("CompanyAddress", contact);
+        }
+
     }
 }

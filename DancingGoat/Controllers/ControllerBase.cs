@@ -1,15 +1,17 @@
 ﻿using System;
-using DancingGoat.Models;
-using KenticoCloud.Delivery;
-using System.Configuration;
 using System.Globalization;
-using System.Threading;
 using System.Web.Mvc;
-using DancingGoat.InlineContentItemResolver;
+
+using KenticoCloud.Delivery;
+
+using DancingGoat.Areas.Admin;
+using DancingGoat.Infrastructure;
+using DancingGoat.Models;
 using DancingGoat.Localization;
 
 namespace DancingGoat.Controllers
 {
+    [SelfConfigActionFilter]
     public class ControllerBase : AsyncController
     {
         protected static readonly DeliveryClient baseClient = CreateDeliveryClient();
@@ -31,18 +33,16 @@ namespace DancingGoat.Controllers
 
         public static DeliveryClient CreateDeliveryClient()
         {
-            var previewToken = ConfigurationManager.AppSettings["PreviewToken"];
-            var projectId = ConfigurationManager.AppSettings["ProjectId"];
+            var previewToken = AppSettingProvider.PreviewToken;
+            var projectId = AppSettingProvider.ProjectId ?? AppSettingProvider.DefaultProjectId;
 
             var clientInstance = 
                 !string.IsNullOrEmpty(previewToken) ? 
-                    new DeliveryClient(projectId, previewToken) : 
-                    new DeliveryClient(projectId);
+                    new DeliveryClient(projectId.Value.ToString(), previewToken) : 
+                    new DeliveryClient(projectId.Value.ToString());
 
             clientInstance.CodeFirstModelProvider.TypeProvider = new CustomTypeProvider();
             clientInstance.ContentLinkUrlResolver = new CustomContentLinkUrlResolver();
-            clientInstance.InlineContentItemsProcessor.RegisterTypeResolver(new HostedVideoResolver());
-            clientInstance.InlineContentItemsProcessor.RegisterTypeResolver(new TweetResolver());
             return clientInstance;
         }
     }

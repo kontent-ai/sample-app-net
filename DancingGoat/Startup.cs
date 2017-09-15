@@ -1,7 +1,7 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(DancingGoat.Startup))]
+[assembly: OwinStartup(typeof(DancingGoat.Startup))]
 
 namespace DancingGoat
 {

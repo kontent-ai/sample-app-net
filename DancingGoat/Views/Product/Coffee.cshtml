@@ -16,7 +16,7 @@
             <dt class="col-xs-12 col-sm-4">@Resources.DancingGoat.Coffee_Variety</dt>
             <dd class="col-xs-12 col-sm-8">@Html.DisplayFor(vm => vm.Variety)</dd>
             <dt class="col-xs-12 col-sm-4">@Resources.DancingGoat.Coffee_Processing</dt>
-            <dd class="col-xs-12 col-sm-8">@if (Model.Processing.Any()) { @Html.DisplayFor(vm => vm.Processing.First().Name) }</dd>
+            <dd class="col-xs-12 col-sm-8">@if (Model.Processing.Any()) { @Html.Raw(string.Join(", ", Model.Processing.Select((x, i) => x.Name))) }</dd>
             <dt class="col-xs-12 col-sm-4">@Resources.DancingGoat.Coffee_Altitude</dt>
             @if (altitudeParsed)
             {

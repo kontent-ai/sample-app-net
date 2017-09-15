@@ -1,7 +1,7 @@
-﻿@model string
+@model string
 
 @{
-    string strippedDashes = Model.Replace("-", string.Empty);
+    string strippedDashes = string.IsNullOrWhiteSpace(Model) ? string.Empty : Model.Replace("-", string.Empty);
 }
 
 <a href="tel:@strippedDashes">@Model</a>

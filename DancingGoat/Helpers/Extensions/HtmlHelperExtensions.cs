@@ -56,5 +56,77 @@ namespace DancingGoat.Helpers.Extensions
         {
             return htmlHelper.DisplayFor(expression, "DateTime", new DateTimeFormatterParameters { FormatCharacter = format });
         }
+
+        /// <summary>
+        /// Returns an HTML input element with a label and validation fields for each property in the object that is represented by the <see cref="Expression"/> expression.
+        /// </summary>
+        /// <typeparam name="TModel">The type of the model.</typeparam>
+        /// <typeparam name="TValue">The type of the value.</typeparam>
+        /// <param name="html">The HTML helper instance that this method extends.</param>
+        /// <param name="expression">An expression that identifies the object that contains the displayed properties.</param>
+        /// <param name="explanationText">An explanation text describing usage of the rendered field.</param>
+        public static MvcHtmlString ValidatedEditorFor<TModel, TValue>(this HtmlHelper<TModel> html, Expression<Func<TModel, TValue>> expression, string explanationText = "", string id = "")
+        {
+            string label;
+            string editor;
+
+            if (!string.IsNullOrEmpty(id))
+            {
+                label = html.LabelFor(expression, new { @for = id }).ToString();
+                editor = html.EditorFor(expression, new { id = id }).ToString();
+            }
+            else
+            {
+                editor = html.EditorFor(expression).ToString();
+                label = html.LabelFor(expression).ToString();
+            }
+
+            var message = html.ValidationMessageFor(expression).ToString();
+            var explanationTextHtml = "";
+
+            if (!string.IsNullOrEmpty(explanationText))
+            {
+                explanationTextHtml = "<div class=\"explanation-text\">" + explanationText + "</div>";
+            }
+
+            var generatedHtml = string.Format(@"
+<div class=""form-group"">
+    <div class=""form-group-label"">{0}</div>
+    <div class=""form-group-input"">{1}
+       {2}
+    </div>
+    <div class=""message-validation"">{3}</div>
+</div>", label, editor, explanationTextHtml, message);
+
+            return MvcHtmlString.Create(generatedHtml);
+        }
+
+        public static MvcHtmlString StyledCheckBoxFor<TModel>(this HtmlHelper<TModel> html, Expression<Func<TModel, bool>> expression, object htmlAttributes, string labelText)
+        {
+            var checkBox = html.CheckBoxFor(expression, htmlAttributes).ToString();
+            var label = html.LabelFor(expression, labelText);
+            var generatedHtml = string.Format(@"
+<div class=""styled-checkbox"">
+    {0}
+    <span></span>
+    {1}
+</div>", checkBox, label);
+
+            return MvcHtmlString.Create(generatedHtml);
+        }
+
+        public static MvcHtmlString StyledRadioButtonFor<TModel, TProperty>(this HtmlHelper<TModel> html, Expression<Func<TModel, TProperty>> expression, object value, object htmlAttributes, string labelText)
+        {
+            var radioButton = html.RadioButtonFor(expression, value, htmlAttributes).ToString();
+            var label = html.LabelFor(expression, labelText, new { @class = "visible" });
+            var generatedHtml = string.Format(@"
+<div class=""styled-radio"">
+    {0}
+    <span></span>
+    {1}
+</div>", radioButton, label);
+
+            return MvcHtmlString.Create(generatedHtml);
+        }
     }
 }

@@ -1,0 +1,13 @@
+﻿@using DancingGoat.Helpers.Extensions
+@model DancingGoat.Areas.Admin.Models.SignInViewModel
+
+<h3>Sign In</h3>
+<div class="padded-top-bottom">
+    @Html.ValidatedEditorFor(vm => vm.Email, id: "signInFormEmail")
+    @Html.ValidatedEditorFor(vm => vm.Password, id: "signInFormPassword")
+</div>
+<input type="submit" class="button-@ViewBag.ButtonType" value="Sign in" />
+@if (ViewBag.ShowSwitcher != null && ViewBag.ShowSwitcher == true)
+{
+    <p><a class="form-tab-switcher" href="#formTab-signUpForm">Don't have an account? Sign Up.</a></p>
+}

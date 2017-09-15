@@ -30,12 +30,12 @@ namespace DancingGoat.Models
             get { return ProductStatus; }
             set { ProductStatus = value; }
         }
-        public override string ProductShortDescription
+        public override IRichTextContent ProductShortDescription
         {
             get { return ShortDescription; }
             set { ShortDescription = value; }
         }
-        public override string ProductLongDescription
+        public override IRichTextContent ProductLongDescription
         {
             get { return LongDescription; }
             set { LongDescription = value; }

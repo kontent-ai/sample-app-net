@@ -1,0 +1,47 @@
+﻿@model DancingGoat.Areas.Admin.Models.SelectProjectViewModel
+
+@{
+    ViewBag.Title = "Inactive Non-Expired Subscriptions";
+}
+
+<header>
+    <div class="content">
+        <h1>@ViewBag.Title</h1>
+        <p>Your subscriptions in Kentico Cloud are inactive. If you own one of them, you may wish to get in touch with <a href="mailto:support@kentico.com">support@kentico.com</a> to activate it.</p>
+    </div>
+</header>
+@Html.Partial("_MessagesPartial")
+
+@if (Model.Projects != null)
+{
+    <section>
+
+        @{
+            ViewBag.ButtonType = "primary";
+        }
+
+        @Html.Partial("_ProjectsPartial", Model)
+    </section>
+}
+
+<div class="content sections-secondary divided">
+    <section class="section-secondary">
+        @{
+            ViewBag.ButtonType = "secondary";
+        }
+
+        @Html.Partial("_FreePartial")
+    </section>
+    <section class="section-secondary">
+        @{
+            ViewBag.ButtonType = "secondary";
+        }
+
+        @Html.Partial("_SharedGeneralPartial")
+    </section>
+</div>
+
+@section Scripts
+{
+    @Scripts.Render("~/Areas/Admin/Scripts/selectProject.js")
+}

@@ -1,27 +1,18 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace DancingGoat.Models
 {
     public class CoffeesFilterViewModel
     {
-        public bool Washed { get; set; }
-        public bool SemiWashed { get; set; }
-        public bool Natural { get; set; }
+        public IList<SelectListItem> AvailableProcessings { get; set; } = new List<SelectListItem>();
+        public IList<SelectListItem> AvailableProductStatuses { get; set; } = new List<SelectListItem>();
 
-        public IEnumerable<string> GetFilteredValues()
-        {
-            if (Washed)
-            {
-                yield return "wet__washed_";
-            }
-            if (SemiWashed)
-            {
-                yield return "semi_dry";
-            }
-            if (Natural)
-            {
-                yield return "dry__natural_";
-            }
-        }
+        public IEnumerable<string> GetFilteredProcessings()
+            => AvailableProcessings.Where(x => x.Selected).Select(x => x.Value);
+
+        public IEnumerable<string> GetFilteredProductStatuses()
+            => AvailableProductStatuses.Where(x => x.Selected).Select(x => x.Value);
     }
 }
