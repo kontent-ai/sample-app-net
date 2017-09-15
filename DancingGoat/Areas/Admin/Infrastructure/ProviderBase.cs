@@ -8,10 +8,17 @@ namespace DancingGoat.Areas.Admin.Infrastructure
 {
     public abstract class ProviderBase
     {
-        public const string KC_BASE_URL = @"https://app.kenticocloud.com/api/";
         public const string STATUS_ACTIVE = "active";
 
         protected readonly HttpClient _httpClient;
+
+        public string KenticoCloudApiUrl
+        {
+            get
+            {
+                return AppSettingProvider.KenticoCloudUrl + "api/";
+            }
+        }
 
         protected ProviderBase(HttpClient httpClient)
         {

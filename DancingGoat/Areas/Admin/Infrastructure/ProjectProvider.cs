@@ -25,7 +25,7 @@ namespace DancingGoat.Areas.Admin.Infrastructure
 
         public async Task<IEnumerable<ProjectModel>> GetProjectsAsync(string token, bool onlyActive = false)
         {
-            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, $"{KC_BASE_URL}project"))
+            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, $"{KenticoCloudApiUrl}project"))
             {
                 using (HttpResponseMessage response = await GetResponseAsync(token, request))
                 {
@@ -38,7 +38,7 @@ namespace DancingGoat.Areas.Admin.Infrastructure
 
         public async Task<ProjectModel> DeploySampleAsync(string token, Guid subscriptionId)
         {
-            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, $"{KC_BASE_URL}project/sample/undersubscription/{subscriptionId}"))
+            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, $"{KenticoCloudApiUrl}project/sample/undersubscription/{subscriptionId}"))
             {
                 using (HttpResponseMessage response = await GetResponseAsync(token, request))
                 {
@@ -78,7 +78,7 @@ namespace DancingGoat.Areas.Admin.Infrastructure
                 ProjectType = "deliver"
             };
 
-            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Put, $"{KC_BASE_URL}project/{projectId}"))
+            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Put, $"{KenticoCloudApiUrl}project/{projectId}"))
             {
                 string contentString = JsonConvert.SerializeObject(project, Formatting.None, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
                 request.Content = new StringContent(contentString, Encoding.UTF8, "application/json");

@@ -16,6 +16,7 @@ namespace DancingGoat.Areas.Admin
         private static Guid? _projectId;
         private static Guid? _defaultProjectId;
         private static string _previewToken;
+        private static string _kenticoCloudUrl;
 
         internal static DateTime? SubscriptionExpiresAt
         {
@@ -138,6 +139,41 @@ namespace DancingGoat.Areas.Admin
                     else
                     {
                         return null;
+                    }
+                }
+            }
+        }
+
+        internal static string KenticoCloudUrl
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(_kenticoCloudUrl))
+                {
+                    return _kenticoCloudUrl;
+                }
+                else
+                {
+                    string url = null;
+
+                    try
+                    {
+                        url = ConfigurationManager.AppSettings["KenticoCloudUrl"].ToString();
+                    }
+                    catch
+                    {
+                        // Return the default value below.
+                    }
+
+                    if (!string.IsNullOrEmpty(url))
+                    {
+                        _kenticoCloudUrl = url;
+
+                        return _kenticoCloudUrl;
+                    }
+                    else
+                    {
+                        return @"https://app.kenticocloud.com/";
                     }
                 }
             }

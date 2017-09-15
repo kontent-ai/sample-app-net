@@ -12,7 +12,7 @@ namespace DancingGoat.Areas.Admin.Infrastructure
 
         public async Task<UserModel> GetUserAsync(string token)
         {
-            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, $"{KC_BASE_URL}auth"))
+            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, $"{KenticoCloudApiUrl}auth"))
             {
                 using (HttpResponseMessage response = await GetResponseAsync(token, request))
                 {
