@@ -34,7 +34,7 @@ namespace DancingGoat.Areas.Admin.Infrastructure
                     return new SubscriptionStatusResults
                     {
                         Status = SubscriptionStatus.Expired,
-                        EndAt = latestExpiredSubscriptions.FirstOrDefault().EndAt.Value,
+                        EndAt = latestExpiredSubscriptions.FirstOrDefault()?.EndAt,
                         Projects = null
                     };
                 }
@@ -45,7 +45,7 @@ namespace DancingGoat.Areas.Admin.Infrastructure
                     return new SubscriptionStatusResults
                     {
                         Status = SubscriptionStatus.Expired,
-                        EndAt = latestExpiredSubscriptions.FirstOrDefault().EndAt.Value,
+                        EndAt = latestExpiredSubscriptions.FirstOrDefault()?.EndAt,
                         Projects = activeProjects
                     };
                 }

@@ -34,7 +34,7 @@ namespace DancingGoat.Areas.Admin.Helpers
             if (administeredSubscriptionId.HasValue && administeredSubscription != null)
             {
                 var project = await _projectProvider.DeploySampleAsync(token, administeredSubscriptionId.Value);
-                SetProjectIdAndExpirationAsync(project.ProjectId.Value, administeredSubscription.CurrentPlan.EndAt.Value);
+                SetProjectIdAndExpirationAsync(project.ProjectId.Value, administeredSubscription.CurrentPlan?.EndAt);
                 await _projectProvider.RenameProjectAsync(token, project.ProjectId.Value);
 
                 return project.ProjectId.Value;
