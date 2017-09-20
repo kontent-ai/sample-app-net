@@ -34,7 +34,7 @@ namespace DancingGoat.Areas.Admin.Infrastructure
                     return new SubscriptionStatusResults
                     {
                         Status = SubscriptionStatus.Expired,
-                        EndAt = latestExpiredSubscriptions.FirstOrDefault().EndAt.Value,
+                        EndAt = latestExpiredSubscriptions.FirstOrDefault()?.EndAt,
                         Projects = null
                     };
                 }
@@ -45,7 +45,7 @@ namespace DancingGoat.Areas.Admin.Infrastructure
                     return new SubscriptionStatusResults
                     {
                         Status = SubscriptionStatus.Expired,
-                        EndAt = latestExpiredSubscriptions.FirstOrDefault().EndAt.Value,
+                        EndAt = latestExpiredSubscriptions.FirstOrDefault()?.EndAt,
                         Projects = activeProjects
                     };
                 }
@@ -84,7 +84,7 @@ namespace DancingGoat.Areas.Admin.Infrastructure
 
         public async Task<IEnumerable<SubscriptionModel>> GetSubscriptionsAsync(string token)
         {
-            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, $"{KC_BASE_URL}user/subscriptions"))
+            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, $"{KenticoCloudApiUrl}user/subscriptions"))
             {
                 using (HttpResponseMessage response = await GetResponseAsync(token, request))
                 {
@@ -95,7 +95,7 @@ namespace DancingGoat.Areas.Admin.Infrastructure
 
         public async Task<SubscriptionModel> StartTrial(string token)
         {
-            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, $"{KC_BASE_URL}subscription/trial"))
+            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, $"{KenticoCloudApiUrl}subscription/trial"))
             {
                 using (HttpResponseMessage response = await GetResponseAsync(token, request))
                 {
@@ -106,7 +106,7 @@ namespace DancingGoat.Areas.Admin.Infrastructure
 
         public async Task<SubscriptionModel> ConvertToFreeAsync(string token)
         {
-            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, $"{KC_BASE_URL}subscription/free"))
+            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, $"{KenticoCloudApiUrl}subscription/free"))
             {
                 using (HttpResponseMessage response = await GetResponseAsync(token, request))
                 {

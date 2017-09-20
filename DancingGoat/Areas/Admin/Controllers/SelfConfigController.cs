@@ -95,7 +95,7 @@ namespace DancingGoat.Areas.Admin.Controllers
                         {
                             try
                             {
-                                _selfConfigManager.SetProjectIdAndExpirationAsync(project.ProjectId.Value, subscription.EndAt.Value);
+                                _selfConfigManager.SetProjectIdAndExpirationAsync(project.ProjectId.Value, subscription.EndAt);
                                 await _projectProvider.RenameProjectAsync(token, project.ProjectId.Value);
 
                                 return RedirectHelpers.GetHomeRedirectResult(new MessageModel { Caption = null, Message = string.Format(MESSAGE_NEW_SAMPLE_PROJECT, project.ProjectId.Value), MessageType = MessageType.Info });
