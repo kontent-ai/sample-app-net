@@ -28,7 +28,7 @@ namespace DancingGoat.Helpers.Extensions
             var image = new TagBuilder("img");
             image.MergeAttribute("src", asset.Url);
             image.AddCssClass(cssClass);
-            string titleToUse = title ?? asset.Name ?? string.Empty;
+            string titleToUse = title ?? asset.Description ?? string.Empty;
             image.MergeAttribute("alt", titleToUse);
             image.MergeAttribute("title", titleToUse);
 
