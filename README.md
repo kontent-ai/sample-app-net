@@ -44,14 +44,14 @@ If you already have a Kentico Cloud account, you can connect this sample applica
 1. Use the values from your Kentico Cloud project in the `Web.config` file:
 
     * **Project ID**: Insert your project ID into the `ProjectId` application setting.
-    * **Delivery Preview API**: Create a new application setting named `PreviewToken` in the `<appSettings>` section, and use the Delivery Preview API key as its value. Also, create a new setting called `UsePreviewAPI` and set it to `true`.
+    * **Delivery Preview API**: Create a new application setting named `PreviewApiKey` in the `<appSettings>` section, and use the Delivery Preview API key as its value. To enable calls over the Delivery Preview API, you also need to add a setting named `UsePreviewApi` and set it to `true`.
     * **Personalization API**: Create a new application setting named `PersonalizationToken` in the `<appSettings>` section, and use the Personalization API key as its value.
 
     ```xml
     <appSettings>
         ...
         <add key="ProjectId" value="YOUR_PROJECT_ID" />
-        <add key="UsePreviewAPI" value="true"/>
+        <add key="UsePreviewApi" value="true"/>
         <add key="PreviewApiKey" value="YOUR_DELIVERY_PREVIEW_API_KEY" />
         <add key="PersonalizationToken" value="YOUR_PERSONALIZATION_API_KEY" />
         ...
