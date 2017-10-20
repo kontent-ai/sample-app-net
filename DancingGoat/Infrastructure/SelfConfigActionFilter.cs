@@ -3,6 +3,7 @@ using System.Web.Mvc;
 
 namespace DancingGoat.Infrastructure
 {
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
     public class SelfConfigActionFilterAttribute : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
