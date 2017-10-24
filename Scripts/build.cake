@@ -1,7 +1,3 @@
-#tool "nuget:?package=xunit.runner.console"
-#tool "nuget:?package=OpenCover"
-#tool "nuget:?package=ReportGenerator"
-
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Debug");
 
@@ -10,12 +6,6 @@ var configuration = Argument("configuration", "Debug");
 */
 
 Task("Publish")
-    .IsDependentOn("CleanDirs")
-    .IsDependentOn("Build")
-    .IsDependentOn("Tests")
-    .IsDependentOn("PublishInternal");
-
-Task("PublishWithoutTests")
     .IsDependentOn("CleanDirs")
     .IsDependentOn("Build")
     .IsDependentOn("PublishInternal");
@@ -37,7 +27,6 @@ TaskTeardown(context =>
 Task("CleanDirs")
     .Does(() =>
 {
-    CleanDirectory(ReportOutputDirectory);
     CleanDirectory(PublishOutputDirectory);
 });
 
@@ -49,28 +38,7 @@ Task("Build")
     NuGetRestore(solutionFile);
     MSBuild(solutionFile, settings =>
         settings.SetConfiguration(configuration)
-            .UseToolVersion(MSBuildToolVersion.VS2015)
             .SetVerbosity(Verbosity.Minimal));
-});
-
-Task("Tests")
-    .IsDependentOn("Build")
-    .Does(() =>
-{
-    var resultXmlPath = $"{ReportOutputDirectory}/result.xml";
-    var coverageZipPath = $"{ReportOutputDirectory}/coverage.zip";
-
-    CreateDirectory(ReportOutputDirectory);    
-    CreateDirectory(CoverageOutputDirectory);
-
-    RunCodeCoverage(resultXmlPath);
-    GenerateReport(resultXmlPath);
-    
-    OnTeamCityOnly(() =>
-    {
-        Zip(CoverageOutputDirectory, coverageZipPath);
-        TeamCity.PublishArtifacts(MakeAbsolute(File(coverageZipPath)).FullPath);
-    });
 });
 
 Task("PublishInternal")
@@ -95,9 +63,7 @@ Task("PublishInternal")
 * Helper methods and constants
 */
 
-const string ReportOutputDirectory = "../reports";
 const string PublishOutputDirectory = "../publish";
-var CoverageOutputDirectory = $"{ReportOutputDirectory}/coverage";
 
 private void BuildSolution(string projectFile, string publishDirectory)
 {
@@ -106,7 +72,6 @@ private void BuildSolution(string projectFile, string publishDirectory)
     MSBuild(projectFile, settings =>
         settings.SetConfiguration(configuration)
             .SetVerbosity(Cake.Core.Diagnostics.Verbosity.Minimal)
-            .UseToolVersion(MSBuildToolVersion.VS2015)
             .WithTarget("Build;WebPublish")
             .WithProperty("WebPublishMethod","FileSystem")
             .WithProperty("publishUrl", publishDirectory)
@@ -114,40 +79,6 @@ private void BuildSolution(string projectFile, string publishDirectory)
             .WithProperty("DeployAPI", "true")
             .WithProperty("ProfileTransformWebConfigEnabled", "false")
         );
-}
-
-private void GenerateReport(string resultXmlPath)
-{
-    ReportGenerator(resultXmlPath, CoverageOutputDirectory, new ReportGeneratorSettings() 
-    {
-        ReportTypes = new List<ReportGeneratorReportType>() { ReportGeneratorReportType.Badges, ReportGeneratorReportType.Html }
-    });
-}
-
-private void RunCodeCoverage(string resultXmlPath)
-{
-    var testAssemblies = GetFiles("../Tests/Tests.Unit.Tests/bin/**/*.Unit.Tests.dll");
-    var xUnit2Settings = new XUnit2Settings {
-        Parallelism = ParallelismOption.All,
-        HtmlReport = true,
-        NoAppDomain = false,
-        NUnitReport = true,
-        ShadowCopy = false,
-        OutputDirectory = ReportOutputDirectory,
-        ArgumentCustomization = args => args.Append(TeamCity.IsRunningOnTeamCity ? "-teamcity" : "")
-    };
-
-    var openCoverSettings = new OpenCoverSettings() { SkipAutoProps = true }
-        .WithFilter("+[Kentico.Draft.*]*")
-        .WithFilter("-[Kentico.Draft.Tests.*]*")
-        .ExcludeByAttribute("*ExlcudeFromCodeCover*")
-        .ExcludeByAttribute("*GeneratedCode*");
-
-    OpenCover(
-        tool => tool.XUnit2(testAssemblies, xUnit2Settings),
-        new FilePath(resultXmlPath),
-        openCoverSettings
-    );
 }
 
 private void OnTeamCityOnly(Action action) 
