@@ -84,3 +84,14 @@ You can retrieve content either through the Kentico Cloud Delivery SDK or the Ke
 * For unpublished content, use `https://preview-deliver.kenticocloud.com/PROJECT_ID/items`.
 
 For more details about Kentico Cloud APIs, see our [API reference](https://developer.kenticocloud.com/reference).
+
+## Feedback & Contributing
+
+Check out the [contributing](https://github.com/Kentico/delivery-sdk-net/blob/master/CONTRIBUTING.md) page to see the best places to file issues, start discussions, and begin contributing.
+
+### Wall of Fame
+We would like to express our thanks to the following people who contributed and made the project possible:
+
+- [Steve Fenton](https://github.com/Steve-Fenton)
+
+Would you like to become a hero too? Pick an [issue](https://github.com/Kentico/cloud-sample-app-net/issues) and send us a pull request!
