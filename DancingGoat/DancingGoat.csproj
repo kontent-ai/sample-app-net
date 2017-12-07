@@ -278,6 +278,14 @@
     <Compile Include="Models\CafesViewModel.cs" />
     <Compile Include="Models\CoffeesFilterViewModel.cs" />
     <Compile Include="Models\ContactsViewModel.cs" />
+    <Compile Include="Models\ContentTypesWithMetadata\Home.cs" />
+    <Compile Include="Models\ContentTypesWithMetadata\Grinder.cs" />
+    <Compile Include="Models\ContentTypesWithMetadata\Coffee.cs" />
+    <Compile Include="Models\ContentTypesWithMetadata\Brewer.cs" />
+    <Compile Include="Models\ContentTypesWithMetadata\Article.cs" />
+    <Compile Include="Models\ContentTypesWithMetadata\Accessory.cs" />
+    <Compile Include="Models\ContentTypesWithMetadata\AboutUs.cs" />
+    <Compile Include="Models\ContentTypesWithMetadata\IMetadata.cs" />
     <Compile Include="Models\ContentTypes\AboutUs.cs" />
     <Compile Include="Models\ContentTypes\Accessory.cs" />
     <Compile Include="Models\ContentTypes\Article.cs" />
