@@ -453,6 +453,7 @@
     <Content Include="Views\Twitter\Tweet.cshtml" />
     <Content Include="Views\Articles\DisplayTemplates\Tweet.cshtml" />
     <Content Include="Views\Home\CompanyAddress.cshtml" />
+    <Content Include="Views\Shared\HeadersMetadata.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
