@@ -1,9 +1,14 @@
 ﻿@using KenticoCloud.Delivery
-@model DancingGoat.Models.Product
+@model DancingGoat.Models.IProduct
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = Model.ProductProductName;
 }
+@section headers
+{
+    @Html.Partial("HeadersMetadata", Model)
+}
+
 <article class="product-detail">
     <div class="row">
         <div class="col-md-12">

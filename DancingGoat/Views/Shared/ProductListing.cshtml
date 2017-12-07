@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DancingGoat.Models.Product>
+﻿@model IEnumerable<DancingGoat.Models.IProduct>
 
 @if (Model.Any())
 {
@@ -6,7 +6,7 @@
     {
         <!-- 3 products on row for large screen -->
         <div class="col-md-6 col-lg-4">
-            @Html.DisplayFor(m => product)
+            @Html.DisplayFor(m => product, "Product")
         </div>
     }
 }

@@ -3,7 +3,6 @@
 @{
     Layout = "~/Views/Shared/_StoreLayout.cshtml";
     ViewBag.Title = Resources.DancingGoat.Brewers;
-    var brewersAsProducts = Model.Items.Cast<DancingGoat.Models.Product>();
 }
 
 <div class="product-page row">
@@ -16,7 +15,7 @@
         </aside>
 
         <div id="product-list" class="col-md-8 col-lg-9 product-list">
-            @Html.Partial("ProductListing", brewersAsProducts)
+            @Html.Partial("ProductListing", Model.Items)
         </div>
     </div>
 </div>

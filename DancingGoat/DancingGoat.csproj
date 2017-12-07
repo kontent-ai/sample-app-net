@@ -302,7 +302,7 @@
     <Compile Include="Models\ContentTypes\Tweet.cs" />
     <Compile Include="Models\FactAboutUsViewModel.cs" />
     <Compile Include="Models\HomeViewModel.cs" />
-    <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\IProduct.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
