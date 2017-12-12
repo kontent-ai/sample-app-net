@@ -44,14 +44,15 @@ If you already have a Kentico Cloud account, you can connect this sample applica
 1. Use the values from your Kentico Cloud project in the `Web.config` file:
 
     * **Project ID**: Insert your project ID into the `ProjectId` application setting.
-    * **Delivery Preview API**: Create a new application setting named `PreviewToken` in the `<appSettings>` section, and use the Delivery Preview API key as its value.
+    * **Delivery Preview API**: Create a new application setting named `PreviewApiKey` in the `<appSettings>` section, and use the Delivery Preview API key as its value. To enable calls over the Delivery Preview API, you also need to add a setting named `UsePreviewApi` and set it to `true`.
     * **Personalization API**: Create a new application setting named `PersonalizationToken` in the `<appSettings>` section, and use the Personalization API key as its value.
 
     ```xml
     <appSettings>
         ...
         <add key="ProjectId" value="YOUR_PROJECT_ID" />
-        <add key="PreviewToken" value="YOUR_DELIVERY_PREVIEW_API_KEY" />
+        <add key="UsePreviewApi" value="true"/>
+        <add key="PreviewApiKey" value="YOUR_DELIVERY_PREVIEW_API_KEY" />
         <add key="PersonalizationToken" value="YOUR_PERSONALIZATION_API_KEY" />
         ...
     </appSettings>
@@ -83,3 +84,14 @@ You can retrieve content either through the Kentico Cloud Delivery SDK or the Ke
 * For unpublished content, use `https://preview-deliver.kenticocloud.com/PROJECT_ID/items`.
 
 For more details about Kentico Cloud APIs, see our [API reference](https://developer.kenticocloud.com/reference).
+
+## Feedback & Contributing
+
+Check out the [contributing](https://github.com/Kentico/delivery-sdk-net/blob/master/CONTRIBUTING.md) page to see the best places to file issues, start discussions, and begin contributing.
+
+### Wall of Fame
+We would like to express our thanks to the following people who contributed and made the project possible:
+
+- [Steve Fenton](https://github.com/Steve-Fenton)
+
+Would you like to become a hero too? Pick an [issue](https://github.com/Kentico/cloud-sample-app-net/issues) and send us a pull request!
