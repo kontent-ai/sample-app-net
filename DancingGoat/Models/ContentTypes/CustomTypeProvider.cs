@@ -1,5 +1,4 @@
 using System;
-
 using KenticoCloud.Delivery;
 
 namespace DancingGoat.Models
@@ -30,10 +29,10 @@ namespace DancingGoat.Models
                     return typeof(HeroUnit);
                 case "home":
                     return typeof(Home);
-                case "office":
-                    return typeof(Office);
                 case "hosted_video":
                     return typeof(HostedVideo);
+                case "office":
+                    return typeof(Office);
                 case "tweet":
                     return typeof(Tweet);
                 default:

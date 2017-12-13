@@ -2,8 +2,13 @@
 @model DancingGoat.Models.Article
 
 @{
-    ViewBag.Title = @Model.Title;
+    ViewBag.Title = @Model.MetadataMetaTitle;
 }
+@section headers
+{
+    @Html.Partial("HeadersMetadata", Model)
+}
+
 <article class="article-detail col-lg-9 col-md-12 article-detail-related-box">
     <h2>@Html.DisplayFor(vm => vm.Title)</h2>
     <div class="article-detail-datetime">

@@ -1,7 +1,11 @@
 ﻿@model DancingGoat.Models.HomeViewModel
 
 @{
-    ViewBag.Title = Resources.DancingGoat.Home;
+    ViewBag.Title = Model.ContentItem.MetadataMetaTitle;
+}
+@section headers
+{
+    @Html.Partial("HeadersMetadata", Model.ContentItem)
 }
 
 @helper MoreButton(string text, string url)

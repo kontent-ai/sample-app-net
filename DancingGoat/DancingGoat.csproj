@@ -273,28 +273,36 @@
     <Compile Include="Models\CafeMetadata.cs" />
     <Compile Include="Models\CoffeeAsProduct.cs" />
     <Compile Include="Models\CoffeesViewModel.cs" />
-    <Compile Include="Models\ContentTypes\AboutUs.cs" />
     <Compile Include="Models\AboutUsViewModel.cs" />
+    <Compile Include="Models\BrewerFilterViewModel.cs" />
+    <Compile Include="Models\CafesViewModel.cs" />
+    <Compile Include="Models\CoffeesFilterViewModel.cs" />
+    <Compile Include="Models\ContactsViewModel.cs" />
+    <Compile Include="Models\ContentTypesWithMetadata\Home.cs" />
+    <Compile Include="Models\ContentTypesWithMetadata\Grinder.cs" />
+    <Compile Include="Models\ContentTypesWithMetadata\Coffee.cs" />
+    <Compile Include="Models\ContentTypesWithMetadata\Brewer.cs" />
+    <Compile Include="Models\ContentTypesWithMetadata\Article.cs" />
+    <Compile Include="Models\ContentTypesWithMetadata\Accessory.cs" />
+    <Compile Include="Models\ContentTypesWithMetadata\AboutUs.cs" />
+    <Compile Include="Models\ContentTypesWithMetadata\IMetadata.cs" />
+    <Compile Include="Models\ContentTypes\AboutUs.cs" />
     <Compile Include="Models\ContentTypes\Accessory.cs" />
     <Compile Include="Models\ContentTypes\Article.cs" />
     <Compile Include="Models\ContentTypes\Brewer.cs" />
-    <Compile Include="Models\BrewerFilterViewModel.cs" />
     <Compile Include="Models\ContentTypes\Cafe.cs" />
-    <Compile Include="Models\CafesViewModel.cs" />
     <Compile Include="Models\ContentTypes\Coffee.cs" />
-    <Compile Include="Models\CoffeesFilterViewModel.cs" />
-    <Compile Include="Models\ContactsViewModel.cs" />
     <Compile Include="Models\ContentTypes\CustomTypeProvider.cs" />
     <Compile Include="Models\ContentTypes\FactAboutUs.cs" />
-    <Compile Include="Models\ContentTypes\HostedVideo.cs" />
-    <Compile Include="Models\ContentTypes\Tweet.cs" />
-    <Compile Include="Models\FactAboutUsViewModel.cs" />
     <Compile Include="Models\ContentTypes\Grinder.cs" />
     <Compile Include="Models\ContentTypes\HeroUnit.cs" />
     <Compile Include="Models\ContentTypes\Home.cs" />
-    <Compile Include="Models\HomeViewModel.cs" />
+    <Compile Include="Models\ContentTypes\HostedVideo.cs" />
     <Compile Include="Models\ContentTypes\Office.cs" />
-    <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ContentTypes\Tweet.cs" />
+    <Compile Include="Models\FactAboutUsViewModel.cs" />
+    <Compile Include="Models\HomeViewModel.cs" />
+    <Compile Include="Models\IProduct.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -445,6 +453,7 @@
     <Content Include="Views\Twitter\Tweet.cshtml" />
     <Content Include="Views\Articles\DisplayTemplates\Tweet.cshtml" />
     <Content Include="Views\Home\CompanyAddress.cshtml" />
+    <Content Include="Views\Shared\HeadersMetadata.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

@@ -3,44 +3,44 @@ using System.Collections.Generic;
 
 namespace DancingGoat.Models
 {
-    public partial class Brewer : Product
+    public partial class Brewer : IProduct
     {
-        public override ContentItemSystemAttributes ProductSystem
+        public ContentItemSystemAttributes ProductSystem
         {
             get { return System; }
             set { System = value; }
         }
-        public override string ProductProductName
+        public string ProductProductName
         {
             get { return ProductName; }
             set { ProductName = value; }
         }
-        public override decimal? ProductPrice
+        public decimal? ProductPrice
         {
             get { return Price; }
             set { Price = value; }
         }
-        public override IEnumerable<Asset> ProductImage
+        public IEnumerable<Asset> ProductImage
         {
             get { return Image; }
             set { Image = value; }
         }
-        public override IEnumerable<TaxonomyTerm> ProductProductStatus
+        public IEnumerable<TaxonomyTerm> ProductProductStatus
         {
             get { return ProductStatus; }
             set { ProductStatus = value; }
         }
-        public override IRichTextContent ProductShortDescription
+        public IRichTextContent ProductShortDescription
         {
             get { return ShortDescription; }
             set { ShortDescription = value; }
         }
-        public override IRichTextContent ProductLongDescription
+        public IRichTextContent ProductLongDescription
         {
             get { return LongDescription; }
             set { LongDescription = value; }
         }
-        public override string ProductUrlPattern
+        public string ProductUrlPattern
         {
             get { return UrlPattern; }
             set { UrlPattern = value; }
