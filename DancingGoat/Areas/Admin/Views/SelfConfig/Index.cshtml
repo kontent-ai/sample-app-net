@@ -1,4 +1,6 @@
-﻿@model DancingGoat.Areas.Admin.Models.IndexViewModel
+﻿@using DancingGoat.Areas.Admin
+@using DancingGoat.Helpers.Extensions
+@model DancingGoat.Areas.Admin.Models.IndexViewModel
 
 @{
     ViewBag.Title = "Sample Site—Configuration";
@@ -11,40 +13,65 @@
     </div>
 </header>
 @Html.Partial("_MessagesPartial")
-<section>
-    <h2>Get a Project ID</h2>
-    <div class="form-panel-group">
-        <div class="form-panel-tabs"></div>
-        <div class="form-panels">
-            @{
-                ViewBag.ButtonType = "primary";
-                ViewBag.ShowSwitcher = true;
-            }
 
-            <form action="https://horusproduction.e1.loginrocket.com/v1/login" class="form-panel" data-origin="index" enctype="multipart/form-data" id="signInForm" method="post">
-                @Html.Partial("_SignInPartial", Model.SignInModel)
-            </form>
-            <form action="https://horusproduction.e1.loginrocket.com/v1/signup" class="form-panel" data-origin="index" enctype="multipart/form-data" id="signUpForm" method="post">
-                @Html.Partial("_SignUpPartial", Model.SignUpModel)
-            </form>
-        </div>
-    </div>
-</section>
-<div class="content sections-secondary divided">
+<script type="text/javascript">
+    function openKenticoCloud() {
+        var w = 800;
+        var h = 800;
+        var left = (window.screen.width / 2) - ((w / 2) + 10);
+        var top = (window.screen.height / 2) - ((h / 2) + 50);
 
-    @{
-        ViewBag.ButtonType = "secondary";
+        window.open("@(AppSettingProvider.KenticoCloudUrl.TrimEnd('/'))/sample-site-configuration", "Kentico Cloud",
+            "status=no,height=" + w + ",width=" + h + ",resizable=yes,left="
+            + left + ",top=" + top + ",screenX=" + left + ",screenY="
+            + top + ",toolbar=no,menubar=no,location=no,directories=no");
     }
 
+    window.addEventListener("message", receiveMessage, false);
+
+    function receiveMessage(event) {
+        if (event.origin.toLowerCase() !== "@(AppSettingProvider.KenticoCloudUrl.TrimEnd('/').ToLower())")
+            return;
+
+        if (!event.data.projectGuid)
+            return;
+
+        document.getElementById("project-guid-from-kc").value = event.data.projectGuid;
+        document.getElementById("end-at-from-kc").value = event.data.endAt;
+        document.getElementById("set-configuration-from-kc").submit();
+    }
+</script>
+
+<section>
+    <h2>Get a Project ID</h2>
+    <p>You may wish to either select from existing projects or create a new sample project. The app will be configured with its project ID.</p>
+    <input type="submit" class="button-secondary" onclick="openKenticoCloud()" value="Get Project ID from Kentico Cloud" />
+    @using (Html.BeginForm("UseSelected", "SelfConfig", FormMethod.Post, new { id = "set-configuration-from-kc" }))
+    {
+        @Html.HiddenFor(m => m.ProjectGuid, new { id = "project-guid-from-kc" })
+        @Html.HiddenFor(m => m.EndAt, new { id = "end-at-from-kc" })
+    }
+</section>
+
+<div class="content sections-secondary divided">
     <section class="section-secondary">
-        @Html.Partial("_ProjectIdPartial", Model.SelectProjectModel)
+        @using (Html.BeginForm("UseSelected", "SelfConfig", FormMethod.Post))
+        {
+            <h2>Set A Project ID Manually</h2>
+            <p>Alternatively, you can configure your app manually by submitting a project ID below.</p>
+            <div class="inline-controls">
+                @Html.ValidatedEditorFor(vm => vm.ProjectGuid)
+                <input type="submit" class="button-secondary" value="Submit" />
+            </div>
+        }
     </section>
     <section class="section-secondary">
-        @Html.Partial("_SharedGeneralPartial")
+        <h2>Use the Shared Project</h2>
+        <p>Alternatively, you may wish to use the shared project (project ID "@(AppSettingProvider.DefaultProjectId.Value)}").</p>
+        <p><strong>Note:</strong> You cannot edit content in the shared project.</p>
+        @using (Html.BeginForm("UseShared", "SelfConfig"))
+        {
+            <input type="submit" class="button-secondary" value="Use the shared project" />
+        }
     </section>
 </div>
-
-@section Scripts
-{
-    @Scripts.Render("~/Areas/Admin/Scripts/identityForms.js")
-}
