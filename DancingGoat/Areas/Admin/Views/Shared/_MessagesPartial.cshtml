@@ -25,30 +25,11 @@
     <img src="@source" height="44" width="44" alt="@altText" />
 }
 
-@if ((ViewBag.IsLocal != null && !ViewBag.IsLocal && ViewBag.IsTls != null && !ViewBag.IsTls) || (!string.IsNullOrEmpty(ViewBag.ErrorMessage)) || (!string.IsNullOrEmpty(routeDataMessageBody)))
+@if ((!string.IsNullOrEmpty(ViewBag.ErrorMessage)) || (!string.IsNullOrEmpty(routeDataMessageBody)))
 {
     <section class="messages">
         <h2 class="hidden">Message</h2>
         @{
-            if (ViewBag.IsLocal != null && !ViewBag.IsLocal && ViewBag.IsTls != null && !ViewBag.IsTls)
-            {
-                <table class="user-message message-warning">
-                    <tr>
-                        <td>
-                            @MessageImage(Url.Content(string.Format(imagePathPattern, "warning")), "Warning")
-                        </td>
-                        <td>
-                            <p>The current configuration of your app is not secure enough for transferring your credentials. Make sure you either:</p>
-                            <ul>
-                                <li>run both your app and the browser in one single machine, or</li>
-                                <li>run your app using the TLS protocol (with a url starting with "https://")</li>
-                            </ul>
-                            <p>Otherwise, malicious users may intercept your security token used for authentication.</p>
-                        </td>
-                    </tr>
-                </table>
-            }
-
             if (viewBagMessage != null)
             {
                 <table class="user-message message-@imageName">

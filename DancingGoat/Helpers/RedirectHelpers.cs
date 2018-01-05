@@ -19,18 +19,6 @@ namespace DancingGoat.Helpers
             }));
         }
 
-        public static RedirectToRouteResult GetSelfConfigRecheckResult(MessageModel message)
-        {
-            return new RedirectToRouteResult(new RouteValueDictionary(new
-            {
-                Action = "Recheck",
-                Controller = "SelfConfig",
-                Area = "Admin",
-                MessageBody = message?.Message,
-                MessageType = message?.MessageType
-            }));
-        }
-
         public static RedirectToRouteResult GetHomeRedirectResult(MessageModel message)
         {
             return new RedirectToRouteResult(new RouteValueDictionary(new
