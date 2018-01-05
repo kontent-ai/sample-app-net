@@ -6,10 +6,11 @@ using Newtonsoft.Json;
 using DancingGoat.Helpers;
 using DancingGoat.Areas.Admin.Helpers;
 using DancingGoat.Areas.Admin.Models;
+using KenticoCloud.Delivery;
 
 namespace DancingGoat.Areas.Admin.Controllers
 {
-    public class SelfConfigController : DancingGoat.Controllers.ControllerBase
+    public class SelfConfigController : Controller
     {
         protected const string CAPTION_CONFIGURATION_WRITE_ERROR = "Configuration Save Error";
         protected const string CAPTION_DESERIALIZATION_ERROR = "API Response Deserialization Error";
@@ -26,6 +27,7 @@ namespace DancingGoat.Areas.Admin.Controllers
         public const int PROJECT_EXISTENCE_VERIFICATION_REQUIRED_ITEMS = 32;
 
         protected readonly SelfConfigManager _selfConfigManager;
+        protected readonly IDeliveryClient client = DancingGoat.Controllers.ControllerBase.CreateDeliveryClient();
 
         public SelfConfigController()
         {
