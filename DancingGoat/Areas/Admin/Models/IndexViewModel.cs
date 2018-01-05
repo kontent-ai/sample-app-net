@@ -7,5 +7,7 @@ namespace DancingGoat.Areas.Admin.Models
         public Guid? ProjectGuid { get; set; }
 
         public DateTime? EndAt { get; set; }
+
+        public bool NewlyGeneratedProject { get; set; }
     }
 }

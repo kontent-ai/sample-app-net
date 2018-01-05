@@ -352,6 +352,7 @@
     <Content Include="Areas\Admin\Content\Styles\variables.less" />
     <Content Include="Areas\Admin\Views\Shared\EditorTemplates\Guid.cshtml" />
     <Content Include="Areas\Admin\Content\Styles\UserMessage.less" />
+    <Content Include="Areas\Admin\Views\SelfConfig\Wait.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\formAutoPost.js" />

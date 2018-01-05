@@ -38,6 +38,7 @@
 
         document.getElementById("project-guid-from-kc").value = event.data.projectGuid;
         document.getElementById("end-at-from-kc").value = event.data.endAt;
+        document.getElementById("newly-generated-project-from-kc").value = event.data.newlyGeneratedProject;
         document.getElementById("set-configuration-from-kc").submit();
     }
 </script>
@@ -50,6 +51,7 @@
     {
         @Html.HiddenFor(m => m.ProjectGuid, new { id = "project-guid-from-kc" })
         @Html.HiddenFor(m => m.EndAt, new { id = "end-at-from-kc" })
+        @Html.HiddenFor(m => m.NewlyGeneratedProject, new { id = "newly-generated-project-from-kc" })
     }
 </section>
 
