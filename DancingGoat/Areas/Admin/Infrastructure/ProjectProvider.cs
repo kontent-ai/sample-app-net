@@ -40,6 +40,13 @@ namespace DancingGoat.Areas.Admin.Infrastructure
         {
             using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, $"{KenticoCloudApiUrl}project/sample/undersubscription/{subscriptionId}"))
             {
+                string deployedAt = DateTime.Now.ToString("m");
+                SampleProjectOptions projectOptions = new SampleProjectOptions()
+                {
+                    ProjectName = string.Format(PROJECT_RENAME_PATTERN, deployedAt)
+                };
+                string contentString = JsonConvert.SerializeObject(projectOptions, Formatting.None, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+                request.Content = new StringContent(contentString, Encoding.UTF8, "application/json");
                 using (HttpResponseMessage response = await GetResponseAsync(token, request))
                 {
                     var project = await GetResultAsync<ProjectModel>(response);
