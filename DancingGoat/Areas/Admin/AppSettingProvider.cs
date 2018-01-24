@@ -5,7 +5,7 @@ using System.Web.Configuration;
 
 namespace DancingGoat.Areas.Admin
 {
-    internal static class AppSettingProvider
+    public static class AppSettingProvider
     {
         private const string PROJECT_ID_KEY_NAME = "ProjectId";
         private const string SUBSCRIPTION_EXPIRES_KEY_NAME = "SubscriptionExpiresAt";
@@ -18,7 +18,7 @@ namespace DancingGoat.Areas.Admin
         private static string _previewApiKey;
         private static string _kenticoCloudUrl;
 
-        internal static DateTime? SubscriptionExpiresAt
+        public static DateTime? SubscriptionExpiresAt
         {
             get
             {
@@ -57,7 +57,7 @@ namespace DancingGoat.Areas.Admin
             }
         }
 
-        internal static Guid? ProjectId
+        public static Guid? ProjectId
         {
             get
             {
@@ -96,7 +96,7 @@ namespace DancingGoat.Areas.Admin
             }
         }
 
-        internal static Guid? DefaultProjectId
+        public static Guid? DefaultProjectId
         {
             get
             {
@@ -120,7 +120,7 @@ namespace DancingGoat.Areas.Admin
             }
         }
 
-        internal static string PreviewApiKey
+        public static string PreviewApiKey
         {
             get
             {
@@ -144,7 +144,7 @@ namespace DancingGoat.Areas.Admin
             }
         }
 
-        internal static string KenticoCloudUrl
+        public static string KenticoCloudUrl
         {
             get
             {

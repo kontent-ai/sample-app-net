@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Sample Site—Configuration";
+}
+
+<header>
+    <div class="content">
+        <h1>Waiting for the sample project to become ready...</h1>
+        <p></p>
+    </div>
+</header>
+@Html.Partial("_MessagesPartial")
+
+<script type="text/javascript">
+    function check() {
+        setTimeout(() => {
+            fetch("@Url.Action("SampleProjectReady")")
+                .then(response => response.json())
+                .then(json => {
+                    if (json) {
+                        window.location = "@Url.Action("Done")";
+                    } else {
+                        check();
+                    }
+                });
+        }, 2000);
+    }
+
+    check();
+</script>
