@@ -24,13 +24,8 @@
         </div>
     </div>
     @RenderBody()
-    <div id="spinner" class="spinner-overlay" style="display:none;">
-        <div class="spinner"></div>
-        <div class="percentage"></div>
-    </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
     @RenderSection("Scripts", required: false)
-    @Scripts.Render("~/Areas/Admin/Scripts/spinner.js")
 </body>
 </html>

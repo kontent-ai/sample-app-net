@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
+using DancingGoat.Areas.Admin.Models;
 
 namespace DancingGoat.Infrastructure
 {
@@ -18,7 +19,7 @@ namespace DancingGoat.Infrastructure
             }
             else if (subscriptionExpiresAt.HasValue && subscriptionExpiresAt <= DateTime.Now)
             {
-                filterContext.Result = Helpers.RedirectHelpers.GetSelfConfigRecheckResult(null);
+                filterContext.Result = Helpers.RedirectHelpers.GetSelfConfigIndexResult(new MessageModel(){ Message = "Current subscription is expired.", MessageType = MessageType.Error});
             }
         }
     }
