@@ -45,8 +45,8 @@ namespace DancingGoat.Controllers
                 if (!string.IsNullOrEmpty(visitorUid))
                 {
                     // Determine whether the visitor submitted a form
-                    var visitorSubmittedForm = await personalizationClient.GetVisitorActionsAsync(visitorUid, ActionTypeEnum.FormSubmit);
-                    showPromotion = !visitorSubmittedForm.Activity;
+                    var visitorSegments = await personalizationClient.GetVisitorSegmentsAsync(visitorUid);
+                    showPromotion = !visitorSegments.Segments.Any(s => s.Codename == "Customers_Who_Requested_a_Coffee_Sample");
                 }
             }
             var codeName = showPromotion ? "home_page_promotion" : "home_page_hero_unit";
@@ -63,6 +63,5 @@ namespace DancingGoat.Controllers
 
             return PartialView("CompanyAddress", contact);
         }
-
     }
 }
