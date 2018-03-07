@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -46,7 +47,10 @@ namespace DancingGoat.Controllers
                 {
                     // Determine whether the visitor submitted a form
                     var visitorSegments = await personalizationClient.GetVisitorSegmentsAsync(visitorUid);
-                    showPromotion = !visitorSegments.Segments.Any(s => s.Codename == "Customers_Who_Requested_a_Coffee_Sample");
+                    showPromotion = !visitorSegments.Segments.Any(
+                        s => string.Equals(s.Codename, "Customers_Who_Requested_a_Coffee_Sample",
+                            StringComparison.OrdinalIgnoreCase)
+                    );
                 }
             }
             var codeName = showPromotion ? "home_page_promotion" : "home_page_hero_unit";
