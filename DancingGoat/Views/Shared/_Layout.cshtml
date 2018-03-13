@@ -1,4 +1,7 @@
 ﻿@using System.Configuration
+@using DancingGoat.Controllers
+@using DancingGoat.Helpers
+@using DancingGoat.Models
 <!DOCTYPE html>
 
 <html>
@@ -43,10 +46,10 @@
                         <nav role="navigation">
                             <ul class="dropdown-items-list dropdown-desktop-visible">
                                 <li>
-                                    @Html.ActionLink("English", ViewContext.RouteData.Values["action"].ToString(), new { language = "en-us", urlSlug = ViewContext.RouteData.Values["urlSlug"]?.ToString() ?? string.Empty })
+	                                @Html.ActionLink("English", "Index", "LanguageSelector", LanguageSwitchHelper.GetLangugageSwitchParameters(ViewContext.RouteData.Values,"en-us", Model as IDetailItem), null)
                                 </li>
                                 <li>
-                                    @Html.ActionLink("Español", ViewContext.RouteData.Values["action"].ToString(), new { language = "es-es", urlSlug = ViewContext.RouteData.Values["urlSlug"]?.ToString() ?? string.Empty })
+	                                @Html.ActionLink("Español", "Index", "LanguageSelector", LanguageSwitchHelper.GetLangugageSwitchParameters(ViewContext.RouteData.Values, "es-es", Model as IDetailItem), null)
                                 </li>
                             </ul>
                         </nav>
