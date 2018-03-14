@@ -9,6 +9,7 @@ namespace DancingGoat.Localization
 {
     public class LanguageClient : IDeliveryClient {
         public const string DEFAULT_LANGUAGE = "en-us";
+        public const string SpanishLanguge = "es-es";
         private readonly DeliveryClient _client;
         private readonly string _language;
 

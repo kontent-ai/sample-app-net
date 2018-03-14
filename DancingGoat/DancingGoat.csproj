@@ -58,11 +58,11 @@
     <Reference Include="KenticoCloud.Delivery, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\KenticoCloud.Delivery.4.9.0\lib\net45\KenticoCloud.Delivery.dll</HintPath>
     </Reference>
-    <Reference Include="KenticoCloud.Personalization, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\KenticoCloud.Personalization.1.1.1\lib\net451\KenticoCloud.Personalization.dll</HintPath>
+    <Reference Include="KenticoCloud.Personalization, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\KenticoCloud.Personalization.2.0.0\lib\net451\KenticoCloud.Personalization.dll</HintPath>
     </Reference>
-    <Reference Include="KenticoCloud.Personalization.MVC, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\KenticoCloud.Personalization.MVC.1.1.1\lib\net451\KenticoCloud.Personalization.MVC.dll</HintPath>
+    <Reference Include="KenticoCloud.Personalization.MVC, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\KenticoCloud.Personalization.MVC.2.0.0\lib\net451\KenticoCloud.Personalization.MVC.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
@@ -223,6 +223,10 @@
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="Areas\Admin\Models\SampleProjectOptions.cs" />
+    <Compile Include="Controllers\LanguageSelectorController.cs" />
+    <Compile Include="Helpers\Extensions\LocalizedRouteExtensions.cs" />
+    <Compile Include="Helpers\LanguageSwitchHelper.cs" />
     <Compile Include="Localization\LanguageConstraint.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
@@ -288,6 +292,7 @@
     <Compile Include="Models\FactAboutUsViewModel.cs" />
     <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\IProduct.cs" />
+    <Compile Include="Models\IDetailItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
