@@ -58,8 +58,8 @@
     <Reference Include="KenticoCloud.Delivery, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\KenticoCloud.Delivery.4.9.0\lib\net45\KenticoCloud.Delivery.dll</HintPath>
     </Reference>
-    <Reference Include="KenticoCloud.Personalization, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\KenticoCloud.Personalization.2.0.0\lib\net451\KenticoCloud.Personalization.dll</HintPath>
+    <Reference Include="KenticoCloud.Personalization, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\KenticoCloud.Personalization.3.0.0\lib\net451\KenticoCloud.Personalization.dll</HintPath>
     </Reference>
     <Reference Include="KenticoCloud.Personalization.MVC, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\packages\KenticoCloud.Personalization.MVC.2.0.0\lib\net451\KenticoCloud.Personalization.MVC.dll</HintPath>

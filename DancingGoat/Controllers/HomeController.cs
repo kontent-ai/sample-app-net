@@ -3,7 +3,7 @@ using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-
+using DancingGoat.Areas.Admin;
 using DancingGoat.Models;
 
 using KenticoCloud.Personalization;
@@ -21,9 +21,9 @@ namespace DancingGoat.Controllers
             // Disable personalization when PersonalizationToken is not set
             var personalizationToken = ConfigurationManager.AppSettings["PersonalizationToken"];
 
-            if (!string.IsNullOrWhiteSpace(personalizationToken))
+            if (!string.IsNullOrWhiteSpace(personalizationToken) && AppSettingProvider.ProjectId.HasValue)
             {
-                personalizationClient = new PersonalizationClient(personalizationToken);
+                personalizationClient = new PersonalizationClient(personalizationToken, AppSettingProvider.ProjectId.Value);
             }
         }
 
