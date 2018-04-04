@@ -56,8 +56,8 @@ namespace DancingGoat
                 language: LanguageClient.SpanishLanguge
             );
             routes.MapLocalizedRoute(
-                name: "Prouduct",
-                url: "{language}/prouduct/detail/{urlSlug}",
+                name: "Product",
+                url: "{language}/product/detail/{urlSlug}",
                 defaults: new { language = LanguageClient.DEFAULT_LANGUAGE, controller = "Product", action = "Detail", urlSlug = "" }
             );
             routes.MapLocalizedRoute(
