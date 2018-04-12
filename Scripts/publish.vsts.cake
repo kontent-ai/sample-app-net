@@ -19,7 +19,7 @@ Task("Publish")
 
 	  Zip(tempPublishDirectory, publishArchive);
     DeleteDirectory(tempPublishDirectory, recursive: true);
-    Information($"##vso[artifact.upload containerfolder=projectName;artifactname=projectName;]{MakeAbsolute(File(publishArchive))}");
+    Information($"##vso[artifact.upload containerfolder={projectName};artifactname={projectName};]{MakeAbsolute(File(publishArchive))}");
 });
 
 
