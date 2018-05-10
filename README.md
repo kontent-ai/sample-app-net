@@ -35,8 +35,8 @@ Alternatively, you can connect your project manually as per the chapter below.
 
 If you already have a Kentico Cloud account, you can connect this sample application to a project of your own to access its unpublished content items, and track visitors on the site. For example, you can connect the application to your version of the Sample project.
 
-1. Select your project in Kentico Cloud.
-1. Navigate to the **API keys** section.
+1. In Kentico Cloud, choose Project settings from the app menu.
+1. Under Development, choose API keys.
 
     * You will be copying the Project ID and API keys for the Delivery Preview API and Personalization API.
 
