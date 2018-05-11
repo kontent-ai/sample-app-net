@@ -15,7 +15,9 @@ You can run the app in two following ways:
 ### Running via Visual Studio
 
 To run the app:
-1. Clone the app repository.
+1. Clone the app repository with your favorite GIT client
+   1. For instance, you can use [Visual Studio](https://www.visualstudio.com/vs/), [Visual Studio Code](https://code.visualstudio.com/), [GitHub Desktop](https://desktop.github.com/), etc.
+   1. Alternatively, you can download the repo as a ZIP file, however, this will not adapt line endings in downloaded files to your platform (Windows, Unix).
 1. Open the solution in Visual Studio (using the _DancingGoat.sln_ file).
 1. Run the app.
 
@@ -84,6 +86,10 @@ You can retrieve content either through the Kentico Cloud Delivery SDK or the Ke
 * For unpublished content, use `https://preview-deliver.kenticocloud.com/PROJECT_ID/items`.
 
 For more details about Kentico Cloud APIs, see our [API reference](https://developer.kenticocloud.com/reference).
+
+## Troubleshooting
+
+Kentico Cloud evolves over time. If you connect your sample app to an older Kentico Cloud sample project, the app may not run correctly. You can always generate the latest version of the sample Dancing Goat content project at https://app.kenticocloud.com/sample-project-generator . Once generated, you can either paste the new project ID to web.config, or, you can navigate to your app's relative URL "/Admin/SelfConfig" and pick the new project.
 
 ## Feedback & Contributing
 
