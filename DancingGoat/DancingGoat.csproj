@@ -358,6 +358,7 @@
     <Content Include="Areas\Admin\Views\Shared\EditorTemplates\Guid.cshtml" />
     <Content Include="Areas\Admin\Content\Styles\UserMessage.less" />
     <Content Include="Areas\Admin\Views\SelfConfig\Wait.cshtml" />
+    <Content Include="Content\Styles\EditMode.less" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\formAutoPost.js" />
@@ -425,6 +426,7 @@
     <Content Include="Views\Articles\DisplayTemplates\Tweet.cshtml" />
     <Content Include="Views\Home\CompanyAddress.cshtml" />
     <Content Include="Views\Shared\HeadersMetadata.cshtml" />
+    <Content Include="Views\Shared\EditModePanel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

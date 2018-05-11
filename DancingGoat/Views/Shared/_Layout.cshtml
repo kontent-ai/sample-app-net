@@ -46,10 +46,10 @@
                         <nav role="navigation">
                             <ul class="dropdown-items-list dropdown-desktop-visible">
                                 <li>
-	                                @Html.ActionLink("English", "Index", "LanguageSelector", LanguageSwitchHelper.GetLangugageSwitchParameters(ViewContext.RouteData.Values,"en-us", Model as IDetailItem), null)
+                                    @Html.ActionLink("English", "Index", "LanguageSelector", LanguageSwitchHelper.GetLangugageSwitchParameters(ViewContext.RouteData.Values, "en-us", Model as IDetailItem), null)
                                 </li>
                                 <li>
-	                                @Html.ActionLink("Español", "Index", "LanguageSelector", LanguageSwitchHelper.GetLangugageSwitchParameters(ViewContext.RouteData.Values, "es-es", Model as IDetailItem), null)
+                                    @Html.ActionLink("Español", "Index", "LanguageSelector", LanguageSwitchHelper.GetLangugageSwitchParameters(ViewContext.RouteData.Values, "es-es", Model as IDetailItem), null)
                                 </li>
                             </ul>
                         </nav>
@@ -109,5 +109,14 @@
         !function(){var a='https://engage-ket.kenticocloud.com/js',b=document,c=b.createElement('script'),d=b.getElementsByTagName('script')[0];c.type='text/javascript',c.async=!0,c.defer=!0,c.src=a+'?d='+document.domain,d.parentNode.insertBefore(c,d)}(),window.ket=window.ket||function(){(ket.q=ket.q||[]).push(arguments)};
         ket('start', '@ConfigurationManager.AppSettings["ProjectId"]');
     </script>
+    <script type="text/javascript">
+        $(function () {
+            $("#edit-mode-switch").change(function () {
+                $("body").toggleClass("edit-mode", this.checked)
+            }).change();
+        });
+    </script>
+
+
 </body>
 </html>

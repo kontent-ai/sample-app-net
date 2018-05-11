@@ -128,5 +128,29 @@ namespace DancingGoat.Helpers.Extensions
 
             return MvcHtmlString.Create(generatedHtml);
         }
+
+        public static MvcHtmlString BlockEditLink(this HtmlHelper htmlHelper, string targetUrl)
+        {
+            var generatedHtml = string.Format(@"
+<a class=""navigate-to-kc__overlay--block"" href=""{0}"" >
+  <span class=""navigate-to-kc__button-link--block"">
+      <i aria-hidden=""true"" class=""navigate-to-kc__button-icon--block""></i>
+  </span>
+</a>", targetUrl);
+
+            return MvcHtmlString.Create(generatedHtml);
+        }
+
+        public static MvcHtmlString InlineEditLink(this HtmlHelper htmlHelper, string targetUrl)
+        {
+            var generatedHtml = string.Format(@"
+<a class=""navigate-to-kc__overlay--inline"" href=""{0}"">
+    <span href=""#"">
+        <i aria-hidden=""true"" class=""navigate-to-kc__button-icon--inline""></i>
+    </span>
+</a>", targetUrl);
+
+            return MvcHtmlString.Create(generatedHtml);
+        }
     }
 }
