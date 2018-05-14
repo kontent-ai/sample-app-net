@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
-using KenticoCloud.Delivery;
 using System.Linq.Expressions;
+using System.Configuration;
+using KenticoCloud.Delivery;
 
 namespace DancingGoat.Helpers.Extensions
 {
@@ -129,6 +130,10 @@ namespace DancingGoat.Helpers.Extensions
             return MvcHtmlString.Create(generatedHtml);
         }
 
+        /// <summary>
+        /// Returns a navigation button linked to Kentico Cloud's item suitable for block elements.
+        /// </summary>
+        /// <param name="targetUrl">Kentico Cloud item's target url.</param>
         public static MvcHtmlString BlockEditLink(this HtmlHelper htmlHelper, string targetUrl)
         {
             var generatedHtml = string.Format(@"
@@ -141,6 +146,10 @@ namespace DancingGoat.Helpers.Extensions
             return MvcHtmlString.Create(generatedHtml);
         }
 
+        /// <summary>
+        /// Returns a navigation button linked to Kentico Cloud's item suitable for inline elements.
+        /// </summary>
+        /// <param name="targetUrl">Kentico Cloud item's target url.</param>
         public static MvcHtmlString InlineEditLink(this HtmlHelper htmlHelper, string targetUrl)
         {
             var generatedHtml = string.Format(@"
@@ -151,6 +160,24 @@ namespace DancingGoat.Helpers.Extensions
 </a>", targetUrl);
 
             return MvcHtmlString.Create(generatedHtml);
+        }
+
+
+        /// <summary>
+        /// Displays Edit Mode Panel while using preview api.
+        /// </summary>
+        /// <param name="htmlHelper">HTML helper.</param>
+        public static MvcHtmlString EditPanel(this HtmlHelper htmlHelper)
+        {
+            bool isPreview = false;
+            bool.TryParse(ConfigurationManager.AppSettings["UsePreviewApi"], out isPreview);
+
+            if (isPreview)
+            {
+                htmlHelper.RenderPartial("EditModePanel");
+            }
+
+            return MvcHtmlString.Create(string.Empty);
         }
     }
 }
