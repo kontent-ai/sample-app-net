@@ -84,6 +84,7 @@ You can retrieve content either through the Kentico Cloud Delivery SDK or the Ke
 * For unpublished content, use `https://preview-deliver.kenticocloud.com/PROJECT_ID/items`.
 
 For more details about Kentico Cloud APIs, see our [API reference](https://developer.kenticocloud.com/reference).
+For details on how the preview functionality works in this app, see the [wiki](https://github.com/Kentico/cloud-sample-app-net/wiki/Preview-URLs-explained).
 
 ## Feedback & Contributing
 
