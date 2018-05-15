@@ -55,8 +55,11 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="KenticoCloud.ContentManagement.Helpers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\KenticoCloud.ContentManagement.Helpers.1.1.17\lib\netstandard2.0\KenticoCloud.ContentManagement.Helpers.dll</HintPath>
+    </Reference>
     <Reference Include="KenticoCloud.Delivery, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\KenticoCloud.Delivery.4.9.0\lib\net45\KenticoCloud.Delivery.dll</HintPath>
+      <HintPath>..\packages\KenticoCloud.Delivery.4.13.0\lib\net45\KenticoCloud.Delivery.dll</HintPath>
     </Reference>
     <Reference Include="KenticoCloud.Personalization, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\KenticoCloud.Personalization.3.0.0\lib\net451\KenticoCloud.Personalization.dll</HintPath>
@@ -289,6 +292,7 @@
     <Compile Include="Models\ContentTypes\HostedVideo.cs" />
     <Compile Include="Models\ContentTypes\Office.cs" />
     <Compile Include="Models\ContentTypes\Tweet.cs" />
+    <Compile Include="Models\EditPanelViewModel.cs" />
     <Compile Include="Models\FactAboutUsViewModel.cs" />
     <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\IProduct.cs" />

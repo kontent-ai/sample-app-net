@@ -1,4 +1,6 @@
-﻿<div class="edit-mode-panel">
+﻿@model DancingGoat.Models.EditPanelViewModel
+
+<div class="edit-mode-panel">
     <div>
         <div class="edit-mode-panel__toggle">
             <label class="switch">
@@ -11,7 +13,7 @@
         </div>
     </div>
     <div class="edit-mode-panel__navigate-link">
-        <a>Open content item in KC</a>
+        <a target="_blank" href="@Model.ItemUrl">Open content item in KC</a>
     </div>
 </div>
 

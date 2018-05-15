@@ -1,19 +1,35 @@
 ﻿@using DancingGoat.Helpers.Extensions
+@using DancingGoat.Models
 @model DancingGoat.Models.FactAboutUsViewModel
 
 <section class="row text-and-image">
     <h2 class="col-lg-12">
         @Model.Fact.Title
-        @Html.InlineEditLink("https://app.kenticocloud.com")
+        @Html.InlineEditLink(
+            Model.Fact.System.Language,
+            Model.ParentItemElementIdentifier,
+            Model.Fact.System.Id,
+            FactAboutUs.TitleCodename
+            )
     </h2>
     <div class="col-md-6@( Model.Odd ? " col-md-push-6" : "" )">
           <div class="text-and-image-text@(Model.Odd ? "-right" : "" )">
               @Html.DisplayFor(vm => vm.Fact.Description)
-              @Html.BlockEditLink("http://www.google.com")
+              @Html.BlockEditLink(
+                Model.Fact.System.Language,
+                Model.ParentItemElementIdentifier,
+                Model.Fact.System.Id,
+                FactAboutUs.DescriptionCodename
+                )
           </div>
     </div>
     <div class="col-md-6@( Model.Odd ? " col-md-pull-6" : "" )">
         @Html.AssetImage(Model.Fact.Image.FirstOrDefault(), cssClass: "img-responsive")
-        @Html.BlockEditLink("http://www.kentico.com")
+        @Html.BlockEditLink(
+           Model.Fact.System.Language,
+           Model.ParentItemElementIdentifier,
+           Model.Fact.System.Id,
+           FactAboutUs.ImageCodename
+           )
     </div>
 </section>
