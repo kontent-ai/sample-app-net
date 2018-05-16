@@ -110,9 +110,9 @@
         ket('start', '@ConfigurationManager.AppSettings["ProjectId"]');
     </script>
     <script type="text/javascript">
-        function toggleEditMode() {
+        function toggleEditMode(isChecked) {
             const body = document.getElementsByTagName('body')[0];
-            body.classList.toggle('edit-mode');
+            isChecked ? body.classList.add('edit-mode') : body.classList.remove('edit-mode');
         }
     </script>
 

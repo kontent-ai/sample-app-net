@@ -5,21 +5,21 @@ using KenticoCloud.ContentManagement.Helpers.Configuration;
 
 namespace DancingGoat.Helpers
 {
-    public sealed class EditLinkManager
+    public sealed class EditLinkHelper
     {
-        private static EditLinkManager _instance = null;
+        private static EditLinkHelper _instance = null;
         private static readonly object padlock = new object();
         public EditLinkBuilder Builder { get; private set; }
 
-        private EditLinkManager()
+        private EditLinkHelper()
         {
-            var projectId = AppSettingProvider.ProjectId.ToString();
+            var projectId = AppSettingProvider.ProjectId.ToString() ?? AppSettingProvider.DefaultProjectId.ToString();
             var linkBuilderOptions = new ContentManagementHelpersOptions() { ProjectId = projectId };
             Builder = new EditLinkBuilder(linkBuilderOptions);
 
         }
 
-        public static EditLinkManager Instance
+        public static EditLinkHelper Instance
         {
             get
             {
@@ -29,7 +29,7 @@ namespace DancingGoat.Helpers
                     {
                         if (_instance == null)
                         {
-                            _instance = new EditLinkManager();
+                            _instance = new EditLinkHelper();
                         }
                     }
                 }

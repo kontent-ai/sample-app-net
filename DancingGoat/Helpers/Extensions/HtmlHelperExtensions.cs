@@ -199,12 +199,12 @@ namespace DancingGoat.Helpers.Extensions
 
         private static string GetItemUrl(string language, string itemId)
         {
-            return EditLinkManager.Instance.Builder.BuildEditItemUrl(language, itemId);
+            return EditLinkHelper.Instance.Builder.BuildEditItemUrl(language, itemId);
         }
 
         private static string GetItemElementUrl(string language, params ElementIdentifier[] elementIdentifiers)
         {
-            return EditLinkManager.Instance.Builder.BuildEditItemUrl(language, elementIdentifiers);
+            return EditLinkHelper.Instance.Builder.BuildEditItemUrl(language, elementIdentifiers);
         }
     }
 }

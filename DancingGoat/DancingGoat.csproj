@@ -230,7 +230,7 @@
     <Compile Include="Controllers\LanguageSelectorController.cs" />
     <Compile Include="Helpers\Extensions\LocalizedRouteExtensions.cs" />
     <Compile Include="Helpers\LanguageSwitchHelper.cs" />
-    <Compile Include="Helpers\EditLinkManager.cs" />
+    <Compile Include="Helpers\EditLinkHelper.cs" />
     <Compile Include="Localization\LanguageConstraint.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
