@@ -4,11 +4,8 @@ using System.Web.Mvc.Html;
 using System.Linq.Expressions;
 using System.Configuration;
 
-using DancingGoat.Areas.Admin;
 using DancingGoat.Models;
 
-using KenticoCloud.ContentManagement.Helpers.Configuration;
-using KenticoCloud.ContentManagement.Helpers;
 using KenticoCloud.Delivery;
 using KenticoCloud.ContentManagement.Helpers.Models;
 
@@ -141,24 +138,19 @@ namespace DancingGoat.Helpers.Extensions
         /// Returns a navigation button linked to Kentico Cloud's item suitable for block elements.
         /// </summary>
         /// <param name="language">Codename of language variant.</param>
-        /// <param name="parentItemElementIdentifier">Identifier of parent item's element.</param>
-        /// <param name="itemId">Target item's Id.</param>
-        /// <param name="elementCodename">Target item elemnt's codename.</param>
-        public static MvcHtmlString BlockEditLink(
+        /// <param name="elementIdentifiers">Identifiers of hierarchy of content item.</param>
+        public static MvcHtmlString BlockElementEditLink(
             this HtmlHelper htmlHelper,
             string language,
-            ElementIdentifier parentItemElementIdentifier,
-            string itemId,
-            string elementCodename
+            params ElementIdentifier[] elementIdentifiers
             )
         {
-            var targetElementIdentifier = new ElementIdentifier(itemId, elementCodename);
-            var itemUrl = GetItemElementUrl(language, parentItemElementIdentifier, targetElementIdentifier);
+            var itemUrl = GetItemElementUrl(language, elementIdentifiers);
 
             var generatedHtml = string.Format(@"
-<a target=""_blank"" class=""navigate-to-kc__overlay--block"" href=""{0}"" >
-  <span class=""navigate-to-kc__button-link--block"">
-      <i aria-hidden=""true"" class=""navigate-to-kc__button-icon--block""></i>
+<a target=""_blank"" class=""edit-link__overlay--block"" href=""{0}"" >
+  <span>
+      <i aria-hidden=""true"" class=""edit-link__button-icon edit-link__button-icon--block""></i>
   </span>
 </a>", itemUrl);
 
@@ -169,23 +161,18 @@ namespace DancingGoat.Helpers.Extensions
         /// Returns a navigation button linked to Kentico Cloud's item suitable for inline elements.
         /// </summary>
         /// <param name="language">Codename of language variant.</param>
-        /// <param name="parentItemElementIdentifier">Identifier of parent item's element.</param>
-        /// <param name="itemId">Target item's Id.</param>
-        /// <param name="elementCodename">Target item elemnt's codename.</param>
-        public static MvcHtmlString InlineEditLink(
+        /// <param name="elementIdentifiers">Identifiers of hierarchy of content item.</param>
+        public static MvcHtmlString InlineElementEditLink(
             this HtmlHelper htmlHelper, 
             string language, 
-            ElementIdentifier parentItemElementIdentifier, 
-            string itemId, 
-            string elementCodename
+            params ElementIdentifier[] elementIdentifiers
             )
         {
-            var targetElementIdentifier = new ElementIdentifier(itemId, elementCodename);
-            var itemUrl = GetItemElementUrl(language, parentItemElementIdentifier, targetElementIdentifier);
+            var itemUrl = GetItemElementUrl(language, elementIdentifiers);
 
             var generatedHtml = string.Format(@"
-<a target=""_blank"" class=""navigate-to-kc__overlay--inline"" href=""{0}"">
-        <i aria-hidden=""true"" class=""navigate-to-kc__button-icon--inline""></i>
+<a target=""_blank"" class=""edit-link__overlay--inline"" href=""{0}"">
+    <i aria-hidden=""true"" class=""edit-link__button-icon edit-link__button-icon--inline""></i>
 </a>", itemUrl);
 
             return MvcHtmlString.Create(generatedHtml);
@@ -197,7 +184,7 @@ namespace DancingGoat.Helpers.Extensions
         /// </summary>
         /// <param name="itemId">Id (guid) of content item identifier</param>
         /// <param name="language">Codename of language variant</param>
-        public static MvcHtmlString EditPanel(this HtmlHelper htmlHelper, string itemId, string language)
+        public static void EditPanel(this HtmlHelper htmlHelper, string itemId, string language)
         {
             bool isPreview = false;
             bool.TryParse(ConfigurationManager.AppSettings["UsePreviewApi"], out isPreview);
@@ -208,28 +195,16 @@ namespace DancingGoat.Helpers.Extensions
                 var editPanelViewModel = new EditPanelViewModel() { ItemUrl = itemUrl };
                 htmlHelper.RenderPartial("EditModePanel", editPanelViewModel);
             }
-
-            return MvcHtmlString.Create(string.Empty);
         }
 
         private static string GetItemUrl(string language, string itemId)
         {
-            var projectId = AppSettingProvider.ProjectId.ToString();
-            var linkBuilderOptions = new ContentManagementHelpersOptions() { ProjectId = projectId };
-            var linkBuilder = new EditLinkBuilder(linkBuilderOptions);
-            var editUrl = linkBuilder.BuildEditItemUrl(language, itemId);
-
-            return editUrl;
+            return EditLinkManager.Instance.Builder.BuildEditItemUrl(language, itemId);
         }
 
         private static string GetItemElementUrl(string language, params ElementIdentifier[] elementIdentifiers)
         {
-            var projectId = AppSettingProvider.ProjectId.ToString();
-            var linkBuilderOptions = new ContentManagementHelpersOptions() { ProjectId = projectId };
-            var linkBuilder = new EditLinkBuilder(linkBuilderOptions);
-            var editUrl = linkBuilder.BuildEditItemUrl(language, elementIdentifiers);
-
-            return editUrl;
+            return EditLinkManager.Instance.Builder.BuildEditItemUrl(language, elementIdentifiers);
         }
     }
 }

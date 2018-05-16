@@ -5420,7 +5420,10 @@ dd.product-price--retail {
 .order-detail .status {
   font-size: 2rem;
 }
-.edit-mode .navigate-to-kc__overlay--block {
+.edit-mode {
+  z-index: 1000;
+}
+.edit-mode .edit-link__overlay--block {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -5430,13 +5433,13 @@ dd.product-price--retail {
   width: 100%;
   height: 100%;
 }
-.edit-mode .navigate-to-kc__overlay--block:hover * {
+.edit-mode .edit-link__overlay--block:hover i {
   opacity: 1;
 }
-.edit-mode .navigate-to-kc__overlay--inline:hover * {
+.edit-mode .edit-link__overlay--inline:hover i {
   opacity: 1;
 }
-.edit-mode .navigate-to-kc__overlay--inline:before {
+.edit-mode .edit-link__overlay--inline:before {
   content: "";
   position: absolute;
   top: 0;
@@ -5444,29 +5447,20 @@ dd.product-price--retail {
   width: 100%;
   height: 100%;
 }
-.edit-mode .navigate-to-kc__button-link--block {
-  position: relative;
-}
-.edit-mode .navigate-to-kc__button-icon--block {
+.edit-mode .edit-link__button-icon {
   display: inline-block;
   background: #ccf0aa;
   border-radius: 50%;
   opacity: 0.7;
 }
-.edit-mode .navigate-to-kc__button-icon--block:before {
+.edit-mode .edit-link__button-icon--block:before {
   font-size: 88px;
   font-style: normal;
   content: "\270e";
   color: black;
   padding: 0px 16px 0px 16px;
 }
-.edit-mode .navigate-to-kc__button-icon--inline {
-  display: inline-block;
-  background: #ccf0aa;
-  border-radius: 50%;
-  opacity: 0.7;
-}
-.edit-mode .navigate-to-kc__button-icon--inline:before {
+.edit-mode .edit-link__button-icon--inline:before {
   font-style: normal;
   content: "\270e";
   color: black;
@@ -5480,11 +5474,9 @@ dd.product-price--retail {
   bottom: 0;
   width: 100%;
   background-color: white;
-  z-index: 20;
+  z-index: 1001;
   border-top: 1px solid #dedede;
   height: 40px;
-  /*# Switch #*/
-  /* Rounded sliders */
 }
 .edit-mode-panel__toggle {
   display: inline-block;
@@ -5522,7 +5514,6 @@ dd.product-price--retail {
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  -webkit-transition: .4s;
   transition: .4s;
 }
 .edit-mode-panel .slider:before {
@@ -5533,7 +5524,6 @@ dd.product-price--retail {
   left: 0;
   bottom: -3px;
   background-color: #bde88f;
-  -webkit-transition: .4s;
   transition: .4s;
 }
 .edit-mode-panel input:checked + .slider {
@@ -5544,8 +5534,6 @@ dd.product-price--retail {
 }
 .edit-mode-panel input:checked + .slider:before {
   background-color: #417506;
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
   transform: translateX(26px);
 }
 .edit-mode-panel .slider.round {

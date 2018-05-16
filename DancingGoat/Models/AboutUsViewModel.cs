@@ -4,7 +4,8 @@ namespace DancingGoat.Models
 {
     public class AboutUsViewModel : AboutUs
     {
-        public AboutUs AboutUs { get; set; }
+        public string ItemId { get; set; }
+        public string Language { get; set; }
         public IList<FactAboutUsViewModel> FactViewModels { get; set; }
     }
 }

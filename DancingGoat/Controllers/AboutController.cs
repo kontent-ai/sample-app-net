@@ -17,7 +17,8 @@ namespace DancingGoat.Controllers
 
             var viewModel = new AboutUsViewModel
             {
-                AboutUs = response.Item,
+                ItemId = response.Item.System.Id,
+                Language = response.Item.System.Language,
                 FactViewModels = MapFactsAboutUs(response)
             };
 
