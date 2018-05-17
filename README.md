@@ -94,6 +94,7 @@ To see Edit mode in action:
 
 1. Enable Delivery Preview API by adding the following keys to the `\DancingGoat\Web.config` file:
 ```xml
+        <add key="ProjectId" value="YOUR_PROJECT_ID" />
         <add key="UsePreviewApi" value="true"/>
         <add key="PreviewApiKey" value="YOUR_DELIVERY_PREVIEW_API_KEY" />
 ```
