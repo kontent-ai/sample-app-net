@@ -14,6 +14,7 @@ namespace DancingGoat.Controllers
 {
     public class HomeController : ControllerBase
     {
+        private const string VISITOR_NOT_FOUND_CODE = "CR404.2";
         private readonly PersonalizationClient personalizationClient;
 
         public HomeController()
@@ -46,11 +47,22 @@ namespace DancingGoat.Controllers
                 if (!string.IsNullOrEmpty(visitorUid))
                 {
                     // Determine whether the visitor submitted a form
-                    var visitorSegments = await personalizationClient.GetVisitorSegmentsAsync(visitorUid);
-                    showPromotion = !visitorSegments.Segments.Any(
-                        s => string.Equals(s.Codename, "Customers_Who_Requested_a_Coffee_Sample",
-                            StringComparison.OrdinalIgnoreCase)
-                    );
+                    try
+                    {
+                        var visitorSegments = await personalizationClient.GetVisitorSegmentsAsync(visitorUid);
+                        
+                        showPromotion = !visitorSegments.Segments.Any(
+                            s => string.Equals(s.Codename, "Customers_Who_Requested_a_Coffee_Sample",
+                                StringComparison.OrdinalIgnoreCase)
+                        );
+                    }
+                    catch (PersonalizationException e)
+                    {
+                        if (e.Code != VISITOR_NOT_FOUND_CODE)
+                        {
+                            throw;                            
+                        }
+                    }
                 }
             }
             var codeName = showPromotion ? "home_page_promotion" : "home_page_hero_unit";
