@@ -55,8 +55,11 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="KenticoCloud.ContentManagement.Helpers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\KenticoCloud.ContentManagement.Helpers.1.1.27\lib\net45\KenticoCloud.ContentManagement.Helpers.dll</HintPath>
+    </Reference>
     <Reference Include="KenticoCloud.Delivery, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\KenticoCloud.Delivery.4.9.0\lib\net45\KenticoCloud.Delivery.dll</HintPath>
+      <HintPath>..\packages\KenticoCloud.Delivery.4.13.0\lib\net45\KenticoCloud.Delivery.dll</HintPath>
     </Reference>
     <Reference Include="KenticoCloud.Personalization, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\KenticoCloud.Personalization.3.0.0\lib\net451\KenticoCloud.Personalization.dll</HintPath>
@@ -227,6 +230,7 @@
     <Compile Include="Controllers\LanguageSelectorController.cs" />
     <Compile Include="Helpers\Extensions\LocalizedRouteExtensions.cs" />
     <Compile Include="Helpers\LanguageSwitchHelper.cs" />
+    <Compile Include="Helpers\EditLinkHelper.cs" />
     <Compile Include="Localization\LanguageConstraint.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
@@ -289,6 +293,7 @@
     <Compile Include="Models\ContentTypes\HostedVideo.cs" />
     <Compile Include="Models\ContentTypes\Office.cs" />
     <Compile Include="Models\ContentTypes\Tweet.cs" />
+    <Compile Include="Models\EditPanelViewModel.cs" />
     <Compile Include="Models\FactAboutUsViewModel.cs" />
     <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\IProduct.cs" />
@@ -358,6 +363,7 @@
     <Content Include="Areas\Admin\Views\Shared\EditorTemplates\Guid.cshtml" />
     <Content Include="Areas\Admin\Content\Styles\UserMessage.less" />
     <Content Include="Areas\Admin\Views\SelfConfig\Wait.cshtml" />
+    <Content Include="Content\Styles\EditMode.less" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\formAutoPost.js" />
@@ -425,6 +431,7 @@
     <Content Include="Views\Articles\DisplayTemplates\Tweet.cshtml" />
     <Content Include="Views\Home\CompanyAddress.cshtml" />
     <Content Include="Views\Shared\HeadersMetadata.cshtml" />
+    <Content Include="Views\Shared\EditModePanel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
