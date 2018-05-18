@@ -56,7 +56,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="KenticoCloud.ContentManagement.Helpers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\KenticoCloud.ContentManagement.Helpers.1.1.17\lib\netstandard2.0\KenticoCloud.ContentManagement.Helpers.dll</HintPath>
+      <HintPath>..\packages\KenticoCloud.ContentManagement.Helpers.1.1.27\lib\net45\KenticoCloud.ContentManagement.Helpers.dll</HintPath>
     </Reference>
     <Reference Include="KenticoCloud.Delivery, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\KenticoCloud.Delivery.4.13.0\lib\net45\KenticoCloud.Delivery.dll</HintPath>
