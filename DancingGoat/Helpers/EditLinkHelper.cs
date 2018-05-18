@@ -16,7 +16,6 @@ namespace DancingGoat.Helpers
             var projectId = AppSettingProvider.ProjectId.ToString() ?? AppSettingProvider.DefaultProjectId.ToString();
             var linkBuilderOptions = new ContentManagementHelpersOptions() { ProjectId = projectId };
             Builder = new EditLinkBuilder(linkBuilderOptions);
-
         }
 
         public static EditLinkHelper Instance
