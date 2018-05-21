@@ -1,7 +1,10 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+
 using DancingGoat.Models;
-using System.Collections.Generic;
+
+using KenticoCloud.ContentManagement.Helpers.Models;
 using KenticoCloud.Delivery;
 
 namespace DancingGoat.Controllers
@@ -14,6 +17,8 @@ namespace DancingGoat.Controllers
 
             var viewModel = new AboutUsViewModel
             {
+                ItemId = response.Item.System.Id,
+                Language = response.Item.System.Language,
                 FactViewModels = MapFactsAboutUs(response)
             };
 
@@ -35,7 +40,8 @@ namespace DancingGoat.Controllers
             {
                 var factViewModel = new FactAboutUsViewModel
                 {
-                    Fact = (FactAboutUs)fact
+                    Fact = (FactAboutUs)fact,
+                    ParentItemElementIdentifier = new ElementIdentifier(response.Item.System.Id, AboutUs.FactsCodename)
                 };
 
                 if (i++ % 2 == 0)
