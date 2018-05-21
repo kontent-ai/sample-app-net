@@ -86,6 +86,24 @@ You can retrieve content either through the Kentico Cloud Delivery SDK or the Ke
 For more details about Kentico Cloud APIs, see our [API reference](https://developer.kenticocloud.com/reference).
 For details on how the preview functionality works in this app, see the [wiki](https://github.com/Kentico/cloud-sample-app-net/wiki/Preview-URLs-explained).
 
+## Edit mode
+
+Content contributors sometimes need to fix errors or typos right when they see them on the website. The sample app allows users to navigate from a piece of content on the site straight to the corresponding content item or element in Kentico Cloud. 
+
+To see Edit mode in action:
+
+1. Enable Delivery Preview API by adding the following keys to the `\DancingGoat\Web.config` file:
+```xml
+        <add key="ProjectId" value="YOUR_PROJECT_ID" />
+        <add key="UsePreviewApi" value="true"/>
+        <add key="PreviewApiKey" value="YOUR_DELIVERY_PREVIEW_API_KEY" />
+```
+2. Run the app.
+3. Navigate to the **About us** section.
+4. Click the **Edit mode** switch in the bottom-left corner.
+
+Edit buttons will appear next to each piece of content on the page.
+
 ## Feedback & Contributing
 
 Check out the [contributing](https://github.com/Kentico/delivery-sdk-net/blob/master/CONTRIBUTING.md) page to see the best places to file issues, start discussions, and begin contributing.
