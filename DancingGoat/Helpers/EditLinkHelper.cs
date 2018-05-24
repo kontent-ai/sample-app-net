@@ -13,8 +13,8 @@ namespace DancingGoat.Helpers
 
         private EditLinkHelper()
         {
-            var projectId = AppSettingProvider.ProjectId.ToString() ?? AppSettingProvider.DefaultProjectId.ToString();
-            var linkBuilderOptions = new ContentManagementHelpersOptions() { ProjectId = projectId };
+            var projectId = AppSettingProvider.ProjectId ?? AppSettingProvider.DefaultProjectId;
+            var linkBuilderOptions = new ContentManagementHelpersOptions() { ProjectId = projectId.ToString() };
             Builder = new EditLinkBuilder(linkBuilderOptions);
         }
 

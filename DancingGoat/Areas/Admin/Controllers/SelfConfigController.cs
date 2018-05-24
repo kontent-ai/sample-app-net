@@ -3,9 +3,12 @@ using System.Configuration;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Newtonsoft.Json;
+
 using DancingGoat.Helpers;
 using DancingGoat.Areas.Admin.Helpers;
 using DancingGoat.Areas.Admin.Models;
+using DancingGoat.Infrastructure;
+
 using KenticoCloud.Delivery;
 
 namespace DancingGoat.Areas.Admin.Controllers
@@ -27,10 +30,11 @@ namespace DancingGoat.Areas.Admin.Controllers
         public const int PROJECT_EXISTENCE_VERIFICATION_REQUIRED_ITEMS = 32;
 
         protected readonly SelfConfigManager _selfConfigManager;
-        protected readonly IDeliveryClient client = DancingGoat.Controllers.ControllerBase.CreateDeliveryClient();
+        protected readonly IDeliveryClient client;
 
         public SelfConfigController()
         {
+            client = DeliveryClientFactory.CreateDeliveryClient();
             _selfConfigManager = new SelfConfigManager();
         }
 
@@ -48,7 +52,7 @@ namespace DancingGoat.Areas.Admin.Controllers
 
         [HttpGet]
         public async Task<ActionResult> SampleProjectReady()
-        {             
+        {
             var items = (await client.GetItemsAsync()).Items;
             return Json(items.Count >= PROJECT_EXISTENCE_VERIFICATION_REQUIRED_ITEMS, JsonRequestBehavior.AllowGet);
         }
