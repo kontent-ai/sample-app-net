@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using DancingGoat.Helpers;
 using DancingGoat.Areas.Admin.Helpers;
 using DancingGoat.Areas.Admin.Models;
+using DancingGoat.Controllers;
 using DancingGoat.Infrastructure;
 
 using KenticoCloud.Delivery;
@@ -53,7 +54,7 @@ namespace DancingGoat.Areas.Admin.Controllers
         [HttpGet]
         public async Task<ActionResult> SampleProjectReady()
         {
-            var items = (await client.GetItemsAsync()).Items;
+            var items = (await client.GetItemsAsync(new SampleSiteFilter())).Items;
             return Json(items.Count >= PROJECT_EXISTENCE_VERIFICATION_REQUIRED_ITEMS, JsonRequestBehavior.AllowGet);
         }
 

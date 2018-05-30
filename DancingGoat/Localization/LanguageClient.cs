@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DancingGoat.Controllers;
 using KenticoCloud.Delivery;
 using KenticoCloud.Delivery.InlineContentItems;
 using Newtonsoft.Json.Linq;
@@ -12,6 +13,7 @@ namespace DancingGoat.Localization
         public const string SpanishLanguge = "es-es";
         private readonly DeliveryClient _client;
         private readonly string _language;
+        private readonly List<SampleSiteFilter> _sampleSiteFilter = new List<SampleSiteFilter>();
 
         public LanguageClient(DeliveryClient client, string language)
         {
@@ -21,39 +23,39 @@ namespace DancingGoat.Localization
 
         public Task<DeliveryItemResponse<T>> GetItemAsync<T>(string codename, params IQueryParameter[] parameters)
         {
-            return _client.GetItemAsync<T>(codename, new[] {new LanguageParameter(_language)}.Concat(parameters));
+            return _client.GetItemAsync<T>(codename, new[] {new LanguageParameter(_language)}.Concat(parameters).Concat(_sampleSiteFilter));
         }
 
         public Task<DeliveryItemResponse> GetItemAsync(string codename, IEnumerable<IQueryParameter> parameters)
         {
-            return _client.GetItemAsync(codename, new[] { new LanguageParameter(_language) }.Concat(parameters));
+            return _client.GetItemAsync(codename, new[] { new LanguageParameter(_language) }.Concat(parameters).Concat(_sampleSiteFilter));
         }
 
         public Task<DeliveryItemResponse<T>> GetItemAsync<T>(string codename, IEnumerable<IQueryParameter> parameters = null)
         {
             var parametersWithLanguage = parameters != null ? new[] { new LanguageParameter(_language) }.Concat(parameters) :
             new[] { new LanguageParameter(_language)};
-            return _client.GetItemAsync<T>(codename, parametersWithLanguage);
+            return _client.GetItemAsync<T>(codename, parametersWithLanguage.Concat(_sampleSiteFilter));
         }
 
         public Task<DeliveryItemListingResponse> GetItemsAsync(params IQueryParameter[] parameters)
         {
-            return _client.GetItemsAsync(new[] { new LanguageParameter(_language) }.Concat(parameters));
+            return _client.GetItemsAsync(new[] { new LanguageParameter(_language) }.Concat(parameters).Concat(_sampleSiteFilter));
         }
 
         public Task<DeliveryItemListingResponse> GetItemsAsync(IEnumerable<IQueryParameter> parameters)
         {
-            return _client.GetItemsAsync(new[] { new LanguageParameter(_language) }.Concat(parameters));
+            return _client.GetItemsAsync(new[] { new LanguageParameter(_language) }.Concat(parameters).Concat(_sampleSiteFilter));
         }
 
         public Task<DeliveryItemListingResponse<T>> GetItemsAsync<T>(params IQueryParameter[] parameters)
         {
-            return _client.GetItemsAsync<T>(new[] { new LanguageParameter(_language) }.Concat(parameters));
+            return _client.GetItemsAsync<T>(new[] { new LanguageParameter(_language) }.Concat(parameters).Concat(_sampleSiteFilter));
         }
 
         public Task<DeliveryItemListingResponse<T>> GetItemsAsync<T>(IEnumerable<IQueryParameter> parameters)
         {
-            return _client.GetItemsAsync<T>(new[] { new LanguageParameter(_language) }.Concat(parameters));
+            return _client.GetItemsAsync<T>(new[] { new LanguageParameter(_language) }.Concat(parameters).Concat(_sampleSiteFilter));
         }
 
         public Task<JObject> GetTypeJsonAsync(string codename)
@@ -73,12 +75,12 @@ namespace DancingGoat.Localization
 
         public Task<DeliveryTypeListingResponse> GetTypesAsync(params IQueryParameter[] parameters)
         {
-            return _client.GetTypesAsync(new[] { new LanguageParameter(_language) }.Concat(parameters));
+            return _client.GetTypesAsync(new[] { new LanguageParameter(_language) }.Concat(parameters).Concat(_sampleSiteFilter));
         }
 
         public Task<DeliveryTypeListingResponse> GetTypesAsync(IEnumerable<IQueryParameter> parameters)
         {
-            return _client.GetTypesAsync(new[] { new LanguageParameter(_language) }.Concat(parameters));
+            return _client.GetTypesAsync(new[] { new LanguageParameter(_language) }.Concat(parameters).Concat(_sampleSiteFilter));
         }
 
         public Task<ContentElement> GetContentElementAsync(string contentTypeCodename, string contentElementCodename)
@@ -104,12 +106,12 @@ namespace DancingGoat.Localization
 
         public Task<DeliveryTaxonomyListingResponse> GetTaxonomiesAsync(params IQueryParameter[] parameters)
         {
-            return _client.GetTaxonomiesAsync(parameters);
+            return _client.GetTaxonomiesAsync(parameters.Concat(_sampleSiteFilter));
         }
 
         public Task<DeliveryTaxonomyListingResponse> GetTaxonomiesAsync(IEnumerable<IQueryParameter> parameters)
         {
-            return _client.GetTaxonomiesAsync(parameters);
+            return _client.GetTaxonomiesAsync(parameters.Concat(_sampleSiteFilter));
         }
 
         public IContentLinkUrlResolver ContentLinkUrlResolver

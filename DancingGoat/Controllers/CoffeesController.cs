@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace DancingGoat.Controllers
 {
@@ -15,19 +16,21 @@ namespace DancingGoat.Controllers
                 new EqualsFilter("system.type", "coffee"),
                 new OrderParameter("elements.product_name"),
                 new ElementsParameter(Coffee.ImageCodename, Coffee.PriceCodename, Coffee.ProductStatusCodename, Coffee.ProductNameCodename, Coffee.UrlPatternCodename),
-                new DepthParameter(0)
+                new DepthParameter(0),
+                new SampleSiteFilter()
             );
 
-            var processingTask = client.GetTaxonomyAsync(Coffee.ProcessingCodename);
-            var statusTask = client.GetTaxonomyAsync(Coffee.ProductStatusCodename);
+
+            var processingTask = await client.GetTaxonomiesAsync(new EqualsFilter("system.codename", Coffee.ProcessingCodename), new SampleSiteFilter());
+            var statusTask = await client.GetTaxonomiesAsync(new EqualsFilter("system.codename", Coffee.ProductStatusCodename), new SampleSiteFilter());
 
             var model = new CoffeesViewModel
             {
                 Items = (await itemsTask).Items,
                 Filter = new CoffeesFilterViewModel
                 {
-                    AvailableProcessings = GetTaxonomiesAsSelectList(await processingTask),
-                    AvailableProductStatuses = GetTaxonomiesAsSelectList(await statusTask)
+                    AvailableProcessings = GetTaxonomiesAsSelectList(processingTask.Taxonomies.FirstOrDefault()),
+                    AvailableProductStatuses = GetTaxonomiesAsSelectList(statusTask.Taxonomies.FirstOrDefault())
                 }
             };
 
@@ -41,6 +44,7 @@ namespace DancingGoat.Controllers
                 new OrderParameter("elements.product_name"),
                 new ElementsParameter(Coffee.ImageCodename, Coffee.PriceCodename, Coffee.ProductStatusCodename, Coffee.ProductNameCodename, Coffee.UrlPatternCodename),
                 new DepthParameter(0),
+                new SampleSiteFilter()
             };
 
             var filterProcessing = model.GetFilteredProcessings().ToArray();

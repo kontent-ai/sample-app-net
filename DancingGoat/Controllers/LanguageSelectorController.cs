@@ -24,7 +24,9 @@ namespace DancingGoat.Controllers
             var item = (await client.GetItemsAsync<object>(
                 new EqualsFilter("system.type", type),
                 new EqualsFilter("system.id", id.ToString()),
-                new ElementsParameter("url_pattern"))).Items.FirstOrDefault();
+                new ElementsParameter("url_pattern"),
+                new SampleSiteFilter()))
+                .Items.FirstOrDefault();
 
             if (!(item is IDetailItem detaiItem))
             {

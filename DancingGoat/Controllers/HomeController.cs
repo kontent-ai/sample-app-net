@@ -30,7 +30,7 @@ namespace DancingGoat.Controllers
 
         public async Task<ActionResult> Index()
         {
-            var response = await client.GetItemAsync<Home>("home");
+            var response = await client.GetItemAsync<Home>("home", new SampleSiteFilter());
 
             var viewModel = new HomeViewModel
             {
@@ -46,7 +46,14 @@ namespace DancingGoat.Controllers
         [ChildActionOnly]
         public ActionResult CompanyAddress()
         {
-            var contact = Task.Run(() => client.GetItemAsync<Home>("home", new ElementsParameter("contact"))).Result.Item.Contact;
+            var contact = Task.Run(() => client.GetItemAsync<Home>(
+                "home",
+                new IQueryParameter[]
+                {
+                    new ElementsParameter("contact"),
+                    new SampleSiteFilter()
+                }
+                )).Result.Item.Contact;
 
             return PartialView("CompanyAddress", contact);
         }
