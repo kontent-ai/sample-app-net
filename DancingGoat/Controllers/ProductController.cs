@@ -11,11 +11,7 @@ namespace DancingGoat.Controllers
     {
         public async Task<ActionResult> Detail(string urlSlug)
         {
-            var item = (await client.GetItemsAsync<object>(
-                new EqualsFilter("elements.url_pattern", urlSlug),
-                new InFilter("system.type", "brewer", "coffee"),
-                new SampleSiteFilter()
-                )).Items.FirstOrDefault();
+            var item = (await client.GetItemsAsync<object>(new EqualsFilter("elements.url_pattern", urlSlug), new InFilter("system.type", "brewer", "coffee"))).Items.FirstOrDefault();
 
             if (item == null)
             {

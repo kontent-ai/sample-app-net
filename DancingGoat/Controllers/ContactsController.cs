@@ -12,8 +12,7 @@ namespace DancingGoat.Controllers
         {
             var response = await client.GetItemsAsync<Cafe>(
                 new EqualsFilter("system.type", "cafe"),
-                new EqualsFilter("elements.country", "USA"),
-                new SampleSiteFilter()
+                new EqualsFilter("elements.country", "USA")
             );
             var cafes = response.Items;
 

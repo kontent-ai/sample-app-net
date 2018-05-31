@@ -6,7 +6,7 @@ namespace DancingGoat.Controllers
     {
         public string GetQueryStringParameter()
         {
-            return "SampleSite=true";
+            return "samplesite=1";
         }
     }
 }

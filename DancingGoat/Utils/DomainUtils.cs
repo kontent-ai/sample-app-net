@@ -8,14 +8,10 @@ namespace DancingGoat.Utils
         {
             if (url.HostNameType == UriHostNameType.Dns)
             {
-                string host = url.Host;
-
-                if (host.Split('.').Length > 2)
+                var splittedResult = url.Host.Split('.');
+                if (splittedResult.Length > 2)
                 {
-                    int lastIndex = host.LastIndexOf(".");
-                    int index = host.LastIndexOf(".", lastIndex - 1);
-
-                    return host.Substring(0, index);
+                    return splittedResult[0];
                 }
             }
 

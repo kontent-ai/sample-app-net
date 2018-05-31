@@ -15,8 +15,7 @@ namespace DancingGoat.Controllers
             var response = await client.GetItemsAsync<Article>(
                 new EqualsFilter("system.type", "article"),
                 new OrderParameter("elements.post_date", SortOrder.Descending),
-                new ElementsParameter("teaser_image", "post_date", "summary", "url_pattern", "title"),
-                new SampleSiteFilter()
+                new ElementsParameter("teaser_image", "post_date", "summary", "url_pattern", "title")
             );
 
             return View(response.Items);
@@ -27,8 +26,7 @@ namespace DancingGoat.Controllers
             var response = await client.GetItemsAsync<Article>(
                 new EqualsFilter("elements.url_pattern", urlSlug),
                 new EqualsFilter("system.type", "article"),
-                new DepthParameter(1),
-                new SampleSiteFilter()
+                new DepthParameter(1)
             );
 
             if (response.Items.Count == 0)

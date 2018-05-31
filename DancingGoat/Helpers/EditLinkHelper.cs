@@ -1,5 +1,5 @@
 ﻿using DancingGoat.Areas.Admin;
-
+using DancingGoat.Utils;
 using KenticoCloud.ContentManagement.Helpers;
 using KenticoCloud.ContentManagement.Helpers.Configuration;
 
@@ -13,8 +13,8 @@ namespace DancingGoat.Helpers
 
         private EditLinkHelper()
         {
-            var projectId = AppSettingProvider.ProjectId ?? AppSettingProvider.DefaultProjectId;
-            var linkBuilderOptions = new ContentManagementHelpersOptions() { ProjectId = projectId.ToString() };
+            var projectId = ProjectUtils.GetProjectId();
+            var linkBuilderOptions = new ContentManagementHelpersOptions() { ProjectId = projectId };
             Builder = new EditLinkBuilder(linkBuilderOptions);
         }
 

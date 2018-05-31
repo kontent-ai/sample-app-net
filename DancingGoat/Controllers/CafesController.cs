@@ -12,8 +12,7 @@ namespace DancingGoat.Controllers
         {
             var response = await client.GetItemsAsync<Cafe>(
                 new EqualsFilter("system.type", "cafe"),
-                new OrderParameter("system.name"),
-                new SampleSiteFilter()
+                new OrderParameter("system.name")
             );
             var cafes = response.Items;
 

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -7,7 +6,6 @@ using DancingGoat.Models;
 
 using KenticoCloud.ContentManagement.Helpers.Models;
 using KenticoCloud.Delivery;
-using Filter = KenticoCloud.Delivery.Filter;
 
 namespace DancingGoat.Controllers
 {
@@ -15,7 +13,7 @@ namespace DancingGoat.Controllers
     {
         public async Task<ActionResult> Index()
         {
-            var response = await client.GetItemAsync<AboutUs>("about_us", new SampleSiteFilter());
+            var response = await client.GetItemAsync<AboutUs>("about_us");
 
             var viewModel = new AboutUsViewModel
             {

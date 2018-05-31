@@ -15,20 +15,19 @@ namespace DancingGoat.Controllers
                 new EqualsFilter("system.type", "brewer"),
                 new OrderParameter("elements.product_name"),
                 new ElementsParameter(Brewer.ImageCodename, Brewer.PriceCodename, Brewer.ProductStatusCodename, Brewer.ProductNameCodename, Brewer.UrlPatternCodename),
-                new DepthParameter(0),
-                new SampleSiteFilter()
+                new DepthParameter(0)
             );
 
-            var statusTask = client.GetTaxonomiesAsync(new SampleSiteFilter()).Result.Taxonomies.FirstOrDefault(x=>x.System.Codename == Brewer.ProductStatusCodename);
-            var manufacturerTask = client.GetTaxonomiesAsync(new SampleSiteFilter()).Result.Taxonomies.FirstOrDefault(x => x.System.Codename == Brewer.ManufacturerCodename);
+            var statusTask = client.GetTaxonomyAsync(Brewer.ProductStatusCodename);
+            var manufacturerTask = client.GetTaxonomyAsync(Brewer.ManufacturerCodename);
 
             var model = new BrewersViewModel
             {
                 Items = (await itemsTask).Items,
                 Filter = new BrewerFilterViewModel
                 {
-                    AvailableProductStatuses = GetTaxonomiesAsSelectList(statusTask),
-                    AvailableManufacturers = GetTaxonomiesAsSelectList(manufacturerTask)
+                    AvailableProductStatuses = GetTaxonomiesAsSelectList(await statusTask),
+                    AvailableManufacturers = GetTaxonomiesAsSelectList(await manufacturerTask)
                 }
             };
 
@@ -41,8 +40,7 @@ namespace DancingGoat.Controllers
                 new EqualsFilter("system.type", "brewer"),
                 new OrderParameter("elements.product_name"),
                 new ElementsParameter(Brewer.ImageCodename, Brewer.PriceCodename, Brewer.ProductStatusCodename, Brewer.ProductNameCodename, Brewer.UrlPatternCodename),
-                new DepthParameter(0),
-                new SampleSiteFilter()
+                new DepthParameter(0)
             };
 
             var manufacturers = model.GetFilteredManufacturers().ToArray();
