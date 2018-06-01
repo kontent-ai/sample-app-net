@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DancingGoat.Controllers;
@@ -13,8 +12,9 @@ namespace DancingGoat.Helpers
 {
     public class SampleDeliveryClient : IDeliveryClient
     {
-        private DeliveryClient _deliveryClient;
-        private readonly List<SampleSiteFilter> _sampleSiteFilter = new List<SampleSiteFilter> { new SampleSiteFilter() };
+        private readonly DeliveryClient _deliveryClient;
+        private readonly IQueryParameter[] _sampleQueryParameter = { new SampleSiteParameter() };
+        private readonly string[] _sampleParameter = { new SampleSiteParameter().GetQueryStringParameter() };
 
         public SampleDeliveryClient()
         {
@@ -33,128 +33,141 @@ namespace DancingGoat.Helpers
 
         public Task<JObject> GetItemJsonAsync(string codename, params string[] parameters)
         {
-            parameters.ToList().Add(_sampleSiteFilter.FirstOrDefault().GetQueryStringParameter());
-            return _deliveryClient.GetItemJsonAsync(codename, parameters);
+            var p = parameters == null ? _sampleParameter : _sampleParameter.Concat(parameters).ToArray();
+            return _deliveryClient.GetItemJsonAsync(codename, p);
         }
 
         public Task<JObject> GetItemsJsonAsync(params string[] parameters)
         {
-            parameters.ToList().Add(_sampleSiteFilter.FirstOrDefault().GetQueryStringParameter());
-            return _deliveryClient.GetItemsJsonAsync(parameters);
+            var p = parameters == null ? _sampleParameter : _sampleParameter.Concat(parameters).ToArray();
+            return _deliveryClient.GetItemsJsonAsync(p);
         }
 
         public Task<DeliveryItemResponse> GetItemAsync(string codename, params IQueryParameter[] parameters)
         {
-            var p = parameters.Concat(_sampleSiteFilter);
+            var p = parameters == null ? _sampleQueryParameter : _sampleQueryParameter.Concat(parameters);
             return _deliveryClient.GetItemAsync(codename, p);
         }
 
         public Task<DeliveryItemResponse<T>> GetItemAsync<T>(string codename, params IQueryParameter[] parameters)
         {
-            var p = parameters.Concat(_sampleSiteFilter);
+            var p = parameters == null ? _sampleQueryParameter : _sampleQueryParameter.Concat(parameters);
             return _deliveryClient.GetItemAsync<T>(codename, p);
         }
 
         public Task<DeliveryItemResponse> GetItemAsync(string codename, IEnumerable<IQueryParameter> parameters)
         {
-            parameters.ToList().Add(_sampleSiteFilter.FirstOrDefault());
-            return _deliveryClient.GetItemAsync(codename, parameters);
+            var p = parameters == null ? _sampleQueryParameter : _sampleQueryParameter.Concat(parameters);
+            return _deliveryClient.GetItemAsync(codename, p);
         }
 
         public Task<DeliveryItemResponse<T>> GetItemAsync<T>(string codename, IEnumerable<IQueryParameter> parameters = null)
         {
-            var p = parameters == null ? _sampleSiteFilter : parameters.Concat(_sampleSiteFilter);
+            var p = parameters == null ? _sampleQueryParameter : _sampleQueryParameter.Concat(parameters);
             return _deliveryClient.GetItemAsync<T>(codename, p);
         }
 
         public Task<DeliveryItemListingResponse> GetItemsAsync(params IQueryParameter[] parameters)
         {
-            var p = parameters.Concat(_sampleSiteFilter);
+            var p = parameters == null ? _sampleQueryParameter : _sampleQueryParameter.Concat(parameters);
             return _deliveryClient.GetItemsAsync(p);
         }
 
         public Task<DeliveryItemListingResponse> GetItemsAsync(IEnumerable<IQueryParameter> parameters)
         {
-            var p = parameters.Concat(_sampleSiteFilter);
+            var p = _sampleQueryParameter.Concat(parameters).ToArray();
             return _deliveryClient.GetItemsAsync(p);
         }
 
         public Task<DeliveryItemListingResponse<T>> GetItemsAsync<T>(params IQueryParameter[] parameters)
         {
-            var p = parameters.Concat(_sampleSiteFilter);
+            var p = parameters == null ? _sampleQueryParameter : _sampleQueryParameter.Concat(parameters);
             return _deliveryClient.GetItemsAsync<T>(p);
         }
 
         public Task<DeliveryItemListingResponse<T>> GetItemsAsync<T>(IEnumerable<IQueryParameter> parameters)
         {
-            var p = parameters.Concat(_sampleSiteFilter);
+            var p = parameters == null ? _sampleQueryParameter : _sampleQueryParameter.Concat(parameters);
             return _deliveryClient.GetItemsAsync<T>(p);
         }
 
         public Task<JObject> GetTypeJsonAsync(string codename)
         {
-            throw new NotImplementedException();
+            return _deliveryClient.GetTypeJsonAsync(codename);
         }
 
         public Task<JObject> GetTypesJsonAsync(params string[] parameters)
         {
-            parameters.ToList().Add(_sampleSiteFilter.FirstOrDefault().GetQueryStringParameter());
-            return _deliveryClient.GetTypesJsonAsync(parameters);
+            var p = parameters == null ? _sampleParameter : _sampleParameter.Concat(parameters).ToArray();
+            return _deliveryClient.GetTypesJsonAsync(p);
         }
 
         public Task<ContentType> GetTypeAsync(string codename)
         {
-            throw new NotImplementedException();
+            return _deliveryClient.GetTypeAsync(codename);
         }
 
         public Task<DeliveryTypeListingResponse> GetTypesAsync(params IQueryParameter[] parameters)
         {
-            var p = parameters.Concat(_sampleSiteFilter);
+            var p = parameters == null ? _sampleQueryParameter : _sampleQueryParameter.Concat(parameters);
             return _deliveryClient.GetTypesAsync(p);
         }
 
         public Task<DeliveryTypeListingResponse> GetTypesAsync(IEnumerable<IQueryParameter> parameters)
         {
-            var p = parameters.Concat(_sampleSiteFilter);
+            var p = parameters == null ? _sampleQueryParameter : _sampleQueryParameter.Concat(parameters);
             return _deliveryClient.GetTypesAsync(p);
         }
 
         public Task<ContentElement> GetContentElementAsync(string contentTypeCodename, string contentElementCodename)
         {
-            throw new NotImplementedException();
+            return _deliveryClient.GetContentElementAsync(contentTypeCodename, contentElementCodename);
         }
 
         public Task<JObject> GetTaxonomyJsonAsync(string codename)
         {
-            throw new NotImplementedException();
+            return _deliveryClient.GetTaxonomiesJsonAsync(codename);
         }
 
         public Task<JObject> GetTaxonomiesJsonAsync(params string[] parameters)
         {
-            parameters.ToList().Add(_sampleSiteFilter.FirstOrDefault().GetQueryStringParameter());
-            return _deliveryClient.GetItemsJsonAsync(parameters);
+            var p = parameters == null ? _sampleParameter : _sampleParameter.Concat(parameters).ToArray();
+            return _deliveryClient.GetItemsJsonAsync(p);
         }
 
         public async Task<TaxonomyGroup> GetTaxonomyAsync(string codename)
         {
-            var taxonomies = await GetTaxonomiesAsync(_sampleSiteFilter);
-            return taxonomies.Taxonomies.FirstOrDefault(x => x.System.Codename == Brewer.ProductStatusCodename);
+            var taxonomies = await GetTaxonomiesAsync(_sampleQueryParameter);
+            return taxonomies.Taxonomies.FirstOrDefault(x => x.System.Codename == codename);
         }
 
         public Task<DeliveryTaxonomyListingResponse> GetTaxonomiesAsync(params IQueryParameter[] parameters)
         {
-            var p = parameters.Concat(_sampleSiteFilter);
+            var p = parameters == null ? _sampleQueryParameter : _sampleQueryParameter.Concat(parameters);
             return _deliveryClient.GetTaxonomiesAsync(p);
         }
 
         public async Task<DeliveryTaxonomyListingResponse> GetTaxonomiesAsync(IEnumerable<IQueryParameter> parameters)
         {
-            var p = parameters.Concat(_sampleSiteFilter);
+            var p = parameters == null ? _sampleQueryParameter : _sampleQueryParameter.Concat(parameters);
             return await _deliveryClient.GetTaxonomiesAsync(p);
         }
 
-        public IContentLinkUrlResolver ContentLinkUrlResolver { get; set; }
-        public ICodeFirstModelProvider CodeFirstModelProvider { get; set; }
-        public IInlineContentItemsProcessor InlineContentItemsProcessor { get; }
+        public IContentLinkUrlResolver ContentLinkUrlResolver
+        {
+            get { return _deliveryClient.ContentLinkUrlResolver; }
+            set { _deliveryClient.ContentLinkUrlResolver = value; }
+        }
+
+        public ICodeFirstModelProvider CodeFirstModelProvider
+        {
+            get { return _deliveryClient.CodeFirstModelProvider; }
+            set { _deliveryClient.CodeFirstModelProvider = value; }
+        }
+
+        public IInlineContentItemsProcessor InlineContentItemsProcessor
+        {
+            get { return _deliveryClient.InlineContentItemsProcessor; }
+        }
     }
 }

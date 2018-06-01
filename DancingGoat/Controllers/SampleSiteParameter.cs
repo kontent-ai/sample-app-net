@@ -2,7 +2,7 @@ using KenticoCloud.Delivery;
 
 namespace DancingGoat.Controllers
 {
-    public class SampleSiteFilter : IQueryParameter
+    public class SampleSiteParameter : IQueryParameter
     {
         public string GetQueryStringParameter()
         {

@@ -228,7 +228,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="Areas\Admin\Models\SampleProjectOptions.cs" />
     <Compile Include="Controllers\LanguageSelectorController.cs" />
-    <Compile Include="Controllers\SampleSiteFilter.cs" />
+    <Compile Include="Controllers\SampleSiteParameter.cs" />
     <Compile Include="Utils\ProjectUtils.cs" />
     <Compile Include="Helpers\Extensions\LocalizedRouteExtensions.cs" />
     <Compile Include="Helpers\LanguageSwitchHelper.cs" />
