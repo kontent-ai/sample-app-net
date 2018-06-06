@@ -1,7 +1,10 @@
-﻿@using System.Configuration
-@using DancingGoat.Controllers
-@using DancingGoat.Helpers
+﻿@using DancingGoat.Helpers
 @using DancingGoat.Models
+@using DancingGoat.Utils
+
+@functions {
+    public string ProjectGuid => ProjectUtils.GetProjectId();
+}
 <!DOCTYPE html>
 
 <html>
@@ -10,6 +13,7 @@
     <meta charset="UTF-8" />
     <title>@ViewBag.Title - Dancing Goat</title>
     <link href="@Url.Content("~/Content/Styles/Site.css")" rel="stylesheet" type="text/css" />
+
     @RenderSection("headers", required: false)
 </head>
 <body>
@@ -101,13 +105,69 @@
         </footer>
     </div>
 
+    <div class="footer-fixed-bottom">
+        <div class="footer-fixed-bottom__content">
+            <div>
+                <div>
+                    <i class="icon-info-circle"></i>
+                    This is a sample website where you can see published content from your Kentico Cloud Sample Project. <a class="info-cloud" href="javascript:showLearnMore(true)">Learn more</a>
+                </div>
+            </div>
+            <div>
+                <a target="_blank" href="https://app.kenticocloud.com/@ProjectGuid" class="btn-cloud btn-cloud__padding btn-cloud-info">
+                    <i class="btn-pen"></i> Edit in Kentico Cloud
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Modal -->
+    <div id="modal-dialog" class="modal-dialog">
+        <div class="modal-dialog__container">
+
+
+            <div class="modal-dialog__pane">
+                <div class="modal-dialog__header">
+                    <div class="modal-dialog__header-title">
+                        <h3>Sample website</h3>
+                    </div>
+                    <div class="modal-dialog__header-close">
+                        <a href="javascript:showLearnMore(false)" class="modal-dialog__header__button-close">&times;</a>
+                    </div>
+                </div>
+                <div class="modal-dialog__content">
+                    <p>For demo purposes, we have deployed this website for you.</p>
+                    <p>See how to:</p>
+                    <ul>
+                        <li>
+                            <a target="_blank" href="https://app.kenticocloud.com/@ProjectGuid" class="info-cloud">Edit content in your Sample Project</a> and see the changes on this website.
+                        </li>
+                        <li>
+                            <a class="info-cloud" target="_blank" href="https://developer.kenticocloud.com/docs/running-net-sample-application">Run the sample website locally</a> by yourself.
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-dialog__footer">
+                    <div>
+                        <a target="_blank" href="javascript:showLearnMore(false)" class="btn-cloud btn-cloud-cancel">
+                            Cancel
+                        </a>
+                    </div>
+                    <div>
+                        <a target="_blank" href="https://developer.kenticocloud.com/docs/running-net-sample-application#section-making-changes-to-your-project" class="btn-cloud btn-cloud-info">Edit content</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
     @RenderSection("scripts", required: false)
 
     <script type="text/javascript">
         !function(){var a='https://engage-ket.kenticocloud.com/js',b=document,c=b.createElement('script'),d=b.getElementsByTagName('script')[0];c.type='text/javascript',c.async=!0,c.defer=!0,c.src=a+'?d='+document.domain,d.parentNode.insertBefore(c,d)}(),window.ket=window.ket||function(){(ket.q=ket.q||[]).push(arguments)};
-        ket('start', '@ConfigurationManager.AppSettings["ProjectId"]');
+        ket('start', '@ProjectGuid');
     </script>
     <script type="text/javascript">
         function toggleEditMode(isChecked) {
@@ -115,7 +175,20 @@
             isChecked ? body.classList.add('edit-mode') : body.classList.remove('edit-mode');
         }
     </script>
+    <script type="text/javascript">
+        function showLearnMore(isVisible) {
+            const element = document.getElementById('modal-dialog');
+            const visibility = isVisible === true ? 'block' : 'none';
+            element.style.display = visibility;
+        }
 
-
+        window.onclick = function (event) {
+            const modal_pane = document.getElementsByClassName('modal-dialog__pane')[0];
+            var isClickInside = modal_pane.contains(event.target);
+            if (!isClickInside) {
+                showLearnMore(false);
+            }
+        }
+    </script>
 </body>
 </html>
