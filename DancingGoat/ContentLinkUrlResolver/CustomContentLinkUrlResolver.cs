@@ -1,29 +1,25 @@
 ﻿using KenticoCloud.Delivery;
-using System.Globalization;
 
 namespace DancingGoat
 {
     public class CustomContentLinkUrlResolver : IContentLinkUrlResolver
     {
-        protected string CurrentCulture => CultureInfo.CurrentUICulture.Name;
-
         public string ResolveLinkUrl(ContentLink link)
         {
             switch (link.ContentTypeCodename)
             {
                 case "about_us":
-                case "fact_about_us":
-                    return $"/{CurrentCulture}/about";
+                    return $"/about";
                 case "article":
-                    return $"/{CurrentCulture}/articles/{link.UrlSlug}";
+                    return $"/articles/{link.UrlSlug}";
                 case "brewer":
-                    return $"/{CurrentCulture}/products/{link.UrlSlug}";
+                    return $"/products/{link.UrlSlug}";
                 case "cafe":
-                    return $"/{CurrentCulture}/cafes";
+                    return $"/cafes";
                 case "coffee":
-                    return $"/{CurrentCulture}/products/{link.UrlSlug}";
+                    return $"/products/{link.UrlSlug}";
                 case "home":
-                    return $"/{CurrentCulture}/";
+                    return $"/";
                 default:
                     return $"/not_found";
             }
