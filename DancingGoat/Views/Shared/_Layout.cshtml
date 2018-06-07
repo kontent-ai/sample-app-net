@@ -110,7 +110,7 @@
             <div>
                 <div>
                     <i class="icon-info-circle"></i>
-                    This is a sample website where you can see published content from your Kentico Cloud Sample Project. <a class="info-cloud" href="javascript:showLearnMore(true)">Learn more</a>
+                    This is a sample website where you can see published content from your Kentico Cloud Sample Project. <a class="info-cloud" href="#" onclick="showLearnMore(true); return false;">Learn more</a>
                 </div>
             </div>
             <div>
@@ -132,7 +132,7 @@
                         <h3>Sample website</h3>
                     </div>
                     <div class="modal-dialog__header-close">
-                        <a href="javascript:showLearnMore(false)" class="modal-dialog__header__button-close">&times;</a>
+                        <a href="#" onclick="showLearnMore(false); return false;" class="modal-dialog__header__button-close">&times;</a>
                     </div>
                 </div>
                 <div class="modal-dialog__content">
@@ -149,7 +149,7 @@
                 </div>
                 <div class="modal-dialog__footer">
                     <div>
-                        <a target="_blank" href="javascript:showLearnMore(false)" class="btn-cloud btn-cloud-cancel">
+                        <a target="_blank" href="#" onclick="showLearnMore(false); return false;" class="btn-cloud btn-cloud-cancel">
                             Cancel
                         </a>
                     </div>
@@ -175,20 +175,21 @@
             isChecked ? body.classList.add('edit-mode') : body.classList.remove('edit-mode');
         }
     </script>
-    <script type="text/javascript">
-        function showLearnMore(isVisible) {
-            const element = document.getElementById('modal-dialog');
-            const visibility = isVisible === true ? 'block' : 'none';
-            element.style.display = visibility;
-        }
+<script type="text/javascript">
+    function showLearnMore(isVisible) {
+        event.stopPropagation();
+        const element = document.getElementById('modal-dialog');
+        const visibility = isVisible === true ? 'block' : 'none';
+        element.style.display = visibility;
+    }
 
-        window.onclick = function (event) {
-            const modal_pane = document.getElementsByClassName('modal-dialog__pane')[0];
-            var isClickInside = modal_pane.contains(event.target);
-            if (!isClickInside) {
-                showLearnMore(false);
-            }
+    window.onclick = function (event) {
+        const modalPane = document.getElementsByClassName('modal-dialog__pane')[0];
+        const isClickInside = modalPane.contains(event.target);
+        if (!isClickInside) {
+            showLearnMore(false);
         }
-    </script>
+    }
+</script>
 </body>
 </html>
