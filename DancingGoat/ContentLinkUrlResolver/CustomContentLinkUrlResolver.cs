@@ -17,11 +17,11 @@ namespace DancingGoat
                 case "article":
                     return $"/{CurrentCulture}/articles/{link.UrlSlug}";
                 case "brewer":
-                    return $"/{CurrentCulture}/products/{link.UrlSlug}";
+                    return $"/{CurrentCulture}/product/detail/{link.UrlSlug}";
                 case "cafe":
                     return $"/{CurrentCulture}/cafes";
                 case "coffee":
-                    return $"/{CurrentCulture}/products/{link.UrlSlug}";
+                    return $"/{CurrentCulture}/product/detail/{link.UrlSlug}";
                 case "home":
                     return $"/{CurrentCulture}/";
                 default:
