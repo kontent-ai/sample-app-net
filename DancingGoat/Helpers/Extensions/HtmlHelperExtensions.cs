@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
-using KenticoCloud.Delivery;
 using System.Linq.Expressions;
+using System.Configuration;
+
+using DancingGoat.Models;
+
+using KenticoCloud.Delivery;
+using KenticoCloud.ContentManagement.Helpers.Models;
 
 namespace DancingGoat.Helpers.Extensions
 {
@@ -127,6 +132,79 @@ namespace DancingGoat.Helpers.Extensions
 </div>", radioButton, label);
 
             return MvcHtmlString.Create(generatedHtml);
+        }
+
+        /// <summary>
+        /// Returns a navigation button linked to Kentico Cloud's item suitable for block elements.
+        /// </summary>
+        /// <param name="language">Codename of language variant.</param>
+        /// <param name="elementIdentifiers">Identifiers of hierarchy of content item.</param>
+        public static MvcHtmlString BlockElementEditLink(
+            this HtmlHelper htmlHelper,
+            string language,
+            params ElementIdentifier[] elementIdentifiers
+            )
+        {
+            var itemUrl = GetItemElementUrl(language, elementIdentifiers);
+
+            var generatedHtml = string.Format(@"
+<a target=""_blank"" class=""edit-link__overlay--block"" href=""{0}"" >
+  <span>
+      <i aria-hidden=""true"" class=""edit-link__button-icon edit-link__button-icon--block""></i>
+  </span>
+</a>", itemUrl);
+
+            return MvcHtmlString.Create(generatedHtml);
+        }
+
+        /// <summary>
+        /// Returns a navigation button linked to Kentico Cloud's item suitable for inline elements.
+        /// </summary>
+        /// <param name="language">Codename of language variant.</param>
+        /// <param name="elementIdentifiers">Identifiers of hierarchy of content item.</param>
+        public static MvcHtmlString InlineElementEditLink(
+            this HtmlHelper htmlHelper, 
+            string language, 
+            params ElementIdentifier[] elementIdentifiers
+            )
+        {
+            var itemUrl = GetItemElementUrl(language, elementIdentifiers);
+
+            var generatedHtml = string.Format(@"
+<a target=""_blank"" class=""edit-link__overlay--inline"" href=""{0}"">
+    <i aria-hidden=""true"" class=""edit-link__button-icon edit-link__button-icon--inline""></i>
+</a>", itemUrl);
+
+            return MvcHtmlString.Create(generatedHtml);
+        }
+
+
+        /// <summary>
+        /// Displays Edit Mode Panel while using preview api.
+        /// </summary>
+        /// <param name="itemId">Id (guid) of content item identifier</param>
+        /// <param name="language">Codename of language variant</param>
+        public static void EditPanel(this HtmlHelper htmlHelper, string itemId, string language)
+        {
+            bool isPreview = false;
+            bool.TryParse(ConfigurationManager.AppSettings["UsePreviewApi"], out isPreview);
+
+            if (isPreview)
+            {
+                var itemUrl = GetItemUrl(language, itemId);
+                var editPanelViewModel = new EditPanelViewModel() { ItemUrl = itemUrl };
+                htmlHelper.RenderPartial("EditModePanel", editPanelViewModel);
+            }
+        }
+
+        private static string GetItemUrl(string language, string itemId)
+        {
+            return EditLinkHelper.Instance.Builder.BuildEditItemUrl(language, itemId);
+        }
+
+        private static string GetItemElementUrl(string language, params ElementIdentifier[] elementIdentifiers)
+        {
+            return EditLinkHelper.Instance.Builder.BuildEditItemUrl(language, elementIdentifiers);
         }
     }
 }
