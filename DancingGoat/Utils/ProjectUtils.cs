@@ -8,9 +8,8 @@ namespace DancingGoat.Utils
         {
             var requestUrl = System.Web.HttpContext.Current.Request.Url;
             var subdomain = requestUrl.GetSubdomain();
-            var decodedGuid = Guid.ParseExact(subdomain, "N");
 
-            if (decodedGuid == null)
+            if (!Guid.TryParseExact(subdomain, "N", out Guid decodedGuid))
             {
                 throw new InvalidOperationException(nameof(decodedGuid));
             }

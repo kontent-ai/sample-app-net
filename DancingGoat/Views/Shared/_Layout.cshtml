@@ -77,90 +77,34 @@
             @RenderBody()
         </div>
     </div>
-    <div class="footer-wrapper">
-        <footer role="contentinfo">
-            <div class="footer-container">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-4 col-lg-4 footer-col">
-                            <p>
-                                @Html.Action("CompanyAddress", "Home")
-                            </p>
-                        </div>
-                        <div class="col-md-4 col-lg-4 footer-col">
-                            <h3>@Resources.DancingGoat.FollowUs_Title</h3>
-                            <a class="followus-link" href="https://www.facebook.com/Dancing.Goat" target="_blank">
-                                <img alt="@Resources.DancingGoat.FollowUsOnFacebook" class="" src="~/Content/Images/facebook-icon.png" title="@Resources.DancingGoat.FollowUsOnFacebook">
-                            </a>
-                            <a class="followus-link" href="https://twitter.com/DancingGoat78" target="_blank">
-                                <img alt="@Resources.DancingGoat.FollowUsOnTwitter" class="" src="~/Content/Images/twitter-icon.png" title="@Resources.DancingGoat.FollowUsOnTwitter">
-                            </a>
-                        </div>
+<div class="footer-wrapper">
+    <footer role="contentinfo">
+        <div class="footer-container">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-lg-4 footer-col">
+                        <p>
+                            @Html.Action("CompanyAddress", "Home")
+                        </p>
                     </div>
-                </div>
-            </div>
-            <div class="container copyright">
-                Copyright &copy; @DateTime.Now.Year Dancing Goat. All rights reserved.
-            </div>
-        </footer>
-    </div>
-
-    <div class="footer-fixed-bottom">
-        <div class="footer-fixed-bottom__content">
-            <div>
-                <div>
-                    <i class="icon-info-circle"></i>
-                    This is a sample website where you can see published content from your Kentico Cloud Sample Project. <a class="info-cloud" href="#" onclick="showLearnMore(true); return false;">Learn more</a>
-                </div>
-            </div>
-            <div>
-                <a target="_blank" href="https://app.kenticocloud.com/@ProjectGuid" class="btn-cloud btn-cloud__padding btn-cloud-info">
-                    <i class="btn-pen"></i> Edit in Kentico Cloud
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- The Modal -->
-    <div id="modal-dialog" class="modal-dialog">
-        <div class="modal-dialog__container">
-
-
-            <div class="modal-dialog__pane">
-                <div class="modal-dialog__header">
-                    <div class="modal-dialog__header-title">
-                        <h3>Sample website</h3>
-                    </div>
-                    <div class="modal-dialog__header-close">
-                        <a href="#" onclick="showLearnMore(false); return false;" class="modal-dialog__header__button-close">&times;</a>
-                    </div>
-                </div>
-                <div class="modal-dialog__content">
-                    <p>For demo purposes, we have deployed this website for you.</p>
-                    <p>See how to:</p>
-                    <ul>
-                        <li>
-                            <a target="_blank" href="https://app.kenticocloud.com/@ProjectGuid" class="info-cloud">Edit content in your Sample Project</a> and see the changes on this website.
-                        </li>
-                        <li>
-                            <a class="info-cloud" target="_blank" href="https://developer.kenticocloud.com/docs/running-net-sample-application">Run the sample website locally</a> by yourself.
-                        </li>
-                    </ul>
-                </div>
-                <div class="modal-dialog__footer">
-                    <div>
-                        <a target="_blank" href="#" onclick="showLearnMore(false); return false;" class="btn-cloud btn-cloud-cancel">
-                            Cancel
+                    <div class="col-md-4 col-lg-4 footer-col">
+                        <h3>@Resources.DancingGoat.FollowUs_Title</h3>
+                        <a class="followus-link" href="https://www.facebook.com/Dancing.Goat" target="_blank">
+                            <img alt="@Resources.DancingGoat.FollowUsOnFacebook" class="" src="~/Content/Images/facebook-icon.png" title="@Resources.DancingGoat.FollowUsOnFacebook">
+                        </a>
+                        <a class="followus-link" href="https://twitter.com/DancingGoat78" target="_blank">
+                            <img alt="@Resources.DancingGoat.FollowUsOnTwitter" class="" src="~/Content/Images/twitter-icon.png" title="@Resources.DancingGoat.FollowUsOnTwitter">
                         </a>
                     </div>
-                    <div>
-                        <a target="_blank" href="https://developer.kenticocloud.com/docs/running-net-sample-application#section-making-changes-to-your-project" class="btn-cloud btn-cloud-info">Edit content</a>
-                    </div>
-
                 </div>
             </div>
         </div>
-    </div>
+        <div class="container copyright">
+            Copyright &copy; @DateTime.Now.Year Dancing Goat. All rights reserved.
+        </div>
+    </footer>
+</div>
+    @Html.Partial(@"_Footer", ProjectGuid)
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
     @RenderSection("scripts", required: false)

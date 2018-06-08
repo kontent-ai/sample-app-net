@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
@@ -46,7 +47,14 @@ namespace DancingGoat.Controllers
         [ChildActionOnly]
         public ActionResult CompanyAddress()
         {
-            var contact = Task.Run(() => client.GetItemAsync<Home>("home", new ElementsParameter("contact"))).Result.Item.Contact;
+            IRichTextContent contact = null;
+            try
+            {
+                contact = Task.Run(() => client.GetItemAsync<Home>("home", new ElementsParameter("contact"))).Result.Item.Contact;
+            }
+            catch
+            {
+            }
 
             return PartialView("CompanyAddress", contact);
         }

@@ -368,6 +368,7 @@
     <Content Include="Areas\Admin\Content\Styles\UserMessage.less" />
     <Content Include="Areas\Admin\Views\SelfConfig\Wait.cshtml" />
     <Content Include="Content\Styles\EditMode.less" />
+    <Content Include="Content\Styles\Footer.less" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\formAutoPost.js" />
@@ -389,6 +390,7 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Errors\500.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -436,6 +438,8 @@
     <Content Include="Views\Home\CompanyAddress.cshtml" />
     <Content Include="Views\Shared\HeadersMetadata.cshtml" />
     <Content Include="Views\Shared\EditModePanel.cshtml" />
+    <Content Include="Views\Shared\_Footer.cshtml" />
+    <Content Include="Views\Errors\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
