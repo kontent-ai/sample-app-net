@@ -121,7 +121,7 @@
         }
     </script>
     <script type="text/javascript">
-        function showLearnMore(isVisible) {
+        function showLearnMore(event, isVisible) {
             event.stopPropagation();
             const element = document.getElementById('modal-dialog');
             const visibility = isVisible === true ? 'block' : 'none';
@@ -132,7 +132,7 @@
             const modalPane = document.getElementsByClassName('modal-dialog__pane')[0];
             const isClickInside = modalPane.contains(event.target);
             if (!isClickInside) {
-                showLearnMore(false);
+                showLearnMore(event, false);
             }
         }
     </script>
