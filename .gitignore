@@ -250,3 +250,8 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+# Cake folder
+reports/
+publish/
+Scripts/tools/
