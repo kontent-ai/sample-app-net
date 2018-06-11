@@ -1,4 +1,6 @@
-﻿@using DancingGoat.Helpers
+﻿@using System.Configuration
+@using DancingGoat.Controllers
+@using DancingGoat.Helpers
 @using DancingGoat.Models
 @using DancingGoat.Utils
 
@@ -13,7 +15,6 @@
     <meta charset="UTF-8" />
     <title>@ViewBag.Title - Dancing Goat</title>
     <link href="@Url.Content("~/Content/Styles/Site.css")" rel="stylesheet" type="text/css" />
-
     @RenderSection("headers", required: false)
 </head>
 <body>
@@ -77,33 +78,33 @@
             @RenderBody()
         </div>
     </div>
-<div class="footer-wrapper">
-    <footer role="contentinfo">
-        <div class="footer-container">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4 col-lg-4 footer-col">
-                        <p>
-                            @Html.Action("CompanyAddress", "Home")
-                        </p>
-                    </div>
-                    <div class="col-md-4 col-lg-4 footer-col">
-                        <h3>@Resources.DancingGoat.FollowUs_Title</h3>
-                        <a class="followus-link" href="https://www.facebook.com/Dancing.Goat" target="_blank">
-                            <img alt="@Resources.DancingGoat.FollowUsOnFacebook" class="" src="~/Content/Images/facebook-icon.png" title="@Resources.DancingGoat.FollowUsOnFacebook">
-                        </a>
-                        <a class="followus-link" href="https://twitter.com/DancingGoat78" target="_blank">
-                            <img alt="@Resources.DancingGoat.FollowUsOnTwitter" class="" src="~/Content/Images/twitter-icon.png" title="@Resources.DancingGoat.FollowUsOnTwitter">
-                        </a>
+    <div class="footer-wrapper">
+        <footer role="contentinfo">
+            <div class="footer-container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4 col-lg-4 footer-col">
+                            <p>
+                                @Html.Action("CompanyAddress", "Home")
+                            </p>
+                        </div>
+                        <div class="col-md-4 col-lg-4 footer-col">
+                            <h3>@Resources.DancingGoat.FollowUs_Title</h3>
+                            <a class="followus-link" href="https://www.facebook.com/Dancing.Goat" target="_blank">
+                                <img alt="@Resources.DancingGoat.FollowUsOnFacebook" class="" src="~/Content/Images/facebook-icon.png" title="@Resources.DancingGoat.FollowUsOnFacebook">
+                            </a>
+                            <a class="followus-link" href="https://twitter.com/DancingGoat78" target="_blank">
+                                <img alt="@Resources.DancingGoat.FollowUsOnTwitter" class="" src="~/Content/Images/twitter-icon.png" title="@Resources.DancingGoat.FollowUsOnTwitter">
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="container copyright">
-            Copyright &copy; @DateTime.Now.Year Dancing Goat. All rights reserved.
-        </div>
-    </footer>
-</div>
+            <div class="container copyright">
+                Copyright &copy; @DateTime.Now.Year Dancing Goat. All rights reserved.
+            </div>
+        </footer>
+    </div>
     @Html.Partial(@"_Footer", ProjectGuid)
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
@@ -111,7 +112,7 @@
 
     <script type="text/javascript">
         !function(){var a='https://engage-ket.kenticocloud.com/js',b=document,c=b.createElement('script'),d=b.getElementsByTagName('script')[0];c.type='text/javascript',c.async=!0,c.defer=!0,c.src=a+'?d='+document.domain,d.parentNode.insertBefore(c,d)}(),window.ket=window.ket||function(){(ket.q=ket.q||[]).push(arguments)};
-        ket('start', '@ProjectGuid');
+        ket('start', '@ConfigurationManager.AppSettings["ProjectId"]');
     </script>
     <script type="text/javascript">
         function toggleEditMode(isChecked) {
@@ -119,21 +120,22 @@
             isChecked ? body.classList.add('edit-mode') : body.classList.remove('edit-mode');
         }
     </script>
-<script type="text/javascript">
-    function showLearnMore(isVisible) {
-        event.stopPropagation();
-        const element = document.getElementById('modal-dialog');
-        const visibility = isVisible === true ? 'block' : 'none';
-        element.style.display = visibility;
-    }
-
-    window.onclick = function (event) {
-        const modalPane = document.getElementsByClassName('modal-dialog__pane')[0];
-        const isClickInside = modalPane.contains(event.target);
-        if (!isClickInside) {
-            showLearnMore(false);
+    <script type="text/javascript">
+        function showLearnMore(isVisible) {
+            event.stopPropagation();
+            const element = document.getElementById('modal-dialog');
+            const visibility = isVisible === true ? 'block' : 'none';
+            element.style.display = visibility;
         }
-    }
-</script>
+
+        window.onclick = function (event) {
+            const modalPane = document.getElementsByClassName('modal-dialog__pane')[0];
+            const isClickInside = modalPane.contains(event.target);
+            if (!isClickInside) {
+                showLearnMore(false);
+            }
+        }
+    </script>
+
 </body>
 </html>
