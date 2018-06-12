@@ -1,4 +1,6 @@
 ﻿using System.Web.Mvc;
+using DancingGoat.ErrorHandler;
+
 
 namespace DancingGoat
 {
@@ -6,7 +8,7 @@ namespace DancingGoat
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new ErrorHandler.AiHandleErrorAttribute());
+            filters.Add(new AiHandleErrorAttribute());
         }
     }
 }

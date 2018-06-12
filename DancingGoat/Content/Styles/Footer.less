@@ -21,7 +21,7 @@
     right: 0;
     top: 0;
     bottom: 0;
-    background-color: rgba(255,255,255,0.7);
+    background-color: rgba(66,66,66,.5);
     z-index: 9999;
     display: none;
 
@@ -50,6 +50,7 @@
         display: flex;
         align-items: center;
         max-width: 100%;
+        font-family: "Source Sans Pro", sans-serif;
         padding: 0 16px 0 16px;
 
         &__button-close {
@@ -67,6 +68,10 @@
 
     &__header-title {
         flex-grow: 1;
+
+        h3 {
+            font-family: "Source Sans Pro", sans-serif;
+        }
     }
 
     &__header-close {
@@ -92,7 +97,10 @@
 
     &__content {
         padding: 0 16px 0 16px;
-        font-family: Sans Pro,sans-serif;
+
+        p, ul, li {
+            font-family: Sans Pro,sans-serif;
+        }
     }
 }
 
