@@ -76,7 +76,16 @@ namespace DancingGoat.Helpers.Extensions
             }
 
             var imageTag = new TagBuilder("img");
-            imageTag.MergeAttribute("srcset", GenerateSrcsetValue(image.Src));
+
+            if (AppSettingProvider.ResponsiveImagesEnabled)
+            {
+                imageTag.MergeAttribute("srcset", GenerateSrcsetValue(image.Src));
+            }
+            else
+            {
+                imageTag.MergeAttribute("src", image.Src);
+            }
+            
             imageTag.MergeAttribute("alt", image.AltText);
 
             return MvcHtmlString.Create(imageTag.ToString(TagRenderMode.SelfClosing));
