@@ -46,15 +46,12 @@ namespace DancingGoat.Helpers.Extensions
                 imageUrlBuilder = imageUrlBuilder.WithHeight(Convert.ToDouble(height));
             }
 
-            if (width.HasValue || height.HasValue || !AppSettingProvider.ResponsiveImagesEnabled)
-            {
-                image.MergeAttribute("src", $"{imageUrlBuilder.Url}");
-            }
-            else
+            if (AppSettingProvider.ResponsiveImagesEnabled && !width.HasValue && !height.HasValue)
             {
                 image.MergeAttribute("srcset", GenerateSrcsetValue(asset.Url));
             }
 
+            image.MergeAttribute("src", $"{imageUrlBuilder.Url}");
             image.AddCssClass(cssClass);
             string titleToUse = title ?? asset.Description ?? string.Empty;
             image.MergeAttribute("alt", titleToUse);
@@ -81,11 +78,8 @@ namespace DancingGoat.Helpers.Extensions
             {
                 imageTag.MergeAttribute("srcset", GenerateSrcsetValue(image.Src));
             }
-            else
-            {
-                imageTag.MergeAttribute("src", image.Src);
-            }
-            
+
+            imageTag.MergeAttribute("src", image.Src);
             imageTag.MergeAttribute("alt", image.AltText);
 
             return MvcHtmlString.Create(imageTag.ToString(TagRenderMode.SelfClosing));
@@ -248,9 +242,12 @@ namespace DancingGoat.Helpers.Extensions
             return EditLinkHelper.Instance.Builder.BuildEditItemUrl(language, elementIdentifiers);
         }
 
-        private static string GenerateSrcsetValue(string assetUrl)
+        private static string GenerateSrcsetValue(string imageUrl)
         {
-            return string.Join(",", AppSettingProvider.ResponsiveWidths.Select(w => $"{assetUrl}?w={w} {w}w"));
+            var imageUrlBuilder = new ImageUrlBuilder(imageUrl);
+
+            return string.Join(",", AppSettingProvider.ResponsiveWidths.Select(w
+                =>$"{imageUrlBuilder.WithWidth(Convert.ToDouble(w)).Url} {w}w"));
         }
     }
 }
