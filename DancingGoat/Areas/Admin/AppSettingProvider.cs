@@ -10,6 +10,7 @@ namespace DancingGoat.Areas.Admin
         private const string PROJECT_ID_KEY_NAME = "ProjectId";
         private const string SUBSCRIPTION_EXPIRES_KEY_NAME = "SubscriptionExpiresAt";
         private const string PREVIEW_API_KEY = "PreviewApiKey";
+        private const string RESPONSIVE_WIDTHS = "ResponsiveWidths";
 
         private static readonly Configuration _configuration = WebConfigurationManager.OpenWebConfiguration("~");
         private static DateTime? _subscriptionExpiresAt;
@@ -17,6 +18,8 @@ namespace DancingGoat.Areas.Admin
         private static Guid? _defaultProjectId;
         private static string _previewApiKey;
         private static string _kenticoCloudUrl;
+        private static string[] _responsiveWidths;
+        private static bool? _responsiveImagesEnabled;
 
         public static DateTime? SubscriptionExpiresAt
         {
@@ -158,7 +161,7 @@ namespace DancingGoat.Areas.Admin
 
                     try
                     {
-                        url = ConfigurationManager.AppSettings["KenticoCloudUrl"].ToString();
+                        url = ConfigurationManager.AppSettings["KenticoCloudUrl"];
                     }
                     catch
                     {
@@ -175,6 +178,41 @@ namespace DancingGoat.Areas.Admin
                     {
                         return @"https://app.kenticocloud.com/";
                     }
+                }
+            }
+        }
+
+        public static string[] ResponsiveWidths
+        {
+            get
+            {
+                if (_responsiveWidths != null)
+                {
+                    return _responsiveWidths;
+                }
+                else
+                {
+                    var setting = ConfigurationManager.AppSettings[RESPONSIVE_WIDTHS];
+                    _responsiveWidths = string.IsNullOrEmpty(setting) ? new string[] { } : setting.Split(',');
+
+                    return _responsiveWidths;
+                }
+            }
+        }
+
+        public static bool ResponsiveImagesEnabled
+        {
+            get
+            {
+                if (_responsiveImagesEnabled.HasValue)
+                {
+                    return _responsiveImagesEnabled.Value;
+                }
+                else
+                {
+                    _responsiveImagesEnabled = ResponsiveWidths.Count() != 0;
+
+                    return _responsiveImagesEnabled.Value;
                 }
             }
         }

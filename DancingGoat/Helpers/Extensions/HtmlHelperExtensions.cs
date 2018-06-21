@@ -1,13 +1,15 @@
 ﻿using System;
+using System.Configuration;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
-using System.Linq.Expressions;
-using System.Configuration;
-
+using DancingGoat.Areas.Admin;
 using DancingGoat.Models;
 
-using KenticoCloud.Delivery;
 using KenticoCloud.ContentManagement.Helpers.Models;
+using KenticoCloud.Delivery;
+using KenticoCloud.Delivery.ImageTransformation;
 
 namespace DancingGoat.Helpers.Extensions
 {
@@ -17,8 +19,7 @@ namespace DancingGoat.Helpers.Extensions
         /// Generates an IMG tag for an image file.
         /// </summary>
         /// <param name="htmlHelper">HTML helper.</param>
-        /// <param name="asset">The asset sequence to display the asset from</param>
-        /// <param name="index">Index position of the asset</param>
+        /// <param name="asset">Asset</param>
         /// <param name="title">Title</param>
         /// <param name="cssClass">CSS class</param>
         /// <param name="width">Optional width size</param>
@@ -30,24 +31,55 @@ namespace DancingGoat.Helpers.Extensions
                 return MvcHtmlString.Empty;
             }
 
+            var imageUrlBuilder = new ImageUrlBuilder(asset.Url);
             var image = new TagBuilder("img");
-            image.MergeAttribute("src", asset.Url);
-            image.AddCssClass(cssClass);
-            string titleToUse = title ?? asset.Description ?? string.Empty;
-            image.MergeAttribute("alt", titleToUse);
-            image.MergeAttribute("title", titleToUse);
 
             if (width.HasValue)
             {
                 image.MergeAttribute("width", width.ToString());
+                imageUrlBuilder = imageUrlBuilder.WithWidth(Convert.ToDouble(width));
             }
 
             if (height.HasValue)
             {
                 image.MergeAttribute("height", height.ToString());
+                imageUrlBuilder = imageUrlBuilder.WithHeight(Convert.ToDouble(height));
             }
 
+            if (width.HasValue || height.HasValue || !AppSettingProvider.ResponsiveImagesEnabled)
+            {
+                image.MergeAttribute("src", $"{imageUrlBuilder.Url}");
+            }
+            else
+            {
+                image.MergeAttribute("srcset", GenerateSrcsetValue(asset.Url));
+            }
+
+            image.AddCssClass(cssClass);
+            string titleToUse = title ?? asset.Description ?? string.Empty;
+            image.MergeAttribute("alt", titleToUse);
+            image.MergeAttribute("title", titleToUse);
+
             return MvcHtmlString.Create(image.ToString(TagRenderMode.SelfClosing));
+        }
+
+        /// <summary>
+        /// Generates an IMG tag for an inline image.
+        /// </summary>
+        /// <param name="htmlHelper">HTML helper.</param>
+        /// <param name="image">Inline image.</param>
+        public static MvcHtmlString InlineImage(this HtmlHelper htmlHelper, IInlineImage image)
+        {
+            if (image == null)
+            {
+                return MvcHtmlString.Empty;
+            }
+
+            var imageTag = new TagBuilder("img");
+            imageTag.MergeAttribute("srcset", GenerateSrcsetValue(image.Src));
+            imageTag.MergeAttribute("alt", image.AltText);
+
+            return MvcHtmlString.Create(imageTag.ToString(TagRenderMode.SelfClosing));
         }
 
         /// <summary>
@@ -205,6 +237,11 @@ namespace DancingGoat.Helpers.Extensions
         private static string GetItemElementUrl(string language, params ElementIdentifier[] elementIdentifiers)
         {
             return EditLinkHelper.Instance.Builder.BuildEditItemUrl(language, elementIdentifiers);
+        }
+
+        private static string GenerateSrcsetValue(string assetUrl)
+        {
+            return string.Join(",", AppSettingProvider.ResponsiveWidths.Select(w => $"{assetUrl}?w={w} {w}w"));
         }
     }
 }
