@@ -228,6 +228,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="Areas\Admin\Models\SampleProjectOptions.cs" />
     <Compile Include="Controllers\LanguageSelectorController.cs" />
+    <Compile Include="Helpers\Extensions\MediaCondition.cs" />
+    <Compile Include="Helpers\Extensions\ResponsiveImageSizes.cs" />
     <Compile Include="Helpers\Extensions\LocalizedRouteExtensions.cs" />
     <Compile Include="Helpers\LanguageSwitchHelper.cs" />
     <Compile Include="Helpers\EditLinkHelper.cs" />

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Linq.Expressions;
@@ -24,7 +25,7 @@ namespace DancingGoat.Helpers.Extensions
         /// <param name="cssClass">CSS class</param>
         /// <param name="width">Optional width size</param>
         /// <param name="height">Optional height size</param>
-        public static MvcHtmlString AssetImage(this HtmlHelper htmlHelper, Asset asset, string title = null, string cssClass = "", int? width = null, int? height = null)
+        public static MvcHtmlString AssetImage(this HtmlHelper htmlHelper, Asset asset, string title = null, string cssClass = "", int? width = null, int? height = null, ResponsiveImageSizes sizes = null)
         {
             if (asset == null)
             {
@@ -49,6 +50,11 @@ namespace DancingGoat.Helpers.Extensions
             if (AppSettingProvider.ResponsiveImagesEnabled && !width.HasValue && !height.HasValue)
             {
                 image.MergeAttribute("srcset", GenerateSrcsetValue(asset.Url));
+
+                if (sizes != null)
+                {
+                    image.MergeAttribute("sizes", sizes.GenerateSizesValue());
+                }
             }
 
             image.MergeAttribute("src", $"{imageUrlBuilder.Url}");
@@ -65,7 +71,7 @@ namespace DancingGoat.Helpers.Extensions
         /// </summary>
         /// <param name="htmlHelper">HTML helper.</param>
         /// <param name="image">Inline image.</param>
-        public static MvcHtmlString InlineImage(this HtmlHelper htmlHelper, IInlineImage image)
+        public static MvcHtmlString InlineImage(this HtmlHelper htmlHelper, IInlineImage image, ResponsiveImageSizes sizes = null)
         {
             if (image == null)
             {
@@ -77,6 +83,11 @@ namespace DancingGoat.Helpers.Extensions
             if (AppSettingProvider.ResponsiveImagesEnabled)
             {
                 imageTag.MergeAttribute("srcset", GenerateSrcsetValue(image.Src));
+
+                if (sizes != null)
+                {
+                    imageTag.MergeAttribute("sizes", sizes.GenerateSizesValue());
+                }
             }
 
             imageTag.MergeAttribute("src", image.Src);
