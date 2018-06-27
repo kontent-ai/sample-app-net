@@ -18,8 +18,6 @@ namespace DancingGoat.Areas.Admin
         private static Guid? _defaultProjectId;
         private static string _previewApiKey;
         private static string _kenticoCloudUrl;
-        private static string[] _responsiveWidths;
-        private static bool? _responsiveImagesEnabled;
 
         public static DateTime? SubscriptionExpiresAt
         {
@@ -182,39 +180,9 @@ namespace DancingGoat.Areas.Admin
             }
         }
 
-        public static string[] ResponsiveWidths
-        {
-            get
-            {
-                if (_responsiveWidths != null)
-                {
-                    return _responsiveWidths;
-                }
-                else
-                {
-                    var setting = ConfigurationManager.AppSettings[RESPONSIVE_WIDTHS];
-                    _responsiveWidths = string.IsNullOrEmpty(setting) ? new string[] { } : setting.Split(',');
+        public static string[] ResponsiveWidths { get; } =
+            ConfigurationManager.AppSettings[RESPONSIVE_WIDTHS]?.Split(',') ?? new string[] { };
 
-                    return _responsiveWidths;
-                }
-            }
-        }
-
-        public static bool ResponsiveImagesEnabled
-        {
-            get
-            {
-                if (_responsiveImagesEnabled.HasValue)
-                {
-                    return _responsiveImagesEnabled.Value;
-                }
-                else
-                {
-                    _responsiveImagesEnabled = ResponsiveWidths.Count() != 0;
-
-                    return _responsiveImagesEnabled.Value;
-                }
-            }
-        }
+        public static bool ResponsiveImagesEnabled { get; } = ResponsiveWidths.Any();
     }
 }

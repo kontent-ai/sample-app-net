@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Linq.Expressions;
@@ -25,6 +24,7 @@ namespace DancingGoat.Helpers.Extensions
         /// <param name="cssClass">CSS class</param>
         /// <param name="width">Optional width size</param>
         /// <param name="height">Optional height size</param>
+        /// <param name="sizes">Media conditions mapping screen width to image size</param>
         public static MvcHtmlString AssetImage(this HtmlHelper htmlHelper, Asset asset, string title = null, string cssClass = "", int? width = null, int? height = null, ResponsiveImageSizes sizes = null)
         {
             if (asset == null)
@@ -71,6 +71,7 @@ namespace DancingGoat.Helpers.Extensions
         /// </summary>
         /// <param name="htmlHelper">HTML helper.</param>
         /// <param name="image">Inline image.</param>
+        /// <param name="sizes">Media conditions mapping screen width to image size</param>
         public static MvcHtmlString InlineImage(this HtmlHelper htmlHelper, IInlineImage image, ResponsiveImageSizes sizes = null)
         {
             if (image == null)
@@ -124,7 +125,7 @@ namespace DancingGoat.Helpers.Extensions
             if (!string.IsNullOrEmpty(id))
             {
                 label = html.LabelFor(expression, new { @for = id }).ToString();
-                editor = html.EditorFor(expression, new { id = id }).ToString();
+                editor = html.EditorFor(expression, new { id }).ToString();
             }
             else
             {
@@ -140,14 +141,14 @@ namespace DancingGoat.Helpers.Extensions
                 explanationTextHtml = "<div class=\"explanation-text\">" + explanationText + "</div>";
             }
 
-            var generatedHtml = string.Format(@"
+            var generatedHtml = $@"
 <div class=""form-group"">
-    <div class=""form-group-label"">{0}</div>
-    <div class=""form-group-input"">{1}
-       {2}
+    <div class=""form-group-label"">{label}</div>
+    <div class=""form-group-input"">{editor}
+       {explanationTextHtml}
     </div>
-    <div class=""message-validation"">{3}</div>
-</div>", label, editor, explanationTextHtml, message);
+    <div class=""message-validation"">{message}</div>
+</div>";
 
             return MvcHtmlString.Create(generatedHtml);
         }
@@ -156,12 +157,12 @@ namespace DancingGoat.Helpers.Extensions
         {
             var checkBox = html.CheckBoxFor(expression, htmlAttributes).ToString();
             var label = html.LabelFor(expression, labelText);
-            var generatedHtml = string.Format(@"
+            var generatedHtml = $@"
 <div class=""styled-checkbox"">
-    {0}
+    {checkBox}
     <span></span>
-    {1}
-</div>", checkBox, label);
+    {label}
+</div>";
 
             return MvcHtmlString.Create(generatedHtml);
         }
@@ -170,12 +171,12 @@ namespace DancingGoat.Helpers.Extensions
         {
             var radioButton = html.RadioButtonFor(expression, value, htmlAttributes).ToString();
             var label = html.LabelFor(expression, labelText, new { @class = "visible" });
-            var generatedHtml = string.Format(@"
+            var generatedHtml = $@"
 <div class=""styled-radio"">
-    {0}
+    {radioButton}
     <span></span>
-    {1}
-</div>", radioButton, label);
+    {label}
+</div>";
 
             return MvcHtmlString.Create(generatedHtml);
         }
@@ -183,6 +184,7 @@ namespace DancingGoat.Helpers.Extensions
         /// <summary>
         /// Returns a navigation button linked to Kentico Cloud's item suitable for block elements.
         /// </summary>
+        /// <param name="htmlHelper">HTML helper</param>
         /// <param name="language">Codename of language variant.</param>
         /// <param name="elementIdentifiers">Identifiers of hierarchy of content item.</param>
         public static MvcHtmlString BlockElementEditLink(
@@ -193,12 +195,12 @@ namespace DancingGoat.Helpers.Extensions
         {
             var itemUrl = GetItemElementUrl(language, elementIdentifiers);
 
-            var generatedHtml = string.Format(@"
-<a target=""_blank"" class=""edit-link__overlay--block"" href=""{0}"" >
+            var generatedHtml = $@"
+<a target=""_blank"" class=""edit-link__overlay--block"" href=""{itemUrl}"" >
   <span>
       <i aria-hidden=""true"" class=""edit-link__button-icon edit-link__button-icon--block""></i>
   </span>
-</a>", itemUrl);
+</a>";
 
             return MvcHtmlString.Create(generatedHtml);
         }
@@ -206,6 +208,7 @@ namespace DancingGoat.Helpers.Extensions
         /// <summary>
         /// Returns a navigation button linked to Kentico Cloud's item suitable for inline elements.
         /// </summary>
+        /// <param name="htmlHelper">HTML helper</param>
         /// <param name="language">Codename of language variant.</param>
         /// <param name="elementIdentifiers">Identifiers of hierarchy of content item.</param>
         public static MvcHtmlString InlineElementEditLink(
@@ -216,10 +219,10 @@ namespace DancingGoat.Helpers.Extensions
         {
             var itemUrl = GetItemElementUrl(language, elementIdentifiers);
 
-            var generatedHtml = string.Format(@"
-<a target=""_blank"" class=""edit-link__overlay--inline"" href=""{0}"">
+            var generatedHtml = $@"
+<a target=""_blank"" class=""edit-link__overlay--inline"" href=""{itemUrl}"">
     <i aria-hidden=""true"" class=""edit-link__button-icon edit-link__button-icon--inline""></i>
-</a>", itemUrl);
+</a>";
 
             return MvcHtmlString.Create(generatedHtml);
         }
@@ -228,12 +231,12 @@ namespace DancingGoat.Helpers.Extensions
         /// <summary>
         /// Displays Edit Mode Panel while using preview api.
         /// </summary>
+        /// <param name="htmlHelper">HTML helper</param>
         /// <param name="itemId">Id (guid) of content item identifier</param>
         /// <param name="language">Codename of language variant</param>
         public static void EditPanel(this HtmlHelper htmlHelper, string itemId, string language)
         {
-            bool isPreview = false;
-            bool.TryParse(ConfigurationManager.AppSettings["UsePreviewApi"], out isPreview);
+            bool.TryParse(ConfigurationManager.AppSettings["UsePreviewApi"], out var isPreview);
 
             if (isPreview)
             {
