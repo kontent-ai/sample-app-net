@@ -59,7 +59,7 @@
       <HintPath>..\packages\KenticoCloud.ContentManagement.Helpers.1.1.27\lib\net45\KenticoCloud.ContentManagement.Helpers.dll</HintPath>
     </Reference>
     <Reference Include="KenticoCloud.Delivery, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\KenticoCloud.Delivery.4.13.0\lib\net45\KenticoCloud.Delivery.dll</HintPath>
+      <HintPath>..\packages\KenticoCloud.Delivery.4.14.0\lib\net45\KenticoCloud.Delivery.dll</HintPath>
     </Reference>
     <Reference Include="KenticoCloud.Personalization, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\KenticoCloud.Personalization.3.0.0\lib\net451\KenticoCloud.Personalization.dll</HintPath>
@@ -228,6 +228,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="Areas\Admin\Models\SampleProjectOptions.cs" />
     <Compile Include="Controllers\LanguageSelectorController.cs" />
+    <Compile Include="Helpers\Extensions\MediaCondition.cs" />
+    <Compile Include="Helpers\Extensions\ResponsiveImageSizes.cs" />
     <Compile Include="Helpers\Extensions\LocalizedRouteExtensions.cs" />
     <Compile Include="Helpers\LanguageSwitchHelper.cs" />
     <Compile Include="Helpers\EditLinkHelper.cs" />
