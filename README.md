@@ -108,6 +108,10 @@ To see Edit mode in action:
 
 Edit buttons will appear next to each piece of content on the page.
 
+## Adjustable images
+
+The sample website uses adjustable images via the [image transformation](https://developer.kenticocloud.com/v1/reference#image-transformation) feature available in the Delivery API. The `srcset` attribute is automatically added to the `img` tag. The value of the attribute is then driven by the **ResponsiveWidths** web.config setting. You can always disable this behavior by deleting the setting from the `\DancingGoat\Web.config` file.
+
 ## Troubleshooting
 
 Kentico Cloud evolves over time. If you connect your sample app to an older Kentico Cloud sample project, the app may not run correctly. You can always generate the latest version of the sample Dancing Goat content project at https://app.kenticocloud.com/sample-project-generator . Once generated, you can either paste the new project ID to web.config, or, you can navigate to your app's relative URL "/Admin/SelfConfig" and pick the new project.

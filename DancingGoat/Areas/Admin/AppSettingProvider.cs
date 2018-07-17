@@ -10,6 +10,7 @@ namespace DancingGoat.Areas.Admin
         private const string PROJECT_ID_KEY_NAME = "ProjectId";
         private const string SUBSCRIPTION_EXPIRES_KEY_NAME = "SubscriptionExpiresAt";
         private const string PREVIEW_API_KEY = "PreviewApiKey";
+        private const string RESPONSIVE_WIDTHS = "ResponsiveWidths";
 
         private static readonly Configuration _configuration = WebConfigurationManager.OpenWebConfiguration("~");
         private static DateTime? _subscriptionExpiresAt;
@@ -158,7 +159,7 @@ namespace DancingGoat.Areas.Admin
 
                     try
                     {
-                        url = ConfigurationManager.AppSettings["KenticoCloudUrl"].ToString();
+                        url = ConfigurationManager.AppSettings["KenticoCloudUrl"];
                     }
                     catch
                     {
@@ -178,5 +179,10 @@ namespace DancingGoat.Areas.Admin
                 }
             }
         }
+
+        public static string[] ResponsiveWidths { get; } =
+            ConfigurationManager.AppSettings[RESPONSIVE_WIDTHS]?.Split(',') ?? new string[] { };
+
+        public static bool ResponsiveImagesEnabled { get; } = ResponsiveWidths.Any();
     }
 }

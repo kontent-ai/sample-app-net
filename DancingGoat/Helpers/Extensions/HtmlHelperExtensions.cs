@@ -1,13 +1,15 @@
 ﻿using System;
+using System.Configuration;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
-using System.Linq.Expressions;
-using System.Configuration;
-
+using DancingGoat.Areas.Admin;
 using DancingGoat.Models;
 
-using KenticoCloud.Delivery;
 using KenticoCloud.ContentManagement.Helpers.Models;
+using KenticoCloud.Delivery;
+using KenticoCloud.Delivery.ImageTransformation;
 
 namespace DancingGoat.Helpers.Extensions
 {
@@ -17,37 +19,82 @@ namespace DancingGoat.Helpers.Extensions
         /// Generates an IMG tag for an image file.
         /// </summary>
         /// <param name="htmlHelper">HTML helper.</param>
-        /// <param name="asset">The asset sequence to display the asset from</param>
-        /// <param name="index">Index position of the asset</param>
+        /// <param name="asset">Asset</param>
         /// <param name="title">Title</param>
         /// <param name="cssClass">CSS class</param>
         /// <param name="width">Optional width size</param>
         /// <param name="height">Optional height size</param>
-        public static MvcHtmlString AssetImage(this HtmlHelper htmlHelper, Asset asset, string title = null, string cssClass = "", int? width = null, int? height = null)
+        /// <param name="sizes">Media conditions mapping screen width to image size</param>
+        public static MvcHtmlString AssetImage(this HtmlHelper htmlHelper, Asset asset, string title = null, string cssClass = "", int? width = null, int? height = null, ResponsiveImageSizes sizes = null)
         {
             if (asset == null)
             {
                 return MvcHtmlString.Empty;
             }
 
+            var imageUrlBuilder = new ImageUrlBuilder(asset.Url);
             var image = new TagBuilder("img");
-            image.MergeAttribute("src", asset.Url);
-            image.AddCssClass(cssClass);
-            string titleToUse = title ?? asset.Description ?? string.Empty;
-            image.MergeAttribute("alt", titleToUse);
-            image.MergeAttribute("title", titleToUse);
 
             if (width.HasValue)
             {
                 image.MergeAttribute("width", width.ToString());
+                imageUrlBuilder = imageUrlBuilder.WithWidth(Convert.ToDouble(width));
             }
 
             if (height.HasValue)
             {
                 image.MergeAttribute("height", height.ToString());
+                imageUrlBuilder = imageUrlBuilder.WithHeight(Convert.ToDouble(height));
             }
 
+            if (AppSettingProvider.ResponsiveImagesEnabled && !width.HasValue && !height.HasValue)
+            {
+                image.MergeAttribute("srcset", GenerateSrcsetValue(asset.Url));
+
+                if (sizes != null)
+                {
+                    image.MergeAttribute("sizes", sizes.GenerateSizesValue());
+                }
+            }
+
+            image.MergeAttribute("src", $"{imageUrlBuilder.Url}");
+            image.AddCssClass(cssClass);
+            string titleToUse = title ?? asset.Description ?? string.Empty;
+            image.MergeAttribute("alt", titleToUse);
+            image.MergeAttribute("title", titleToUse);
+
             return MvcHtmlString.Create(image.ToString(TagRenderMode.SelfClosing));
+        }
+
+        /// <summary>
+        /// Generates an IMG tag for an inline image.
+        /// </summary>
+        /// <param name="htmlHelper">HTML helper.</param>
+        /// <param name="image">Inline image.</param>
+        /// <param name="sizes">Media conditions mapping screen width to image size</param>
+        public static MvcHtmlString InlineImage(this HtmlHelper htmlHelper, IInlineImage image, ResponsiveImageSizes sizes = null)
+        {
+            if (image == null)
+            {
+                return MvcHtmlString.Empty;
+            }
+
+            var imageTag = new TagBuilder("img");
+
+            if (AppSettingProvider.ResponsiveImagesEnabled)
+            {
+                imageTag.MergeAttribute("srcset", GenerateSrcsetValue(image.Src));
+
+                if (sizes != null)
+                {
+                    imageTag.MergeAttribute("sizes", sizes.GenerateSizesValue());
+                }
+            }
+
+            imageTag.MergeAttribute("src", image.Src);
+            imageTag.MergeAttribute("alt", image.AltText);
+
+            return MvcHtmlString.Create(imageTag.ToString(TagRenderMode.SelfClosing));
         }
 
         /// <summary>
@@ -78,7 +125,7 @@ namespace DancingGoat.Helpers.Extensions
             if (!string.IsNullOrEmpty(id))
             {
                 label = html.LabelFor(expression, new { @for = id }).ToString();
-                editor = html.EditorFor(expression, new { id = id }).ToString();
+                editor = html.EditorFor(expression, new { id }).ToString();
             }
             else
             {
@@ -94,14 +141,14 @@ namespace DancingGoat.Helpers.Extensions
                 explanationTextHtml = "<div class=\"explanation-text\">" + explanationText + "</div>";
             }
 
-            var generatedHtml = string.Format(@"
+            var generatedHtml = $@"
 <div class=""form-group"">
-    <div class=""form-group-label"">{0}</div>
-    <div class=""form-group-input"">{1}
-       {2}
+    <div class=""form-group-label"">{label}</div>
+    <div class=""form-group-input"">{editor}
+       {explanationTextHtml}
     </div>
-    <div class=""message-validation"">{3}</div>
-</div>", label, editor, explanationTextHtml, message);
+    <div class=""message-validation"">{message}</div>
+</div>";
 
             return MvcHtmlString.Create(generatedHtml);
         }
@@ -110,12 +157,12 @@ namespace DancingGoat.Helpers.Extensions
         {
             var checkBox = html.CheckBoxFor(expression, htmlAttributes).ToString();
             var label = html.LabelFor(expression, labelText);
-            var generatedHtml = string.Format(@"
+            var generatedHtml = $@"
 <div class=""styled-checkbox"">
-    {0}
+    {checkBox}
     <span></span>
-    {1}
-</div>", checkBox, label);
+    {label}
+</div>";
 
             return MvcHtmlString.Create(generatedHtml);
         }
@@ -124,12 +171,12 @@ namespace DancingGoat.Helpers.Extensions
         {
             var radioButton = html.RadioButtonFor(expression, value, htmlAttributes).ToString();
             var label = html.LabelFor(expression, labelText, new { @class = "visible" });
-            var generatedHtml = string.Format(@"
+            var generatedHtml = $@"
 <div class=""styled-radio"">
-    {0}
+    {radioButton}
     <span></span>
-    {1}
-</div>", radioButton, label);
+    {label}
+</div>";
 
             return MvcHtmlString.Create(generatedHtml);
         }
@@ -137,6 +184,7 @@ namespace DancingGoat.Helpers.Extensions
         /// <summary>
         /// Returns a navigation button linked to Kentico Cloud's item suitable for block elements.
         /// </summary>
+        /// <param name="htmlHelper">HTML helper</param>
         /// <param name="language">Codename of language variant.</param>
         /// <param name="elementIdentifiers">Identifiers of hierarchy of content item.</param>
         public static MvcHtmlString BlockElementEditLink(
@@ -147,12 +195,12 @@ namespace DancingGoat.Helpers.Extensions
         {
             var itemUrl = GetItemElementUrl(language, elementIdentifiers);
 
-            var generatedHtml = string.Format(@"
-<a target=""_blank"" class=""edit-link__overlay--block"" href=""{0}"" >
+            var generatedHtml = $@"
+<a target=""_blank"" class=""edit-link__overlay--block"" href=""{itemUrl}"" >
   <span>
       <i aria-hidden=""true"" class=""edit-link__button-icon edit-link__button-icon--block""></i>
   </span>
-</a>", itemUrl);
+</a>";
 
             return MvcHtmlString.Create(generatedHtml);
         }
@@ -160,6 +208,7 @@ namespace DancingGoat.Helpers.Extensions
         /// <summary>
         /// Returns a navigation button linked to Kentico Cloud's item suitable for inline elements.
         /// </summary>
+        /// <param name="htmlHelper">HTML helper</param>
         /// <param name="language">Codename of language variant.</param>
         /// <param name="elementIdentifiers">Identifiers of hierarchy of content item.</param>
         public static MvcHtmlString InlineElementEditLink(
@@ -170,10 +219,10 @@ namespace DancingGoat.Helpers.Extensions
         {
             var itemUrl = GetItemElementUrl(language, elementIdentifiers);
 
-            var generatedHtml = string.Format(@"
-<a target=""_blank"" class=""edit-link__overlay--inline"" href=""{0}"">
+            var generatedHtml = $@"
+<a target=""_blank"" class=""edit-link__overlay--inline"" href=""{itemUrl}"">
     <i aria-hidden=""true"" class=""edit-link__button-icon edit-link__button-icon--inline""></i>
-</a>", itemUrl);
+</a>";
 
             return MvcHtmlString.Create(generatedHtml);
         }
@@ -182,12 +231,12 @@ namespace DancingGoat.Helpers.Extensions
         /// <summary>
         /// Displays Edit Mode Panel while using preview api.
         /// </summary>
+        /// <param name="htmlHelper">HTML helper</param>
         /// <param name="itemId">Id (guid) of content item identifier</param>
         /// <param name="language">Codename of language variant</param>
         public static void EditPanel(this HtmlHelper htmlHelper, string itemId, string language)
         {
-            bool isPreview = false;
-            bool.TryParse(ConfigurationManager.AppSettings["UsePreviewApi"], out isPreview);
+            bool.TryParse(ConfigurationManager.AppSettings["UsePreviewApi"], out var isPreview);
 
             if (isPreview)
             {
@@ -205,6 +254,14 @@ namespace DancingGoat.Helpers.Extensions
         private static string GetItemElementUrl(string language, params ElementIdentifier[] elementIdentifiers)
         {
             return EditLinkHelper.Instance.Builder.BuildEditItemUrl(language, elementIdentifiers);
+        }
+
+        private static string GenerateSrcsetValue(string imageUrl)
+        {
+            var imageUrlBuilder = new ImageUrlBuilder(imageUrl);
+
+            return string.Join(",", AppSettingProvider.ResponsiveWidths.Select(w
+                =>$"{imageUrlBuilder.WithWidth(Convert.ToDouble(w)).Url} {w}w"));
         }
     }
 }

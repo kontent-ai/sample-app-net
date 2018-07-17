@@ -23,7 +23,10 @@
           </div>
     </div>
     <div class="col-md-6@( Model.Odd ? " col-md-pull-6" : "" )">
-        @Html.AssetImage(Model.Fact.Image.FirstOrDefault(), cssClass: "img-responsive")
+        @Html.AssetImage(Model.Fact.Image.FirstOrDefault(), cssClass: "img-responsive", sizes: new ResponsiveImageSizes(300)
+                            .WithMediaCondition(new MediaCondition { MinWidth = 1120, ImageWidth = 540 })
+                            .WithMediaCondition(new MediaCondition { MinWidth = 768, MaxWidth = 1120, ImageWidth = 370 })
+                            .WithMediaCondition(new MediaCondition { MinWidth = 330, MaxWidth = 768, ImageWidth = 468 }))
         @Html.BlockElementEditLink(
            Model.Fact.System.Language,
            Model.ParentItemElementIdentifier,
