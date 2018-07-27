@@ -29,13 +29,13 @@ To run the app, just click the below "Deploy to Azure" button.
 
 [![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/)
 
-### Post-deployment Steps
+### Connecting to your sample project
 
 At the first run of the app, you'll be presented with a configuration page. It will allow you to connect the app to your Kentico Cloud project or create a new one. You'll also be able to start a trial and convert to a free plan when the trial expires.
 
 Alternatively, you can connect your project manually as per the chapter below.
 
-## Connect Your Project Manually
+#### Connecting to your project manually
 
 If you already have a Kentico Cloud account, you can connect this sample application to a project of your own to access its unpublished content items, and track visitors on the site. For example, you can connect the application to your version of the Sample project.
 
