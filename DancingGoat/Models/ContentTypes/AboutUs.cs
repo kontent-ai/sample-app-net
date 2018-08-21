@@ -13,6 +13,8 @@ namespace DancingGoat.Models
     public partial class AboutUs
     {
         public const string Codename = "about_us";
+        public const string OurMottoCodename = "our_motto";
+        public const string VideoCodename = "video";
         public const string FactsCodename = "facts";
         public const string UrlPatternCodename = "url_pattern";
         public const string MetaTitleCodename = "metadata__meta_title";
@@ -26,6 +28,8 @@ namespace DancingGoat.Models
         public const string TwitterDescriptionCodename = "metadata__twitter_description";
         public const string TwitterImageCodename = "metadata__twitter_image";
 
+        public string OurMotto { get; set; }
+        public IEnumerable<HostedVideo> Video { get; set; }
         public IEnumerable<object> Facts { get; set; }
         public string UrlPattern { get; set; }
         public string MetadataMetaTitle { get; set; }

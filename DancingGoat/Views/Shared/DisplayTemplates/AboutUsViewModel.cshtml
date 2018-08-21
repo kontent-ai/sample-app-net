@@ -1,3 +1,13 @@
 ﻿@model DancingGoat.Models.AboutUsViewModel
 
+@if (!string.IsNullOrEmpty(Model.OurMotto))
+{
+    <div class="motto">@Html.DisplayFor(vm => vm.OurMotto)</div>
+}
+
+@foreach (var video in Model.Video)
+{
+    @Html.DisplayFor(vm => video)
+}
+
 @Html.DisplayFor(vm => vm.FactViewModels)
