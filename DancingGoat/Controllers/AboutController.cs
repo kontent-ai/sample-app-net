@@ -19,6 +19,8 @@ namespace DancingGoat.Controllers
             {
                 ItemId = response.Item.System.Id,
                 Language = response.Item.System.Language,
+                OurMotto = response.Item.OurMotto,
+                Video = response.Item.Video,
                 FactViewModels = MapFactsAboutUs(response)
             };
 

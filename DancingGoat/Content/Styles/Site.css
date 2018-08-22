@@ -1,4 +1,4 @@
-﻿@font-face {
+@font-face {
   font-family: 'PT Serif';
   font-style: normal;
   font-weight: 700;
@@ -5513,7 +5513,7 @@ dd.product-price--retail {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: #cccccc;
   transition: .4s;
 }
 .edit-mode-panel .slider:before {
@@ -5551,13 +5551,13 @@ dd.product-price--retail {
   padding: 2em;
 }
 .message-info {
-  background-color: #89CFFA;
+  background-color: #89cffa;
 }
 .message-warning {
-  background-color: #FF9776;
+  background-color: #ff9776;
 }
 .message-error {
-  background-color: #F38480;
+  background-color: #f38480;
 }
 .user-message img,
 .user-message p {
@@ -6354,4 +6354,15 @@ footer {
 .article-inline-image .inline-image-title {
   font-style: italic;
   display: block;
+}
+.motto {
+  font-size: 20px;
+  font-style: italic;
+  text-align: center;
+}
+.motto:before {
+  content: open-quote;
+}
+.motto:after {
+  content: close-quote;
 }
