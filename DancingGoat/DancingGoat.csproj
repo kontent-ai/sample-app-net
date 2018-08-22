@@ -477,13 +477,13 @@
     <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\PhoneNumber.cshtml" />
     <Content Include="Views\Articles\DisplayTemplates\InlineImage.cshtml" />
-    <Content Include="Views\Articles\DisplayTemplates\HostedVideo.cshtml" />
     <Content Include="Views\Twitter\Tweet.cshtml" />
     <Content Include="Views\Articles\DisplayTemplates\Tweet.cshtml" />
     <Content Include="Views\Home\CompanyAddress.cshtml" />
     <Content Include="Views\Shared\HeadersMetadata.cshtml" />
     <Content Include="Views\Shared\EditModePanel.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\HostedVideo.cshtml" />
     <Content Include="Views\Errors\Error.cshtml" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
   </ItemGroup>
