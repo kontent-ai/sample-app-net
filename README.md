@@ -1,7 +1,7 @@
 # Kentico Cloud sample .NET MVC web application
 [![Build status](https://ci.appveyor.com/api/projects/status/3b9v2fl52v4aiptk/branch/master?svg=true)](https://ci.appveyor.com/project/kentico/cloud-sample-app-net/branch/master)
 
-[![Analytics](https://ga-beacon.appspot.com/UA-69014260-4/Kentico/cloud-sample-app-net?pixel)](https://github.com/igrigorik/ga-beacon)
+![Analytics](https://kentico-ga-beacon.azurewebsites.net/api/UA-69014260-4/Kentico/cloud-sample-app-net?pixel)
 
 This is a sample website written in ASP.NET MVC 5 that uses the [Kentico Cloud Delivery .NET SDK](https://github.com/Kentico/delivery-sdk-net) to manage and retrieve content from Kentico Cloud, and the [Kentico Cloud Personalization .NET SDK](https://github.com/Kentico/personalization-sdk-net) to track site visits. For a brief walkthrough, read [Running the .NET sample app](https://developer.kenticocloud.com/docs/running-net-sample-application) on our Developer Hub.
 
