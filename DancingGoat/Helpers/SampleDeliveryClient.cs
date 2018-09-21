@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
+
 using DancingGoat.Controllers;
-using DancingGoat.Models;
-using DancingGoat.Utils;
 using KenticoCloud.Delivery;
 using KenticoCloud.Delivery.InlineContentItems;
 using Newtonsoft.Json.Linq;
@@ -17,9 +17,9 @@ namespace DancingGoat.Helpers
         private readonly IQueryParameter[] _sampleQueryParameter = { new SampleSiteParameter() };
         private readonly string[] _sampleParameter = { new SampleSiteParameter().GetQueryStringParameter() };
 
-        public SampleDeliveryClient()
+        public SampleDeliveryClient(HttpContext httpContext)
         {
-            _deliveryClient = ControllerBase.CreateDeliveryClient();
+            _deliveryClient = ControllerBase.CreateDeliveryClient(httpContext);
         }
 
         public Task<JObject> GetItemJsonAsync(string codename, params string[] parameters)

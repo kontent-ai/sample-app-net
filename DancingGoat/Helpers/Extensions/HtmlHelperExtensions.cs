@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using DancingGoat.Areas.Admin;
 using DancingGoat.Models;
+using DancingGoat.Utils;
 
 using KenticoCloud.ContentManagement.Helpers.Models;
 using KenticoCloud.Delivery;
@@ -236,7 +237,7 @@ namespace DancingGoat.Helpers.Extensions
         /// <param name="language">Codename of language variant</param>
         public static void EditPanel(this HtmlHelper htmlHelper, string itemId, string language)
         {
-            bool.TryParse(ConfigurationManager.AppSettings["UsePreviewApi"], out var isPreview);
+            var isPreview = ProjectUtils.IsInPreviewMode(htmlHelper.ViewContext.HttpContext.ApplicationInstance.Context);
 
             if (isPreview)
             {

@@ -2,13 +2,14 @@
 using System.Configuration;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Newtonsoft.Json;
+using System.Web.Routing;
 
 using DancingGoat.Helpers;
 using DancingGoat.Areas.Admin.Helpers;
 using DancingGoat.Areas.Admin.Models;
 
 using KenticoCloud.Delivery;
+using Newtonsoft.Json;
 
 namespace DancingGoat.Areas.Admin.Controllers
 {
@@ -29,11 +30,17 @@ namespace DancingGoat.Areas.Admin.Controllers
         public const int PROJECT_EXISTENCE_VERIFICATION_REQUIRED_ITEMS = 32;
 
         protected readonly SelfConfigManager _selfConfigManager;
-        protected readonly IDeliveryClient client = new SampleDeliveryClient();
+        protected IDeliveryClient client { get; private set; }
 
         public SelfConfigController()
         {
             _selfConfigManager = new SelfConfigManager();
+        }
+
+        protected override void Initialize(RequestContext requestContext)
+        {
+            base.Initialize(requestContext);
+            client = new SampleDeliveryClient(requestContext.HttpContext.ApplicationInstance.Context);
         }
 
         [HttpGet]

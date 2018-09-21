@@ -1,14 +1,24 @@
 ﻿@using DancingGoat.Utils
 @model string
+@functions {
+    public string ProjectGuid => ProjectUtils.GetProjectId();
+}
 <div class="footer-fixed-bottom">
     <div class="footer-fixed-bottom__content">
-        <div>
-            <div>
-                <i class="icon-info-circle"></i>
-                This is a sample website where you can see published content from your Kentico Cloud Sample Project. <a class="info-cloud" href="#" onclick="showLearnMore(event, true);  return false;">Learn more</a>
+        <div class="footer-caption">
+            <i class="icon-info-circle"></i>
+            This sample website displays content from your Kentico Cloud Sample Project. With preview mode on, it includes unpublished content. <a class="info-cloud" href="#" onclick="showLearnMore(event, true);  return false;">Learn more</a>
+        </div>
+        <div class="preview-toggle">
+            <label class="preview-toggle__switch">
+                <input class="preview-mode-switch" type="checkbox" onchange="togglePreviewMode(this.checked, '@ProjectGuid', true)" autocomplete="off">
+                <span class="slider round"></span>
+            </label>
+            <div class="preview-toggle__caption">
+                <span class="preview-toggle__title">Preview mode</span>
             </div>
         </div>
-        <div>
+        <div class="edin-in-cloud-button">
             <a target="_blank" href="https://app.kenticocloud.com/@Model" class="btn-cloud btn-cloud__padding btn-cloud-info">
                 <i class="btn-pen"></i> Edit in Kentico Cloud
             </a>
@@ -19,8 +29,6 @@
 <!-- The Modal -->
 <div id="modal-dialog" class="modal-dialog">
     <div class="modal-dialog__container">
-
-
         <div class="modal-dialog__pane">
             <div class="modal-dialog__header">
                 <div class="modal-dialog__header-title">
@@ -39,6 +47,9 @@
                     </li>
                     <li>
                         <a class="info-cloud" target="_blank" href="https://developer.kenticocloud.com/docs/running-a-sample-application">Run the sample website locally</a> by yourself.
+                    </li>
+                    <li>
+                        <a class="info-cloud" target="_blank" href="https://developer.kenticocloud.com/docs/previewing-content-in-a-separate-environment">Preview changes to your content</a> before it's published.
                     </li>
                 </ul>
             </div>
