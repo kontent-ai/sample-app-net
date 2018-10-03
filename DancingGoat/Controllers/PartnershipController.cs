@@ -9,7 +9,7 @@ namespace DancingGoat.Controllers
             ViewBag.PartnershipRequested = TempData["formApplied"] ?? false;
             return View();
         }
-        
+
         /// <summary>
         /// Dummy action; form information is being handed over to Kentico Cloud Engagement management service through JavaScript.
         /// </summary>
