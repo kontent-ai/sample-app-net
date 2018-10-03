@@ -2,20 +2,18 @@
 using System.Globalization;
 using System.Web.Mvc;
 
-using KenticoCloud.Delivery;
-
-using DancingGoat.Areas.Admin;
-using DancingGoat.Infrastructure;
-using DancingGoat.Models;
+using DancingGoat.Helpers;
 using DancingGoat.Localization;
+using DancingGoat.Models;
+using DancingGoat.Utils;
+using KenticoCloud.Delivery;
 
 namespace DancingGoat.Controllers
 {
-    [SelfConfigActionFilter]
     public class ControllerBase : AsyncController
     {
-        protected static readonly DeliveryClient baseClient = CreateDeliveryClient();
-        public readonly IDeliveryClient client;
+        protected readonly IDeliveryClient baseClient = new SampleDeliveryClient();
+        protected readonly IDeliveryClient client;
 
         public ControllerBase()
         {
@@ -29,7 +27,20 @@ namespace DancingGoat.Controllers
                 client = new LanguageClient(baseClient, currentCulture);
             }
         }
-       
+
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            if (filterContext.ExceptionHandled)
+            {
+                return;
+            }
+
+            filterContext.ExceptionHandled = true;
+            filterContext.Result = new ViewResult()
+            {
+                ViewName = "~/Views/Errors/Error.cshtml"
+            };
+        }
 
         public static DeliveryClient CreateDeliveryClient()
         {
@@ -39,7 +50,7 @@ namespace DancingGoat.Controllers
             // Build DeliveryOptions with default or explicit values.
             var options = provider.GetDeliveryOptions();
 
-            options.ProjectId = options.ProjectId ?? AppSettingProvider.DefaultProjectId.ToString();
+            options.ProjectId = ProjectUtils.GetProjectId();
             var clientInstance = new DeliveryClient(options);
             clientInstance.CodeFirstModelProvider.TypeProvider = new CustomTypeProvider();
             clientInstance.ContentLinkUrlResolver = new CustomContentLinkUrlResolver();
