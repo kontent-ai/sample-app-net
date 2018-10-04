@@ -16,12 +16,12 @@ Task("Publish")
 
 TaskSetup(context =>
 {
-	OnTeamCityOnly(() => TeamCity.WriteStartBlock(context.Task.Name));
+	OnTeamCityOnly(function() {TeamCity.WriteStartBlock(context.Task.Name)});
 });
 
 TaskTeardown(context =>
 {
-    OnTeamCityOnly(() => TeamCity.WriteEndBlock(context.Task.Name));
+    OnTeamCityOnly(function(){ TeamCity.WriteEndBlock(context.Task.Name)});
 });
 
 Task("CleanDirs")
