@@ -11,14 +11,14 @@
         </div>
         <div class="preview-toggle">
             <label class="preview-toggle__switch">
-                <input class="preview-mode-switch" type="checkbox" onchange="togglePreviewMode(this.checked, '@ProjectGuid', true)" autocomplete="off">
+                <input class="preview-mode-switch" type="checkbox" onchange="trySetPreviewModeValue(this.checked, '@ProjectGuid', true)" autocomplete="off">
                 <span class="slider round"></span>
             </label>
             <div class="preview-toggle__caption">
                 <span class="preview-toggle__title">Preview mode</span>
             </div>
         </div>
-        <div class="edin-in-cloud-button">
+        <div class="edit-in-cloud-button">
             <a target="_blank" href="https://app.kenticocloud.com/@Model" class="btn-cloud btn-cloud__padding btn-cloud-info">
                 <i class="btn-pen"></i> Edit in Kentico Cloud
             </a>

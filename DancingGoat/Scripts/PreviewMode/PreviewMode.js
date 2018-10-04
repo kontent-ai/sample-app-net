@@ -1,68 +1,78 @@
 ﻿const previewModeToggleClassname = 'preview-mode-switch';
 const previewModeCookieName = 'IsPreviewMode';
 const previewApiKeyCookieName = 'PreviewApiKey';
-const enterApiKeyFirstMessage = 'Enter your Preview API key';
-const enterApiKeyNextMessage = 'Enter your Delivery Preview API key -- you can find it in Kentico Cloud under Project settings -> API keys';
-const enterApiKeyPromptTitle = 'Preview API key';
+const enterPreviewApiKeyFirstMessage = 'Enter your Preview API key';
+const enterPreviewApiKeyNextMessage = 'Enter your Delivery Preview API key -- you can find it in Kentico Cloud under Project settings -> API keys';
+const enterPreviewApiKeyPromptTitle = 'Preview API key';
 
-const previewModeToggles = document.getElementsByClassName(previewModeToggleClassname);
+const previewModeToggle = document.getElementsByClassName(previewModeToggleClassname).item(0);
 const isPreviewModeEnabled = getCookie(previewModeCookieName);
-for (toggle of previewModeToggles) {
-    toggle.checked = isPreviewModeEnabled === 'true' ? true : false;
-}
+previewModeToggle.checked = isPreviewModeEnabled === 'true' ? true : false;
 
-function togglePreviewMode(isChecked, projectId, isFirstEnterOfApiKey) {
-    if (isChecked) {
-        const apiKey = getCookie(previewApiKeyCookieName);
-        if (apiKey === '') {
-            enterApiKey(isFirstEnterOfApiKey, projectId);
+function trySetPreviewModeValue(newValue, projectId, isFirstTry ) {
+    if (newValue) {
+        const previewApiKey = getCookie(previewApiKeyCookieName);
+        if (previewApiKey === '') {
+            enterPreviewApiKey(isFirstTry , projectId);
         } else {
-            setPreviewModeEnabledCookie(isChecked);
+            setPreviewModeEnabledCookie(newValue);
             location.reload();
         }
     } else {
-        setPreviewModeEnabledCookie(isChecked);
+        setPreviewModeEnabledCookie(newValue);
         location.reload();
     }
 }
 
-function enterApiKey(isFirstEnterOfApiKey, projectId) {
-    logAttemptToEnterPreviewKey(isFirstEnterOfApiKey);
-    const message = isFirstEnterOfApiKey ? enterApiKeyFirstMessage : enterApiKeyNextMessage;
-    const apiKey = prompt(message, enterApiKeyPromptTitle);
-    if (apiKey === null) {
-        const previewModeToggles = document.getElementsByClassName(previewModeToggleClassname);
-        for (toggle of previewModeToggles) {
-            toggle.checked = false
-        }
-    }
-
-    if (apiKey !== null) {
-        validateApiKey(apiKey, projectId);
+function enterPreviewApiKey(isFirstTry , projectId) {
+    logAttemptToEnterPreviewKey(isFirstTry);
+    const message = isFirstTry  ? enterPreviewApiKeyFirstMessage : enterPreviewApiKeyNextMessage;
+    const previewApiKey = prompt(message, enterPreviewApiKeyPromptTitle);
+    if (previewApiKey === null) {
+        const previewModeToggle = document.getElementsByClassName(previewModeToggleClassname).item(0);
+        previewModeToggle.checked = false;
+    } else {
+        validatePreviewApiKey(previewApiKey, projectId)
+        .then(function() {
+            processValidPreviewApiKey(previewApiKey);
+        })
+        .catch(function() {
+            processInvalidPreviewApiKey(projectId);
+        });
     }
 }
 
-function validateApiKey(apiKey, projectId) {
-    const deliverRequestUrl = 'https://preview-deliver.kenticocloud.com/' + projectId + '/items/home';
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', deliverRequestUrl, true);
-    xhr.setRequestHeader("authorization", `Bearer ${apiKey}`);
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            logEnterPreviewKeyResult(true);
-            setPreviewModeEnabledCookie(true);
-            setPreviewApiKeyCookie(apiKey);
-            location.reload();
-        }
-
-        if (xhr.readyState === 4 && xhr.status === 401) {
-            logEnterPreviewKeyResult(false);
-            togglePreviewMode(true, projectId, false);
-        }
-    };
-    xhr.send();
+function validatePreviewApiKey(previewApikey, projectId) {
+    return new Promise(function(resolve, reject) {
+        const deliverRequestUrl = 'https://preview-deliver.kenticocloud.com/' + projectId + '/items/home';
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', deliverRequestUrl, true);
+        xhr.setRequestHeader("authorization", `Bearer ${previewApikey}`);
+        xhr.onload = function() {
+            if (this.status >= 200 && this.status < 300) {
+                resolve();
+            } else {
+                reject();
+            }
+        };
+        xhr.onerror = function() {
+            reject();
+        };
+        xhr.send();
+    });
 }
 
+function processValidPreviewApiKey(previewApiKey) {
+    logEnterPreviewKeyResult(true);
+    setPreviewModeEnabledCookie(true);
+    setPreviewApiKeyCookie(previewApiKey);
+    location.reload();
+}
+
+function processInvalidPreviewApiKey(projectId) {
+    logEnterPreviewKeyResult(false);
+    trySetPreviewModeValue(true, projectId, false);
+}
 
 function getCookie(cname) {
     var name = cname + "=";
@@ -84,15 +94,15 @@ function setPreviewModeEnabledCookie(isEnabled) {
     document.cookie = `IsPreviewMode=${isEnabled}; max-age=31536000; path=/`;
 }
 
-function setPreviewApiKeyCookie(apiKey) {
-    document.cookie = `PreviewApiKey=${apiKey}; max-age=31536000; path=/`;
+function setPreviewApiKeyCookie(previewApiKey) {
+    document.cookie = `PreviewApiKey=${previewApiKey}; max-age=31536000; path=/`;
 }
 
 function logAttemptToEnterPreviewKey(isFirstAttempt) {
     const label = isFirstAttempt ? 'first' : 'another';
     ga('send', 'event', {
         eventCategory: 'Administrative section',
-        eventAction: 'Enter Api key attempt',
+        eventAction: 'Enter Preview Api key attempt',
         eventLabel: label,
     });
 }
@@ -101,7 +111,7 @@ function logEnterPreviewKeyResult(isSuccessful) {
     const result = isSuccessful ? 'succesful' : 'not-succesful' 
     ga('send', 'event', {
         eventCategory: 'Administrative section',
-        eventAction: 'Enter Api key result',
+        eventAction: 'Enter Preview Api key result',
         eventLabel: result,
     });
 }

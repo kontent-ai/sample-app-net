@@ -21,7 +21,6 @@ namespace DancingGoat.Controllers
         protected override void Initialize(RequestContext requestContext)
         {
             base.Initialize(requestContext);
-
             baseClient = new SampleDeliveryClient(requestContext.HttpContext.ApplicationInstance.Context);
 
             var currentCulture = CultureInfo.CurrentUICulture.Name;
