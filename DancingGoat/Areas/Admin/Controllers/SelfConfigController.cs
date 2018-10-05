@@ -2,13 +2,14 @@
 using System.Configuration;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Newtonsoft.Json;
+using System.Web.Routing;
 
 using DancingGoat.Helpers;
 using DancingGoat.Areas.Admin.Helpers;
 using DancingGoat.Areas.Admin.Models;
 
 using KenticoCloud.Delivery;
+using Newtonsoft.Json;
 
 namespace DancingGoat.Areas.Admin.Controllers
 {
@@ -28,12 +29,18 @@ namespace DancingGoat.Areas.Admin.Controllers
 
         public const int PROJECT_EXISTENCE_VERIFICATION_REQUIRED_ITEMS = 32;
 
-        protected readonly SelfConfigManager _selfConfigManager;
-        protected readonly IDeliveryClient client = new SampleDeliveryClient();
+        protected readonly SelfConfigManager SelfConfigManager;
+        protected IDeliveryClient Client { get; private set; }
 
         public SelfConfigController()
         {
-            _selfConfigManager = new SelfConfigManager();
+            SelfConfigManager = new SelfConfigManager();
+        }
+
+        protected override void Initialize(RequestContext requestContext)
+        {
+            base.Initialize(requestContext);
+            Client = new SampleDeliveryClient(requestContext.HttpContext.ApplicationInstance.Context);
         }
 
         [HttpGet]
@@ -51,7 +58,7 @@ namespace DancingGoat.Areas.Admin.Controllers
         [HttpGet]
         public async Task<ActionResult> SampleProjectReady()
         {
-            var items = (await client.GetItemsAsync()).Items;
+            var items = (await Client.GetItemsAsync()).Items;
             return Json(items.Count >= PROJECT_EXISTENCE_VERIFICATION_REQUIRED_ITEMS, JsonRequestBehavior.AllowGet);
         }
 
@@ -76,7 +83,7 @@ namespace DancingGoat.Areas.Admin.Controllers
         {
             try
             {
-                _selfConfigManager.SetProjectIdAndExpirationAsync(projectGuid, endAt?.ToUniversalTime());
+                SelfConfigManager.SetProjectIdAndExpirationAsync(projectGuid, endAt?.ToUniversalTime());
 
                 if (isNew)
                 {
