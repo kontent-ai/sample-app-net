@@ -9,8 +9,8 @@ You can register your account for free at <https://app.kenticocloud.com>.
 
 You can run the app in two following ways:
 
-* by cloning the code and running it via Visual Studio 2013 or later;
-* by deploying the app to a new Azure App Service instance in your Azure subscription.
+* By cloning the code and running it via Visual Studio 2013 or later
+* By deploying the app to a new Azure App Service instance in your Azure subscription.
 
 ### Running via Visual Studio
 
