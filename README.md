@@ -40,7 +40,7 @@ If you already have a Kentico Cloud account, you can connect this sample applica
 1. In Kentico Cloud, choose Project settings from the app menu.
 1. Under Development, choose API keys.
 
-    * You will be copying the Project ID and API keys for the Delivery Preview API.
+    * You will be copying the Project ID and API key for the Delivery Preview API.
 
 1. Open the `\DancingGoat\Web.config` file.
 1. Use the values from your Kentico Cloud project in the `Web.config` file:
