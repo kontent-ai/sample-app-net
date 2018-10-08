@@ -1,7 +1,7 @@
 # Kentico Cloud sample .NET MVC web application
 [![Build status](https://ci.appveyor.com/api/projects/status/3b9v2fl52v4aiptk/branch/master?svg=true)](https://ci.appveyor.com/project/kentico/cloud-sample-app-net/branch/master)
 
-This is a sample website written in ASP.NET MVC 5 that uses the [Kentico Cloud Delivery .NET SDK](https://github.com/Kentico/delivery-sdk-net) to manage and retrieve content from Kentico Cloud, and the [Kentico Cloud Personalization .NET SDK](https://github.com/Kentico/personalization-sdk-net) to track site visits. For a brief walkthrough, read [Running the .NET sample app](https://developer.kenticocloud.com/docs/running-net-sample-application) on our Developer Hub.
+This is a sample website written in ASP.NET MVC 5 that uses the [Kentico Cloud Delivery .NET SDK](https://github.com/Kentico/delivery-sdk-net) to manage and retrieve content from Kentico Cloud. For a brief walkthrough, read [Running the .NET sample app](https://developer.kenticocloud.com/docs/running-net-sample-application) on our Developer Hub.
 
 You can register your account for free at <https://app.kenticocloud.com>.
 
@@ -40,14 +40,13 @@ If you already have a Kentico Cloud account, you can connect this sample applica
 1. In Kentico Cloud, choose Project settings from the app menu.
 1. Under Development, choose API keys.
 
-    * You will be copying the Project ID and API keys for the Delivery Preview API and Personalization API.
+    * You will be copying the Project ID and API key for the Delivery Preview API.
 
 1. Open the `\DancingGoat\Web.config` file.
 1. Use the values from your Kentico Cloud project in the `Web.config` file:
 
     * **Project ID**: Insert your project ID into the `ProjectId` application setting.
     * **Delivery Preview API**: Create a new application setting named `PreviewApiKey` in the `<appSettings>` section, and use the Delivery Preview API key as its value. To enable calls over the Delivery Preview API, you also need to add a setting named `UsePreviewApi` and set it to `true`.
-    * **Personalization API**: Create a new application setting named `PersonalizationToken` in the `<appSettings>` section, and use the Personalization API key as its value.
 
     ```xml
     <appSettings>
@@ -55,7 +54,6 @@ If you already have a Kentico Cloud account, you can connect this sample applica
         <add key="ProjectId" value="YOUR_PROJECT_ID" />
         <add key="UsePreviewApi" value="true"/>
         <add key="PreviewApiKey" value="YOUR_DELIVERY_PREVIEW_API_KEY" />
-        <add key="PersonalizationToken" value="YOUR_PERSONALIZATION_API_KEY" />
         ...
     </appSettings>
     ```
@@ -65,10 +63,9 @@ If you already have a Kentico Cloud account, you can connect this sample applica
 
 After you run the application, Kentico Cloud will track site visits and create new contacts when visitors submit a form. You will also be able to see all project content including the unpublished version of content items.
 
-For more information about the integrations with the Delivery API and Personalization API, see the following:
+For more information about the integrations with the Delivery API, see the following:
 
 * [Delivery .NET SDK documentation](https://github.com/Kentico/delivery-sdk-net#using-the-deliveryclient) on using the `DeliveryClient`
-* [Personalization .NET SDK documentation](https://github.com/Kentico/personalization-sdk-net#basic-scenarios) on using the `PersonalizationClient`
 
 ## Content administration
 
