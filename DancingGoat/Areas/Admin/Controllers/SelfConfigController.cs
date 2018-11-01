@@ -24,7 +24,7 @@ namespace DancingGoat.Areas.Admin.Controllers
 
         protected const string MESSAGE_INVALID_PROJECT_GUID = "ProjectId is not valid GUID.";
 
-        public const int PROJECT_EXISTENCE_VERIFICATION_REQUIRED_ITEMS = 32;
+        public const int PROJECT_EXISTENCE_VERIFICATION_REQUIRED_ITEMS = 30;
 
         protected readonly SelfConfigManager _selfConfigManager;
         protected readonly IDeliveryClient client = DancingGoat.Controllers.ControllerBase.CreateDeliveryClient();
