@@ -1,20 +1,19 @@
-﻿using System;
+﻿using DancingGoat.Areas.Admin;
+using DancingGoat.Infrastructure;
+using DancingGoat.Localization;
+using DancingGoat.Models;
+using DaningGoat;
+using KenticoCloud.Delivery;
+using System;
 using System.Globalization;
 using System.Web.Mvc;
-
-using KenticoCloud.Delivery;
-
-using DancingGoat.Areas.Admin;
-using DancingGoat.Infrastructure;
-using DancingGoat.Models;
-using DancingGoat.Localization;
 
 namespace DancingGoat.Controllers
 {
     [SelfConfigActionFilter]
     public class ControllerBase : AsyncController
     {
-        protected static readonly DeliveryClient baseClient = CreateDeliveryClient();
+        protected static readonly IDeliveryClient baseClient = CreateDeliveryClient();
         public readonly IDeliveryClient client;
 
         public ControllerBase()
@@ -29,20 +28,21 @@ namespace DancingGoat.Controllers
                 client = new LanguageClient(baseClient, currentCulture);
             }
         }
-       
 
-        public static DeliveryClient CreateDeliveryClient()
+
+        public static IDeliveryClient CreateDeliveryClient()
         {
-            // Use the provider to get environment variables.
-            var provider = new ConfigurationManagerProvider();
+            // Use the provider to get environment variables
+            ConfigurationManagerProvider provider = new ConfigurationManagerProvider();
 
-            // Build DeliveryOptions with default or explicit values.
+            // Build DeliveryOptions with default or explicit values
             var options = provider.GetDeliveryOptions();
 
             options.ProjectId = options.ProjectId ?? AppSettingProvider.DefaultProjectId.ToString();
-            var clientInstance = new DeliveryClient(options);
-            clientInstance.CodeFirstModelProvider.TypeProvider = new CustomTypeProvider();
-            clientInstance.ContentLinkUrlResolver = new CustomContentLinkUrlResolver();
+            var clientInstance = DeliveryClientBuilder.WithOptions(o => options)
+                .WithCodeFirstTypeProvider(new CustomTypeProvider())
+                .WithContentLinkUrlResolver(new CustomContentLinkUrlResolver()).Build();
+
             return clientInstance;
         }
     }
