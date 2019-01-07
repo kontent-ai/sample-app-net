@@ -54,11 +54,20 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="JWT, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\JWT.4.0.0\lib\net46\JWT.dll</HintPath>
+    </Reference>
     <Reference Include="KenticoCloud.ContentManagement.Helpers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\KenticoCloud.ContentManagement.Helpers.1.2.17\lib\net45\KenticoCloud.ContentManagement.Helpers.dll</HintPath>
     </Reference>
     <Reference Include="KenticoCloud.Delivery, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\KenticoCloud.Delivery.8.0.0\lib\netstandard2.0\KenticoCloud.Delivery.dll</HintPath>
+    </Reference>
+    <Reference Include="KenticoCloud.Recommender.MVC, Version=5.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\KenticoCloud.Recommender.MVC.5.1.2\lib\net461\KenticoCloud.Recommender.MVC.dll</HintPath>
+    </Reference>
+    <Reference Include="KenticoCloud.Recommender.Shared, Version=5.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\KenticoCloud.Recommender.MVC.5.1.2\lib\net461\KenticoCloud.Recommender.Shared.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
@@ -125,8 +134,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Polly, Version=6.0.0.0, Culture=neutral, PublicKeyToken=c8a3ffc3f8f825cc, processorArchitecture=MSIL">
       <HintPath>..\packages\Polly.6.1.0\lib\netstandard2.0\Polly.dll</HintPath>
