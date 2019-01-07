@@ -1,8 +1,8 @@
-﻿using KenticoCloud.Delivery;
+﻿using System.Configuration;
+using KenticoCloud.Delivery;
 using Microsoft.Extensions.Configuration;
-using System.Configuration;
 
-namespace DaningGoat
+namespace DancingGoat.Infrastructure
 {
     /// <summary>
     /// Provides the settings from web.config file, can be used with <see cref="ConfigurationBuilder"/>.
