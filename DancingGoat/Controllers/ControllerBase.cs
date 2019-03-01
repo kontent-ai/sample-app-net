@@ -1,15 +1,14 @@
-﻿using System;
-using System.Globalization;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web;
 using System.Web.Routing;
-
 using DancingGoat.Helpers;
 using DancingGoat.Localization;
 using DancingGoat.Models;
 using DancingGoat.Utils;
 
 using KenticoCloud.Delivery;
+using System;
+using System.Globalization;
+using System.Web.Mvc;
 
 namespace DancingGoat.Controllers
 {
@@ -48,12 +47,12 @@ namespace DancingGoat.Controllers
             };
         }
 
-        public static DeliveryClient CreateDeliveryClient(HttpContext httpContext)
+        public static IDeliveryClient CreateDeliveryClient(HttpContext httpContext)
         {
-            // Use the provider to get environment variables.
-            var provider = new ConfigurationManagerProvider();
+            // Use the provider to get environment variables
+            ConfigurationManagerProvider provider = new ConfigurationManagerProvider();
 
-            // Build DeliveryOptions with default or explicit values.
+            // Build DeliveryOptions with default or explicit values
             var options = provider.GetDeliveryOptions();
 
             options.ProjectId = ProjectUtils.GetProjectId();

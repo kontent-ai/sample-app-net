@@ -112,20 +112,6 @@ namespace DancingGoat.Localization
             return _client.GetTaxonomiesAsync(parameters);
         }
 
-        public IContentLinkUrlResolver ContentLinkUrlResolver
-        {
-            get { return _client.ContentLinkUrlResolver; }
-            set { _client.ContentLinkUrlResolver = value; }
-        }
-
-        public ICodeFirstModelProvider CodeFirstModelProvider
-        {
-            get { return _client.CodeFirstModelProvider; }
-            set { _client.CodeFirstModelProvider = value; }
-        }
-
-        public IInlineContentItemsProcessor InlineContentItemsProcessor => _client.InlineContentItemsProcessor;
-
         public Task<JObject> GetItemJsonAsync(string codename, params string[] parameters)
         {
             return _client.GetItemJsonAsync(codename, new[] {new LanguageParameter(_language).GetQueryStringParameter()}.Concat(parameters).ToArray());
