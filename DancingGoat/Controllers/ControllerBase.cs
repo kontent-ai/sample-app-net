@@ -4,11 +4,11 @@ using DancingGoat.Helpers;
 using DancingGoat.Localization;
 using DancingGoat.Models;
 using DancingGoat.Utils;
-
 using KenticoCloud.Delivery;
 using System;
 using System.Globalization;
 using System.Web.Mvc;
+using DancingGoat.Infrastructure;
 
 namespace DancingGoat.Controllers
 {
@@ -63,9 +63,9 @@ namespace DancingGoat.Controllers
                 options.PreviewApiKey = ProjectUtils.GetPreviewApiKey(httpContext);
             }
 
-            var clientInstance = new DeliveryClient(options);
-            clientInstance.CodeFirstModelProvider.TypeProvider = new CustomTypeProvider();
-            clientInstance.ContentLinkUrlResolver = new CustomContentLinkUrlResolver();
+            var clientInstance = DeliveryClientBuilder.WithOptions(o => options)
+                .WithCodeFirstTypeProvider(new CustomTypeProvider())
+                .WithContentLinkUrlResolver(new CustomContentLinkUrlResolver()).Build();
             return clientInstance;
         }
     }

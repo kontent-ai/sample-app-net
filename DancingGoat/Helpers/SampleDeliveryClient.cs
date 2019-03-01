@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
-
 using DancingGoat.Controllers;
 using KenticoCloud.Delivery;
 using KenticoCloud.Delivery.InlineContentItems;
@@ -13,7 +12,7 @@ namespace DancingGoat.Helpers
 {
     public class SampleDeliveryClient : IDeliveryClient
     {
-        private readonly DeliveryClient _deliveryClient;
+        private readonly IDeliveryClient _deliveryClient;
         private readonly IQueryParameter[] _sampleQueryParameter = { new SampleSiteParameter() };
         private readonly string[] _sampleParameter = { new SampleSiteParameter().GetQueryStringParameter() };
 
@@ -145,23 +144,6 @@ namespace DancingGoat.Helpers
         {
             var p = AddSampleSiteParameter(parameters);
             return await _deliveryClient.GetTaxonomiesAsync(p);
-        }
-
-        public IContentLinkUrlResolver ContentLinkUrlResolver
-        {
-            get { return _deliveryClient.ContentLinkUrlResolver; }
-            set { _deliveryClient.ContentLinkUrlResolver = value; }
-        }
-
-        public ICodeFirstModelProvider CodeFirstModelProvider
-        {
-            get { return _deliveryClient.CodeFirstModelProvider; }
-            set { _deliveryClient.CodeFirstModelProvider = value; }
-        }
-
-        public IInlineContentItemsProcessor InlineContentItemsProcessor
-        {
-            get { return _deliveryClient.InlineContentItemsProcessor; }
         }
 
         private string[] AddSampleSiteParameter(string[] parameters)

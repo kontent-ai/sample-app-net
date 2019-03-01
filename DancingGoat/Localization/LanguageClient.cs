@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using KenticoCloud.Delivery;
-using KenticoCloud.Delivery.InlineContentItems;
 using Newtonsoft.Json.Linq;
 
 namespace DancingGoat.Localization
