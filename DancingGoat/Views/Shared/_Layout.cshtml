@@ -118,7 +118,6 @@
     @Scripts.Render("~/bundles/previewMode")
 
     <script type="text/javascript">
-        ket('start', '@ProjectGuid');
         function toggleEditMode(isChecked) {
             const body = document.getElementsByTagName('body')[0];
             isChecked ? body.classList.add('edit-mode') : body.classList.remove('edit-mode');
