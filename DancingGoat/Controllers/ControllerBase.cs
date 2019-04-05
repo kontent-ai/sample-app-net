@@ -39,7 +39,7 @@ namespace DancingGoat.Controllers
 
             options.ProjectId = options.ProjectId ?? AppSettingProvider.DefaultProjectId.ToString();
             var clientInstance = DeliveryClientBuilder.WithOptions(o => options)
-                .WithCodeFirstTypeProvider(new CustomTypeProvider())
+                .WithTypeProvider(new CustomTypeProvider())
                 .WithContentLinkUrlResolver(new CustomContentLinkUrlResolver()).Build();
 
             return clientInstance;
