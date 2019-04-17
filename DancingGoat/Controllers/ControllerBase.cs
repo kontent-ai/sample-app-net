@@ -64,7 +64,7 @@ namespace DancingGoat.Controllers
             }
 
             var clientInstance = DeliveryClientBuilder.WithOptions(o => options)
-                .WithCodeFirstTypeProvider(new CustomTypeProvider())
+                .WithTypeProvider(new CustomTypeProvider())
                 .WithContentLinkUrlResolver(new CustomContentLinkUrlResolver()).Build();
             return clientInstance;
         }
