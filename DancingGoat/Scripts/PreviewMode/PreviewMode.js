@@ -4,10 +4,50 @@ const previewApiKeyCookieName = 'PreviewApiKey';
 const enterPreviewApiKeyFirstMessage = 'Enter your Preview API key';
 const enterPreviewApiKeyNextMessage = 'Enter your Delivery Preview API key -- you can find it in Kentico Cloud under Project settings -> API keys';
 const enterPreviewApiKeyPromptTitle = 'Preview API key';
+const requestPreviewKeyPromptSearchParam = 'promptPreviewKey';
 
 const previewModeToggle = document.getElementsByClassName(previewModeToggleClassname).item(0);
 const isPreviewModeEnabled = getCookie(previewModeCookieName);
 previewModeToggle.checked = isPreviewModeEnabled === 'true' ? true : false;
+
+function ensurePreviewModeToggleChecked() {
+    previewModeToggle.checked = true;
+}
+
+function isRequestedPreviewKeyPrompt() {
+    return new URLSearchParams(location.search).get(requestPreviewKeyPromptSearchParam) === 'true';
+}
+
+function getSearchStringWithoutPreviewKeyPrompt() {
+    const params = new URLSearchParams(location.search);
+    params.delete(requestPreviewKeyPromptSearchParam);
+    return params.toString();
+}
+
+function reloadPage() {
+    if (isRequestedPreviewKeyPrompt) {
+        location.search = getSearchStringWithoutPreviewKeyPrompt();
+    } else {
+        location.reload();
+    }
+}
+
+function getCurrentProjectId() {
+    const projectElement = document.getElementById("kc-project-id");
+    return projectElement ? projectElement.value : null;
+}
+
+window.addEventListener('load',
+    function() {
+        if (isRequestedPreviewKeyPrompt()) {
+            const projectId = getCurrentProjectId();
+            if (projectId) {
+                ensurePreviewModeToggleChecked();
+                trySetPreviewModeValue(true, projectId, true);
+            }
+        }
+    }
+);
 
 function trySetPreviewModeValue(newValue, projectId, isFirstTry ) {
     if (newValue) {
@@ -16,11 +56,11 @@ function trySetPreviewModeValue(newValue, projectId, isFirstTry ) {
             enterPreviewApiKey(isFirstTry , projectId);
         } else {
             setPreviewModeEnabledCookie(newValue);
-            location.reload();
+            reloadPage();
         }
     } else {
         setPreviewModeEnabledCookie(newValue);
-        location.reload();
+        reloadPage();
     }
 }
 
@@ -66,7 +106,7 @@ function processValidPreviewApiKey(previewApiKey) {
     logEnterPreviewKeyResult(true);
     setPreviewModeEnabledCookie(true);
     setPreviewApiKeyCookie(previewApiKey);
-    location.reload();
+    reloadPage();
 }
 
 function processInvalidPreviewApiKey(projectId) {
@@ -108,7 +148,7 @@ function logAttemptToEnterPreviewKey(isFirstAttempt) {
 }
 
 function logEnterPreviewKeyResult(isSuccessful) {
-    const result = isSuccessful ? 'succesful' : 'not-succesful' 
+    const result = isSuccessful ? 'succesful' : 'not-succesful';
     ga('send', 'event', {
         eventCategory: 'Administrative section',
         eventAction: 'Enter Preview Api key result',

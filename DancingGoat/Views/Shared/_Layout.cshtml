@@ -111,6 +111,7 @@
             </div>
         </footer>
     </div>
+    @Html.Hidden("kc-project-id", ProjectGuid)
     @Html.Partial(@"_Footer", ProjectGuid)
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
