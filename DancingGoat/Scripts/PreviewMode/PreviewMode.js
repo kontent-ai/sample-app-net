@@ -143,8 +143,8 @@ function safeGa(callback, retryCount) {
         return;
     }
 
-    var ga = window[window['GoogleAnalyticsObject'] || 'ga'];
-    if (typeof ga == 'function') {
+    const ga = window[window['GoogleAnalyticsObject'] || 'ga'];
+    if (typeof ga === 'function') {
         callback();
     } else {
         setTimeout(safeGa(callback, retryCount - 1), 200);
