@@ -138,20 +138,33 @@ function setPreviewApiKeyCookie(previewApiKey) {
     document.cookie = `PreviewApiKey=${previewApiKey}; max-age=31536000; path=/`;
 }
 
+function safeGa(callback, retryCount) {
+    if (retryCount === 0) {
+        return;
+    }
+
+    var ga = window[window['GoogleAnalyticsObject'] || 'ga'];
+    if (typeof ga == 'function') {
+        callback();
+    } else {
+        setTimeout(safeGa(callback, retryCount - 1), 200);
+    }
+}
+
 function logAttemptToEnterPreviewKey(isFirstAttempt) {
     const label = isFirstAttempt ? 'first' : 'another';
-    ga('send', 'event', {
+    safeGa(() => ga('send', 'event', {
         eventCategory: 'Administrative section',
         eventAction: 'Enter Preview Api key attempt',
-        eventLabel: label,
-    });
+        eventLabel: label
+    }), 3);
 }
 
 function logEnterPreviewKeyResult(isSuccessful) {
     const result = isSuccessful ? 'succesful' : 'not-succesful';
-    ga('send', 'event', {
+    safeGa(() => ga('send', 'event', {
         eventCategory: 'Administrative section',
         eventAction: 'Enter Preview Api key result',
-        eventLabel: result,
-    });
+        eventLabel: result
+    }), 3);
 }
