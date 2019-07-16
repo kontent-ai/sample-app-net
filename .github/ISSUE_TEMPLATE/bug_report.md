@@ -17,7 +17,7 @@ What went wrong?
 
 ### Expected behavior
 
-What the correct behavior is?
+What is the correct behavior?
 
 ### Test environment
 
