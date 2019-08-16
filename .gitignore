@@ -10,6 +10,8 @@
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
+# Libman output
+**/wwwroot/lib/**
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/

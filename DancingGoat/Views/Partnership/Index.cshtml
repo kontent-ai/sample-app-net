@@ -43,7 +43,7 @@
         @Resources.DancingGoat.Partnership_Title
     </h3>
     <div>
-       @Html.Raw(Resources.DancingGoat.Partnership_Text)
+        @Html.Raw(Resources.DancingGoat.Partnership_Text)
     </div>
 </section>
 
@@ -116,11 +116,11 @@
                                 <fieldset class="partnership-form-fieldset">
                                     <legend class="form-group-label"><strong>@Resources.DancingGoat.Partnership_Form_Interest</strong></legend>
                                     <span id="BecomePartner_list" class="radio radio-list-vertical">
-                                        <input id="BecomePartner_list_0" type="radio" name="BecomePartner" value="wholesale partner"/>
+                                        <input id="BecomePartner_list_0" type="radio" name="BecomePartner" value="wholesale partner" />
                                         <label for="BecomePartner_list_0">@Resources.DancingGoat.Partnership_Form_Interest_WholesalePartner</label>
                                     </span>
                                     <span id="BecomePartner_list" class="radio radio-list-vertical">
-                                        <input id="BecomePartner_list_1" type="radio" name="BecomePartner" value="partner café"/>
+                                        <input id="BecomePartner_list_1" type="radio" name="BecomePartner" value="partner café" />
                                         <label for="BecomePartner_list_1">@Resources.DancingGoat.Partnership_Form_Interest_PartnerCafe</label>
                                     </span>
                                 </fieldset>
@@ -136,9 +136,7 @@
         </div>
     </div>
 </section>
-
-@section Scripts
-{
+@section Scripts{
     <script type="text/javascript">
         $(function () {
             $("#partnership-application").validate({

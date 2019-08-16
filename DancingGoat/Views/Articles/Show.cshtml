@@ -1,12 +1,12 @@
 ﻿@using DancingGoat.Helpers.Extensions
 @model DancingGoat.Models.Article
-
+@inject IConfiguration Configuration
 @{
     ViewBag.Title = @Model.MetadataMetaTitle;
 }
 @section headers
 {
-    @Html.Partial("HeadersMetadata", Model)
+    @await Html.PartialAsync("HeadersMetadata", Model)
 }
 
 <article class="article-detail col-lg-9 col-md-12 article-detail-related-box">
@@ -16,7 +16,7 @@
     </div>
     <div class="row">
         <div class="article-detail-image col-md-push-2 col-md-8">
-            @Html.AssetImage(Model.TeaserImage.FirstOrDefault(), title: $"Article {Model.System.Name}", cssClass: "img-responsive")
+            @Html.AssetImage(Configuration, Model.TeaserImage.FirstOrDefault(), title: $"Article {Model.System.Name}", cssClass: "img-responsive")
         </div>
     </div>
     <div class="row">

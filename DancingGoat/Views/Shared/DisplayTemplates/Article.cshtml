@@ -4,11 +4,11 @@
 <div class="col-md-3">
     <div class="article-tile">
         <a href="@Url.Action("Show", "Articles", new { urlSlug = Model.UrlPattern })">
-            @Html.AssetImage(Model.TeaserImage.FirstOrDefault(), title: $"Article {Model.Title}", cssClass: "article-tile-image", sizes: new ResponsiveImageSizes(300)
-                            .WithMediaCondition(new MediaCondition { MinWidth = 330, MaxWidth = 768, ImageWidth = 468 }))
+            <img src="@Model.TeaserImage.FirstOrDefault()" title="Article @Model.Title" class="article-tile-image" sizes="@{new ResponsiveImageSizes(300)
+.WithMediaCondition(new MediaCondition { MinWidth = 330, MaxWidth = 768, ImageWidth = 468 });}">
         </a>
         <div class="article-tile-date">
-            @Html.DateTimeFormattedFor(vm => vm.PostDate, "M")
+            @Model.PostDate?.ToString("M");
         </div>
         <div class="article-tile-content">
             <h2 class="h4">

@@ -1,10 +1,11 @@
 ﻿@model DancingGoat.Models.AboutUsViewModel
 
+@inject IConfiguration Configuration
 @{
     ViewBag.Title = Resources.DancingGoat.AboutUs;
 }
 
 @Html.DisplayForModel()
 @{
-    Html.EditPanel(Model.ItemId, Model.Language);
+    await Html.EditPanelAsync(Configuration, Model.ItemId, Model.Language);
 }

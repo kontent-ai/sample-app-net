@@ -1,5 +1,5 @@
 ﻿@model DancingGoat.Models.IProduct
-
+@inject IConfiguration Configuration
 @{
     var price = Model.ProductPrice.HasValue ? Model.ProductPrice.Value.ToString("C") : "Price hasn't been set yet.";
 }
@@ -14,7 +14,7 @@
             </span>
         }
         <figure class="product-tile-image">
-            @Html.AssetImage(Model.ProductImage.FirstOrDefault(), width: 452, height: 452)
+            @Html.AssetImage(Configuration, Model.ProductImage.FirstOrDefault(), width: 452, height: 452)
         </figure>
         <div class="product-tile-info">
             <span class="product-tile-price">

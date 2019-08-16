@@ -1,14 +1,21 @@
-﻿@using DancingGoat.Helpers
-@using DancingGoat.Models
-<!DOCTYPE html>
-
+﻿<!DOCTYPE html>
 <html>
-<head id="head">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewBag.Title - Dancing Goat</title>
-    <link href="@Url.Content("~/Content/Styles/Site.css")" rel="stylesheet" type="text/css" />
-    @RenderSection("headers", required: false)
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
+              crossorigin="anonymous"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
+    </environment>
+    <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
     <div class="page-wrap">
@@ -55,7 +62,7 @@
                 </div>
             </div>
             <div id="message-box" class="container message">
-                @Html.Partial("~/Areas/Admin/Views/Shared/_MessagesPartial.cshtml")
+                <partial name="~/Areas/Admin/Views/Shared/_MessagesPartial.cshtml" />
             </div>
             <div class="header-row">
                 <div class="container">
@@ -78,7 +85,7 @@
                     <div class="row">
                         <div class="col-md-4 col-lg-4 footer-col">
                             <p>
-                                @Html.Action("CompanyAddress", "Home")
+                                @Html.ActionLink("CompanyAddress", "Home")
                             </p>
                         </div>
                         <div class="col-md-4 col-lg-4 footer-col">
@@ -99,9 +106,27 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jqueryval")
-    @RenderSection("scripts", required: false)
+    <environment include="Development">
+        <script src="~/lib/jquery/jquery.js"></script>
+        <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"
+                asp-fallback-src="~/lib/jquery/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.bundle.min.js"
+                asp-fallback-src="~/lib/bootstrap/js/bootstrap.bundle.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o">
+        </script>
+    </environment>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @RenderSection("Scripts", required: false)
 
     <script type="text/javascript">
         function toggleEditMode(isChecked) {
@@ -109,7 +134,5 @@
             isChecked ? body.classList.add('edit-mode') : body.classList.remove('edit-mode');
         }
     </script>
-
-
 </body>
 </html>

@@ -1,9 +1,10 @@
 ﻿@model DancingGoat.Models.Article
+@inject IConfiguration Configuration
 
 <div class="col-lg-3 col-md-6 col-sm-12">
     <div class="article-tile">
         <a href="@Url.Action("Show", "Articles", new { urlslug = Model.UrlPattern })">
-            @Html.AssetImage(Model.TeaserImage.FirstOrDefault(), title: "Article " + Model.Title, cssClass: "article-tile-image")
+            @Html.AssetImage(Configuration, Model.TeaserImage.FirstOrDefault(), title: "Article " + Model.Title, cssClass: "article-tile-image")
         </a>
         <div class="article-tile-date">
             @Html.DateTimeFormattedFor(vm => vm.PostDate, "M")
