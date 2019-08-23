@@ -1,44 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using Microsoft.AspNetCore.Owin;
-using System.Threading.Tasks;
+﻿using System.IO;
+using DancingGoat.Areas.Admin;
+using DancingGoat.Areas.Admin.Abstractions;
+using DancingGoat.Models;
+using KenticoCloud.Delivery;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using KenticoCloud.Delivery;
 
 namespace DancingGoat
 {
     public class Startup
     {
 
-        public Startup(IHostingEnvironment enviroment)
+        public Startup(IHostingEnvironment environment)
         {
             var builder = new ConfigurationBuilder()
-                .SetBasePath(enviroment.ContentRootPath)
+                .SetBasePath(environment.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{enviroment.EnvironmentName}.json", optional: true)
+                .AddJsonFile($"appsettings.{environment.EnvironmentName}.json", optional: true, reloadOnChange:true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; set; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDeliveryClient(Configuration);
+            // enable configuration services
+            services.AddOptions();
+            // ConfigurationManagerProvider is here now
+            services.Configure<AppSettings>(Configuration.GetSection("AppConfiguration"));
+            services.Configure<DeliveryOptions>(options => options = new DeliveryOptions());
+
+            services.AddScoped<IAppSettingProvider, AppSettingProvider>();
             services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.AddRouting();
             services.AddMvc();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -66,12 +68,9 @@ namespace DancingGoat
                     template: "{controller=Home}/{action/Index}/{id?}");
 
                 // Replacing Areas/Admin/AdminAreaRegistration.cs
-                routes.MapAreaRoute(
-                
-                    name: "Admin",
-                    areaName: "Admin_default",
-                    template: "Admin/{controller}/{action}/{id}"
-
+                routes.MapRoute(
+                    name: "areas",
+                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
                 );
             });
 
