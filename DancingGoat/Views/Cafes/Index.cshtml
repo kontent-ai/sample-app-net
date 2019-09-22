@@ -1,15 +1,15 @@
 ﻿@model DancingGoat.Models.CafesViewModel
 
 @{
-    ViewBag.Title = Resources.DancingGoat.Cafes;
+    ViewBag.Title = Localizer["Cafes"];
 }
 
-<h2>@Resources.DancingGoat.CompanyCafes</h2>
+<h2>@Localizer["CompanyCafes"]</h2>
 <div class="row">
     @Html.DisplayFor(vm => vm.CompanyCafes, new { ShowImage = true })
 </div>
 
-<h2>@Resources.DancingGoat.PartnerCafes_Title</h2>
+<h2>@Localizer["PartnerCafes.Title"]</h2>
 <div class="row">
     @foreach (var cafe in Model.PartnerCafes)
     {
@@ -20,7 +20,7 @@
     }
 </div>
 
-<h2 class="map-title">@Resources.DancingGoat.Cafes_MapTitle</h2>
+<h2 class="map-title">@Localizer["Cafes.MapTitle"]</h2>
 <div class="map js-map"></div>
 
 <script src="~/Scripts/map.js"></script>

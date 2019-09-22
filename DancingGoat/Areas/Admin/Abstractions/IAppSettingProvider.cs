@@ -7,5 +7,10 @@ namespace DancingGoat.Areas.Admin.Abstractions
 {
     public interface IAppSettingProvider
     {
+        Guid? GetProjectId();
+        string GetKenticoCloudUrl();
+        Guid? GetDefaultProjectId();
+        void SetProjectId(Guid projectId);
+        void SetSubscriptionExpiresAt(DateTime? subscriptionExpiresAt);
     }
 }

@@ -5,8 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = Model.ProductProductName;
 }
-@section headers
-{
+<section title="headers" id="head"></section>
     @await Html.PartialAsync("HeadersMetadata", Model)
 }
 

@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using DancingGoat.Areas.Admin;
+using DancingGoat.Areas.Admin.Abstractions;
 using DancingGoat.Models;
 using KenticoCloud.Delivery;
 using Microsoft.AspNetCore.Mvc;
@@ -10,8 +11,8 @@ namespace DancingGoat.Controllers
 {
     public class HomeController : ControllerBase
     {
-        public HomeController(IOptionsSnapshot<DeliveryOptions> deliveryOptions, AppSettingProvider settingProvider) 
-            : base(deliveryOptions, settingProvider)
+        public HomeController(IOptionsSnapshot<DeliveryOptions> deliveryOptions, IAppSettingProvider settingProvider, IDeliveryClient client) 
+            : base(deliveryOptions, settingProvider, client)
         {
         }
 

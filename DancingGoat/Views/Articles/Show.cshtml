@@ -4,10 +4,9 @@
 @{
     ViewBag.Title = @Model.MetadataMetaTitle;
 }
-@section headers
-{
+<section title="headers" , id="head">
     @await Html.PartialAsync("HeadersMetadata", Model)
-}
+</section>
 
 <article class="article-detail col-lg-9 col-md-12 article-detail-related-box">
     <h2>@Html.DisplayFor(vm => vm.Title)</h2>
@@ -28,7 +27,7 @@
 @if (Model.RelatedArticles.Any())
 {
     <div class="article-related-articles">
-        <h1 class="title-tab">@Resources.DancingGoat.Articles_RelatedArticles</h1>
+        <h1 class="title-tab">@Localizer["Articles.RelatedArticles"]</h1>
         <div class="row">
             @foreach (var relatedArticle in Model.RelatedArticles)
             {

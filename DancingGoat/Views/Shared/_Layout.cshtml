@@ -25,25 +25,25 @@
                     <nav role="navigation">
                         <ul>
                             <li>
-                                @Html.ActionLink(Resources.DancingGoat.Home, "Index", "Home")
+                                @Html.ActionLink(Localizer["Home"], "Index", "Home")
                             </li>
                             <li>
-                                @Html.ActionLink(Resources.DancingGoat.Store, "Index", "Coffees")
+                                @Html.ActionLink(Localizer["Store"], "Index", "Coffees")
                             </li>
                             <li>
-                                @Html.ActionLink(Resources.DancingGoat.Articles, "Index", "Articles")
+                                @Html.ActionLink(Localizer["Articles"], "Index", "Articles")
                             </li>
                             <li>
-                                @Html.ActionLink(Resources.DancingGoat.AboutUs, "Index", "About")
+                                @Html.ActionLink(Localizer["AboutUs"], "Index", "About")
                             </li>
                             <li>
-                                @Html.ActionLink(Resources.DancingGoat.Cafes, "Index", "Cafes")
+                                @Html.ActionLink(Localizer["Cafes"], "Index", "Cafes")
                             </li>
                             <li>
-                                @Html.ActionLink(Resources.DancingGoat.Contact, "Index", "Contacts")
+                                @Html.ActionLink(Localizer["Contact"], "Index", "Contacts")
                             </li>
                             <li>
-                                @Html.ActionLink(Resources.DancingGoat.Partnership, "Index", "Partnership")
+                                @Html.ActionLink(Localizer["Partnership"], "Index", "Partnership")
                             </li>
                         </ul>
                     </nav>
@@ -51,11 +51,15 @@
                         <nav role="navigation">
                             <ul class="dropdown-items-list dropdown-desktop-visible">
                                 <li>
-                                    @Html.ActionLink("English", "Index", "LanguageSelector", LanguageSwitchHelper.GetLangugageSwitchParameters(ViewContext.RouteData.Values, "en-us", Model as IDetailItem), null)
-                                </li>
+                                <!-- TODO: Create language controller
+                                    Html.ActionLink("English", "Index", "LanguageSelector", LanguageSwitchHelper.GetLangugageSwitchParameters(ViewContext.RouteData.Values, "en-us", Model as IDetailItem), null)
+                                -->
+                                    </li>
                                 <li>
-                                    @Html.ActionLink("Español", "Index", "LanguageSelector", LanguageSwitchHelper.GetLangugageSwitchParameters(ViewContext.RouteData.Values, "es-es", Model as IDetailItem), null)
-                                </li>
+                                    <!--
+                                        Html.ActionLink("Español", "Index", "LanguageSelector", LanguageSwitchHelper.GetLangugageSwitchParameters(ViewContext.RouteData.Values, "es-es", Model as IDetailItem), null)
+                                    -->
+                                    </li>
                             </ul>
                         </nav>
                     </div>
@@ -89,12 +93,12 @@
                             </p>
                         </div>
                         <div class="col-md-4 col-lg-4 footer-col">
-                            <h3>@Resources.DancingGoat.FollowUs_Title</h3>
+                            <h3>@Localizer["FollowUs.Title"]</h3>
                             <a class="followus-link" href="https://www.facebook.com/Dancing.Goat" target="_blank">
-                                <img alt="@Resources.DancingGoat.FollowUsOnFacebook" class="" src="~/Content/Images/facebook-icon.png" title="@Resources.DancingGoat.FollowUsOnFacebook">
+                                <img alt="@Localizer["FollowUsOnFacebook"]" class="" src="~/images/facebook-icon.png" title="@Localizer["FollowUsOnFacebook"]">
                             </a>
                             <a class="followus-link" href="https://twitter.com/DancingGoat78" target="_blank">
-                                <img alt="@Resources.DancingGoat.FollowUsOnTwitter" class="" src="~/Content/Images/twitter-icon.png" title="@Resources.DancingGoat.FollowUsOnTwitter">
+                                <img alt="@Localizer["FollowUsOnTwitter"]" class="" src="~/images/twitter-icon.png" title="@Localizer["FollowUsOnTwitter"]">
                             </a>
                         </div>
                     </div>

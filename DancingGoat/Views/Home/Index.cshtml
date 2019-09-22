@@ -1,12 +1,13 @@
 ﻿@model DancingGoat.Models.HomeViewModel
-
+@inject IConfiguration Configuration
 @{
     ViewBag.Title = Model.ContentItem.MetadataMetaTitle;
 }
-@section headers
-    {
+
+<section title="headers" id="head">
     @await Html.PartialAsync("HeadersMetadata", Model.ContentItem)
-}
+</section> 
+    
 
 @if(Model.Header != null)
 {
@@ -20,7 +21,7 @@
 }
 
 <div class="row">
-    <h1 class="title-tab">@Resources.DancingGoat.Articles_LatestOne</h1>
+    <h1 class="title-tab">@Localizer["Articles.LatestOne"]</h1>
     @{var isFirstArticle = true; }
     @foreach (DancingGoat.Models.Article article in @Model.ContentItem.Articles)
     {
@@ -29,11 +30,9 @@
             isFirstArticle = false;
             <div class="article-tile article-tile-large">
                 <div class="col-md-12 col-lg-6">
-                    <a href="@Url.Action("Show", "Articles", new { urlSlug = article.UrlPattern })">
-                        <img src="@article.TeaserImage.FirstOrDefault()" class="article-tile-image" sizes="@{new ResponsiveImageSizes(300)
-                                    .WithMediaCondition(new MediaCondition { MinWidth = 1120, ImageWidth = 540 })
-                                    .WithMediaCondition(new MediaCondition { MinWidth = 768, MaxWidth = 1120, ImageWidth = 736 })
-                                    .WithMediaCondition(new MediaCondition { MinWidth = 330, MaxWidth = 768, ImageWidth = 468 });}" >
+                    <a href="@Url.Action("Show", "Articles", new {urlSlug = article.UrlPattern})">
+                        @Html.AssetImage(Configuration,article.TeaserImage.FirstOrDefault(), cssClass: "article-tile-image"
+                            , sizes: new ResponsiveImageSizes(300).WithMediaCondition(new MediaCondition { MinWidth = 1120, ImageWidth = 540 }).WithMediaCondition(new MediaCondition { MinWidth = 768, MaxWidth = 1120, ImageWidth = 736 }).WithMediaCondition(new MediaCondition { MinWidth = 330, MaxWidth = 768, ImageWidth = 468 }))
                     </a>
                 </div>
                 <div class="col-md-12 col-lg-6">
@@ -58,7 +57,7 @@
     }
 </div>
 
-@await Html.PartialAsync("_MoreButtonPartial", new DancingGoat.Models.MoreButtonPartialViewModel { Text = Resources.DancingGoat.Articles_More, Url = Url.Action("Index", "Articles") })
+@await Html.PartialAsync("_MoreButtonPartial", new DancingGoat.Models.MoreButtonPartialViewModel { Text = Localizer["Articles.More"], Url = Url.Action("Index", "Articles") })
 
 @foreach (DancingGoat.Models.FactAboutUs factAboutUs in Model.ContentItem.OurStory)
 {
@@ -72,12 +71,12 @@
         </div>
     </div>
 
-    @await Html.PartialAsync("_MoreButtonPartial", new DancingGoat.Models.MoreButtonPartialViewModel { Text = Resources.DancingGoat.Story_WholeStory, Url = Url.Action("Index", "About") })
+    @await Html.PartialAsync("_MoreButtonPartial", new DancingGoat.Models.MoreButtonPartialViewModel { Text = Localizer["Story.WholeStory"], Url = Url.Action("Index", "About") })
 }
 
 <div class="row">
     <div>
-        <h1 class="title-tab">@Resources.DancingGoat.CompanyCafes_Title</h1>
+        <h1 class="title-tab">@Localizer["CompanyCafes.Title"]</h1>
     </div>
     @foreach (DancingGoat.Models.Cafe cafe in Model.ContentItem.Cafes)
     {
@@ -86,8 +85,8 @@
                 <a href="@Url.Action("Index", "Cafes")" class="ourcoffee-tile-link">
                     <h2 class="ourcoffee-tile-text center-text">@cafe.System.Name</h2>
                     <span class="cafe-overlay"> </span>
-                    <img src="@cafe.Photo.FirstOrDefault()" class="ourcoffee-tile-image", sizes="@{new ResponsiveImageSizes(270);}">
-</a>
+                    @Html.AssetImage(Configuration,cafe.Photo.FirstOrDefault(), cssClass: "ourcoffee-tile-image", sizes: new ResponsiveImageSizes(270))
+                </a>
 
 
 </div>
@@ -97,4 +96,4 @@
     }
 </div>
 
-@await Html.PartialAsync("_MoreButtonPartial", new DancingGoat.Models.MoreButtonPartialViewModel { Text = Resources.DancingGoat.Cafes_More, Url = Url.Action("Index", "Cafes") })
+@await Html.PartialAsync("_MoreButtonPartial", new DancingGoat.Models.MoreButtonPartialViewModel { Text = Localizer["Cafes.More"], Url = Url.Action("Index", "Cafes") })

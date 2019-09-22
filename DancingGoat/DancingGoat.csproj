@@ -9,7 +9,7 @@
   <ItemGroup>
     <PackageReference Include="KenticoCloud.ContentManagement.Helpers" Version="1.5.2" />
     <PackageReference Include="KenticoCloud.Delivery" Version="10.0.1" />
-    <PackageReference Include="KenticoCloud.Recommender.MVC" Version="5.1.4" />
+    <PackageReference Include="KenticoCloud.Recommender" Version="5.1.4" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
@@ -19,13 +19,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Views\" />
+    <Folder Include="Areas\Admin\Views\SelfConfig\" />
+    <Folder Include="Areas\Admin\Views\Shared\EditorTemplates\" />
     <Folder Include="Infrastructure\" />
-    <Folder Include="Resources\" />
-    <Folder Include="wwwroot\images\" />
+    <Folder Include="wwwroot\css\admin\" />
+    <Folder Include="wwwroot\images\Admin\" />
   </ItemGroup>
+
 
   <ItemGroup>
     <None Update="UrlRewrite.xml">

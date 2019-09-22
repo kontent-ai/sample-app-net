@@ -189,5 +189,29 @@ namespace DancingGoat.Areas.Admin
         public string[] ResponsiveWidths => _settings.ResponsiveWidths?.Split(',') ?? new string[]{};
 
         public bool ResponsiveImagesEnabled => ResponsiveWidths.Any();
+        public Guid? GetProjectId()
+        {
+            return ProjectId;
+        }
+
+        public string GetKenticoCloudUrl()
+        {
+            return KenticoCloudUrl;
+        }
+
+        public Guid? GetDefaultProjectId()
+        {
+            return DefaultProjectId;
+        }
+
+        public void SetProjectId(Guid projectId)
+        {
+            ProjectId = projectId;
+        }
+
+        public void SetSubscriptionExpiresAt(DateTime? subscriptionExpiresAt)
+        {
+            SubscriptionExpiresAt = subscriptionExpiresAt;
+        }
     }
 }
