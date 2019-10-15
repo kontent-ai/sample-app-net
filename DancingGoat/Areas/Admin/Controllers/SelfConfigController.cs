@@ -7,9 +7,7 @@ using System.Web.Routing;
 using DancingGoat.Helpers;
 using DancingGoat.Areas.Admin.Helpers;
 using DancingGoat.Areas.Admin.Models;
-
-using KenticoCloud.Delivery;
-using Newtonsoft.Json;
+using Kentico.Kontent.Delivery;
 
 namespace DancingGoat.Areas.Admin.Controllers
 {
@@ -19,11 +17,11 @@ namespace DancingGoat.Areas.Admin.Controllers
         protected const string CAPTION_DESERIALIZATION_ERROR = "API Response Deserialization Error";
 
         protected const string MESSAGE_SELECTED_PROJECT =
-                "You've configured your app with a project ID \"{0}\". You can edit its contents at https://app.kenticocloud.com/."
+                "You've configured your app with a project ID \"{0}\". You can edit its contents at https://app.kontent.ai/."
             ;
 
         protected const string MESSAGE_SHARED_PROJECT =
-            "You've configured your app to with a project ID of a shared Kentico Cloud project.";
+            "You've configured your app to with a project ID of a shared Kentico Kontent project.";
 
         protected const string MESSAGE_INVALID_PROJECT_GUID = "ProjectId is not valid GUID.";
 

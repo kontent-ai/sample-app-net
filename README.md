@@ -1,10 +1,10 @@
 # Kentico Cloud sample .NET MVC web application
-[![Build status](https://ci.appveyor.com/api/projects/status/3b9v2fl52v4aiptk/branch/master?svg=true)](https://ci.appveyor.com/project/kentico/cloud-sample-app-net/branch/master)
-[![Stack Overflow](https://img.shields.io/badge/Stack%20Overflow-ASK%20NOW-FE7A16.svg?logo=stackoverflow&logoColor=white)](https://stackoverflow.com/tags/kentico-cloud)
+[![Build status](https://ci.appveyor.com/api/projects/status/3b9v2fl52v4aiptk/branch/master?svg=true)](https://ci.appveyor.com/project/kentico/kontent-sample-app-net/branch/master)
+[![Stack Overflow](https://img.shields.io/badge/Stack%20Overflow-ASK%20NOW-FE7A16.svg?logo=stackoverflow&logoColor=white)](https://stackoverflow.com/tags/kentico-kontent)
 
-This is a sample website written in ASP.NET MVC 5 that uses the [Kentico Cloud Delivery .NET SDK](https://github.com/Kentico/delivery-sdk-net) to manage and retrieve content from Kentico Cloud. For a brief walkthrough, read [Running the .NET sample app](https://developer.kenticocloud.com/docs/running-net-sample-application) on our Developer Hub.
+This is a sample website written in ASP.NET MVC 5 that uses the [Kentico Cloud Delivery .NET SDK](https://github.com/Kentico/delivery-sdk-net) to manage and retrieve content from Kentico Cloud. For a brief walkthrough, read [Running the .NET sample app](https://docs.kontent.ai/tutorials/develop-apps/get-started/running-a-sample-application?tech=dotnet) on our Developer Hub.
 
-You can register your account for free at <https://app.kenticocloud.com>.
+You can register your account for free at <https://app.kontent.ai>.
 
 ## Application setup
 
@@ -70,21 +70,21 @@ For more information about the integrations with the Delivery API, see the follo
 
 ## Content administration
 
-1. Navigate to <https://app.kenticocloud.com> in your browser.
+1. Navigate to <https://app.kontent.ai> in your browser.
 1. Sign in with your credentials.
 1. Manage content in the content administration interface of your sample project.
 
-You can learn more about content editing with Kentico Cloud in our [Help Center](http://help.kenticocloud.com/).
+You can learn more about content editing with Kentico Cloud in our [Help Center](https://docs.kontent.ai/).
 
 ## Content delivery
 
 You can retrieve content either through the Kentico Cloud Delivery SDK or the Kentico Cloud Delivery API:
 
-* For published content, use `https://deliver.kenticocloud.com/PROJECT_ID/items`.
-* For unpublished content, use `https://preview-deliver.kenticocloud.com/PROJECT_ID/items`.
+* For published content, use `https://deliver.kontent.ai/PROJECT_ID/items`.
+* For unpublished content, use `https://preview-deliver.kontent.ai/PROJECT_ID/items`.
 
-For more details about Kentico Cloud APIs, see our [API reference](https://developer.kenticocloud.com/reference).
-For details on how the preview functionality works in this app, see the [wiki](https://github.com/Kentico/cloud-sample-app-net/wiki/Preview-URLs-explained).
+For more details about Kentico Cloud APIs, see our [API reference](https://docs.kontent.ai/reference/kentico-kontent-apis-overview).
+For details on how the preview functionality works in this app, see the [wiki](https://github.com/Kentico/kontent-sample-app-net/wiki/Preview-URLs-explained).
 
 ## Edit mode
 
@@ -106,11 +106,11 @@ Edit buttons will appear next to each piece of content on the page.
 
 ## Adjustable images
 
-The sample website uses adjustable images via the [image transformation](https://developer.kenticocloud.com/v1/reference#image-transformation) feature available in the Delivery API. The `srcset` attribute is automatically added to the `img` tag. The value of the attribute is then driven by the **ResponsiveWidths** web.config setting. You can always disable this behavior by deleting the setting from the `\DancingGoat\Web.config` file.
+The sample website uses adjustable images via the [image transformation](https://docs.kontent.ai/reference/image-transformation) feature available in the Delivery API. The `srcset` attribute is automatically added to the `img` tag. The value of the attribute is then driven by the **ResponsiveWidths** web.config setting. You can always disable this behavior by deleting the setting from the `\DancingGoat\Web.config` file.
 
 ## Troubleshooting
 
-Kentico Cloud evolves over time. If you connect your sample app to an older Kentico Cloud sample project, the app may not run correctly. You can always generate the latest version of the sample Dancing Goat content project at https://app.kenticocloud.com/sample-project-generator . Once generated, you can either paste the new project ID to web.config, or, you can navigate to your app's relative URL "/Admin/SelfConfig" and pick the new project.
+Kentico Cloud evolves over time. If you connect your sample app to an older Kentico Cloud sample project, the app may not run correctly. You can always generate the latest version of the sample Dancing Goat content project at https://app.kontent.ai/sample-project-generator . Once generated, you can either paste the new project ID to web.config, or, you can navigate to your app's relative URL "/Admin/SelfConfig" and pick the new project.
 
 ## Feedback & Contributing
 
@@ -121,6 +121,6 @@ We would like to express our thanks to the following people who contributed and 
 
 - [Steve Fenton](https://github.com/Steve-Fenton)
 
-Would you like to become a hero too? Pick an [issue](https://github.com/Kentico/cloud-sample-app-net/issues) and send us a pull request!
+Would you like to become a hero too? Pick an [issue](https://github.com/Kentico/kontent-sample-app-net/issues) and send us a pull request!
 
-![Analytics](https://kentico-ga-beacon.azurewebsites.net/api/UA-69014260-4/Kentico/cloud-sample-app-net?pixel)
+![Analytics](https://kentico-ga-beacon.azurewebsites.net/api/UA-69014260-4/Kentico/kontent-sample-app-net?pixel)

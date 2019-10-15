@@ -8,8 +8,8 @@ using DancingGoat.Models;
 using DancingGoat.Utils;
 
 using KenticoCloud.ContentManagement.Helpers.Models;
-using KenticoCloud.Delivery;
-using KenticoCloud.Delivery.ImageTransformation;
+using Kentico.Kontent.Delivery;
+using Kentico.Kontent.Delivery.ImageTransformation;
 
 namespace DancingGoat.Helpers.Extensions
 {
@@ -182,7 +182,7 @@ namespace DancingGoat.Helpers.Extensions
         }
 
         /// <summary>
-        /// Returns a navigation button linked to Kentico Cloud's item suitable for block elements.
+        /// Returns a navigation button linked to Kentico Kontent's item suitable for block elements.
         /// </summary>
         /// <param name="htmlHelper">HTML helper</param>
         /// <param name="language">Codename of language variant.</param>
@@ -206,7 +206,7 @@ namespace DancingGoat.Helpers.Extensions
         }
 
         /// <summary>
-        /// Returns a navigation button linked to Kentico Cloud's item suitable for inline elements.
+        /// Returns a navigation button linked to Kentico Kontent's item suitable for inline elements.
         /// </summary>
         /// <param name="htmlHelper">HTML helper</param>
         /// <param name="language">Codename of language variant.</param>

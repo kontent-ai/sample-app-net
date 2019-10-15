@@ -1,7 +1,6 @@
 ﻿using DancingGoat.Models;
-using KenticoCloud.Delivery;
-using KenticoCloud.Recommender;
-using KenticoCloud.Recommender.MVC;
+using Kentico.Kontent.Delivery;
+using Kentico.Kontent.Recommender;
 using System;
 using System.Configuration;
 using System.Linq;
@@ -47,7 +46,7 @@ namespace DancingGoat.Controllers
                     if (!string.IsNullOrWhiteSpace(recommendationApiKey))
                     {
                         /* Get recommendations from the Recommendation engine */
-                        var recommendationClient = new RecommendationClient(recommendationApiKey, 5);
+                        var recommendationClient = new Kentico.Kontent.Recommender.MVC.RecommendationClient(recommendationApiKey, 5);
                         var lastMonth = TimeSpan.FromDays(30).Milliseconds;
 
                         var recommendedArticles = await recommendationClient

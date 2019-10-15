@@ -1,4 +1,4 @@
-﻿using KenticoCloud.Delivery;
+﻿using Kentico.Kontent.Delivery;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -26,7 +26,7 @@ namespace DancingGoat.Controllers
         }
 
         /// <summary>
-        /// Dummy action; form information is being handed over to Kentico Cloud Engagement management service through JavaScript.
+        /// Dummy action.
         /// </summary>
         [HttpPost]
         public ActionResult FreeTaste()

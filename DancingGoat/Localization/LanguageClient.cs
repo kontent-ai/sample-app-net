@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using KenticoCloud.Delivery;
+using Kentico.Kontent.Delivery;
 using Newtonsoft.Json.Linq;
 
 namespace DancingGoat.Localization
@@ -65,7 +65,7 @@ namespace DancingGoat.Localization
             return _client.GetTypesJsonAsync(new [] {new LanguageParameter(_language).GetQueryStringParameter()}.Concat(parameters).ToArray());
         }
 
-        public Task<ContentType> GetTypeAsync(string codename)
+        public Task<DeliveryTypeResponse> GetTypeAsync(string codename)
         {
             return _client.GetTypeAsync(codename);
         }
@@ -80,7 +80,7 @@ namespace DancingGoat.Localization
             return _client.GetTypesAsync(new[] { new LanguageParameter(_language) }.Concat(parameters));
         }
 
-        public Task<ContentElement> GetContentElementAsync(string contentTypeCodename, string contentElementCodename)
+        public Task<DeliveryElementResponse> GetContentElementAsync(string contentTypeCodename, string contentElementCodename)
         {
 
             return _client.GetContentElementAsync(contentTypeCodename, contentElementCodename);
@@ -96,7 +96,7 @@ namespace DancingGoat.Localization
             return _client.GetTaxonomiesJsonAsync(parameters);
         }
 
-        public Task<TaxonomyGroup> GetTaxonomyAsync(string codename)
+        public Task<DeliveryTaxonomyResponse> GetTaxonomyAsync(string codename)
         {
             return _client.GetTaxonomyAsync(codename);
         }
@@ -124,6 +124,26 @@ namespace DancingGoat.Localization
         public Task<DeliveryItemResponse> GetItemAsync(string codename, params IQueryParameter[] parameters)
         {
             return _client.GetItemAsync(codename, new[] { new LanguageParameter(_language)}.Concat(parameters));
+        }
+
+        public IDeliveryItemsFeed GetItemsFeed(params IQueryParameter[] parameters)
+        {
+            return _client.GetItemsFeed(parameters);
+        }
+
+        public IDeliveryItemsFeed GetItemsFeed(IEnumerable<IQueryParameter> parameters)
+        {
+            return _client.GetItemsFeed(parameters);
+        }
+
+        public IDeliveryItemsFeed<T> GetItemsFeed<T>(params IQueryParameter[] parameters)
+        {
+            return _client.GetItemsFeed<T>(parameters);
+        }
+
+        public IDeliveryItemsFeed<T> GetItemsFeed<T>(IEnumerable<IQueryParameter> parameters)
+        {
+            return _client.GetItemsFeed<T>(parameters);
         }
     }
 }
