@@ -1,5 +1,5 @@
 ﻿using DancingGoat.Models;
-using KenticoCloud.Delivery;
+using Kentico.Kontent.Delivery;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;

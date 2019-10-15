@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using DancingGoat.Models;
-using KenticoCloud.Delivery;
+using Kentico.Kontent.Delivery;
 
 namespace DancingGoat.Controllers
 {

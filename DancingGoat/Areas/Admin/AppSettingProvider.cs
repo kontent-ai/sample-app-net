@@ -17,7 +17,7 @@ namespace DancingGoat.Areas.Admin
         private static Guid? _projectId;
         private static Guid? _defaultProjectId;
         private static string _previewApiKey;
-        private static string _kenticoCloudUrl;
+        private static string _kenticoKontentUrl;
 
         public static DateTime? SubscriptionExpiresAt
         {
@@ -145,13 +145,13 @@ namespace DancingGoat.Areas.Admin
             }
         }
 
-        public static string KenticoCloudUrl
+        public static string KenticoKontentUrl
         {
             get
             {
-                if (!string.IsNullOrEmpty(_kenticoCloudUrl))
+                if (!string.IsNullOrEmpty(_kenticoKontentUrl))
                 {
-                    return _kenticoCloudUrl;
+                    return _kenticoKontentUrl;
                 }
                 else
                 {
@@ -159,7 +159,7 @@ namespace DancingGoat.Areas.Admin
 
                     try
                     {
-                        url = ConfigurationManager.AppSettings["KenticoCloudUrl"];
+                        url = ConfigurationManager.AppSettings["KenticoKontentUrl"];
                     }
                     catch
                     {
@@ -168,13 +168,13 @@ namespace DancingGoat.Areas.Admin
 
                     if (!string.IsNullOrEmpty(url))
                     {
-                        _kenticoCloudUrl = url;
+                        _kenticoKontentUrl = url;
 
-                        return _kenticoCloudUrl;
+                        return _kenticoKontentUrl;
                     }
                     else
                     {
-                        return @"https://app.kenticocloud.com/";
+                        return @"https://app.kontent.ai";
                     }
                 }
             }

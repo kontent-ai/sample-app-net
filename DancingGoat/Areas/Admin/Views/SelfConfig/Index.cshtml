@@ -9,19 +9,19 @@
 <header>
     <div class="content">
         <h1>@ViewBag.Title</h1>
-        <p>For your sample app to work, you should have a Kentico Cloud project containing content. Your app should be then configured with its project ID. You can either get it by signing in using your Kentico Cloud credentials or by signing up for a trial. Later, it will be converted to a free plan.</p>
+        <p>For your sample app to work, you should have a Kentico Kontent project containing content. Your app should be then configured with its project ID. You can either get it by signing in using your Kentico Kontent credentials or by signing up for a trial. Later, it will be converted to a free plan.</p>
     </div>
 </header>
 @Html.Partial("_MessagesPartial")
 
 <script type="text/javascript">
-    function openKenticoCloud() {
+    function openKenticoKontent() {
         var w = 800;
         var h = 800;
         var left = (window.screen.width / 2) - ((w / 2) + 10);
         var top = (window.screen.height / 2) - ((h / 2) + 50);
 
-        window.open("@(AppSettingProvider.KenticoCloudUrl.TrimEnd('/'))/sample-site-configuration", "Kentico Cloud",
+        window.open("@(AppSettingProvider.KenticoKontentUrl.TrimEnd('/'))/sample-site-configuration", "Kentico Kontent",
             "status=no,height=" + w + ",width=" + h + ",resizable=yes,left="
             + left + ",top=" + top + ",screenX=" + left + ",screenY="
             + top + ",toolbar=no,menubar=no,location=no,directories=no");
@@ -30,7 +30,7 @@
     window.addEventListener("message", receiveMessage, false);
 
     function receiveMessage(event) {
-        if (event.origin.toLowerCase() !== "@(AppSettingProvider.KenticoCloudUrl.TrimEnd('/').ToLower())")
+        if (event.origin.toLowerCase() !== "@(AppSettingProvider.KenticoKontentUrl.TrimEnd('/').ToLower())")
             return;
 
         if (!event.data.projectGuid)
@@ -46,7 +46,7 @@
 <section>
     <h2>Get a Project ID</h2>
     <p>You may wish to either select from existing projects or create a new sample project. The app will be configured with its project ID.</p>
-    <input type="submit" class="button-secondary" onclick="openKenticoCloud()" value="Get Project ID from Kentico Cloud" />
+    <input type="submit" class="button-secondary" onclick="openKenticoKontent()" value="Get Project ID from Kentico Kontent" />
     @using (Html.BeginForm("UseSelected", "SelfConfig", FormMethod.Post, new { id = "set-configuration-from-kc" }))
     {
         @Html.HiddenFor(m => m.ProjectGuid, new { id = "project-guid-from-kc" })
