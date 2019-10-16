@@ -1,5 +1,5 @@
 # Kentico Cloud sample .NET MVC web application
-[![Build status](https://ci.appveyor.com/api/projects/status/3b9v2fl52v4aiptk/branch/master?svg=true)](https://ci.appveyor.com/project/kentico/kontent-sample-app-net/branch/master)
+[![Build status](https://ci.appveyor.com/api/projects/status/3b9v2fl52v4aiptk/branch/master?svg=true)](https://ci.appveyor.com/project/kentico/cloud-sample-app-net/branch/master)
 [![Stack Overflow](https://img.shields.io/badge/Stack%20Overflow-ASK%20NOW-FE7A16.svg?logo=stackoverflow&logoColor=white)](https://stackoverflow.com/tags/kentico-kontent)
 
 This is a sample website written in ASP.NET MVC 5 that uses the [Kentico Cloud Delivery .NET SDK](https://github.com/Kentico/delivery-sdk-net) to manage and retrieve content from Kentico Cloud. For a brief walkthrough, read [Running the .NET sample app](https://docs.kontent.ai/tutorials/develop-apps/get-started/running-a-sample-application?tech=dotnet) on our Developer Hub.
