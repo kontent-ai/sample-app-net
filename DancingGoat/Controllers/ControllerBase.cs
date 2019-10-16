@@ -2,7 +2,7 @@
 using DancingGoat.Infrastructure;
 using DancingGoat.Localization;
 using DancingGoat.Models;
-using KenticoCloud.Delivery;
+using Kentico.Kontent.Delivery;
 using System;
 using System.Globalization;
 using System.Web.Mvc;

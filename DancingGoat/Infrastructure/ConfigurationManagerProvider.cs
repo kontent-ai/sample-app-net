@@ -1,5 +1,5 @@
 ﻿using System.Configuration;
-using KenticoCloud.Delivery;
+using Kentico.Kontent.Delivery;
 using Microsoft.Extensions.Configuration;
 
 namespace DancingGoat.Infrastructure

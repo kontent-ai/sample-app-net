@@ -2,8 +2,7 @@
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using DancingGoat.Models;
-
-using KenticoCloud.Delivery;
+using Kentico.Kontent.Delivery;
 
 namespace DancingGoat.Controllers
 {

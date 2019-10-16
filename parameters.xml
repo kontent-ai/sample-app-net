@@ -1,10 +1,10 @@
 ﻿<parameters>
-  <parameter name="Application Path" description="Full site path where you would like to install the Kentico Cloud MVC Sample App (i.e., Default Web Site/KenticoCloudSampleMvc)" defaultValue="Default Web Site/KenticoCloudSampleMvc" tags="iisapp">
-    <parameterEntry type="ProviderPath" scope="iisapp" match="KenticoCloudSampleMvc" />
+  <parameter name="Application Path" description="Full site path where you would like to install the Kentico Kontent MVC Sample App (i.e., Default Web Site/KenticoKontentSampleMvc)" defaultValue="Default Web Site/KenticoKontentSampleMvc" tags="iisapp">
+    <parameterEntry type="ProviderPath" scope="iisapp" match="KenticoKontentSampleMvc" />
   </parameter>
   <parameter
   name="SetAclParameter1" description="Sets the ACL on the web.config"  defaultValue="{Application Path}/web.config" tags="Hidden">
-    <parameterEntry type="ProviderPath" scope="setAcl" match="KenticoCloudSampleMvc/web.config" />
+    <parameterEntry type="ProviderPath" scope="setAcl" match="KenticoKontentSampleMvc/web.config" />
   </parameter>
 </parameters>
 
