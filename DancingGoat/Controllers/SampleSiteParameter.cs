@@ -1,4 +1,4 @@
-using KenticoCloud.Delivery;
+using Kentico.Kontent.Delivery;
 
 namespace DancingGoat.Controllers
 {

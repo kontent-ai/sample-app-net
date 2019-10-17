@@ -4,8 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using DancingGoat.Controllers;
-using KenticoCloud.Delivery;
-using KenticoCloud.Delivery.InlineContentItems;
+using Kentico.Kontent.Delivery;
 using Newtonsoft.Json.Linq;
 
 namespace DancingGoat.Helpers
@@ -81,6 +80,26 @@ namespace DancingGoat.Helpers
             return _deliveryClient.GetItemsAsync<T>(p);
         }
 
+        public IDeliveryItemsFeed GetItemsFeed(params IQueryParameter[] parameters)
+        {
+            return _deliveryClient.GetItemsFeed();
+        }
+
+        public IDeliveryItemsFeed GetItemsFeed(IEnumerable<IQueryParameter> parameters)
+        {
+            return _deliveryClient.GetItemsFeed();
+        }
+
+        public IDeliveryItemsFeed<T> GetItemsFeed<T>(params IQueryParameter[] parameters)
+        {
+            return _deliveryClient.GetItemsFeed<T>();
+        }
+
+        public IDeliveryItemsFeed<T> GetItemsFeed<T>(IEnumerable<IQueryParameter> parameters)
+        {
+            return _deliveryClient.GetItemsFeed<T>();
+        }
+
         public Task<JObject> GetTypeJsonAsync(string codename)
         {
             var eq = new EqualsFilter("system.codename", codename).GetQueryStringParameter();
@@ -94,9 +113,9 @@ namespace DancingGoat.Helpers
             return _deliveryClient.GetTypesJsonAsync(p);
         }
 
-        public Task<ContentType> GetTypeAsync(string codename)
+        public Task<DeliveryTypeResponse> GetTypeAsync(string codename)
         {
-            return Task.FromResult(_deliveryClient.GetTypesAsync(_sampleQueryParameter).Result.Types.FirstOrDefault(x=>x.System.Codename == codename));
+            return _deliveryClient.GetTypeAsync(codename);
         }
 
         public Task<DeliveryTypeListingResponse> GetTypesAsync(params IQueryParameter[] parameters)
@@ -111,7 +130,7 @@ namespace DancingGoat.Helpers
             return _deliveryClient.GetTypesAsync(p);
         }
 
-        public Task<ContentElement> GetContentElementAsync(string contentTypeCodename, string contentElementCodename)
+        public Task<DeliveryElementResponse> GetContentElementAsync(string contentTypeCodename, string contentElementCodename)
         {
             return _deliveryClient.GetContentElementAsync(contentTypeCodename, contentElementCodename);
         }
@@ -128,10 +147,9 @@ namespace DancingGoat.Helpers
             return _deliveryClient.GetItemsJsonAsync(p);
         }
 
-        public async Task<TaxonomyGroup> GetTaxonomyAsync(string codename)
+        public async Task<DeliveryTaxonomyResponse> GetTaxonomyAsync(string codename)
         {
-            var taxonomies = await GetTaxonomiesAsync(_sampleQueryParameter);
-            return taxonomies.Taxonomies.FirstOrDefault(x => x.System.Codename == codename);
+            return await _deliveryClient.GetTaxonomyAsync(codename);
         }
 
         public Task<DeliveryTaxonomyListingResponse> GetTaxonomiesAsync(params IQueryParameter[] parameters)

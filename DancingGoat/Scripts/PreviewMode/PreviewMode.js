@@ -2,7 +2,7 @@
 const previewModeCookieName = 'IsPreviewMode';
 const previewApiKeyCookieName = 'PreviewApiKey';
 const enterPreviewApiKeyFirstMessage = 'Enter your Preview API key';
-const enterPreviewApiKeyNextMessage = 'Enter your Delivery Preview API key -- you can find it in Kentico Cloud under Project settings -> API keys';
+const enterPreviewApiKeyNextMessage = 'Enter your Delivery Preview API key -- you can find it in Kentico Kontent under Project settings -> API keys';
 const enterPreviewApiKeyPromptTitle = 'Preview API key';
 const requestPreviewKeyPromptSearchParam = 'promptPreviewKey';
 
@@ -84,7 +84,7 @@ function enterPreviewApiKey(isFirstTry , projectId) {
 
 function validatePreviewApiKey(previewApikey, projectId) {
     return new Promise(function(resolve, reject) {
-        const deliverRequestUrl = 'https://preview-deliver.kenticocloud.com/' + projectId + '/items/home';
+        const deliverRequestUrl = 'https://preview-deliver.kontent.ai/' + projectId + '/items/home';
         const xhr = new XMLHttpRequest();
         xhr.open('GET', deliverRequestUrl, true);
         xhr.setRequestHeader("authorization", `Bearer ${previewApikey}`);
