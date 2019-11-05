@@ -10,16 +10,16 @@ You can register your account for free at <https://app.kontent.ai>.
 
 You can run the app in two following ways:
 
-* By cloning the code and running it via Visual Studio 2013 or later
-* By deploying the app to a new Azure App Service instance in your Azure subscription.
+* Cloning the code and running it using an IDE, such as Visual Studio 2013 or later.
+* Deploying the app to a new Azure App Service instance in your Azure subscription.
 
-### Running via Visual Studio
+### Running in an IDE
 
 To run the app:
 1. Clone the app repository with your favorite GIT client
    1. For instance, you can use [Visual Studio](https://www.visualstudio.com/vs/), [Visual Studio Code](https://code.visualstudio.com/), [GitHub Desktop](https://desktop.github.com/), etc.
-   1. Alternatively, you can download the repo as a ZIP file, however, this will not adapt line endings in downloaded files to your platform (Windows, Unix).
-1. Open the solution in Visual Studio (using the _DancingGoat.sln_ file).
+   1. Alternatively, you can download the repo as a ZIP file, but this will not adapt the line endings in the downloaded files to your platform (Windows, Unix).
+1. Open the solution in your IDE (using the _DancingGoat.sln_ file).
 1. Run the app.
 
 ### Running in Azure
