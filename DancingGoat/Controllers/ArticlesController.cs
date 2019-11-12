@@ -5,7 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using KenticoCloud.Recommender.SDK;
+using KenticoCloud.Recommender.MVC;
+using KenticoCloud.Recommender;
 
 namespace DancingGoat.Controllers
 {
@@ -39,19 +40,16 @@ namespace DancingGoat.Controllers
                 try
                 {
                     var article = response.Items[0];
+                    var recommendationClient = new RecommendationClient("ew0KICAiYWxnIjogIkhTMjU2IiwNCiAgInR5cCI6ICJKV1QiDQp9.ew0KICAidWlkIjogImViZjQxN2VjLTYzN2QtMDBjMC1hZmNmLTJjYmJlMWMwODM5OCIsDQogICJwaWQiOiAiZWJmNDE3ZWMtNjM3ZC0wMGMwLWFmY2YtMmNiYmUxYzA4Mzk4IiwNCiAgImp0aSI6ICJRSzI3RHZLaENiNExad2Q3IiwNCiAgImF1ZCI6ICJrYy1yZWNvbW1lbmRlci1hcGktYmV0YS5rZW50aWNvY2xvdWQuY29tIg0KfQ.xM568KPKuiRjjyk-TlP3GV_igyAQbLi09ar385JxN3g", 10);
+                    var lastMonth = TimeSpan.FromDays(30).Milliseconds;
 
-                    var recommendationClient = new RecommendationClient("https://localhost:44342",
-                        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiJ1c3JfMHZPNHpxS2NiQ1dBdTdhMzM3ekxveiIsInBpZCI6IjNkN2MxMWU3LTEzNmItMDAzMS04OTljLTc5MTE5Zjg3MTdhMyIsImp0aSI6IklncFgzQlpINWVkWks0emsiLCJhdWQiOiJodHRwczovL2VuZ2FnZS1hcGkua2VudGljb2Nsb3VkLmNvbS8ifQ.YeDnsP7B8NGYn3dOSJGwu3x3o0QDjk6RinkWtGqiZ-o",
-                        2);
+                    var recommendedArticles = await recommendationClient
+                        .CreateRequest(Request, Response, codename: article.System.Codename, limit: 2, contentType:"article")
+                        //.WithFilterQuery("\"personas=Barista\" in 'properties'")
+                        .WithBoosterQuery($"if 'lastupdated' >= now() - {lastMonth} then 2 else 1")
+                        .Execute();
 
-                    var lastMonth = 24 * 60 * 60 * 30;
-
-                    var recommendedArticles = await recommendationClient.GetRecommendationsAsync(article.System.Codename, Request, Response, 
-                        filterQuery: "\"personas=Barista\" in 'properties'", 
-                        boosterQuery:$"if 'lastupdated' >= now() - {lastMonth} then 2 else 1", 
-                        limit: 2);
                     var articles = (await client.GetItemsAsync<Article>(new InFilter("system.codename", recommendedArticles.Select(a => a.Codename).ToArray()))).Items;
-
                     article.RelatedArticles = articles.Select(a => (object) a);
                     return View(article);
                 }
