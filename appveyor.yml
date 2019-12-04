@@ -3,6 +3,7 @@ image:
 - Visual Studio 2017
 # Required for kudu deployment (msbuild 14) to Azure
 - Visual Studio 2015
+- Visual Studio 2019
 before_build:
 - ps: nuget restore
 build:
