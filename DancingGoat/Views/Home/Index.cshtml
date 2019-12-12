@@ -6,10 +6,10 @@
 
 <section title="headers" id="head">
     @await Html.PartialAsync("HeadersMetadata", Model.ContentItem)
-</section> 
-    
+</section>
 
-@if(Model.Header != null)
+
+@if (Model.Header != null)
 {
     var image = Model.Header.Image.FirstOrDefault();
     <section class="banner-section" style="background-image: url('@(image != null ? image.Url : "")');">
@@ -31,7 +31,7 @@
             <div class="article-tile article-tile-large">
                 <div class="col-md-12 col-lg-6">
                     <a href="@Url.Action("Show", "Articles", new {urlSlug = article.UrlPattern})">
-                        @Html.AssetImage(Configuration,article.TeaserImage.FirstOrDefault(), cssClass: "article-tile-image"
+                        @Html.AssetImage(Configuration, article.TeaserImage.FirstOrDefault(), cssClass: "article-tile-image"
                             , sizes: new ResponsiveImageSizes(300).WithMediaCondition(new MediaCondition { MinWidth = 1120, ImageWidth = 540 }).WithMediaCondition(new MediaCondition { MinWidth = 768, MaxWidth = 1120, ImageWidth = 736 }).WithMediaCondition(new MediaCondition { MinWidth = 330, MaxWidth = 768, ImageWidth = 468 }))
                     </a>
                 </div>
@@ -85,14 +85,14 @@
                 <a href="@Url.Action("Index", "Cafes")" class="ourcoffee-tile-link">
                     <h2 class="ourcoffee-tile-text center-text">@cafe.System.Name</h2>
                     <span class="cafe-overlay"> </span>
-                    @Html.AssetImage(Configuration,cafe.Photo.FirstOrDefault(), cssClass: "ourcoffee-tile-image", sizes: new ResponsiveImageSizes(270))
+                    @Html.AssetImage(Configuration, cafe.Photo.FirstOrDefault(), cssClass: "ourcoffee-tile-image", sizes: new ResponsiveImageSizes(270))
                 </a>
 
 
-</div>
+            </div>
 
 
-</div>
+        </div>
     }
 </div>
 
