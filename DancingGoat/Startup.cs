@@ -64,7 +64,7 @@ namespace DancingGoat
             });
             services.AddTransient<IDeliveryClientFactory, DeliveryClientFactory>();
             services.AddScoped<ISelfConfigManager, SelfConfigManager>();
-            services.AddMvc().AddMvcLocalization();//.AddControllersWithViews();
+            services.AddControllersWithViews();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
