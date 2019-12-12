@@ -5,12 +5,13 @@ using DancingGoat.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Kentico.Kontent.Delivery;
+using DancingGoat.Localization;
 
 namespace DancingGoat.Controllers
 {
     public class CafesController : ControllerBase
     {
-        public CafesController(IOptionsSnapshot<DeliveryOptions> deliveryOptions, IAppSettingProvider settingProvider, IDeliveryClient client) : base(deliveryOptions, settingProvider, client)
+        public CafesController(IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
         {
         }
         public async Task<ActionResult> Index()

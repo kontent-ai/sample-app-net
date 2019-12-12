@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Kentico.Kontent.Delivery;
 using Kentico.Kontent.Recommender;
+using DancingGoat.Localization;
 
 namespace DancingGoat.Controllers
 {
@@ -15,7 +16,7 @@ namespace DancingGoat.Controllers
     {
         private readonly IConfiguration _configuration;
 
-        public ArticlesController(IOptionsSnapshot<DeliveryOptions> deliveryOptions, IAppSettingProvider settingProvider, IConfiguration configuration, IDeliveryClient client) : base(deliveryOptions, settingProvider, client)
+        public ArticlesController(IConfiguration configuration, IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
         {
             _configuration = configuration;
         }

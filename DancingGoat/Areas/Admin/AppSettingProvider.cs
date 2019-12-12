@@ -83,7 +83,7 @@ namespace DancingGoat.Areas.Admin
                 }
                 else
                 {
-                    if (Guid.TryParse(_configuration.GetSection("AppConfiguration").GetValue<string>("ProjectId"), out var projectId))
+                    if (Guid.TryParse(_configuration.GetSection("DeliveryOptions").GetValue<string>("ProjectId"), out var projectId))
                     {
                         _projectId = projectId;
 
@@ -103,7 +103,7 @@ namespace DancingGoat.Areas.Admin
                     _settings.ProjectId = value.Value.ToString();
                 }
 
-                _configuration["AppConfiguration:ProjectId"] = value.Value.ToString();
+                _configuration["DeliveryOptions:ProjectId"] = value.Value.ToString();
                 _projectId = value;
             }
         }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using DancingGoat.Areas.Admin.Abstractions;
+using DancingGoat.Localization;
 using DancingGoat.Models;
 using Kentico.Kontent.Delivery;
 using Kentico.Kontent.Management.Helpers.Models;
@@ -11,7 +12,7 @@ namespace DancingGoat.Controllers
 {
     public class AboutController : ControllerBase
     {
-        public AboutController(IOptionsSnapshot<DeliveryOptions> deliveryOptions, IAppSettingProvider settingProvider, IDeliveryClient client) : base(deliveryOptions, settingProvider, client)
+        public AboutController(IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
         {
         }
 
