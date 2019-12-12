@@ -31,9 +31,10 @@
     @await Html.PartialAsync("_FreeSampleFormPartial")
 }
 
-
+@section Scripts
+{
     <script type="text/javascript">
-        $(function () {
+        $(function() {
             $("#getfreetaste").validate({
                 rules: {
                     email: "email",
@@ -42,3 +43,4 @@
             });
         });
     </script>
+}
