@@ -39,7 +39,7 @@ namespace DancingGoat.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View(new IndexViewModel());
+            return View("~/Areas/Admin/Views/SelfConfig/Index.cshtml", new IndexViewModel());
         }
 
         [HttpGet]
