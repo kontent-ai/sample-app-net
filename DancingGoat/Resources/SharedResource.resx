@@ -339,7 +339,7 @@
   <data name="Address.Line2" xml:space="preserve">
     <value>Address line 2</value>
   </data>
-  <data name="Address_Zip" xml:space="preserve">
+  <data name="Address.Zip" xml:space="preserve">
     <value>Postal code</value>
   </data>
   <data name="Checkout.BillingAddress" xml:space="preserve">
