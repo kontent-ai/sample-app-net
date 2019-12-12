@@ -1,12 +1,14 @@
 ﻿using DancingGoat.Models;
 using DancingGoat.Areas.Admin.Abstractions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 using Kentico.Kontent.Delivery;
+using DancingGoat.Infrastructure;
+using DancingGoat.Areas.Admin;
+using Microsoft.Extensions.Options;
 
 namespace DancingGoat.Controllers
 {
-    // TODO: Is this a service or what????
+    [TypeFilter(typeof(SelfConfigActionFilterAttribute))]
     public class ControllerBase : Controller
     {
         private readonly DeliveryOptions _deliveryOptions;

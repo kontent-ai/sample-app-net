@@ -1,5 +1,6 @@
 ﻿using System;
 using DancingGoat.Areas.Admin;
+using DancingGoat.Areas.Admin.Abstractions;
 using DancingGoat.Areas.Admin.Models;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -10,9 +11,9 @@ namespace DancingGoat.Infrastructure
     {
         private readonly AppSettingProvider _settingProvider;
 
-        public SelfConfigActionFilterAttribute(AppSettingProvider settingProvider)
+        public SelfConfigActionFilterAttribute(IAppSettingProvider settingProvider)
         {
-            _settingProvider = settingProvider;
+            _settingProvider = settingProvider as AppSettingProvider;
         }
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
