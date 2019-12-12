@@ -36,7 +36,7 @@ namespace DancingGoat.Helpers.Extensions
         {
             if (asset == null)
             {
-                return new StringHtmlContent(string.Empty);
+                return new HtmlString(string.Empty);
             }
             
             var imageUrlBuilder = new ImageUrlBuilder(asset.Url);
@@ -91,7 +91,7 @@ namespace DancingGoat.Helpers.Extensions
         {
             if (image == null)
             {
-                return new StringHtmlContent(string.Empty);
+                return new HtmlString(string.Empty);
             }
 
             var imageTag = new TagBuilder("img");
@@ -178,7 +178,7 @@ namespace DancingGoat.Helpers.Extensions
     <i aria-hidden=""true"" class=""edit-link__button-icon edit-link__button-icon--inline""></i>
 </a>";
 
-            return new StringHtmlContent(generatedHtml);
+            return new HtmlString(generatedHtml);
         }
 
         /// <summary>
@@ -239,7 +239,7 @@ namespace DancingGoat.Helpers.Extensions
     <div class=""message-validation"">{message}</div>
 </div>";
 
-            return new StringHtmlContent(generatedHtml);
+            return new HtmlString(generatedHtml);
         }
 
 
