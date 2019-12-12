@@ -7,12 +7,13 @@ using DancingGoat.Areas.Admin.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;
+using DancingGoat.Localization;
 
 namespace DancingGoat.Controllers
 {
     public class CoffeesController : ControllerBase
     {
-        public CoffeesController(IOptionsSnapshot<DeliveryOptions> deliveryOptions, IAppSettingProvider settingProvider, IDeliveryClient client) : base(deliveryOptions, settingProvider, client)
+        public CoffeesController(IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
         {
         }
         public async Task<ActionResult> Index()

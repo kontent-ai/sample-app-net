@@ -4,12 +4,13 @@ using System.Threading.Tasks;
 using DancingGoat.Areas.Admin.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using DancingGoat.Localization;
 
 namespace DancingGoat.Controllers
 {
     public class ProductController : ControllerBase
     {
-        public ProductController(IOptionsSnapshot<DeliveryOptions> deliveryOptions, IAppSettingProvider settingProvider, IDeliveryClient client) : base(deliveryOptions, settingProvider, client)
+        public ProductController(IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
         {
         }
 

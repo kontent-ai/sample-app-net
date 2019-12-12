@@ -6,16 +6,17 @@ using DancingGoat.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Kentico.Kontent.Delivery;
+using DancingGoat.Localization;
 
 namespace DancingGoat.Controllers
 {
     public class LanguageSelectorController : ControllerBase
     {
-        public LanguageSelectorController(IOptionsSnapshot<DeliveryOptions> deliveryOptions, IAppSettingProvider settingProvider, IDeliveryClient deliveryClient) 
-            : base(deliveryOptions, settingProvider, deliveryClient)
+        public LanguageSelectorController(IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
         {
 
         }
+
         public async Task<ActionResult> Index(Guid id, string originalAction, string type, string originalController)
         {
             // Specific item is not selected, url will not be changed after redirect

@@ -1,4 +1,5 @@
-﻿using Kentico.Kontent.Management.Helpers;
+﻿using Kentico.Kontent.Delivery;
+using Kentico.Kontent.Management.Helpers;
 using Kentico.Kontent.Management.Helpers.Configuration;
 using Microsoft.Extensions.Configuration;
 
@@ -16,7 +17,7 @@ namespace DancingGoat.Helpers
         private EditLinkHelper(IConfiguration configuration)
         {
             this.configuration = configuration;
-            var projectId = configuration.GetSection("AppConfiguration")["ProjectId"].ToString() ?? configuration.GetSection("AppConfiguration")["DefaultProjectId"].ToString();
+            var projectId = configuration.GetSection(nameof(DeliveryOptions))[nameof(DeliveryOptions.ProjectId)].ToString() ?? configuration.GetSection("AppConfiguration")["DefaultProjectId"].ToString();
             var linkBuilderOptions = new ManagementHelpersOptions() { ProjectId = projectId };
             Builder = new EditLinkBuilder(linkBuilderOptions);
         }

@@ -3,6 +3,7 @@ using System.IO;
 using DancingGoat.Areas.Admin;
 using DancingGoat.Areas.Admin.Abstractions;
 using DancingGoat.Areas.Admin.Infrastructure;
+using DancingGoat.Localization;
 using DancingGoat.Models;
 using Kentico.Kontent.Delivery;
 using Microsoft.AspNetCore.Builder;
@@ -22,7 +23,7 @@ namespace DancingGoat
             var builder = new ConfigurationBuilder()
                 .SetBasePath(environment.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{environment.EnvironmentName}.json", optional: true, reloadOnChange:true)
+                .AddJsonFile($"appsettings.{environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
@@ -35,7 +36,7 @@ namespace DancingGoat
             services.AddOptions();
             // ConfigurationManagerProvider is here now
             services.Configure<AppSettings>(Configuration.GetSection("AppConfiguration"));
-            services.Configure<DeliveryOptions>(options => options = new DeliveryOptions());
+            services.Configure<DeliveryOptions>(Configuration.GetSection(nameof(DeliveryOptions)));
             services.AddScoped<IAppSettingProvider, AppSettingProvider>();
 
             services.AddLocalization(options => options.ResourcesPath = "Resources");
@@ -60,8 +61,8 @@ namespace DancingGoat
 
                 options.SupportedUICultures = supportedCultures;
             });
-            services.AddDeliveryClient(new DeliveryOptions());
-            services.AddScoped<ISelfConfigManager,SelfConfigManager>();
+            services.AddTransient<IDeliveryClientFactory, DeliveryClientFactory>();
+            services.AddScoped<ISelfConfigManager, SelfConfigManager>();
             services.AddRouting();
             services.AddMvc();
         }
@@ -79,7 +80,7 @@ namespace DancingGoat
             }
 
             // see if we need an extension method or not for this
-            using(var urlRewriteStreamReader = File.OpenText("UrlRewrite.xml"))
+            using (var urlRewriteStreamReader = File.OpenText("UrlRewrite.xml"))
             {
                 var options = new RewriteOptions().AddIISUrlRewrite(urlRewriteStreamReader);
                 app.UseRewriter(options);
@@ -102,7 +103,7 @@ namespace DancingGoat
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseMvc(routes=>
+            app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",

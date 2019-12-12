@@ -3,12 +3,14 @@ using System.Linq;
 using DancingGoat.Models;
 using Microsoft.Extensions.Options;
 using DancingGoat.Areas.Admin.Abstractions;
+using Microsoft.Extensions.Configuration;
 
 namespace DancingGoat.Areas.Admin
 {
     public class AppSettingProvider : IAppSettingProvider
     {
         private readonly AppSettings _settings;
+        private readonly IConfiguration _configuration;
 
 
         private DateTime? _subscriptionExpiresAt;
@@ -18,9 +20,10 @@ namespace DancingGoat.Areas.Admin
         private string _kenticoKontentUrl;
 
         // Using IOptionsSnapshot to get the reloaded configuration on change
-        public AppSettingProvider(IOptionsSnapshot<AppSettings> options)
+        public AppSettingProvider(IOptionsSnapshot<AppSettings> options, IConfiguration configuration)
         {
             _settings = options.Value;
+            _configuration = configuration;
         }
 
         public DateTime? SubscriptionExpiresAt
@@ -80,7 +83,7 @@ namespace DancingGoat.Areas.Admin
                 }
                 else
                 {
-                    if (Guid.TryParse(_settings.ProjectId, out var projectId))
+                    if (Guid.TryParse(_configuration.GetSection("DeliveryOptions").GetValue<string>("ProjectId"), out var projectId))
                     {
                         _projectId = projectId;
 
@@ -100,18 +103,7 @@ namespace DancingGoat.Areas.Admin
                     _settings.ProjectId = value.Value.ToString();
                 }
 
-                // Creating new settings cannot be done through the indexer, hence .Add().
-                /*if (ConfigurationManager.AppSettings.AllKeys.Contains(PROJECT_ID_KEY_NAME))
-                {
-                    _configuration.AppSettings.Settings[PROJECT_ID_KEY_NAME].Value = value.ToString();
-                }
-                else
-                {
-                    _configuration.AppSettings.Settings.Add(PROJECT_ID_KEY_NAME, value.ToString());
-                }
-
-                _configuration.Save();
-                */
+                _configuration["DeliveryOptions:ProjectId"] = value.Value.ToString();
                 _projectId = value;
             }
         }
@@ -170,8 +162,8 @@ namespace DancingGoat.Areas.Admin
 
                     try
                     {
-                        // TODO: No empty strings!
-                        url = Guid.Empty.ToString(); //ConfigurationManager.AppSettings["KenticoKontentUrl"];
+                        // TODO: Get from app settings
+                        url = "https://app.kontent.ai/";
                     }
                     catch
                     {

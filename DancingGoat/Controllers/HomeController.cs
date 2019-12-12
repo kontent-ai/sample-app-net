@@ -5,13 +5,13 @@ using DancingGoat.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Kentico.Kontent.Delivery;
+using DancingGoat.Localization;
 
 namespace DancingGoat.Controllers
 {
     public class HomeController : ControllerBase
     {
-        public HomeController(IOptionsSnapshot<DeliveryOptions> deliveryOptions, IAppSettingProvider settingProvider, IDeliveryClient client) 
-            : base(deliveryOptions, settingProvider, client)
+        public HomeController(IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
         {
         }
 
@@ -26,15 +26,6 @@ namespace DancingGoat.Controllers
             };
 
             return View(viewModel);
-        }
-
-        // TODO: See how to use the ChildActionOnly filter
-        public ActionResult CompanyAddress()
-        {
-            var contact = Task.Run(() => _client.GetItemAsync<Home>("home", new ElementsParameter("contact")))
-                .GetAwaiter().GetResult().Item.Contact;
-
-            return PartialView("CompanyAddress", contact);
         }
     }
 }
