@@ -16,7 +16,7 @@ namespace DancingGoat.Controllers
         public ControllerBase(IOptionsSnapshot<DeliveryOptions> deliveryOptions
             , IAppSettingProvider settingProvider, IDeliveryClient deliveryClient)
         {
-            // TODO: Add localization, see https://github.com/Kentico/cloud-sample-app-net/blob/ae6cb700d1d8d08b6e8141403c6198a796c9c2bc/DancingGoat/Controllers/ControllerBase.cs#L20-L28
+            // TODO: Add localization, see https://github.com/Kentico/kontent-sample-app-net/blob/ae6cb700d1d8d08b6e8141403c6198a796c9c2bc/DancingGoat/Controllers/ControllerBase.cs#L20-L28
             _deliveryOptions = deliveryOptions.Value;
             _settingProvider = settingProvider;
             _client = deliveryClient = this.CreateDeliveryClient();

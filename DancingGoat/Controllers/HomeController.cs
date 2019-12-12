@@ -27,14 +27,5 @@ namespace DancingGoat.Controllers
 
             return View(viewModel);
         }
-
-        // TODO: See how to use the ChildActionOnly filter
-        public ActionResult CompanyAddress()
-        {
-            var contact = Task.Run(() => _client.GetItemAsync<Home>("home", new ElementsParameter("contact")))
-                .GetAwaiter().GetResult().Item.Contact;
-
-            return PartialView("CompanyAddress", contact);
-        }
     }
 }
