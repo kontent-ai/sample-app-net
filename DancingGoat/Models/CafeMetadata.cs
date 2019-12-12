@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace DancingGoat.Models
 {
-    [MetadataType(typeof(CafeMetadata))]
+    [ModelMetadataType(typeof(CafeMetadata))]
     public partial class Cafe
     {
     }

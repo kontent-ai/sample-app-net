@@ -1,0 +1,12 @@
+﻿<rewrite>
+  <rules>
+    <rule name="HTTPS Redirect in Azure">
+      <match url="(.+)" />
+      <conditions>
+        <add input="{HTTPS}" pattern="^OFF$" />
+        <add input="{HTTP_HOST}" pattern="^(.+)\.azurewebsites.net(.*)$" />
+      </conditions>
+      <action type="Redirect" url="https://{HTTP_HOST}/{R:1}" appendQueryString="true" redirectType="SeeOther" />
+    </rule>
+  </rules>
+</rewrite>

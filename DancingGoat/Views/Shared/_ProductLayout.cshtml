@@ -1,12 +1,12 @@
 ﻿@using Kentico.Kontent.Delivery
 @model DancingGoat.Models.IProduct
+@inject IConfiguration Configuration
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = Model.ProductProductName;
 }
-@section headers
-{
-    @Html.Partial("HeadersMetadata", Model)
+<section title="headers" id="head"></section>
+    @await Html.PartialAsync("HeadersMetadata", Model)
 }
 
 <article class="product-detail">
@@ -20,7 +20,7 @@
     <div class="row-fluid">
         <div class="col-lg-7 col-md-6">
             <figure class="image">
-                @Html.AssetImage(Model.ProductImage.FirstOrDefault())
+                @Html.AssetImage(Configuration, Model.ProductImage.FirstOrDefault())
             </figure>
             <div class="description">
                 @Html.Raw(string.Join("\n", Model.ProductShortDescription?.Blocks ?? (Model.ProductLongDescription?.Blocks ?? Enumerable.Empty<IRichTextBlock>())))

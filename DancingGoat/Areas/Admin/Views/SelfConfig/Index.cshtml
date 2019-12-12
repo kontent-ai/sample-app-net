@@ -1,18 +1,19 @@
 ﻿@using DancingGoat.Areas.Admin
+@using DancingGoat.Areas.Admin.Abstractions
 @using DancingGoat.Helpers.Extensions
 @model DancingGoat.Areas.Admin.Models.IndexViewModel
 
 @{
     ViewBag.Title = "Sample Site—Configuration";
 }
-
+@inject IAppSettingProvider AppSetting;
 <header>
     <div class="content">
         <h1>@ViewBag.Title</h1>
         <p>For your sample app to work, you should have a Kentico Kontent project containing content. Your app should be then configured with its project ID. You can either get it by signing in using your Kentico Kontent credentials or by signing up for a trial. Later, it will be converted to a free plan.</p>
     </div>
 </header>
-@Html.Partial("_MessagesPartial")
+@{ await Html.RenderPartialAsync("_MessagesPartial");}
 
 <script type="text/javascript">
     function openKenticoKontent() {
@@ -69,7 +70,7 @@
     </section>
     <section class="section-secondary">
         <h2>Use the Shared Project</h2>
-        <p>Alternatively, you may wish to use the shared project (project ID "@(AppSettingProvider.DefaultProjectId.Value)").</p>
+        <p>Alternatively, you may wish to use the shared project (project ID "@(AppSetting.GetDefaultProjectId().Value)").</p>
         <p><strong>Note:</strong> You cannot edit content in the shared project.</p>
         @using (Html.BeginForm("UseShared", "SelfConfig"))
         {

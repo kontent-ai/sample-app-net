@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Web.Mvc;
 using System.Net.Http;
-
+using System.Threading.Tasks;
 using DancingGoat.Models;
-
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 
 namespace DancingGoat.Controllers
@@ -13,7 +13,8 @@ namespace DancingGoat.Controllers
     {
         private static readonly HttpClient Client = new HttpClient { Timeout = TimeSpan.FromSeconds(30) };
 
-        [ChildActionOnly]
+        // TODO: Investigate the usage of filters in asp.net core
+        // [ChildActionOnly]
         public ActionResult Tweet(Tweet item)
         {
             var selectedTheme = item.Theme.FirstOrDefault()?.Name?.ToLower() ?? "light";

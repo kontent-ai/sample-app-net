@@ -1,25 +1,25 @@
 ﻿@{
-    ViewBag.Title = Resources.DancingGoat.NotFound_Title;
+    ViewBag.Title = Localizer["NotFound.Title"];
 }
 
 <div class="row">
     <div class="not-found">
         <div class="col-md-5 col-lg-4 col-lg-offset-1 sm-hidden xs-hidden">
-            <img class="img-responsive" alt="Page not found" src="@Url.Content("~/Content/Images/404.jpg")">
+            <img class="img-responsive" alt="Page not found" src="@Url.Content("images/404.jpg")">
         </div>
         <div class="col-md-7 col-lg-6">
             <div class="not-found-content">
                 <h2 class="">
-                    @Resources.DancingGoat.NotFound_Title
+                    @Localizer["NotFound.Title"]
                 </h2>
-                <p>@Resources.DancingGoat.NotFound_Message</p>
+                <p>@Localizer["NotFound.Message"]</p>
                 <p>
-                    @Html.Raw(string.Format(Resources.DancingGoat.NotFound_Instructions,
-                      Html.ActionLink(Resources.DancingGoat.NotFound_Homepage, "Index", "Home"),
-                      Html.ActionLink(Resources.DancingGoat.NotFound_ContactUs, "Index", "Contacts")))
+                    @Html.Raw(string.Format(Localizer["NotFound.Instructions"],
+                      Html.ActionLink(Localizer["NotFound.Homepage"], "Index", "Home"),
+                      Html.ActionLink(Localizer["NotFound.ContactUs"], "Index", "Contacts")))
                 </p>
                 <a href="@Url.Action("Index", "Home")" class="btn">
-                    @Resources.DancingGoat.NotFound_GoHome
+                    @Localizer["NotFound.GoHome"]
                 </a>
             </div>
         </div>

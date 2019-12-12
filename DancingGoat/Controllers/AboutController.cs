@@ -1,18 +1,26 @@
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using System.Web.Mvc;
-
+using DancingGoat.Areas.Admin;
+using DancingGoat.Areas.Admin.Abstractions;
 using DancingGoat.Models;
 using Kentico.Kontent.Delivery;
-using KenticoCloud.ContentManagement.Helpers.Models;
+using Kentico.Kontent.Management.Helpers.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace DancingGoat.Controllers
 {
     public class AboutController : ControllerBase
     {
+        public AboutController(IOptionsSnapshot<DeliveryOptions> deliveryOptions, IAppSettingProvider settingProvider, IDeliveryClient client) : base(deliveryOptions, settingProvider, client)
+        {
+        }
+
         public async Task<ActionResult> Index()
         {
-            var response = await client.GetItemAsync<AboutUs>("about_us");
+            var response = await _client.GetItemAsync<AboutUs>("about_us");
 
             var viewModel = new AboutUsViewModel
             {

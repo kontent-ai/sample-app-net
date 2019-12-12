@@ -1,4 +1,11 @@
-﻿using DancingGoat.Models;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using DancingGoat.Areas.Admin.Abstractions;
+using DancingGoat.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Kentico.Kontent.Delivery;
 using Kentico.Kontent.Recommender;
 using System;
@@ -12,9 +19,16 @@ namespace DancingGoat.Controllers
 {
     public class ArticlesController : ControllerBase
     {
+        private readonly IConfiguration _configuration;
+
+        public ArticlesController(IOptionsSnapshot<DeliveryOptions> deliveryOptions, IAppSettingProvider settingProvider, IConfiguration configuration, IDeliveryClient client) : base(deliveryOptions, settingProvider, client)
+        {
+            _configuration = configuration;
+        }
+
         public async Task<ActionResult> Index()
         {
-            var response = await client.GetItemsAsync<Article>(
+            var response = await _client.GetItemsAsync<Article>(
                 new EqualsFilter("system.type", "article"),
                 new OrderParameter("elements.post_date", SortOrder.Descending),
                 new ElementsParameter("teaser_image", "post_date", "summary", "url_pattern", "title")
@@ -25,7 +39,7 @@ namespace DancingGoat.Controllers
 
         public async Task<ActionResult> Show(string urlSlug)
         {
-            var response = await client.GetItemsAsync<Article>(
+            var response = await _client.GetItemsAsync<Article>(
                 new EqualsFilter("elements.url_pattern", urlSlug),
                 new EqualsFilter("system.type", "article"),
                 new DepthParameter(1)
@@ -33,14 +47,14 @@ namespace DancingGoat.Controllers
 
             if (response.Items.Count == 0)
             {
-                throw new HttpException(404, "Not found");
+                return NotFound();
             }
             else
             {
                 try
                 {
                     var article = response.Items[0];
-                    var recommendationApiKey = ConfigurationManager.AppSettings["RecommendationApiKey"];
+                    var recommendationApiKey = _configuration.GetValue<string>("RecommendationApiKey");
 
                     // If the recommender API key is present
                     if (!string.IsNullOrWhiteSpace(recommendationApiKey))
@@ -55,7 +69,7 @@ namespace DancingGoat.Controllers
                             //.WithBoosterQuery($"if 'lastupdated' >= now() - {lastMonth} then 2 else 1")
                             .Execute();
 
-                        var articles = (await client.GetItemsAsync<Article>(new InFilter("system.codename", recommendedArticles.Select(a => a.Codename).ToArray()))).Items;
+                        var articles = (await _client.GetItemsAsync<Article>(new InFilter("system.codename", recommendedArticles.Select(a => a.Codename).ToArray()))).Items;
                         article.RelatedArticles = articles.Select(a => (object)a);
                         return View(article);
                     }
@@ -70,5 +84,7 @@ namespace DancingGoat.Controllers
                 }
             }
         }
+
+        
     }
 }

@@ -1,19 +1,19 @@
 ﻿@model dynamic
 
 @{
-    ViewBag.Title = Resources.DancingGoat.Partnership;
+    ViewBag.Title = Localizer["Partnership"];
 }
 
 <div class="row">
     <div class="col-md-6">
         <div class="partnership-info partnership-info-left">
 
-            <h3>@Resources.DancingGoat.Partnership_LeftInfoTitle</h3>
+            <h3>@Localizer["Partnership.LeftInfoTitle"]</h3>
 
             <ul>
-                <li>@Resources.DancingGoat.Partnership_LeftInfoItem1</li>
-                <li>@Resources.DancingGoat.Partnership_LeftInfoItem2</li>
-                <li>@Resources.DancingGoat.Partnership_LeftInfoItem3</li>
+                <li>@Localizer["Partnership.LeftInfoItem1"]</li>
+                <li>@Localizer["Partnership.LeftInfoItem2"]</li>
+                <li>@Localizer["Partnership.LeftInfoItem3"]</li>
             </ul>
 
         </div>
@@ -21,15 +21,15 @@
     <div class="col-md-6">
         <div class="partnership-info partnership-info-right">
 
-            <h3>@Resources.DancingGoat.Partnership_RightInfoTitle</h3>
+            <h3>@Localizer["Partnership.RightInfoTitle"]</h3>
 
             <ul>
-                <li>@Resources.DancingGoat.Partnership_RightInfoItem1</li>
-                <li>@Resources.DancingGoat.Partnership_RightInfoItem2</li>
-                <li>@Resources.DancingGoat.Partnership_RightInfoItem3</li>
-                <li>@Resources.DancingGoat.Partnership_RightInfoItem4</li>
-                <li>@Resources.DancingGoat.Partnership_RightInfoItem5</li>
-                <li>@Resources.DancingGoat.Partnership_RightInfoItem6</li>
+                <li>@Localizer["Partnership.RightInfoItem1"]</li>
+                <li>@Localizer["Partnership.RightInfoItem2"]</li>
+                <li>@Localizer["Partnership.RightInfoItem3"]</li>
+                <li>@Localizer["Partnership.RightInfoItem4"]</li>
+                <li>@Localizer["Partnership.RightInfoItem5"]</li>
+                <li>@Localizer["Partnership.RightInfoItem6"]</li>
             </ul>
 
         </div>
@@ -40,26 +40,26 @@
 
 <section class="row text-and-image">
     <h3 class="col-lg-12">
-        @Resources.DancingGoat.Partnership_Title
+        @Localizer["Partnership.Title"]
     </h3>
     <div>
-       @Html.Raw(Resources.DancingGoat.Partnership_Text)
+        @Html.Raw(Localizer["Partnership.Text"])
     </div>
 </section>
 
 <section class="row" id="lp-form">
     <div class="container">
-        <h3> @Resources.DancingGoat.Partnership_ApplicationTitle</h3>
+        <h3> @Localizer["Partnership.ApplicationTitle"]</h3>
         <div class="row">
             <div class="col-md-5">
-                <div> @Resources.DancingGoat.Partnership_ApplicationText </div>
+                <div> @Localizer["Partnership.ApplicationText"] </div>
             </div>
 
             <div class="col-md-6 col-md-offset-1">
                 @if (ViewBag.PartnershipRequested)
                 {
                     <div class="partnership-info-right">
-                        <span class="InfoLabel">@Resources.DancingGoat.Partnership_RequestLabel</span>
+                        <span class="InfoLabel">@Localizer["Partnership.RequestLabel"]</span>
                     </div>
                 }
                 else
@@ -69,7 +69,7 @@
                         {
                             <div class="form-group">
                                 <div class="form-group-label">
-                                    <strong><label id="CompanyName_lb" for="CompanyName_txtText">@Resources.DancingGoat.Partnership_Form_CompanyName</label></strong>
+                                    <strong><label id="CompanyName_lb" for="CompanyName_txtText">@Localizer["Partnership.Form.CompanyName"]</label></strong>
                                 </div>
                                 <div class="form-group-input">
                                     <input name="CompanyName" type="text" maxlength="200" id="CompanyName_txtText" class="form-control" required />
@@ -78,7 +78,7 @@
 
                             <div class="form-group">
                                 <div class="form-group-label">
-                                    <strong><label id="FirstName_lb" for="FirstName_txtText">@Resources.DancingGoat.Partnership_Form_FirstName</label></strong>
+                                    <strong><label id="FirstName_lb" for="FirstName_txtText">@Localizer["Partnership.Form.FirstName"]</label></strong>
                                 </div>
                                 <div class="form-group-input">
                                     <input name="FirstName" type="text" maxlength="200" id="FirstName_txtText" class="form-control" required />
@@ -87,7 +87,7 @@
 
                             <div class="form-group">
                                 <div class="form-group-label">
-                                    <strong><label id="LastName_lb" for="LastName_txtText">@Resources.DancingGoat.Partnership_Form_LastName</label></strong>
+                                    <strong><label id="LastName_lb" for="LastName_txtText">@Localizer["Partnership.Form.LastName"]</label></strong>
                                 </div>
                                 <div class="form-group-input">
                                     <input name="LastName" type="text" maxlength="200" id="LastName_txtText" class="form-control" required />
@@ -96,7 +96,7 @@
 
                             <div class="form-group">
                                 <div class="form-group-label">
-                                    <strong><label id="Phone_lb" for="Phone_txtText">@Resources.DancingGoat.Partnership_Form_Phone</label></strong> (optional)
+                                    <strong><label id="Phone_lb" for="Phone_txtText">@Localizer["Partnership.Form.Phone"]</label></strong> (optional)
                                 </div>
                                 <div class="form-group-input">
                                     <input name="Phone" type="text" maxlength="200" id="Phone_txtText" class="form-control" />
@@ -105,7 +105,7 @@
 
                             <div class="form-group">
                                 <div class="form-group-label">
-                                    <strong><label id="Email_lb" for="Email_txtEmailInput">@Resources.DancingGoat.Partnership_Form_Email</label></strong>
+                                    <strong><label id="Email_lb" for="Email_txtEmailInput">@Localizer["Partnership.Form.Email"]</label></strong>
                                 </div>
                                 <div class="form-group-input">
                                     <input name="Email" type="text" maxlength="254" id="Email_txtEmailInput" class="form-control" required />
@@ -114,20 +114,20 @@
 
                             <div class="form-group">
                                 <fieldset class="partnership-form-fieldset">
-                                    <legend class="form-group-label"><strong>@Resources.DancingGoat.Partnership_Form_Interest</strong></legend>
+                                    <legend class="form-group-label"><strong>@Localizer["Partnership.Form.Interest"]</strong></legend>
                                     <span id="BecomePartner_list" class="radio radio-list-vertical">
-                                        <input id="BecomePartner_list_0" type="radio" name="BecomePartner" value="wholesale partner"/>
-                                        <label for="BecomePartner_list_0">@Resources.DancingGoat.Partnership_Form_Interest_WholesalePartner</label>
+                                        <input id="BecomePartner_list_0" type="radio" name="BecomePartner" value="wholesale partner" />
+                                        <label for="BecomePartner_list_0">@Localizer["Partnership.Form.Interest.WholesalePartner"]</label>
                                     </span>
                                     <span id="BecomePartner_list" class="radio radio-list-vertical">
-                                        <input id="BecomePartner_list_1" type="radio" name="BecomePartner" value="partner café"/>
-                                        <label for="BecomePartner_list_1">@Resources.DancingGoat.Partnership_Form_Interest_PartnerCafe</label>
+                                        <input id="BecomePartner_list_1" type="radio" name="BecomePartner" value="partner café" />
+                                        <label for="BecomePartner_list_1">@Localizer["Partnership.Form.Interest.PartnerCafe"]</label>
                                     </span>
                                 </fieldset>
                             </div>
 
                             <div class="form-group">
-                                <input type="submit" name="btnOK" value="@Resources.DancingGoat.Partnership_Form_Apply" class="btn btn-primary" />
+                                <input type="submit" name="btnOK" value="@Localizer["Partnership.Form.Apply"]" class="btn btn-primary" />
                             </div>
                         }
                     </div>
@@ -137,17 +137,14 @@
     </div>
 </section>
 
-@section Scripts
-{
-    <script type="text/javascript">
-        $(function () {
-            $("#partnership-application").validate({
-                errorClass: "message message-error",
-                rules: {
-                    Email: "email",
-                    Phone: "digits"
-                }
-            });
+<script type="text/javascript">
+    $(function () {
+        $("#partnership-application").validate({
+            errorClass: "message message-error",
+            rules: {
+                Email: "email",
+                Phone: "digits"
+            }
         });
-    </script>
-}
+    });
+</script>

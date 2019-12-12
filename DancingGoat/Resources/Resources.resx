@@ -1,0 +1,842 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutUs" xml:space="preserve">
+    <value>About us</value>
+  </data>
+  <data name="Articles" xml:space="preserve">
+    <value>Articles</value>
+  </data>
+  <data name="Articles.LatestOne" xml:space="preserve">
+    <value>Latest article</value>
+  </data>
+  <data name="Articles.More" xml:space="preserve">
+    <value>More articles</value>
+  </data>
+  <data name="Articles.RelatedArticles" xml:space="preserve">
+    <value>Related articles</value>
+  </data>
+  <data name="Cafes" xml:space="preserve">
+    <value>Cafes</value>
+  </data>
+  <data name="Cafes.MapTitle" xml:space="preserve">
+    <value>Find the nearest cafe</value>
+  </data>
+  <data name="Cafes.More" xml:space="preserve">
+    <value>Find out more</value>
+  </data>
+  <data name="CompanyCafes" xml:space="preserve">
+    <value>Our cafes</value>
+  </data>
+  <data name="CompanyCafes.Title" xml:space="preserve">
+    <value>Taste Our Coffee</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="Contact.Title" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="ContactUs.ErrorSending" xml:space="preserve">
+    <value>Error sending message</value>
+  </data>
+  <data name="ContactUs.ErrorText" xml:space="preserve">
+    <value>An error occured. Please go to {0} page and try again later.</value>
+  </data>
+  <data name="ContactUs.MapTitle" xml:space="preserve">
+    <value>Drop in</value>
+  </data>
+  <data name="ContactUs.Thanks" xml:space="preserve">
+    <value>Thanks! We'll get back to you soon.</value>
+  </data>
+  <data name="ContactUs.Title" xml:space="preserve">
+    <value>Send us a message</value>
+  </data>
+  <data name="FollowUs.Title" xml:space="preserve">
+    <value>Follow us</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="News.InvalidUnsubscriptionLink" xml:space="preserve">
+    <value>You weren't unsubscribed because your unsubscription link is not valid.</value>
+  </data>
+  <data name="News.LongEmail" xml:space="preserve">
+    <value>The maximum length of email address is {1} characters.</value>
+  </data>
+  <data name="News.Subscribe" xml:space="preserve">
+    <value>Subscribe</value>
+  </data>
+  <data name="News.Subscribed" xml:space="preserve">
+    <value>You've been subscribed</value>
+  </data>
+  <data name="News.SubscribeError" xml:space="preserve">
+    <value>An error occurred during subscribing. Please try again.</value>
+  </data>
+  <data name="News.SubscriberEmail" xml:space="preserve">
+    <value>Want to stay up to date? Please leave us your email address.</value>
+  </data>
+  <data name="News.Title" xml:space="preserve">
+    <value>News &amp; Updates</value>
+  </data>
+  <data name="News.Unsubscribed" xml:space="preserve">
+    <value>We would like to offer you a coffee to go, but we can't, because we have just removed your email from the list.</value>
+  </data>
+  <data name="News.UnsubscribedAll" xml:space="preserve">
+    <value>You've been unsubscribed from all email marketing campaigns.</value>
+  </data>
+  <data name="News.UnsubscribeError" xml:space="preserve">
+    <value>Oops!</value>
+  </data>
+  <data name="News.UnsubscribeOK" xml:space="preserve">
+    <value>Goodbye!</value>
+  </data>
+  <data name="News.Unsubscribtion" xml:space="preserve">
+    <value>Newsletter unsubscription</value>
+  </data>
+  <data name="NotFound.ContactUs" xml:space="preserve">
+    <value>contact us</value>
+  </data>
+  <data name="NotFound.GoHome" xml:space="preserve">
+    <value>Back to homepage</value>
+  </data>
+  <data name="NotFound.Homepage" xml:space="preserve">
+    <value>homepage</value>
+  </data>
+  <data name="NotFound.Instructions" xml:space="preserve">
+    <value>Head back to {0} using the navigation, use search or {1}.</value>
+  </data>
+  <data name="NotFound.Message" xml:space="preserve">
+    <value>We are really sorry, something has gone wrong. It seems that page you requested doesn't exist.</value>
+  </data>
+  <data name="NotFound.Title" xml:space="preserve">
+    <value>Oops! Page not found...</value>
+  </data>
+  <data name="PartnerCafes.Title" xml:space="preserve">
+    <value>Other places where you can drink our coffee</value>
+  </data>
+  <data name="Roastery" xml:space="preserve">
+    <value>Roastery</value>
+  </data>
+  <data name="Search.NoResults" xml:space="preserve">
+    <value>Sorry, no results match {0}</value>
+  </data>
+  <data name="Search.ResultsFor" xml:space="preserve">
+    <value>Results for "{0}"</value>
+  </data>
+  <data name="Story.Title" xml:space="preserve">
+    <value>Our story</value>
+  </data>
+  <data name="Story.WholeStory" xml:space="preserve">
+    <value>Read the whole story</value>
+  </data>
+  <data name="ShoppingCart" xml:space="preserve">
+    <value>Shopping cart</value>
+  </data>
+  <data name="Shipping.NotApplicable" xml:space="preserve">
+    <value>Selected delivery method is not applicable.</value>
+  </data>
+  <data name="Checkout.CustomerDetails" xml:space="preserve">
+    <value>Customer details</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Sign in</value>
+  </data>
+  <data name="SignIn.EmailUserName" xml:space="preserve">
+    <value>Email / User name</value>
+  </data>
+  <data name="SignIn.Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="SignIn.ForgottenPassword" xml:space="preserve">
+    <value>Forgotten password</value>
+  </data>
+  <data name="SignIn.ItOnlyTakesAMoment" xml:space="preserve">
+    <value>It only takes a moment to get started.</value>
+  </data>
+  <data name="SignIn.NewToDancingGoat" xml:space="preserve">
+    <value>New to Dancing Goat?</value>
+  </data>
+  <data name="SignIn.StaySignedIn" xml:space="preserve">
+    <value>Stay signed in</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="Register.AlreadyHaveAnAccount" xml:space="preserve">
+    <value>Already have an account?</value>
+  </data>
+  <data name="Register.EmailUserName" xml:space="preserve">
+    <value>Email (User name)</value>
+  </data>
+  <data name="Register.FirstName" xml:space="preserve">
+    <value>First name</value>
+  </data>
+  <data name="Register.LastName" xml:space="preserve">
+    <value>Last name</value>
+  </data>
+  <data name="Register.Password" xml:space="preserve">
+    <value>Create your password</value>
+  </data>
+  <data name="Register.PasswordConfirmation" xml:space="preserve">
+    <value>Confirm your password</value>
+  </data>
+  <data name="Register.Subheading" xml:space="preserve">
+    <value>Create your own account and enjoy smooth shopping experience at Dancing Goat.</value>
+  </data>
+  <data name="General.InvalidEmail" xml:space="preserve">
+    <value>Please enter a valid email address</value>
+  </data>
+  <data name="General.MaximumInputLengthExceeded" xml:space="preserve">
+    <value>Maximum allowed length of the input text is {1}</value>
+  </data>
+  <data name="Register.EmailUserName.Empty" xml:space="preserve">
+    <value>Please enter your email</value>
+  </data>
+  <data name="Register.FirstName.Empty" xml:space="preserve">
+    <value>Please enter your first name</value>
+  </data>
+  <data name="Register.LastName.Empty" xml:space="preserve">
+    <value>Please enter your last name</value>
+  </data>
+  <data name="Register.Password.Empty" xml:space="preserve">
+    <value>Please enter your password</value>
+  </data>
+  <data name="Register.PasswordConfirmation.Empty" xml:space="preserve">
+    <value>Please confirm your password</value>
+  </data>
+  <data name="Register.PasswordConfirmation.Invalid" xml:space="preserve">
+    <value>Password does not match the confirmation password</value>
+  </data>
+  <data name="SignIn.EmailUserName.Empty" xml:space="preserve">
+    <value>Please enter your email / user name</value>
+  </data>
+  <data name="SignOut" xml:space="preserve">
+    <value>Sign out</value>
+  </data>
+  <data name="Address.City" xml:space="preserve">
+    <value>City</value>
+  </data>
+  <data name="Address.Line1" xml:space="preserve">
+    <value>Address line</value>
+  </data>
+  <data name="Address.Line2" xml:space="preserve">
+    <value>Address line 2</value>
+  </data>
+  <data name="Address_Zip" xml:space="preserve">
+    <value>Postal code</value>
+  </data>
+  <data name="Checkout.BillingAddress" xml:space="preserve">
+    <value>Billing address</value>
+  </data>
+  <data name="Checkout.DeliveryOptions" xml:space="preserve">
+    <value>Delivery options</value>
+  </data>
+  <data name="Address.Line1Explanation" xml:space="preserve">
+    <value>e.g. street address, P.O.box, c/o</value>
+  </data>
+  <data name="Address.Line2Explanation" xml:space="preserve">
+    <value>e.g. apartment, suite, unit, building</value>
+  </data>
+  <data name="Checkout.BackToShoppingCart" xml:space="preserve">
+    <value>back to shopping cart</value>
+  </data>
+  <data name="Checkout.ContinueShopping" xml:space="preserve">
+    <value>continue shopping</value>
+  </data>
+  <data name="Checkout.FillDetailsAndProceed" xml:space="preserve">
+    <value>Fill in your billing details and delivery preferences and proceed to review your order.</value>
+  </data>
+  <data name="Checkout.ReviewOrder" xml:space="preserve">
+    <value>review order</value>
+  </data>
+  <data name="Checkout.ReviewShoppingCart" xml:space="preserve">
+    <value>Review your shopping cart and checkout</value>
+  </data>
+  <data name="ShoppingCart.UnitsGreaterThanZero" xml:space="preserve">
+    <value>Type a number greater than 0 to the Units field.</value>
+  </data>
+  <data name="Address.Country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="Address.SelectCountry" xml:space="preserve">
+    <value>Select country</value>
+  </data>
+  <data name="Address.SelectState" xml:space="preserve">
+    <value>Select state</value>
+  </data>
+  <data name="Address.State" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="Checkout.BackToCustomerDetails" xml:space="preserve">
+    <value>back to Billing &amp; Delivery</value>
+  </data>
+  <data name="Checkout.ShoppingCartPreview" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="Checkout.BillingDetails" xml:space="preserve">
+    <value>Billing details</value>
+  </data>
+  <data name="Checkout.OrderedItems" xml:space="preserve">
+    <value>Ordered items</value>
+  </data>
+  <data name="Checkout.ShippingDetails" xml:space="preserve">
+    <value>Shipping details</value>
+  </data>
+  <data name="YourAccount.Roles" xml:space="preserve">
+    <value>Roles</value>
+  </data>
+  <data name="YourAccount" xml:space="preserve">
+    <value>Your account</value>
+  </data>
+  <data name="Checkout.ConfirmAndPayButton" xml:space="preserve">
+    <value>Confirm and pay</value>
+  </data>
+  <data name="Address.StateIsRequired" xml:space="preserve">
+    <value>The State field is required</value>
+  </data>
+  <data name="Checkout.ThankYou" xml:space="preserve">
+    <value>Thank You!</value>
+  </data>
+  <data name="Checkout.OrderFailed" xml:space="preserve">
+    <value>Your order cannot be completed</value>
+  </data>
+  <data name="Order.Questions" xml:space="preserve">
+    <value>If you have any questions or suggestions regarding the order process, call us at {0}.</value>
+  </data>
+  <data name="Order.Success" xml:space="preserve">
+    <value>Your order was successfully processed. We will pack your items carefully and ship them to you right away.</value>
+  </data>
+  <data name="Checkout" xml:space="preserve">
+    <value>checkout</value>
+  </data>
+  <data name="Checkout.ReviewAndCheckout" xml:space="preserve">
+    <value>Review your shopping cart and checkout</value>
+  </data>
+  <data name="Checkout.ShoppingCartIsEmpty" xml:space="preserve">
+    <value>Shopping cart is empty</value>
+  </data>
+  <data name="Checkout.YourShoppingCart" xml:space="preserve">
+    <value>Your shopping cart</value>
+  </data>
+  <data name="ShoppingCart.Remove" xml:space="preserve">
+    <value>remove</value>
+  </data>
+  <data name="ShoppingCart.Total" xml:space="preserve">
+    <value>Total (incl. tax estimate)</value>
+  </data>
+  <data name="ShoppingCart.TotalTax" xml:space="preserve">
+    <value>Total tax</value>
+  </data>
+  <data name="ShoppingCart.Update" xml:space="preserve">
+    <value>update</value>
+  </data>
+  <data name="ShoppingCart.YourCart" xml:space="preserve">
+    <value>Your cart</value>
+  </data>
+  <data name="ShoppingCart.Shipping" xml:space="preserve">
+    <value>Shipping</value>
+  </data>
+  <data name="Shipping.ShippingOption" xml:space="preserve">
+    <value>Delivery method</value>
+  </data>
+  <data name="Shipping.ShippingOptionRequired" xml:space="preserve">
+    <value>Please select a delivery method</value>
+  </data>
+  <data name="Shipping.SelectShipping" xml:space="preserve">
+    <value>Select delivery method</value>
+  </data>
+  <data name="Address.CountryIsRequired" xml:space="preserve">
+    <value>The Country field is required</value>
+  </data>
+  <data name="DeliveryDetails.AccessDetails" xml:space="preserve">
+    <value>Sign in to access your billing and delivery details</value>
+  </data>
+  <data name="DeliveryDetails.AlreadyCustomer" xml:space="preserve">
+    <value>Already a customer?</value>
+  </data>
+  <data name="DeliveryDetails.SignIn" xml:space="preserve">
+    <value>Sign in</value>
+  </data>
+  <data name="Payment.PaymentMethodRequired" xml:space="preserve">
+    <value>Select payment method</value>
+  </data>
+  <data name="Payment.SelectPayment" xml:space="preserve">
+    <value>How would you like to pay?</value>
+  </data>
+  <data name="Payment.SelectPaymentMethod" xml:space="preserve">
+    <value>(Please select)</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="Checkout.CouponCodeApplied" xml:space="preserve">
+    <value>Discount coupon has been applied.</value>
+  </data>
+  <data name="Checkout.InvalidCouponCode" xml:space="preserve">
+    <value>Coupon code is not valid.</value>
+  </data>
+  <data name="Address.NewAddress" xml:space="preserve">
+    <value>(new)</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="Checkout.EmptyCartError" xml:space="preserve">
+    <value>Please add some item to your shopping cart.</value>
+  </data>
+  <data name="ShoppingCart.FreeDelivery" xml:space="preserve">
+    <value>Spend {0} more and get free delivery today!</value>
+  </data>
+  <data name="Checkout.CouponCode" xml:space="preserve">
+    <value>Discount coupon</value>
+  </data>
+  <data name="Product.InStock" xml:space="preserve">
+    <value>In stock</value>
+  </data>
+  <data name="Product.TotalPrice" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="News.ConfirmationSent" xml:space="preserve">
+    <value>A confirmation link has been sent to your email.</value>
+  </data>
+  <data name="News.ConfirmSubscriptionAlreadyConfirmed" xml:space="preserve">
+    <value>You are already subscribed.</value>
+  </data>
+  <data name="News.ConfirmSubscriptionError" xml:space="preserve">
+    <value>Subscription confirmation error</value>
+  </data>
+  <data name="News.ConfirmSubscriptionFailed" xml:space="preserve">
+    <value>The subscription confirmation has failed. Please try again later.</value>
+  </data>
+  <data name="News.ConfirmSubscriptionInvalidDateTime" xml:space="preserve">
+    <value>The confirmation link is not valid.</value>
+  </data>
+  <data name="News.ConfirmSubscriptionInvalidLink" xml:space="preserve">
+    <value>The confirmation link is not valid.</value>
+  </data>
+  <data name="News.ConfirmSubscriptionOK" xml:space="preserve">
+    <value>Subscription confirmed</value>
+  </data>
+  <data name="News.ConfirmSubscriptionSucceeded" xml:space="preserve">
+    <value>Your subscription has been confirmed.</value>
+  </data>
+  <data name="News.ConfirmSubscriptionTimeExceeded" xml:space="preserve">
+    <value>Your subscription confirmation link has expired. Please subscribe again.</value>
+  </data>
+  <data name="News.Subscription" xml:space="preserve">
+    <value>Newsletter subscription</value>
+  </data>
+  <data name="News.AlreadySubscribed" xml:space="preserve">
+    <value>Subscriber has been already subscribed.</value>
+  </data>
+  <data name="Coffee.Altitude" xml:space="preserve">
+    <value>Altitude</value>
+  </data>
+  <data name="Coffee.Farm" xml:space="preserve">
+    <value>Farm</value>
+  </data>
+  <data name="Product.Parameters" xml:space="preserve">
+    <value>Parameters</value>
+  </data>
+  <data name="Coffee.Processing" xml:space="preserve">
+    <value>Processing</value>
+  </data>
+  <data name="Coffee.Variety" xml:space="preserve">
+    <value>Variety</value>
+  </data>
+  <data name="Brewer.IsDishwasherSafe" xml:space="preserve">
+    <value>Dishwasher safe</value>
+  </data>
+  <data name="PublicStatus.Bestseller" xml:space="preserve">
+    <value>Bestseller</value>
+  </data>
+  <data name="PublicStatus.OnSale" xml:space="preserve">
+    <value>On sale</value>
+  </data>
+  <data name="Coffee.IsDecaf" xml:space="preserve">
+    <value>Decaf</value>
+  </data>
+  <data name="Brewers" xml:space="preserve">
+    <value>Brewers</value>
+  </data>
+  <data name="Coffees" xml:space="preserve">
+    <value>Coffees</value>
+  </data>
+  <data name="Store" xml:space="preserve">
+    <value>Product catalog</value>
+  </data>
+  <data name="Product.OutOfStock" xml:space="preserve">
+    <value>Out of stock</value>
+  </data>
+  <data name="Coffees.Natural" xml:space="preserve">
+    <value>Natural</value>
+  </data>
+  <data name="Coffees.OnlyDecaf" xml:space="preserve">
+    <value>Decaf</value>
+  </data>
+  <data name="Coffees.Semiwashed" xml:space="preserve">
+    <value>Semi-washed</value>
+  </data>
+  <data name="Coffees.Washed" xml:space="preserve">
+    <value>Washed</value>
+  </data>
+  <data name="Coffees.NoMatchingProducts" xml:space="preserve">
+    <value>No matching products.</value>
+  </data>
+  <data name="Product.NotAvailable" xml:space="preserve">
+    <value>Not available</value>
+  </data>
+  <data name="General.Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="General.No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="YourOrders.Orders" xml:space="preserve">
+    <value>Your orders</value>
+  </data>
+  <data name="YourOrders.Date" xml:space="preserve">
+    <value>Order date</value>
+  </data>
+  <data name="YourOrders.OrderId" xml:space="preserve">
+    <value>Order ID</value>
+  </data>
+  <data name="YourOrders.Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="YourOrders.Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="YourOrders.OrderDetail" xml:space="preserve">
+    <value>Order Detail</value>
+  </data>
+  <data name="YourAccount.Back" xml:space="preserve">
+    <value>back to Your Account</value>
+  </data>
+  <data name="YourOrders.OrderDetail.Total" xml:space="preserve">
+    <value>TOTAL (incl. tax):</value>
+  </data>
+  <data name="YourOrders.OrderDetail.Back" xml:space="preserve">
+    <value>back to Your Orders</value>
+  </data>
+  <data name="YourOrders.OrderDetail.Items" xml:space="preserve">
+    <value>Order Items</value>
+  </data>
+  <data name="Product.Price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="Product.YouSave" xml:space="preserve">
+    <value>You save</value>
+  </data>
+  <data name="Brewers.OnlyInStock" xml:space="preserve">
+    <value>Only in stock</value>
+  </data>
+  <data name="Brewers.NoMatchingProducts" xml:space="preserve">
+    <value>No matching products.</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Brewers.Manufacturers" xml:space="preserve">
+    <value>Manufacturer</value>
+  </data>
+  <data name="Brewers.Price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="Brewers.PublicStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Brewers.Availability" xml:space="preserve">
+    <value>Availability</value>
+  </data>
+  <data name="Coffees.Caffeine" xml:space="preserve">
+    <value>Caffeine</value>
+  </data>
+  <data name="Coffees.CoffeeProcessing" xml:space="preserve">
+    <value>Coffee processing</value>
+  </data>
+  <data name="Banner.Default.Heading" xml:space="preserve">
+    <value>Roasting premium coffee</value>
+  </data>
+  <data name="Banner.Default.Text" xml:space="preserve">
+    <value>Discover the fascinating world of Dancing Goat high-quality coffee and you will never miss a single coffee break again.</value>
+  </data>
+  <data name="Banner.Martina.Heading" xml:space="preserve">
+    <value>Colombia in store</value>
+  </data>
+  <data name="Banner.Martina.Text" xml:space="preserve">
+    <value>Sweet and full bodied thanks to hard work, family traditions and favorable climate conditions. Perfect as is, that's Colombian coffee.</value>
+  </data>
+  <data name="Banner.Tony.Heading" xml:space="preserve">
+    <value>Coffee machine rental</value>
+  </data>
+  <data name="Banner.Tony.Text" xml:space="preserve">
+    <value>Premium coffee deserves premium process. Take advantage of your partnership and rent one of our professional coffee machines.</value>
+  </data>
+  <data name="DanicngGoatMvc.UserName" xml:space="preserve">
+    <value>User name</value>
+  </data>
+  <data name="YourAccount.Update" xml:space="preserve">
+    <value>Update personal details</value>
+  </data>
+  <data name="YourAccount.SaveError" xml:space="preserve">
+    <value>Personal details save failed</value>
+  </data>
+  <data name="YourAccount.PersonalDetails" xml:space="preserve">
+    <value>Personal details</value>
+  </data>
+  <data name="ForgottenPassword" xml:space="preserve">
+    <value>Forgotten password</value>
+  </data>
+  <data name="General.Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="PasswordReset" xml:space="preserve">
+    <value>Reset password</value>
+  </data>
+  <data name="PasswordReset.Heading" xml:space="preserve">
+    <value>Reset your password</value>
+  </data>
+  <data name="PasswordReset.Description" xml:space="preserve">
+    <value>Enter the email address associated with your account to reset your password</value>
+  </data>
+  <data name="PasswordReset.Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="PasswordReset.EmailSent" xml:space="preserve">
+    <value>If the email address is known to us, we'll send a password recovery link in a few minutes.</value>
+  </data>
+  <data name="PasswordReset.Email.Empty" xml:space="preserve">
+    <value>Please enter your email</value>
+  </data>
+  <data name="PasswordReset.InvalidToken" xml:space="preserve">
+    <value>The password reset link has expired or is not valid</value>
+  </data>
+  <data name="PasswordReset.Succeeded" xml:space="preserve">
+    <value>Your password was successfully changed</value>
+  </data>
+  <data name="PasswordReset.Email.Body" xml:space="preserve">
+    <value>You have submitted a request to change your password. Please click &lt;a href="{0}"&gt;this link&lt;/a&gt; to set a new password.&lt;br/&gt;&lt;br/&gt; 
+If you did not submit the request please let us know.</value>
+  </data>
+  <data name="PasswordReset.Email.Subject" xml:space="preserve">
+    <value>Request for changing your password</value>
+  </data>
+  <data name="Brewers.Aerobie" xml:space="preserve">
+    <value>Aerobie</value>
+  </data>
+  <data name="Brewers.Chemex" xml:space="preserve">
+    <value>Chemex</value>
+  </data>
+  <data name="Brewers.Espro" xml:space="preserve">
+    <value>Espro</value>
+  </data>
+  <data name="Brewers.Hario" xml:space="preserve">
+    <value>Hario</value>
+  </data>
+  <data name="Partnership" xml:space="preserve">
+    <value>Partnership</value>
+  </data>
+  <data name="Partnership.LeftInfoItem1" xml:space="preserve">
+    <value>Multiple sale levels of up to 25% based on the quarterly quota</value>
+  </data>
+  <data name="Partnership.LeftInfoItem2" xml:space="preserve">
+    <value>Free tableware and merchandise</value>
+  </data>
+  <data name="Partnership.LeftInfoItem3" xml:space="preserve">
+    <value>Promotional materials</value>
+  </data>
+  <data name="Partnership.LeftInfoTitle" xml:space="preserve">
+    <value>Wholesale Partner Program</value>
+  </data>
+  <data name="Partnership.RightInfoTitle" xml:space="preserve">
+    <value>Partner Café Program</value>
+  </data>
+  <data name="FollowUsOnFacebook" xml:space="preserve">
+    <value>Follow us on Facebook</value>
+  </data>
+  <data name="FollowUsOnTwitter" xml:space="preserve">
+    <value>Follow us on Twitter</value>
+  </data>
+  <data name="Partnership.ApplicationText" xml:space="preserve">
+    <value>Your business is also our business. Become a part of our brand and benefit from it.</value>
+  </data>
+  <data name="Partnership.ApplicationTitle" xml:space="preserve">
+    <value>Partnership Application</value>
+  </data>
+  <data name="Partnership.Form.Apply" xml:space="preserve">
+    <value>APPLY</value>
+  </data>
+  <data name="Partnership.Form.CompanyName" xml:space="preserve">
+    <value>Company name</value>
+  </data>
+  <data name="Partnership.Form.Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Partnership.Form.FirstName" xml:space="preserve">
+    <value>First name</value>
+  </data>
+  <data name="Partnership.Form.Interest" xml:space="preserve">
+    <value>I am interested in...</value>
+  </data>
+  <data name="Partnership.Form.Interest.PartnerCafe" xml:space="preserve">
+    <value>Becoming a partner café</value>
+  </data>
+  <data name="Partnership.Form.Interest.WholesalePartner" xml:space="preserve">
+    <value>Becoming a wholesale partner</value>
+  </data>
+  <data name="Partnership.Form.LastName" xml:space="preserve">
+    <value>Last name</value>
+  </data>
+  <data name="Partnership.Form.Phone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="Partnership.RequestLabel" xml:space="preserve">
+    <value>We'll contact you within 48 hours to discuss details and explain any question of yours regarding the partnership.</value>
+  </data>
+  <data name="Partnership.RightInfoItem1" xml:space="preserve">
+    <value>for café owners only</value>
+  </data>
+  <data name="Partnership.RightInfoItem2" xml:space="preserve">
+    <value>Multiple sale levels of up to 25% based on the quarterly quota</value>
+  </data>
+  <data name="Partnership.RightInfoItem3" xml:space="preserve">
+    <value>Professional coffee machine rental and leasing</value>
+  </data>
+  <data name="Partnership.RightInfoItem4" xml:space="preserve">
+    <value>Promotion by Dancing Goat</value>
+  </data>
+  <data name="Partnership.RightInfoItem5" xml:space="preserve">
+    <value>Barista, promotion, and management training</value>
+  </data>
+  <data name="Partnership.RightInfoItem6" xml:space="preserve">
+    <value>Special merchandise and access to limited editions</value>
+  </data>
+  <data name="Partnership.Text" xml:space="preserve">
+    <value>If your company buys in our on-line store regularly, we'd like to reward you and offer you our wholesale partner program. Register on the form below and we'll contact you within two days with a newly created business account with which you can buy discounted products. The discount is of up to 25% and is settled on a quarterly basis according to your purchases the quarter before. Besides that, you get free tableware and merchandise along with other promotional materials.&lt;/br&gt;&lt;/br&gt;
+
+If you have a café or you want to open one and you'd like to be referred to as our partner café, we offer a partner café program in which you can also buy for discounted prices and get free tableware and merchandise. Dancing Goat also offers the rental and leasing of professional café equipment to our partner cafés and access to limited editions of our special merchandise. &lt;/br&gt; &lt;/br&gt;
+
+Just register and wait two days for our sales person to contact you. We do the magic and then you can start making the profit.</value>
+  </data>
+  <data name="Partnership.Title" xml:space="preserve">
+    <value>How does it work?</value>
+  </data>
+</root>

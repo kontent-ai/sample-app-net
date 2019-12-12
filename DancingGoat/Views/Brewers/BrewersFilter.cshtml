@@ -1,6 +1,6 @@
 ﻿@model DancingGoat.Models.BrewerFilterViewModel
 
-<h4>@Resources.DancingGoat.Brewers_Manufacturers</h4>
+<h4>@Localizer["Brewers.Manufacturers"]</h4>
 
 @for (var i = 0; i < Model.AvailableManufacturers.Count; ++i)
 {
@@ -11,7 +11,7 @@
     </span>
 }
 
-<h4>@Resources.DancingGoat.Brewers_PublicStatus</h4>
+<h4>@Localizer["Brewers.PublicStatus"]</h4>
 
 @for (var i = 0; i < Model.AvailableProductStatuses.Count; ++i)
 {

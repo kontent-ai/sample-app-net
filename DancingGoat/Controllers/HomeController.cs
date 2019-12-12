@@ -1,16 +1,24 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using System.Web.Mvc;
+using DancingGoat.Areas.Admin;
+using DancingGoat.Areas.Admin.Abstractions;
 using DancingGoat.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Kentico.Kontent.Delivery;
 
 namespace DancingGoat.Controllers
 {
     public class HomeController : ControllerBase
     {
+        public HomeController(IOptionsSnapshot<DeliveryOptions> deliveryOptions, IAppSettingProvider settingProvider, IDeliveryClient client) 
+            : base(deliveryOptions, settingProvider, client)
+        {
+        }
+
         public async Task<ActionResult> Index()
         {
-            var response = await client.GetItemAsync<Home>("home");
+            var response = await _client.GetItemAsync<Home>("home");
 
             var viewModel = new HomeViewModel
             {
@@ -21,10 +29,11 @@ namespace DancingGoat.Controllers
             return View(viewModel);
         }
 
-        [ChildActionOnly]
+        // TODO: See how to use the ChildActionOnly filter
         public ActionResult CompanyAddress()
         {
-            var contact = Task.Run(() => client.GetItemAsync<Home>("home", new ElementsParameter("contact"))).Result.Item.Contact;
+            var contact = Task.Run(() => _client.GetItemAsync<Home>("home", new ElementsParameter("contact")))
+                .GetAwaiter().GetResult().Item.Contact;
 
             return PartialView("CompanyAddress", contact);
         }

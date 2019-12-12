@@ -1,7 +1,8 @@
-﻿using DancingGoat.Areas.Admin;
+﻿
 
 using KenticoCloud.ContentManagement.Helpers;
 using KenticoCloud.ContentManagement.Helpers.Configuration;
+using Microsoft.Extensions.Configuration;
 
 namespace DancingGoat.Helpers
 {
@@ -9,31 +10,32 @@ namespace DancingGoat.Helpers
     {
         private static EditLinkHelper _instance = null;
         private static readonly object padlock = new object();
-        public EditLinkBuilder Builder { get; private set; }
+        private readonly IConfiguration configuration;
 
-        private EditLinkHelper()
+        public EditLinkBuilder Builder { get; private set; }
+        
+
+        private EditLinkHelper(IConfiguration configuration)
         {
-            var projectId = AppSettingProvider.ProjectId.ToString() ?? AppSettingProvider.DefaultProjectId.ToString();
+            this.configuration = configuration;
+            var projectId = configuration.GetSection("AppConfiguration")["ProjectId"].ToString() ?? configuration.GetSection("AppConfiguration")["DefaultProjectId"].ToString();
             var linkBuilderOptions = new ContentManagementHelpersOptions() { ProjectId = projectId };
             Builder = new EditLinkBuilder(linkBuilderOptions);
         }
 
-        public static EditLinkHelper Instance
+        public static EditLinkHelper GetInstance(IConfiguration configuration)
         {
-            get
+            if (_instance == null)
             {
-                if (_instance == null)
+                lock (padlock)
                 {
-                    lock (padlock)
+                    if (_instance == null)
                     {
-                        if (_instance == null)
-                        {
-                            _instance = new EditLinkHelper();
-                        }
+                        _instance = new EditLinkHelper(configuration);
                     }
                 }
-                return _instance;
             }
+            return _instance;
         }
     }
 }

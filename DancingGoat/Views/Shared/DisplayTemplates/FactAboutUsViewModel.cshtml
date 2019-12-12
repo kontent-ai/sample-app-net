@@ -2,11 +2,13 @@
 @using DancingGoat.Models
 @using KenticoCloud.ContentManagement.Helpers.Models
 @model DancingGoat.Models.FactAboutUsViewModel
+@inject IConfiguration Configuration
 
 <section class="row text-and-image">
     <h2 class="col-lg-12">
         @Model.Fact.Title
         @Html.InlineElementEditLink(
+            Configuration,
             Model.Fact.System.Language,
             Model.ParentItemElementIdentifier,
             new ElementIdentifier(Model.Fact.System.Id, FactAboutUs.TitleCodename)
@@ -16,6 +18,7 @@
           <div class="text-and-image-text@(Model.Odd ? "-right" : "" )">
               @Html.DisplayFor(vm => vm.Fact.Description)
               @Html.BlockElementEditLink(
+                Configuration,
                 Model.Fact.System.Language,
                 Model.ParentItemElementIdentifier,
                 new ElementIdentifier(Model.Fact.System.Id, FactAboutUs.DescriptionCodename)
@@ -23,11 +26,12 @@
           </div>
     </div>
     <div class="col-md-6@( Model.Odd ? " col-md-pull-6" : "" )">
-        @Html.AssetImage(Model.Fact.Image.FirstOrDefault(), cssClass: "img-responsive", sizes: new ResponsiveImageSizes(300)
+        @Html.AssetImage(Configuration, Model.Fact.Image.FirstOrDefault(), cssClass: "img-responsive", sizes: new ResponsiveImageSizes(300)
                             .WithMediaCondition(new MediaCondition { MinWidth = 1120, ImageWidth = 540 })
                             .WithMediaCondition(new MediaCondition { MinWidth = 768, MaxWidth = 1120, ImageWidth = 370 })
                             .WithMediaCondition(new MediaCondition { MinWidth = 330, MaxWidth = 768, ImageWidth = 468 }))
         @Html.BlockElementEditLink(
+           Configuration,
            Model.Fact.System.Language,
            Model.ParentItemElementIdentifier,
            new ElementIdentifier(Model.Fact.System.Id, FactAboutUs.ImageCodename)

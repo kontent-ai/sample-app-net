@@ -1,25 +1,32 @@
 ﻿using System;
 using System.Linq;
+using DancingGoat.Models;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using System.Configuration;
-using System.Web.Configuration;
+using DancingGoat.Areas.Admin.Abstractions;
+using Microsoft.IdentityModel.Protocols;
 
 namespace DancingGoat.Areas.Admin
 {
-    public static class AppSettingProvider
+    public class AppSettingProvider : IAppSettingProvider
     {
-        private const string PROJECT_ID_KEY_NAME = "ProjectId";
-        private const string SUBSCRIPTION_EXPIRES_KEY_NAME = "SubscriptionExpiresAt";
-        private const string PREVIEW_API_KEY = "PreviewApiKey";
-        private const string RESPONSIVE_WIDTHS = "ResponsiveWidths";
+        private readonly AppSettings _settings;
 
-        private static readonly Configuration _configuration = WebConfigurationManager.OpenWebConfiguration("~");
-        private static DateTime? _subscriptionExpiresAt;
-        private static Guid? _projectId;
-        private static Guid? _defaultProjectId;
-        private static string _previewApiKey;
-        private static string _kenticoKontentUrl;
 
-        public static DateTime? SubscriptionExpiresAt
+        private DateTime? _subscriptionExpiresAt;
+        private Guid? _projectId;
+        private Guid? _defaultProjectId;
+        private string _previewApiKey;
+        private string _kenticoCloudUrl;
+
+        // Using IOptionsSnapshot to get the reloaded configuration on change
+        public AppSettingProvider(IOptionsSnapshot<AppSettings> options)
+        {
+            _settings = options.Value;
+        }
+
+        public DateTime? SubscriptionExpiresAt
         {
             get
             {
@@ -29,7 +36,7 @@ namespace DancingGoat.Areas.Admin
                 }
                 else
                 {
-                    if (DateTime.TryParse(ConfigurationManager.AppSettings[SUBSCRIPTION_EXPIRES_KEY_NAME], out DateTime subscriptionExpiresAt))
+                    if (DateTime.TryParse(_settings.SubscriptionExpiresAt, out DateTime subscriptionExpiresAt))
                     {
                         _subscriptionExpiresAt = subscriptionExpiresAt;
 
@@ -43,22 +50,30 @@ namespace DancingGoat.Areas.Admin
             }
             set
             {
-                // Creating new settings cannot be done through the indexer, hence .Add().
-                if (ConfigurationManager.AppSettings.AllKeys.Contains(SUBSCRIPTION_EXPIRES_KEY_NAME))
+
+                // TODO: Set configuration on the fly in asp.net core 2.x???
+
+                if (value.HasValue)
                 {
-                    _configuration.AppSettings.Settings[SUBSCRIPTION_EXPIRES_KEY_NAME].Value = value.Value.ToString("o");
-                }
-                else
-                {
-                    _configuration.AppSettings.Settings.Add(SUBSCRIPTION_EXPIRES_KEY_NAME, value.Value.ToString("o"));
+                    _settings.SubscriptionExpiresAt = value.Value.ToString("o");
                 }
 
-                _configuration.Save();
+                // Creating new settings cannot be done through the indexer, hence .Add().
+                /*if (ConfigurationManager.AppSettings.AllKeys.Contains(SUBSCRIPTION_EXPIRES_KEY_NAME))
+            {
+                _configuration.AppSettings.Settings[SUBSCRIPTION_EXPIRES_KEY_NAME].Value = value.Value.ToString("o");
+            }
+            else
+            {
+                _configuration.AppSettings.Settings.Add(SUBSCRIPTION_EXPIRES_KEY_NAME, value.Value.ToString("o"));
+            }
+            // Do we want to save to the appsettings.json those changes??
+            //_configuration.Save();*/
                 _subscriptionExpiresAt = value;
             }
         }
 
-        public static Guid? ProjectId
+        public Guid? ProjectId
         {
             get
             {
@@ -68,7 +83,7 @@ namespace DancingGoat.Areas.Admin
                 }
                 else
                 {
-                    if (Guid.TryParse(ConfigurationManager.AppSettings[PROJECT_ID_KEY_NAME], out Guid projectId))
+                    if (Guid.TryParse(_settings.ProjectId, out var projectId))
                     {
                         _projectId = projectId;
 
@@ -82,8 +97,14 @@ namespace DancingGoat.Areas.Admin
             }
             set
             {
+                // TODO: same as the _subscriptionExpiresAt
+                if (value.HasValue)
+                {
+                    _settings.ProjectId = value.Value.ToString();
+                }
+
                 // Creating new settings cannot be done through the indexer, hence .Add().
-                if (ConfigurationManager.AppSettings.AllKeys.Contains(PROJECT_ID_KEY_NAME))
+                /*if (ConfigurationManager.AppSettings.AllKeys.Contains(PROJECT_ID_KEY_NAME))
                 {
                     _configuration.AppSettings.Settings[PROJECT_ID_KEY_NAME].Value = value.ToString();
                 }
@@ -93,11 +114,12 @@ namespace DancingGoat.Areas.Admin
                 }
 
                 _configuration.Save();
+                */
                 _projectId = value;
             }
         }
 
-        public static Guid? DefaultProjectId
+        public Guid? DefaultProjectId
         {
             get
             {
@@ -107,7 +129,7 @@ namespace DancingGoat.Areas.Admin
                 }
                 else
                 {
-                    if (Guid.TryParse(ConfigurationManager.AppSettings["DefaultProjectId"], out Guid projectId))
+                    if (Guid.TryParse(_settings.DefaultProjectId, out var projectId))
                     {
                         _defaultProjectId = projectId;
 
@@ -121,7 +143,7 @@ namespace DancingGoat.Areas.Admin
             }
         }
 
-        public static string PreviewApiKey
+        public string PreviewApiKey
         {
             get
             {
@@ -131,21 +153,13 @@ namespace DancingGoat.Areas.Admin
                 }
                 else
                 {
-                    if (ConfigurationManager.AppSettings.AllKeys.Contains(PREVIEW_API_KEY))
-                    {
-                        _previewApiKey = ConfigurationManager.AppSettings[PREVIEW_API_KEY];
-
-                        return _previewApiKey;
-                    }
-                    else
-                    {
-                        return null;
-                    }
+                    _previewApiKey = _settings.PreviewApiKey;
+                    return _previewApiKey;
                 }
             }
         }
 
-        public static string KenticoKontentUrl
+        public string KenticoCloudUrl
         {
             get
             {
@@ -180,9 +194,32 @@ namespace DancingGoat.Areas.Admin
             }
         }
 
-        public static string[] ResponsiveWidths { get; } =
-            ConfigurationManager.AppSettings[RESPONSIVE_WIDTHS]?.Split(',') ?? new string[] { };
+        public string[] ResponsiveWidths => _settings.ResponsiveWidths?.Split(',') ?? new string[]{};
 
-        public static bool ResponsiveImagesEnabled { get; } = ResponsiveWidths.Any();
+        public bool ResponsiveImagesEnabled => ResponsiveWidths.Any();
+        public Guid? GetProjectId()
+        {
+            return ProjectId;
+        }
+
+        public string GetKenticoCloudUrl()
+        {
+            return KenticoCloudUrl;
+        }
+
+        public Guid? GetDefaultProjectId()
+        {
+            return DefaultProjectId;
+        }
+
+        public void SetProjectId(Guid projectId)
+        {
+            ProjectId = projectId;
+        }
+
+        public void SetSubscriptionExpiresAt(DateTime? subscriptionExpiresAt)
+        {
+            SubscriptionExpiresAt = subscriptionExpiresAt;
+        }
     }
 }

@@ -1,25 +1,34 @@
-﻿using DancingGoat.Models;
+﻿using System;
+using DancingGoat.Models;
 using Kentico.Kontent.Delivery;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web.Mvc;
+using DancingGoat.Areas.Admin;
+using DancingGoat.Areas.Admin.Abstractions;
+using DancingGoat.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Options;
 
 namespace DancingGoat.Controllers
 {
     public class BrewersController : ControllerBase
     {
+        public BrewersController(IOptionsSnapshot<DeliveryOptions> deliveryOptions, IAppSettingProvider settingProvider, IDeliveryClient client) : base(deliveryOptions, settingProvider, client)
+        {
+        }
         public async Task<ActionResult> Index()
         {
-            var itemsTask = client.GetItemsAsync<Brewer>(
+            var itemsTask = _client.GetItemsAsync<Brewer>(
                 new EqualsFilter("system.type", "brewer"),
                 new OrderParameter("elements.product_name"),
                 new ElementsParameter(Brewer.ImageCodename, Brewer.PriceCodename, Brewer.ProductStatusCodename, Brewer.ProductNameCodename, Brewer.UrlPatternCodename),
                 new DepthParameter(0)
             );
 
-            var statusTask = client.GetTaxonomyAsync(Brewer.ProductStatusCodename);
-            var manufacturerTask = client.GetTaxonomyAsync(Brewer.ManufacturerCodename);
+            var statusTask = _client.GetTaxonomyAsync(Brewer.ProductStatusCodename);
+            var manufacturerTask = _client.GetTaxonomyAsync(Brewer.ManufacturerCodename);
 
             var model = new BrewersViewModel
             {
@@ -55,14 +64,14 @@ namespace DancingGoat.Controllers
                 parameters.Add(new AnyFilter($"elements.{Brewer.ProductStatusCodename}", statusTypes));
             }
 
-            var response = await client.GetItemsAsync<Brewer>(parameters);
+            var response = await _client.GetItemsAsync<Brewer>(parameters);
 
             return PartialView("ProductListing", response.Items);
         }
 
         private IList<SelectListItem> GetTaxonomiesAsSelectList(TaxonomyGroup taxonomyGroup)
         {
-            return taxonomyGroup.Terms.Select(x => new SelectListItem{Text = x.Name, Value = x.Codename}).ToList();
+            return taxonomyGroup.Terms.Select(x => new SelectListItem { Text = x.Name, Value = x.Codename }).ToList();
         }
     }
 }

@@ -1,7 +1,8 @@
-﻿using DancingGoat.Areas.Admin;
-using DancingGoat.Infrastructure;
-using DancingGoat.Localization;
-using DancingGoat.Models;
+﻿using DancingGoat.Models;
+using DancingGoat.Areas.Admin;
+using DancingGoat.Areas.Admin.Abstractions;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Kentico.Kontent.Delivery;
 using System;
 using System.Globalization;
@@ -9,36 +10,30 @@ using System.Web.Mvc;
 
 namespace DancingGoat.Controllers
 {
-    [SelfConfigActionFilter]
-    public class ControllerBase : AsyncController
+    // TODO: Is this a service or what????
+    public class ControllerBase : Controller
     {
-        protected static readonly IDeliveryClient baseClient = CreateDeliveryClient();
-        public readonly IDeliveryClient client;
+        private readonly DeliveryOptions _deliveryOptions;
+        protected readonly IDeliveryClient _client;
+        protected readonly IAppSettingProvider _settingProvider;
 
-        public ControllerBase()
+        public ControllerBase(IOptionsSnapshot<DeliveryOptions> deliveryOptions
+            , IAppSettingProvider settingProvider, IDeliveryClient deliveryClient)
         {
-            var currentCulture = CultureInfo.CurrentUICulture.Name;
-            if (currentCulture.Equals(LanguageClient.DEFAULT_LANGUAGE, StringComparison.InvariantCultureIgnoreCase))
-            {
-                client = baseClient;
-            }
-            else
-            {
-                client = new LanguageClient(baseClient, currentCulture);
-            }
+            // TODO: Add localization, see https://github.com/Kentico/cloud-sample-app-net/blob/ae6cb700d1d8d08b6e8141403c6198a796c9c2bc/DancingGoat/Controllers/ControllerBase.cs#L20-L28
+            _deliveryOptions = deliveryOptions.Value;
+            _settingProvider = settingProvider;
+            _client = deliveryClient = this.CreateDeliveryClient();
         }
 
 
-        public static IDeliveryClient CreateDeliveryClient()
+        public IDeliveryClient CreateDeliveryClient()
         {
-            // Use the provider to get environment variables
-            ConfigurationManagerProvider provider = new ConfigurationManagerProvider();
-
             // Build DeliveryOptions with default or explicit values
-            var options = provider.GetDeliveryOptions();
 
-            options.ProjectId = options.ProjectId ?? AppSettingProvider.DefaultProjectId.ToString();
-            var clientInstance = DeliveryClientBuilder.WithOptions(o => options)
+            _deliveryOptions.ProjectId = _deliveryOptions.ProjectId ?? _settingProvider.GetProjectId()?.ToString();
+
+            var clientInstance = DeliveryClientBuilder.WithOptions(o => _deliveryOptions)
                 .WithTypeProvider(new CustomTypeProvider())
                 .WithContentLinkUrlResolver(new CustomContentLinkUrlResolver()).Build();
 

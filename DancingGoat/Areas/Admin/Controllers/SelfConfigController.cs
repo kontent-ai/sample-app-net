@@ -1,17 +1,20 @@
 ﻿using System;
-using System.Configuration;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using System.Web.Mvc;
-using Newtonsoft.Json;
-using DancingGoat.Helpers;
-using DancingGoat.Areas.Admin.Helpers;
+using DancingGoat.Areas.Admin.Abstractions;
+using DancingGoat.Areas.Admin.Infrastructure;
 using DancingGoat.Areas.Admin.Models;
+using DancingGoat.Helpers;
 using Kentico.Kontent.Delivery;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace DancingGoat.Areas.Admin.Controllers
 {
     public class SelfConfigController : Controller
     {
+        private readonly IAppSettingProvider _settingProvider;
         protected const string CAPTION_CONFIGURATION_WRITE_ERROR = "Configuration Save Error";
         protected const string CAPTION_DESERIALIZATION_ERROR = "API Response Deserialization Error";
 
@@ -26,12 +29,14 @@ namespace DancingGoat.Areas.Admin.Controllers
 
         public const int PROJECT_EXISTENCE_VERIFICATION_REQUIRED_ITEMS = 30;
 
-        protected readonly SelfConfigManager _selfConfigManager;
-        protected readonly IDeliveryClient client = DancingGoat.Controllers.ControllerBase.CreateDeliveryClient();
+        protected readonly ISelfConfigManager _selfConfigManager;
+        protected IDeliveryClient client;
 
-        public SelfConfigController()
+        public SelfConfigController(IAppSettingProvider settingProvider, IDeliveryClient deliveryClient, ISelfConfigManager selfConfigManager)
         {
-            _selfConfigManager = new SelfConfigManager();
+            _settingProvider = settingProvider;
+            _selfConfigManager = selfConfigManager;
+            client = deliveryClient;
         }
 
         [HttpGet]
@@ -43,20 +48,20 @@ namespace DancingGoat.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Done()
         {
-            return RedirectHelpers.GetHomeRedirectResult(new MessageModel { Caption = null, Message = string.Format(MESSAGE_SELECTED_PROJECT, AppSettingProvider.ProjectId.Value), MessageType = MessageType.Info });
+            return RedirectHelpers.GetHomeRedirectResult(new MessageModel { Caption = null, Message = string.Format(MESSAGE_SELECTED_PROJECT, _settingProvider.GetProjectId().Value), MessageType = MessageType.Info });
         }
 
         [HttpGet]
         public async Task<ActionResult> SampleProjectReady()
-        {             
+        {
             var items = (await client.GetItemsAsync()).Items;
-            return Json(items.Count >= PROJECT_EXISTENCE_VERIFICATION_REQUIRED_ITEMS, JsonRequestBehavior.AllowGet);
+            return Json(items.Count >= PROJECT_EXISTENCE_VERIFICATION_REQUIRED_ITEMS);
         }
 
         [HttpPost]
         public ActionResult UseShared()
         {
-            return SetConfiguration(MESSAGE_SHARED_PROJECT, AppSettingProvider.DefaultProjectId.Value, null, false);
+            return SetConfiguration(MESSAGE_SHARED_PROJECT, _settingProvider.GetDefaultProjectId().Value, null, false);
         }
 
         [HttpPost]
@@ -83,14 +88,15 @@ namespace DancingGoat.Areas.Admin.Controllers
 
                 return RedirectHelpers.GetHomeRedirectResult(new MessageModel { Caption = null, Message = message, MessageType = MessageType.Info });
             }
-            catch (ConfigurationErrorsException ex)
-            {
-                return View("Error", new MessageModel { Caption = CAPTION_CONFIGURATION_WRITE_ERROR, Message = ex.Message, MessageType = MessageType.Error });
-            }
             catch (JsonSerializationException ex)
             {
                 return View("Error", new MessageModel { Caption = CAPTION_DESERIALIZATION_ERROR, Message = ex.Message, MessageType = MessageType.Error });
             }
+            catch (Exception ex)
+            {
+                return View("Error", new MessageModel { Caption = CAPTION_CONFIGURATION_WRITE_ERROR, Message = ex.Message, MessageType = MessageType.Error });
+            }
+
         }
     }
 }

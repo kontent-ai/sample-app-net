@@ -2,7 +2,7 @@
 
 @{
     Layout = "~/Views/Shared/_StoreLayout.cshtml";
-    ViewBag.Title = Resources.DancingGoat.Coffees;
+    ViewBag.Title = Localizer["Coffees"];
 }
 
 <div class="product-page row">
@@ -10,20 +10,17 @@
         <aside class="col-md-4 col-lg-3 product-filter">
             @using (Html.BeginForm("Filter", "Coffees"))
             {
-                @Html.Partial("CoffeeFilter", Model.Filter)
+                @await Html.PartialAsync("CoffeeFilter", Model.Filter)
             }
         </aside>
 
         <div id="product-list" class="col-md-8 col-lg-9 product-list">
-            @Html.Partial("ProductListing", Model.Items)
+            @await Html.PartialAsync("ProductListing", Model.Items)
         </div>
     </div>
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/Scripts/formAutoPost.js")
-
-    <script>
-            $(".js-postback input:checkbox").formAutoPost({ targetContainerSelector: "#product-list" });
-    </script>
-}
+<script src="~/js/formAutoPost.js"></script>
+<script>
+    $(".js-postback input:checkbox").formAutoPost({ targetContainerSelector: "#product-list" });
+</script>

@@ -1,4 +1,12 @@
-﻿using DancingGoat.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using DancingGoat.Areas.Admin;
+using DancingGoat.Areas.Admin.Abstractions;
+using DancingGoat.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Kentico.Kontent.Delivery;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,9 +16,12 @@ namespace DancingGoat.Controllers
 {
     public class ContactsController : ControllerBase
     {
+        public ContactsController(IOptionsSnapshot<DeliveryOptions> deliveryOptions, IAppSettingProvider settingProvider, IDeliveryClient client) : base(deliveryOptions, settingProvider, client)
+        {
+        }
         public async Task<ActionResult> Index()
         {
-            var response = await client.GetItemsAsync<Cafe>(
+            var response = await _client.GetItemsAsync<Cafe>(
                 new EqualsFilter("system.type", "cafe"),
                 new EqualsFilter("elements.country", "USA")
             );

@@ -1,7 +1,8 @@
-﻿@{
-    const string imagePathPattern = "~/Areas/Admin/Content/Images/{0}.svg";
-    var routeDataMessageBody = Request.QueryString["MessageBody"];
-    var routeDataMessageType = Request.QueryString["MessageType"];
+﻿@using Microsoft.AspNetCore.Html
+@{
+    const string imagePathPattern = "~/images/Admin/{0}.svg";
+    var routeDataMessageBody = Context.Request.Query["MessageBody"].FirstOrDefault();
+    var routeDataMessageType = Context.Request.Query["MessageType"].FirstOrDefault();
     DancingGoat.Areas.Admin.Models.MessageModel viewBagMessage = null;
     string imageName = null;
     string imagePath = null;
@@ -15,14 +16,15 @@
 
     if (!string.IsNullOrEmpty(routeDataMessageType))
     {
-        imageName = routeDataMessageType.ToLowerInvariant();
+        imageName = routeDataMessageType.ToString().ToLowerInvariant();
         imagePath = string.Format(imagePathPattern, imageName);
     }
 }
 
-@helper MessageImage(string source, string altText)
-{
-    <img src="@source" height="44" width="44" alt="@altText" />
+@{
+    Func<dynamic, IHtmlContent> MessageImage(string source, string altText) =>
+    @<img src="@source" height="44" width="44" alt="@altText" />;
+
 }
 
 @if ((!string.IsNullOrEmpty(ViewBag.ErrorMessage)) || (!string.IsNullOrEmpty(routeDataMessageBody)))

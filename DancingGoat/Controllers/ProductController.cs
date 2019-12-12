@@ -1,21 +1,29 @@
-﻿using Kentico.Kontent.Delivery;
+﻿using System;
+using System.Collections.Generic;
+using Kentico.Kontent.Delivery;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
+using DancingGoat.Areas.Admin;
+using DancingGoat.Areas.Admin.Abstractions;
+using KenticoCloud.Delivery;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace DancingGoat.Controllers
 {
     public class ProductController : ControllerBase
     {
+        public ProductController(IOptionsSnapshot<DeliveryOptions> deliveryOptions, IAppSettingProvider settingProvider, IDeliveryClient client) : base(deliveryOptions, settingProvider, client)
+        {
+        }
+
         public async Task<ActionResult> Detail(string urlSlug)
         {
-            var item = (await client.GetItemsAsync<object>(new EqualsFilter("elements.url_pattern", urlSlug), new InFilter("system.type", "brewer", "coffee"))).Items.FirstOrDefault();
+            var item = (await _client.GetItemsAsync<object>(new EqualsFilter("elements.url_pattern", urlSlug), new InFilter("system.type", "brewer", "coffee"))).Items.FirstOrDefault();
 
             if (item == null)
             {
-                throw new HttpException(404, "Not found");
+                return NotFound();
             }
             else
             {
@@ -33,7 +41,7 @@ namespace DancingGoat.Controllers
         {
             // If needed, put your code here to work with the uploaded data in MVC.
             TempData["formSubmited"] = true;
-            return RedirectToAction("Detail", new { urlSlug = Request.Form["product_url_slug"]});
+            return RedirectToAction("Detail", new { urlSlug = Request.Form["product_url_slug"] });
         }
     }
 }
