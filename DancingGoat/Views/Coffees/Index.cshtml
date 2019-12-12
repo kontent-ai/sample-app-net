@@ -20,7 +20,10 @@
     </div>
 </div>
 
-<script src="~/js/formAutoPost.js"></script>
-<script>
-    $(".js-postback input:checkbox").formAutoPost({ targetContainerSelector: "#product-list" });
-</script>
+@section Scripts
+{
+    <script src="~/js/formAutoPost.js"></script>
+    <script>
+        $(".js-postback input:checkbox").formAutoPost({ targetContainerSelector: "#product-list" });
+    </script>
+}
