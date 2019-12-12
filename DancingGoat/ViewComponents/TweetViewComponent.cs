@@ -1,19 +1,21 @@
-﻿using System;
-using System.Linq;
-using System.Net.Http;
-using DancingGoat.Models;
+﻿using DancingGoat.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Linq;
+using System.Net.Http;
 
-namespace DancingGoat.Controllers
+namespace DancingGoat.ViewComponents
 {
-    public class TwitterController : Controller
+    public class TweetViewComponent : ViewComponent
     {
         private static readonly HttpClient Client = new HttpClient { Timeout = TimeSpan.FromSeconds(30) };
 
-        // TODO: Investigate the usage of filters in asp.net core
-        // [ChildActionOnly]
-        public ActionResult Tweet(Tweet item)
+        public TweetViewComponent()
+        {
+        }
+
+        public IViewComponentResult Invoke(Tweet item)
         {
             var selectedTheme = item.Theme.FirstOrDefault()?.Name?.ToLower() ?? "light";
             var displayOptions = item.DisplayOptions.ToList();
@@ -26,7 +28,7 @@ namespace DancingGoat.Controllers
                 $"https://publish.twitter.com/oembed?url={tweetLink}&theme={selectedTheme}" + options).Result;
             var jsonResponse = JObject.Parse(tweetResponse.Content.ReadAsStringAsync().Result);
 
-            return PartialView((object)jsonResponse?.Property("html")?.Value.ToObject<string>());
+            return View((object)jsonResponse?.Property("html")?.Value.ToObject<string>());
         }
     }
 }
