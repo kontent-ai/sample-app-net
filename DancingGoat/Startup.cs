@@ -12,13 +12,15 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace DancingGoat
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; set; }
 
-        public Startup(IHostingEnvironment environment)
+        public Startup(IWebHostEnvironment environment)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(environment.ContentRootPath)
@@ -28,12 +30,11 @@ namespace DancingGoat
             Configuration = builder.Build();
         }
 
-        public IConfiguration Configuration { get; set; }
-
         public void ConfigureServices(IServiceCollection services)
         {
-            // enable configuration services
+            // Enable configuration services
             services.AddOptions();
+
             // ConfigurationManagerProvider is here now
             services.Configure<AppSettings>(Configuration.GetSection("AppConfiguration"));
             services.Configure<DeliveryOptions>(Configuration.GetSection(nameof(DeliveryOptions)));
@@ -63,11 +64,10 @@ namespace DancingGoat
             });
             services.AddTransient<IDeliveryClientFactory, DeliveryClientFactory>();
             services.AddScoped<ISelfConfigManager, SelfConfigManager>();
-            services.AddRouting();
-            services.AddMvc();
+            services.AddMvc().AddMvcLocalization();//.AddControllersWithViews();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -103,16 +103,18 @@ namespace DancingGoat
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseMvc(routes =>
+
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
+                endpoints.MapControllerRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
 
                 // Replacing Areas/Admin/AdminAreaRegistration.cs
-                routes.MapRoute(
+                endpoints.MapControllerRoute(
                     name: "areas",
-                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
                 );
             });
         }
