@@ -137,14 +137,17 @@
     </div>
 </section>
 
-<script type="text/javascript">
-    $(function () {
-        $("#partnership-application").validate({
-            errorClass: "message message-error",
-            rules: {
-                Email: "email",
-                Phone: "digits"
-            }
+@section Scripts
+{
+    <script type="text/javascript">
+        $(function() {
+            $("#partnership-application").validate({
+                errorClass: "message message-error",
+                rules: {
+                    Email: "email",
+                    Phone: "digits"
+                }
+            });
         });
-    });
-</script>
+    </script>
+}
