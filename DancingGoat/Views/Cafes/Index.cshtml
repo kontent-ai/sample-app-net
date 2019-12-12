@@ -23,5 +23,8 @@
 <h2 class="map-title">@Localizer["Cafes.MapTitle"]</h2>
 <div class="map js-map"></div>
 
-<script src="~/Scripts/map.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVOq4C-rf7JVeHt6ws9vsf-KHIRpueASg"></script>
+@section Scripts
+{
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVOq4C-rf7JVeHt6ws9vsf-KHIRpueASg"></script>
+    <script src="~/Scripts/map.js"></script>
+}
