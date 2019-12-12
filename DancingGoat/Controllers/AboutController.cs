@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DancingGoat.Areas.Admin;
 using DancingGoat.Areas.Admin.Abstractions;
 using DancingGoat.Models;
 using Kentico.Kontent.Delivery;

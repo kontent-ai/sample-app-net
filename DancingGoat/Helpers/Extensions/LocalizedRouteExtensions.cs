@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Routing;
-
-namespace DancingGoat.Helpers.Extensions
+﻿namespace DancingGoat.Helpers.Extensions
 {
     public static class LocalizedRouteExtensions
     {

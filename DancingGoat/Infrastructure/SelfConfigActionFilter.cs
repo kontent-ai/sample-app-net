@@ -2,8 +2,6 @@
 using DancingGoat.Areas.Admin;
 using DancingGoat.Areas.Admin.Models;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Extensions.Options;
-using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 
 namespace DancingGoat.Infrastructure
 {

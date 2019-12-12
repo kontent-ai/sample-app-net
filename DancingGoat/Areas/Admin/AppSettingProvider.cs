@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Linq;
 using DancingGoat.Models;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-using System.Configuration;
 using DancingGoat.Areas.Admin.Abstractions;
-using Microsoft.IdentityModel.Protocols;
 
 namespace DancingGoat.Areas.Admin
 {
@@ -18,7 +15,7 @@ namespace DancingGoat.Areas.Admin
         private Guid? _projectId;
         private Guid? _defaultProjectId;
         private string _previewApiKey;
-        private string _kenticoCloudUrl;
+        private string _kenticoKontentUrl;
 
         // Using IOptionsSnapshot to get the reloaded configuration on change
         public AppSettingProvider(IOptionsSnapshot<AppSettings> options)
@@ -159,7 +156,7 @@ namespace DancingGoat.Areas.Admin
             }
         }
 
-        public string KenticoCloudUrl
+        public string KenticoKontentUrl
         {
             get
             {
@@ -173,7 +170,8 @@ namespace DancingGoat.Areas.Admin
 
                     try
                     {
-                        url = ConfigurationManager.AppSettings["KenticoKontentUrl"];
+                        // TODO: No empty strings!
+                        url = Guid.Empty.ToString(); //ConfigurationManager.AppSettings["KenticoKontentUrl"];
                     }
                     catch
                     {
@@ -202,9 +200,9 @@ namespace DancingGoat.Areas.Admin
             return ProjectId;
         }
 
-        public string GetKenticoCloudUrl()
+        public string GetKenticoKontentUrl()
         {
-            return KenticoCloudUrl;
+            return KenticoKontentUrl;
         }
 
         public Guid? GetDefaultProjectId()

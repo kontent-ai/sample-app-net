@@ -1,6 +1,4 @@
 ﻿using DancingGoat.Models;
-using KenticoCloud.ContentManagement.Helpers.Models;
-using KenticoCloud.Delivery.ImageTransformation;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -9,12 +7,14 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Net.Http;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
 using Kentico.Kontent.Delivery;
 using Kentico.Kontent.Delivery.ImageTransformation;
+using Kentico.Kontent.Management.Helpers.Models;
+
+using IHtmlContent = Microsoft.AspNetCore.Html.IHtmlContent;
 
 namespace DancingGoat.Helpers.Extensions
 {
@@ -32,7 +32,7 @@ namespace DancingGoat.Helpers.Extensions
         /// <param name="width">Optional width size</param>
         /// <param name="height">Optional height size</param>
         /// <param name="sizes">Media conditions mapping screen width to image size</param>
-        public static IHtmlContent AssetImage(this IHtmlHelper htmlHelper, IConfiguration configuration, KenticoCloud.Delivery.Asset asset, string title = null, string cssClass = "", int? width = null, int? height = null, ResponsiveImageSizes sizes = null)
+        public static IHtmlContent AssetImage(this IHtmlHelper htmlHelper, IConfiguration configuration, Asset asset, string title = null, string cssClass = "", int? width = null, int? height = null, ResponsiveImageSizes sizes = null)
         {
             if (asset == null)
             {
@@ -87,7 +87,7 @@ namespace DancingGoat.Helpers.Extensions
         /// <param name="htmlHelper">HTML helper.</param>
         /// <param name="image">Inline image.</param>
         /// <param name="sizes">Media conditions mapping screen width to image size</param>
-        public static IHtmlContent InlineImage(this IHtmlHelper htmlHelper, IConfiguration configuration, KenticoCloud.Delivery.IInlineImage image, ResponsiveImageSizes sizes = null)
+        public static IHtmlContent InlineImage(this IHtmlHelper htmlHelper, IConfiguration configuration, IInlineImage image, ResponsiveImageSizes sizes = null)
         {
             if (image == null)
             {

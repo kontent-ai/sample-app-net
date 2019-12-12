@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Kentico.Kontent.Delivery;
+﻿using Kentico.Kontent.Delivery;
 using System.Linq;
 using System.Threading.Tasks;
-using DancingGoat.Areas.Admin;
 using DancingGoat.Areas.Admin.Abstractions;
-using KenticoCloud.Delivery;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 

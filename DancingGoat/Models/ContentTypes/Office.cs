@@ -4,8 +4,6 @@
 // Changes to this file may cause incorrect behavior and will be lost if the code is regenerated. 
 // For further modifications of the class, create a separate file with the partial class.
 
-using System;
-using System.Collections.Generic;
 using Kentico.Kontent.Delivery;
 
 namespace DancingGoat.Models

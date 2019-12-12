@@ -7,9 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Kentico.Kontent.Management.Helpers" Version="1.5.2" />
-    <PackageReference Include="Kentico.Kontent.Delivery" Version="10.0.1" />
-    <PackageReference Include="Kentico.Kontent.Recommender" Version="5.1.4" />
+    <PackageReference Include="Kentico.Kontent.Management.Helpers" Version="2.0.1" />
+    <PackageReference Include="Kentico.Kontent.Delivery" Version="12.3.0" />
+    <PackageReference Include="Kentico.Kontent.Recommender" Version="6.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />

@@ -8,12 +8,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Kentico.Kontent.Delivery;
 using Kentico.Kontent.Recommender;
-using System;
-using System.Configuration;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
 
 namespace DancingGoat.Controllers
 {
@@ -60,7 +54,7 @@ namespace DancingGoat.Controllers
                     if (!string.IsNullOrWhiteSpace(recommendationApiKey))
                     {
                         /* Get recommendations from the Recommendation engine */
-                        var recommendationClient = new Kentico.Kontent.Recommender.MVC.RecommendationClient(recommendationApiKey, 5);
+                        var recommendationClient = new RecommendationClient(recommendationApiKey, 5);
                         var lastMonth = TimeSpan.FromDays(30).Milliseconds;
 
                         var recommendedArticles = await recommendationClient

@@ -1,12 +1,8 @@
 ﻿using DancingGoat.Models;
-using DancingGoat.Areas.Admin;
 using DancingGoat.Areas.Admin.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Kentico.Kontent.Delivery;
-using System;
-using System.Globalization;
-using System.Web.Mvc;
 
 namespace DancingGoat.Controllers
 {

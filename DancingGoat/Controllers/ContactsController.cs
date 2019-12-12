@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using DancingGoat.Areas.Admin;
 using DancingGoat.Areas.Admin.Abstractions;
 using DancingGoat.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Kentico.Kontent.Delivery;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web.Mvc;
 
 namespace DancingGoat.Controllers
 {

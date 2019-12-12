@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DancingGoat.Models
+﻿namespace DancingGoat.Models
 {
     public class AppSettings
     {

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using DancingGoat.Areas.Admin.Abstractions;
-using DancingGoat.Areas.Admin.Infrastructure;
 using DancingGoat.Areas.Admin.Models;
 using DancingGoat.Helpers;
 using Kentico.Kontent.Delivery;

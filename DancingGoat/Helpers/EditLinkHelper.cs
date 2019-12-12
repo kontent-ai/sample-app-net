@@ -1,7 +1,5 @@
-﻿
-
-using KenticoCloud.ContentManagement.Helpers;
-using KenticoCloud.ContentManagement.Helpers.Configuration;
+﻿using Kentico.Kontent.Management.Helpers;
+using Kentico.Kontent.Management.Helpers.Configuration;
 using Microsoft.Extensions.Configuration;
 
 namespace DancingGoat.Helpers
@@ -19,7 +17,7 @@ namespace DancingGoat.Helpers
         {
             this.configuration = configuration;
             var projectId = configuration.GetSection("AppConfiguration")["ProjectId"].ToString() ?? configuration.GetSection("AppConfiguration")["DefaultProjectId"].ToString();
-            var linkBuilderOptions = new ContentManagementHelpersOptions() { ProjectId = projectId };
+            var linkBuilderOptions = new ManagementHelpersOptions() { ProjectId = projectId };
             Builder = new EditLinkBuilder(linkBuilderOptions);
         }
 

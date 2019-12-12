@@ -1,4 +1,4 @@
-﻿using KenticoCloud.ContentManagement.Helpers.Models;
+﻿using Kentico.Kontent.Management.Helpers.Models;
 
 namespace DancingGoat.Models
 {
