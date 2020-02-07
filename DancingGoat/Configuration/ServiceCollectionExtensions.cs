@@ -14,7 +14,8 @@ namespace DancingGoat.Configuration
             {
                 var environment = provider.GetService<IWebHostEnvironment>();
                 var options = provider.GetService<IOptionsMonitor<T>>();
-                return new WritableOptions<T>(environment, options, section.Key, file);
+                var root = provider.GetService<IConfigurationRoot>();
+                return new WritableOptions<T>(environment, root, options, section.Key, file);
             });
         }
     }

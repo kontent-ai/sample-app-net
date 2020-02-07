@@ -32,13 +32,11 @@ namespace DancingGoat.Areas.Admin.Controllers
 
         public IWritableOptions<DeliveryOptions> Options { get; }
         public IWritableOptions<AppConfiguration> AppConfig { get; }
-        public IConfiguration Configuration { get; }
 
-        public SelfConfigController(IDeliveryClient deliveryClient, IWritableOptions<DeliveryOptions> options, IWritableOptions<AppConfiguration> appConfig, IConfiguration configuration)
+        public SelfConfigController(IDeliveryClient deliveryClient, IWritableOptions<DeliveryOptions> options, IWritableOptions<AppConfiguration> appConfig)
         {
             Options = options;
             AppConfig = appConfig;
-            Configuration = configuration;
             client = deliveryClient;
         }
 
@@ -88,8 +86,6 @@ namespace DancingGoat.Areas.Admin.Controllers
                 {
                     AppConfig.Update(opt => { opt.SubscriptionExpiresAt = endAt.Value.ToUniversalTime(); });
                 }
-
-                ((IConfigurationRoot)Configuration).Reload();
 
                 if (isNew)
                 {

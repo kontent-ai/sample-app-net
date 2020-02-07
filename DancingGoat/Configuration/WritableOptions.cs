@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -10,17 +11,20 @@ namespace DancingGoat.Configuration
     public class WritableOptions<T> : IWritableOptions<T> where T : class, new()
     {
         private readonly IWebHostEnvironment _environment;
+        private readonly IConfigurationRoot _root;
         private readonly IOptionsMonitor<T> _options;
         private readonly string _section;
         private readonly string _file;
 
         public WritableOptions(
             IWebHostEnvironment environment,
+            IConfigurationRoot root,
             IOptionsMonitor<T> options,
             string section,
             string file)
         {
             _environment = environment;
+            _root = root;
             _options = options;
             _section = section;
             _file = file;
@@ -43,6 +47,8 @@ namespace DancingGoat.Configuration
 
             jObject[_section] = JObject.Parse(JsonConvert.SerializeObject(sectionObject));
             File.WriteAllText(physicalPath, JsonConvert.SerializeObject(jObject, Formatting.Indented));
+
+            _root.Reload();
         }
     }
 }
