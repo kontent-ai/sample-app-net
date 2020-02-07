@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using DancingGoat.Areas.Admin;
-using DancingGoat.Areas.Admin.Abstractions;
-using DancingGoat.Areas.Admin.Infrastructure;
+using DancingGoat.Configuration;
 using DancingGoat.Infrastructure;
 using DancingGoat.Models;
 using Kentico.AspNetCore.LocalizedRouting.Extensions;
@@ -35,19 +33,19 @@ namespace DancingGoat
             // Enable configuration services
             services.AddOptions();
 
-            //Enable Delivery Client
+            // Enable Delivery Client
             services.AddSingleton<ITypeProvider, CustomTypeProvider>();
             services.AddSingleton<IContentLinkUrlResolver, CustomContentLinkUrlResolver>();
             services.AddDeliveryClient(Configuration);
 
-            // ConfigurationManagerProvider is here now
+            // Configuration
             services.Configure<AppConfiguration>(Configuration.GetSection(nameof(AppConfiguration)));
             services.Configure<DeliveryOptions>(Configuration.GetSection(nameof(DeliveryOptions)));
-            services.AddScoped<IAppSettingProvider, AppSettingProvider>();
+            services.ConfigureWritable<DeliveryOptions>(Configuration.GetSection(nameof(DeliveryOptions)));
 
+            // I18N
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.AddLocalization(options => options.ResourcesPath = "Resources");
-            services.AddScoped<ISelfConfigManager, SelfConfigManager>();
             services.AddSingleton<CustomLocalizedRoutingTranslationTransformer>();
             services.AddControllersWithViews();
             services.AddLocalizedRouting();

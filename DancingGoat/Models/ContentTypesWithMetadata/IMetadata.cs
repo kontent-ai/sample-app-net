@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Kentico.Kontent.Delivery;
 using Kentico.Kontent.Delivery.Abstractions;
 
 namespace DancingGoat.Models

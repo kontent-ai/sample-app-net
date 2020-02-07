@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Kentico.Kontent.Delivery;
 using DancingGoat.Infrastructure;
 using System.Globalization;
 using Kentico.Kontent.Delivery.Abstractions;

@@ -1,12 +1,12 @@
-﻿@using DancingGoat.Areas.Admin
-@using DancingGoat.Areas.Admin.Abstractions
-@using DancingGoat.Helpers.Extensions
+﻿@using DancingGoat.Helpers.Extensions
 @model DancingGoat.Areas.Admin.Models.IndexViewModel
 
 @{
     ViewBag.Title = "Sample Site—Configuration";
 }
-@inject IAppSettingProvider AppSetting;
+
+@inject IOptionsSnapshot<AppConfiguration> Config
+
 <header>
     <div class="content">
         <h1>@ViewBag.Title</h1>
@@ -22,7 +22,7 @@
         var left = (window.screen.width / 2) - ((w / 2) + 10);
         var top = (window.screen.height / 2) - ((h / 2) + 50);
 
-        window.open("@(AppSetting.KenticoKontentUrl.TrimEnd('/'))/sample-site-configuration", "Kentico Kontent",
+        window.open("@(Config.Value.KenticoKontentUrl.TrimEnd('/'))/sample-site-configuration", "Kentico Kontent",
             "status=no,height=" + w + ",width=" + h + ",resizable=yes,left="
             + left + ",top=" + top + ",screenX=" + left + ",screenY="
             + top + ",toolbar=no,menubar=no,location=no,directories=no");
@@ -31,7 +31,7 @@
     window.addEventListener("message", receiveMessage, false);
 
     function receiveMessage(event) {
-        if (event.origin.toLowerCase() !== "@(AppSetting.KenticoKontentUrl.TrimEnd('/').ToLower())")
+        if (event.origin.toLowerCase() !== "@(Config.Value.KenticoKontentUrl.TrimEnd('/').ToLower())")
             return;
 
         if (!event.data.projectGuid)
@@ -70,7 +70,7 @@
     </section>
     <section class="section-secondary">
         <h2>Use the Shared Project</h2>
-        <p>Alternatively, you may wish to use the shared project (project ID "@(AppSetting.DefaultProjectId.Value)").</p>
+        <p>Alternatively, you may wish to use the shared project (project ID "@(Config.Value.DefaultProjectId)").</p>
         <p><strong>Note:</strong> You cannot edit content in the shared project.</p>
         @using (Html.BeginForm("UseShared", "SelfConfig"))
         {

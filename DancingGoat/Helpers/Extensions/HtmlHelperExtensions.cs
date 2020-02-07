@@ -1,7 +1,6 @@
 ﻿using DancingGoat.Models;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
@@ -158,7 +157,6 @@ namespace DancingGoat.Helpers.Extensions
       <i aria-hidden=""true"" class=""edit-link__button-icon edit-link__button-icon--block""></i>
   </span>
 </a>";
-
             return new HtmlString(generatedHtml);
         }
 
