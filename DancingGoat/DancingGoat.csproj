@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Kentico.AspNetCore.LocalizedRouting" Version="1.0.0-beta1" />
     <PackageReference Include="Kentico.Kontent.Management.Helpers" Version="2.0.1" />
     <PackageReference Include="Kentico.Kontent.Delivery" Version="12.3.0" />
     <PackageReference Include="Kentico.Kontent.Recommender" Version="6.0.0" />
@@ -16,7 +17,6 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\SelfConfig\" />
     <Folder Include="Areas\Admin\Views\Shared\EditorTemplates\" />
-    <Folder Include="Infrastructure\" />
     <Folder Include="wwwroot\css\admin\" />
     <Folder Include="wwwroot\images\Admin\" />
   </ItemGroup>

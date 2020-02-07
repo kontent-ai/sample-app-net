@@ -3,26 +3,30 @@ using Kentico.Kontent.Delivery;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DancingGoat.Areas.Admin.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Options;
-using DancingGoat.Localization;
+using Kentico.AspNetCore.LocalizedRouting.Attributes;
 
 namespace DancingGoat.Controllers
 {
+    [LocalizedRoute("en-US", "Coffees")]
+    [LocalizedRoute("es-ES", "Coffees")]
     public class CoffeesController : ControllerBase
     {
-        public CoffeesController(IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
+        public CoffeesController(IDeliveryClient deliveryClient) : base(deliveryClient)
         {
         }
+
+        [LocalizedRoute("en-US", "Index")]
+        [LocalizedRoute("es-ES", "Index")]
         public async Task<ActionResult> Index()
         {
             var itemsTask = _client.GetItemsAsync<Coffee>(
                 new EqualsFilter("system.type", "coffee"),
                 new OrderParameter("elements.product_name"),
                 new ElementsParameter(Coffee.ImageCodename, Coffee.PriceCodename, Coffee.ProductStatusCodename, Coffee.ProductNameCodename, Coffee.UrlPatternCodename),
-                new DepthParameter(0)
+                new DepthParameter(0),
+                new LanguageParameter(Language)
             );
 
             var processingTask = _client.GetTaxonomyAsync(Coffee.ProcessingCodename);
@@ -41,6 +45,8 @@ namespace DancingGoat.Controllers
             return View(model);
         }
 
+        [LocalizedRoute("en-US", "Filter")]
+        [LocalizedRoute("es-ES", "Filter")]
         public async Task<ActionResult> Filter(CoffeesFilterViewModel model)
         {
             var parameters = new List<IQueryParameter> {
@@ -48,6 +54,7 @@ namespace DancingGoat.Controllers
                 new OrderParameter("elements.product_name"),
                 new ElementsParameter(Coffee.ImageCodename, Coffee.PriceCodename, Coffee.ProductStatusCodename, Coffee.ProductNameCodename, Coffee.UrlPatternCodename),
                 new DepthParameter(0),
+                new LanguageParameter(Language)
             };
 
             var filterProcessing = model.GetFilteredProcessings().ToArray();

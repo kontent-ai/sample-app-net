@@ -40,14 +40,10 @@
                         <nav role="navigation">
                             <ul class="dropdown-items-list dropdown-desktop-visible">
                                 <li>
-                                    <!-- TODO: Create language controller
-                                        Html.ActionLink("English", "Index", "LanguageSelector", LanguageSwitchHelper.GetLangugageSwitchParameters(ViewContext.RouteData.Values, "en-us", Model as IDetailItem), null)
-                                    -->
+                                    <a asp-controller="Languagues" asp-action="ChangeLanguage" asp-route-culture="en-US">English</a> |
                                 </li>
                                 <li>
-                                    <!--
-                                        Html.ActionLink("Español", "Index", "LanguageSelector", LanguageSwitchHelper.GetLangugageSwitchParameters(ViewContext.RouteData.Values, "es-es", Model as IDetailItem), null)
-                                    -->
+                                    <a asp-controller="Languagues" asp-action="ChangeLanguage" asp-route-culture="es-ES">Spanish</a>
                                 </li>
                             </ul>
                         </nav>

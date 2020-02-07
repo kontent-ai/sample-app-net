@@ -1,43 +1,49 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using DancingGoat.Areas.Admin.Abstractions;
 using DancingGoat.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 using Kentico.Kontent.Delivery;
 using Kentico.Kontent.Recommender;
-using DancingGoat.Localization;
+using Kentico.AspNetCore.LocalizedRouting.Attributes;
 
 namespace DancingGoat.Controllers
 {
+    [LocalizedRoute("en-US", "Articles")]
+    [LocalizedRoute("es-ES", "Artículos")]
     public class ArticlesController : ControllerBase
     {
         private readonly IConfiguration _configuration;
 
-        public ArticlesController(IConfiguration configuration, IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
+        public ArticlesController(IConfiguration configuration, IDeliveryClient deliveryClient) : base(deliveryClient)
         {
             _configuration = configuration;
         }
 
+        [LocalizedRoute("en-US", "Index")]
+        [LocalizedRoute("es-ES", "Index")]
         public async Task<ActionResult> Index()
         {
             var response = await _client.GetItemsAsync<Article>(
                 new EqualsFilter("system.type", "article"),
                 new OrderParameter("elements.post_date", SortOrder.Descending),
-                new ElementsParameter("teaser_image", "post_date", "summary", "url_pattern", "title")
+                new ElementsParameter("teaser_image", "post_date", "summary", "url_pattern", "title"),
+                new LanguageParameter(Language)
             );
 
             return View(response.Items);
         }
 
+        [LocalizedRoute("en-US", "Detail")]
+        [LocalizedRoute("es-ES", "Detail")]
         public async Task<ActionResult> Show(string urlSlug)
         {
             var response = await _client.GetItemsAsync<Article>(
                 new EqualsFilter("elements.url_pattern", urlSlug),
                 new EqualsFilter("system.type", "article"),
-                new DepthParameter(1)
+                new DepthParameter(1),
+                new LanguageParameter(Language)
             );
 
             if (response.Items.Count == 0)
@@ -79,7 +85,5 @@ namespace DancingGoat.Controllers
                 }
             }
         }
-
-        
     }
 }

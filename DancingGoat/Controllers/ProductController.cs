@@ -1,22 +1,25 @@
 ﻿using Kentico.Kontent.Delivery;
 using System.Linq;
 using System.Threading.Tasks;
-using DancingGoat.Areas.Admin.Abstractions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using DancingGoat.Localization;
+using Kentico.AspNetCore.LocalizedRouting.Attributes;
 
 namespace DancingGoat.Controllers
 {
+
+    [LocalizedRoute("en-US", "Product")]
+    [LocalizedRoute("es-ES", "Tienda")]
     public class ProductController : ControllerBase
     {
-        public ProductController(IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
+        public ProductController(IDeliveryClient deliveryClient) : base(deliveryClient)
         {
         }
 
+        [LocalizedRoute("en-US", "Detail")]
+        [LocalizedRoute("es-ES", "Detail")]
         public async Task<ActionResult> Detail(string urlSlug)
         {
-            var item = (await _client.GetItemsAsync<object>(new EqualsFilter("elements.url_pattern", urlSlug), new InFilter("system.type", "brewer", "coffee"))).Items.FirstOrDefault();
+            var item = (await _client.GetItemsAsync<object>(new EqualsFilter("elements.url_pattern", urlSlug), new InFilter("system.type", "brewer", "coffee"), new LanguageParameter(Language))).Items.FirstOrDefault();
 
             if (item == null)
             {
