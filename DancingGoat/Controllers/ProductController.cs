@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Kentico.AspNetCore.LocalizedRouting.Attributes;
+using Kentico.Kontent.Delivery.Abstractions;
 
 namespace DancingGoat.Controllers
 {
@@ -11,7 +12,7 @@ namespace DancingGoat.Controllers
     [LocalizedRoute("es-ES", "Tienda")]
     public class ProductController : ControllerBase
     {
-        public ProductController(IDeliveryClient deliveryClient) : base(deliveryClient)
+        public ProductController(IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
         {
         }
 

@@ -2,6 +2,7 @@
 using Kentico.Kontent.Delivery;
 using DancingGoat.Infrastructure;
 using System.Globalization;
+using Kentico.Kontent.Delivery.Abstractions;
 
 namespace DancingGoat.Controllers
 {
@@ -10,9 +11,9 @@ namespace DancingGoat.Controllers
     {
         protected readonly IDeliveryClient _client;
         protected string Language => CultureInfo.CurrentCulture.Name;
-        public ControllerBase(IDeliveryClient deliveryClient)
+        public ControllerBase(IDeliveryClientFactory deliveryClientFactory)
         {
-            _client = deliveryClient;
+            _client = deliveryClientFactory.Get();
         }
     }
 }

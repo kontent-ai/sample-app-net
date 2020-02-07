@@ -4,12 +4,13 @@ using System.Threading.Tasks;
 using DancingGoat.Models;
 using Microsoft.AspNetCore.Mvc;
 using Kentico.Kontent.Delivery;
+using Kentico.Kontent.Delivery.Abstractions;
 
 namespace DancingGoat.Controllers
 {
     public class LanguagesController : ControllerBase
     {
-        public LanguagesController(IDeliveryClient deliveryClient) : base(deliveryClient)
+        public LanguagesController(IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
         {
 
         }

@@ -8,6 +8,7 @@ using DancingGoat.Infrastructure;
 using DancingGoat.Models;
 using Kentico.AspNetCore.LocalizedRouting.Extensions;
 using Kentico.Kontent.Delivery;
+using Kentico.Kontent.Delivery.Abstractions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
