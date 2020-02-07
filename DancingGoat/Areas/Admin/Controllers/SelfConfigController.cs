@@ -46,7 +46,7 @@ namespace DancingGoat.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Done()
         {
-            return RedirectHelpers.GetHomeRedirectResult(new MessageModel { Caption = null, Message = string.Format(MESSAGE_SELECTED_PROJECT, _settingProvider.GetProjectId().Value), MessageType = MessageType.Info });
+            return RedirectHelpers.GetHomeRedirectResult(new MessageModel { Caption = null, Message = string.Format(MESSAGE_SELECTED_PROJECT, _settingProvider.ProjectId.Value), MessageType = MessageType.Info });
         }
 
         [HttpGet]
@@ -59,7 +59,7 @@ namespace DancingGoat.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult UseShared()
         {
-            return SetConfiguration(MESSAGE_SHARED_PROJECT, _settingProvider.GetDefaultProjectId().Value, null, false);
+            return SetConfiguration(MESSAGE_SHARED_PROJECT, _settingProvider.DefaultProjectId.Value, null, false);
         }
 
         [HttpPost]

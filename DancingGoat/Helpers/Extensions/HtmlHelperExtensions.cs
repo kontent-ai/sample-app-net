@@ -181,7 +181,7 @@ namespace DancingGoat.Helpers.Extensions
 <a target=""_blank"" class=""edit-link__overlay--inline"" href=""{itemUrl}"">
     <i aria-hidden=""true"" class=""edit-link__button-icon edit-link__button-icon--inline""></i>
 </a>";
-
+            
             return new HtmlString(generatedHtml);
         }
 

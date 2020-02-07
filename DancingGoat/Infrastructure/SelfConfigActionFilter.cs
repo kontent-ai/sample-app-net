@@ -2,30 +2,33 @@
 using DancingGoat.Areas.Admin;
 using DancingGoat.Areas.Admin.Abstractions;
 using DancingGoat.Areas.Admin.Models;
+using Kentico.Kontent.Delivery;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Options;
 
 namespace DancingGoat.Infrastructure
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
     public class SelfConfigActionFilterAttribute : ActionFilterAttribute
     {
-        private readonly AppSettingProvider _settingProvider;
+        public IOptions<AppConfiguration> Config { get; }
+        public IOptions<DeliveryOptions> DeliveryOptions { get; }
 
-        public SelfConfigActionFilterAttribute(IAppSettingProvider settingProvider)
+        public SelfConfigActionFilterAttribute(IOptions<AppConfiguration> config, IOptions<DeliveryOptions> deliveryOptions)
         {
-            _settingProvider = settingProvider as AppSettingProvider;
+            Config = config;
+            DeliveryOptions = deliveryOptions;
         }
+
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             base.OnActionExecuting(filterContext);
-            DateTime? subscriptionExpiresAt =_settingProvider.SubscriptionExpiresAt;
-            Guid? projectId = _settingProvider.ProjectId;
 
-            if (!projectId.HasValue)
+            if (string.IsNullOrEmpty(DeliveryOptions.Value.ProjectId))
             {
                 filterContext.Result = Helpers.RedirectHelpers.GetSelfConfigIndexResult(null);
             }
-            else if (subscriptionExpiresAt.HasValue && subscriptionExpiresAt <= DateTime.Now)
+            else if (Config.Value.SubscriptionExpiresAt.HasValue && Config.Value.SubscriptionExpiresAt <= DateTime.Now)
             {
                 filterContext.Result = Helpers.RedirectHelpers.GetSelfConfigIndexResult(new MessageModel(){ Message = "Current subscription is expired.", MessageType = Areas.Admin.Models.MessageType.Error});
             }
