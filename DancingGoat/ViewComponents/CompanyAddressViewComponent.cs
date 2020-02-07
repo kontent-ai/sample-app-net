@@ -1,5 +1,6 @@
 ﻿using DancingGoat.Models;
 using Kentico.Kontent.Delivery;
+using Kentico.Kontent.Delivery.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -9,9 +10,9 @@ namespace DancingGoat.ViewComponents
     {
         public IDeliveryClient DeliveryClient { get; }
 
-        public CompanyAddressViewComponent(IDeliveryClient deliveryClient)
+        public CompanyAddressViewComponent(IDeliveryClientFactory deliveryClientFactory)
         {
-            DeliveryClient = deliveryClient;
+            DeliveryClient = deliveryClientFactory.Get();
         }
 
         public async Task<IViewComponentResult> InvokeAsync()

@@ -1,5 +1,5 @@
 ﻿using DancingGoat.Models;
-using Kentico.Kontent.Delivery;
+using Kentico.Kontent.Delivery.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;

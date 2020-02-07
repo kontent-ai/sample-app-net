@@ -15,6 +15,7 @@ using Kentico.Kontent.Delivery.ImageTransformation;
 using Kentico.Kontent.Management.Helpers.Models;
 
 using IHtmlContent = Microsoft.AspNetCore.Html.IHtmlContent;
+using Kentico.Kontent.Delivery.Abstractions;
 
 namespace DancingGoat.Helpers.Extensions
 {

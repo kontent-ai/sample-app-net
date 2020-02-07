@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Kentico.Kontent.Delivery;
 using Kentico.Kontent.Recommender;
 using Kentico.AspNetCore.LocalizedRouting.Attributes;
+using Kentico.Kontent.Delivery.Abstractions;
 
 namespace DancingGoat.Controllers
 {
@@ -16,7 +17,7 @@ namespace DancingGoat.Controllers
     {
         private readonly IConfiguration _configuration;
 
-        public ArticlesController(IConfiguration configuration, IDeliveryClient deliveryClient) : base(deliveryClient)
+        public ArticlesController(IConfiguration configuration, IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
         {
             _configuration = configuration;
         }

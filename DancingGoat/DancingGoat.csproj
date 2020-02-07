@@ -8,7 +8,7 @@
   <ItemGroup>
     <PackageReference Include="Kentico.AspNetCore.LocalizedRouting" Version="1.0.0-beta1" />
     <PackageReference Include="Kentico.Kontent.Management.Helpers" Version="2.0.1" />
-    <PackageReference Include="Kentico.Kontent.Delivery" Version="12.3.0" />
+    <PackageReference Include="Kentico.Kontent.Delivery" Version="13.0.1-beta2" />
     <PackageReference Include="Kentico.Kontent.Recommender" Version="6.0.0" />
     <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.0.96" />
   </ItemGroup>

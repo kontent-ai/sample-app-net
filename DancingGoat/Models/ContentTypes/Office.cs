@@ -5,6 +5,7 @@
 // For further modifications of the class, create a separate file with the partial class.
 
 using Kentico.Kontent.Delivery;
+using Kentico.Kontent.Delivery.Abstractions;
 
 namespace DancingGoat.Models
 {

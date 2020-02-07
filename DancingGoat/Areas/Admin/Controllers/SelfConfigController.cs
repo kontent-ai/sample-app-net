@@ -4,6 +4,7 @@ using DancingGoat.Areas.Admin.Abstractions;
 using DancingGoat.Areas.Admin.Models;
 using DancingGoat.Helpers;
 using Kentico.Kontent.Delivery;
+using Kentico.Kontent.Delivery.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
