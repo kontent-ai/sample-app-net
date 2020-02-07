@@ -12,12 +12,12 @@ namespace DancingGoat.Helpers
         private readonly IConfiguration configuration;
 
         public EditLinkBuilder Builder { get; private set; }
-        
+
 
         private EditLinkHelper(IConfiguration configuration)
         {
             this.configuration = configuration;
-            var projectId = configuration.GetSection(nameof(DeliveryOptions))[nameof(DeliveryOptions.ProjectId)].ToString() ?? configuration.GetSection("AppConfiguration")["DefaultProjectId"].ToString();
+            var projectId = configuration.GetSection(nameof(DeliveryOptions))[nameof(DeliveryOptions.ProjectId)].ToString() ?? configuration.GetSection(nameof(AppConfiguration)).Get<AppConfiguration>().DefaultProjectId.ToString();
             var linkBuilderOptions = new ManagementHelpersOptions() { ProjectId = projectId };
             Builder = new EditLinkBuilder(linkBuilderOptions);
         }

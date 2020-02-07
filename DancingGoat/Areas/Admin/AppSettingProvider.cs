@@ -4,6 +4,7 @@ using DancingGoat.Models;
 using Microsoft.Extensions.Options;
 using DancingGoat.Areas.Admin.Abstractions;
 using Microsoft.Extensions.Configuration;
+using Kentico.Kontent.Delivery;
 
 namespace DancingGoat.Areas.Admin
 {
@@ -83,7 +84,7 @@ namespace DancingGoat.Areas.Admin
                 }
                 else
                 {
-                    if (Guid.TryParse(_configuration.GetSection("DeliveryOptions").GetValue<string>("ProjectId"), out var projectId))
+                    if (Guid.TryParse(_configuration.GetSection(nameof(DeliveryOptions)).GetValue<string>("ProjectId"), out var projectId))
                     {
                         _projectId = projectId;
 
@@ -184,9 +185,6 @@ namespace DancingGoat.Areas.Admin
             }
         }
 
-        public string[] ResponsiveWidths => _settings.ResponsiveWidths?.Split(',') ?? new string[]{};
-
-        public bool ResponsiveImagesEnabled => ResponsiveWidths.Any();
         public Guid? GetProjectId()
         {
             return ProjectId;

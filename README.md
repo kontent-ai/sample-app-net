@@ -1,8 +1,8 @@
-# Kentico Kontent sample .NET MVC web application
+# Kentico Kontent sample ASP.NET Core MVC web application
 [![Build status](https://ci.appveyor.com/api/projects/status/3b9v2fl52v4aiptk/branch/master?svg=true)](https://ci.appveyor.com/project/kentico/cloud-sample-app-net/branch/master)
 [![Stack Overflow](https://img.shields.io/badge/Stack%20Overflow-ASK%20NOW-FE7A16.svg?logo=stackoverflow&logoColor=white)](https://stackoverflow.com/tags/kentico-kontent)
 
-This is a sample website written in ASP.NET MVC 5 that uses the [Kentico Kontent Delivery .NET SDK](https://github.com/Kentico/kontent-delivery-sdk-net) to manage and retrieve content from Kentico Kontent. For a brief walkthrough, read [Running the .NET sample app](https://docs.kontent.ai/tutorials/develop-apps/get-started/running-a-sample-application?tech=dotnet) on our Developer Hub.
+This is a sample website written in ASP.NET Core 3.1 that uses the [Kentico Kontent Delivery .NET SDK](https://github.com/Kentico/kontent-delivery-sdk-net) to manage and retrieve content from Kentico Kontent. For a brief walkthrough, read [Running the .NET sample app](https://docs.kontent.ai/tutorials/develop-apps/get-started/running-a-sample-application?tech=dotnet) on our Developer Hub.
 
 You can register your account for free at <https://app.kontent.ai>.
 
@@ -43,20 +43,20 @@ If you already have a Kentico Kontent account, you can connect this sample appli
 
     * You will be copying the Project ID and API key for the Delivery Preview API.
 
-1. Open the `\DancingGoat\Web.config` file.
-1. Use the values from your Kentico Kontent project in the `Web.config` file:
+1. Open the `\DancingGoat\appsettings.json` file.
+1. Use the values from your Kentico Kontent project in the `appsettings.json` file:
 
-    * **Project ID**: Insert your project ID into the `ProjectId` application setting.
-    * **Delivery Preview API**: Create a new application setting named `PreviewApiKey` in the `<appSettings>` section, and use the Delivery Preview API key as its value. To enable calls over the Delivery Preview API, you also need to add a setting named `UsePreviewApi` and set it to `true`.
+    * **Project ID**: Insert your project ID into the `ProjectId` configuration key.
+    * **Delivery Preview API**: Create a new key named `PreviewApiKey` in the `DeliveryOptions` section, and use the Delivery Preview API key as its value. To enable calls over the Delivery Preview API, you also need to add a key named `UsePreviewApi` and set it to `true`.
 
-    ```xml
-    <appSettings>
-        ...
-        <add key="ProjectId" value="YOUR_PROJECT_ID" />
-        <add key="UsePreviewApi" value="true"/>
-        <add key="PreviewApiKey" value="YOUR_DELIVERY_PREVIEW_API_KEY" />
-        ...
-    </appSettings>
+    ```json
+	"DeliveryOptions": {
+		...
+		"ProjectId": "YOUR_PROJECT_ID",
+		"UsePreviewApi": true,
+		"PreviewApiKey": "YOUR_DELIVERY_PREVIEW_API_KEY"
+		...
+	},
     ```
 
 1. Save the changes.
@@ -106,11 +106,11 @@ Edit buttons will appear next to each piece of content on the page.
 
 ## Adjustable images
 
-The sample website uses adjustable images via the [image transformation](https://docs.kontent.ai/reference/image-transformation) feature available in the Delivery API. The `srcset` attribute is automatically added to the `img` tag. The value of the attribute is then driven by the **ResponsiveWidths** web.config setting. You can always disable this behavior by deleting the setting from the `\DancingGoat\Web.config` file.
+The sample website uses adjustable images via the [image transformation](https://docs.kontent.ai/reference/image-transformation) feature available in the Delivery API. The `srcset` attribute is automatically added to the `img` tag. The value of the attribute is then driven by the **AppConfiguration:ResponsiveWidths** appsettings.json setting. You can always disable this behavior by deleting the setting from the `\DancingGoat\appsettings.json` file.
 
 ## Troubleshooting
 
-Kentico Kontent evolves over time. If you connect your sample app to an older Kentico Kontent sample project, the app may not run correctly. You can always generate the latest version of the sample Dancing Goat content project at https://app.kontent.ai/sample-project-generator . Once generated, you can either paste the new project ID to web.config, or, you can navigate to your app's relative URL "/Admin/SelfConfig" and pick the new project.
+Kentico Kontent evolves over time. If you connect your sample app to an older Kentico Kontent sample project, the app may not run correctly. You can always generate the latest version of the sample Dancing Goat content project at https://app.kontent.ai/sample-project-generator . Once generated, you can either paste the new project ID to appsettings.json, or, you can navigate to your app's relative URL "/Admin/SelfConfig" and pick the new project.
 
 ## Feedback & Contributing
 
