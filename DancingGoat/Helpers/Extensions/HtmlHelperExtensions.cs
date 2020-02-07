@@ -39,7 +39,7 @@ namespace DancingGoat.Helpers.Extensions
             {
                 return new HtmlString(string.Empty);
             }
-            
+
             var imageUrlBuilder = new ImageUrlBuilder(asset.Url);
             var image = new TagBuilder("img");
 
@@ -54,8 +54,10 @@ namespace DancingGoat.Helpers.Extensions
                 image.MergeAttribute("height", height.ToString());
                 imageUrlBuilder = imageUrlBuilder.WithHeight(Convert.ToDouble(height));
             }
-            bool.TryParse(configuration.GetSection("AppConfiguration")["ResponsiveImagesEnabled "], out bool ResponsiveImagesEnabled);
-            if (ResponsiveImagesEnabled && !width.HasValue && !height.HasValue)
+
+            bool responsiveImagesEnabled = configuration.GetSection(nameof(AppConfiguration)).Get<AppConfiguration>().ResponsiveImagesEnabled;
+
+            if (responsiveImagesEnabled && !width.HasValue && !height.HasValue)
             {
                 image.MergeAttribute("srcset", GenerateSrcsetValue(asset.Url, configuration));
 
@@ -96,8 +98,9 @@ namespace DancingGoat.Helpers.Extensions
             }
 
             var imageTag = new TagBuilder("img");
-            bool.TryParse(configuration.GetSection("AppConfiguration")["ResponsiveImagesEnabled"], out bool ResponsiveImagesEnabled);
-            if (ResponsiveImagesEnabled)
+            bool responsiveImagesEnabled = configuration.GetSection(nameof(AppConfiguration)).Get<AppConfiguration>().ResponsiveImagesEnabled;
+
+            if (responsiveImagesEnabled)
             {
                 imageTag.MergeAttribute("srcset", GenerateSrcsetValue(image.Src, configuration));
 
@@ -118,7 +121,7 @@ namespace DancingGoat.Helpers.Extensions
                 imageTag.WriteTo(writer, HtmlEncoder.Default);
                 result = writer.ToString();
             }
-            
+
             return new HtmlString(result);
         }
 
@@ -190,15 +193,14 @@ namespace DancingGoat.Helpers.Extensions
         /// <param name="language">Codename of language variant</param>
         public static async Task EditPanelAsync(this IHtmlHelper htmlHelper, IConfiguration configuration, string itemId, string language)
         {
-            bool.TryParse(configuration.GetSection("AppConfiguration")["UsePreviewApi"], out var isPreview);
-
-            if (isPreview)
+            if (configuration.GetSection(nameof(DeliveryOptions)).Get<DeliveryOptions>().UsePreviewApi)
             {
                 var itemUrl = GetItemUrl(language, itemId, configuration);
                 var editPanelViewModel = new EditPanelViewModel() { ItemUrl = itemUrl };
                 await htmlHelper.RenderPartialAsync("EditModePanel", editPanelViewModel);
             }
         }
+
         /// <summary>
         /// Returns an HTML input element with a label and validation fields for each property in the object that is represented by the <see cref="Expression"/> expression.
         /// </summary>
@@ -243,7 +245,6 @@ namespace DancingGoat.Helpers.Extensions
             return new HtmlString(generatedHtml);
         }
 
-
         private static string GetItemUrl(string language, string itemId, IConfiguration configuration)
         {
             return EditLinkHelper.GetInstance(configuration).Builder.BuildEditItemUrl(language, itemId);
@@ -257,9 +258,8 @@ namespace DancingGoat.Helpers.Extensions
         private static string GenerateSrcsetValue(string imageUrl, IConfiguration configuration)
         {
             var imageUrlBuilder = new ImageUrlBuilder(imageUrl);
-
-            return string.Join(",", configuration.GetSection("AppConfiguration")["ResponsiveWidths"].Select(w
-                => $"{imageUrlBuilder.WithWidth(Convert.ToDouble(w)).Url} {w}w"));
+            var responsiveWidths = configuration.GetSection(nameof(AppConfiguration)).Get<AppConfiguration>().ResponsiveWidthsArray;
+            return string.Join(",", responsiveWidths.Select(w => $"{imageUrlBuilder.WithWidth(Convert.ToDouble(w)).Url} {w}w"));
         }
     }
 }
