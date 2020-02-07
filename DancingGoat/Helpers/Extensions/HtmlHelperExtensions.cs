@@ -179,7 +179,7 @@ namespace DancingGoat.Helpers.Extensions
 <a target=""_blank"" class=""edit-link__overlay--inline"" href=""{itemUrl}"">
     <i aria-hidden=""true"" class=""edit-link__button-icon edit-link__button-icon--inline""></i>
 </a>";
-            
+
             return new HtmlString(generatedHtml);
         }
 
@@ -209,21 +209,20 @@ namespace DancingGoat.Helpers.Extensions
         /// <param name="explanationText">An explanation text describing usage of the rendered field.</param>
         public static IHtmlContent ValidatedEditorFor<TModel, TValue>(this IHtmlHelper<TModel> html, Expression<Func<TModel, TValue>> expression, string explanationText = "", string id = "")
         {
-            string label;
-            string editor;
+            IHtmlContent label;
+            IHtmlContent editor;
 
             if (!string.IsNullOrEmpty(id))
             {
-                label = html.LabelFor(expression, new { @for = id }).ToString();
-                editor = html.EditorFor(expression, new { id }).ToString();
+                label = html.LabelFor(expression, new { @for = id });
+                editor = html.EditorFor(expression, new { id });
             }
             else
             {
-                editor = html.EditorFor(expression).ToString();
-                label = html.LabelFor(expression).ToString();
+                label = html.LabelFor(expression);
+                editor = html.EditorFor(expression);
             }
 
-            var message = html.ValidationMessageFor(expression).ToString();
             var explanationTextHtml = "";
 
             if (!string.IsNullOrEmpty(explanationText))
@@ -231,16 +230,17 @@ namespace DancingGoat.Helpers.Extensions
                 explanationTextHtml = "<div class=\"explanation-text\">" + explanationText + "</div>";
             }
 
-            var generatedHtml = $@"
-<div class=""form-group"">
-    <div class=""form-group-label"">{label}</div>
-    <div class=""form-group-input"">{editor}
-       {explanationTextHtml}
-    </div>
-    <div class=""message-validation"">{message}</div>
-</div>";
+            var builder = new HtmlContentBuilder();
+            builder.AppendHtml(@"<div class=""form-group""><div class=""form-group-label"">");
+            builder.AppendHtml(label);
+            builder.AppendHtml(@"</div><div class=""form-group-input"">");
+            builder.AppendHtml(editor);
+            builder.AppendHtml(explanationTextHtml);
+            builder.AppendHtml(@"</div><div class=""message-validation"">");
+            builder.AppendHtml(html.ValidationMessageFor(expression));
+            builder.AppendHtml(@"</div></div>");
 
-            return new HtmlString(generatedHtml);
+            return builder;
         }
 
         private static string GetItemUrl(string language, string itemId, IConfiguration configuration)
