@@ -40,7 +40,7 @@ namespace DancingGoat
             services.AddDeliveryClient(Configuration);
 
             // ConfigurationManagerProvider is here now
-            services.Configure<AppSettings>(Configuration.GetSection(nameof(AppConfiguration))); //TODO: get rid of the duplicate class
+            services.Configure<AppConfiguration>(Configuration.GetSection(nameof(AppConfiguration)));
             services.Configure<DeliveryOptions>(Configuration.GetSection(nameof(DeliveryOptions)));
             services.AddScoped<IAppSettingProvider, AppSettingProvider>();
 

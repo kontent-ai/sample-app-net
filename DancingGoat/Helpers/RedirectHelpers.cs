@@ -14,7 +14,7 @@ namespace DancingGoat.Helpers
                 Controller = "SelfConfig",
                 Area = "Admin",
                 MessageBody = message?.Message,
-                MessageType = message?.MessageType
+                message?.MessageType
             }));
         }
 
@@ -26,7 +26,7 @@ namespace DancingGoat.Helpers
                 Controller = "Home",
                 Area = "",
                 MessageBody = message?.Message,
-                MessageType = message?.MessageType
+                message?.MessageType
             }));
         }
     }

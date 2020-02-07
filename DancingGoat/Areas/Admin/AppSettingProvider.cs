@@ -10,18 +10,15 @@ namespace DancingGoat.Areas.Admin
 {
     public class AppSettingProvider : IAppSettingProvider
     {
-        private readonly AppSettings _settings;
+        private readonly AppConfiguration _settings;
         private readonly IConfiguration _configuration;
 
 
         private DateTime? _subscriptionExpiresAt;
         private Guid? _projectId;
-        private Guid? _defaultProjectId;
-        private string _previewApiKey;
-        private string _kenticoKontentUrl;
 
         // Using IOptionsSnapshot to get the reloaded configuration on change
-        public AppSettingProvider(IOptionsSnapshot<AppSettings> options, IConfiguration configuration)
+        public AppSettingProvider(IOptionsSnapshot<AppConfiguration> options, IConfiguration configuration)
         {
             _settings = options.Value;
             _configuration = configuration;
@@ -31,23 +28,7 @@ namespace DancingGoat.Areas.Admin
         {
             get
             {
-                if (_subscriptionExpiresAt.HasValue)
-                {
-                    return _subscriptionExpiresAt;
-                }
-                else
-                {
-                    if (DateTime.TryParse(_settings.SubscriptionExpiresAt, out DateTime subscriptionExpiresAt))
-                    {
-                        _subscriptionExpiresAt = subscriptionExpiresAt;
-
-                        return _subscriptionExpiresAt;
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                }
+                return _settings.SubscriptionExpiresAt;
             }
             set
             {
@@ -56,7 +37,7 @@ namespace DancingGoat.Areas.Admin
 
                 if (value.HasValue)
                 {
-                    _settings.SubscriptionExpiresAt = value.Value.ToString("o");
+                    _settings.SubscriptionExpiresAt = value.Value;
                 }
 
                 // Creating new settings cannot be done through the indexer, hence .Add().
@@ -101,7 +82,7 @@ namespace DancingGoat.Areas.Admin
                 // TODO: same as the _subscriptionExpiresAt
                 if (value.HasValue)
                 {
-                    _settings.ProjectId = value.Value.ToString();
+                    _configuration["DeliveryOptions:ProjectId"] = value.Value.ToString();
                 }
 
                 _configuration["DeliveryOptions:ProjectId"] = value.Value.ToString();
@@ -113,101 +94,12 @@ namespace DancingGoat.Areas.Admin
         {
             get
             {
-                if (_defaultProjectId.HasValue)
-                {
-                    return _defaultProjectId;
-                }
-                else
-                {
-                    if (Guid.TryParse(_settings.DefaultProjectId, out var projectId))
-                    {
-                        _defaultProjectId = projectId;
-
-                        return _defaultProjectId;
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                }
+                Guid.TryParse(_configuration["AppConfiguration:DefaultProjectId"], out var projectId);
+                return projectId;
             }
         }
 
-        public string PreviewApiKey
-        {
-            get
-            {
-                if (!string.IsNullOrEmpty(_previewApiKey))
-                {
-                    return _previewApiKey;
-                }
-                else
-                {
-                    _previewApiKey = _settings.PreviewApiKey;
-                    return _previewApiKey;
-                }
-            }
-        }
+        public string KenticoKontentUrl => _configuration["AppConfiguration:KenticoKontentUrl"];
 
-        public string KenticoKontentUrl
-        {
-            get
-            {
-                if (!string.IsNullOrEmpty(_kenticoKontentUrl))
-                {
-                    return _kenticoKontentUrl;
-                }
-                else
-                {
-                    string url = null;
-
-                    try
-                    {
-                        // TODO: Get from app settings
-                        url = "https://app.kontent.ai/";
-                    }
-                    catch
-                    {
-                        // Return the default value below.
-                    }
-
-                    if (!string.IsNullOrEmpty(url))
-                    {
-                        _kenticoKontentUrl = url;
-
-                        return _kenticoKontentUrl;
-                    }
-                    else
-                    {
-                        return @"https://app.kontent.ai";
-                    }
-                }
-            }
-        }
-
-        public Guid? GetProjectId()
-        {
-            return ProjectId;
-        }
-
-        public string GetKenticoKontentUrl()
-        {
-            return KenticoKontentUrl;
-        }
-
-        public Guid? GetDefaultProjectId()
-        {
-            return DefaultProjectId;
-        }
-
-        public void SetProjectId(Guid projectId)
-        {
-            ProjectId = projectId;
-        }
-
-        public void SetSubscriptionExpiresAt(DateTime? subscriptionExpiresAt)
-        {
-            SubscriptionExpiresAt = subscriptionExpiresAt;
-        }
     }
 }

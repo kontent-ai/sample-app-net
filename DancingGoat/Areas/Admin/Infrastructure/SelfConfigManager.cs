@@ -16,11 +16,11 @@ namespace DancingGoat.Areas.Admin.Infrastructure
         {
             try
             {
-                _settingProvider.SetProjectId(projectId);
+                _settingProvider.ProjectId = projectId;
 
                 if (subscriptionExpiresAt.HasValue)
                 {
-                    _settingProvider.SetSubscriptionExpiresAt(subscriptionExpiresAt);
+                    _settingProvider.SubscriptionExpiresAt = subscriptionExpiresAt;
                 }
             }
             catch (Exception ex)

@@ -26,5 +26,9 @@ namespace DancingGoat
         /// Project ID of a reference Kentico Kontent sample project.
         /// </summary>
         public Guid DefaultProjectId { get; set; }
+
+        public string KenticoKontentUrl { get; set; }
+
+        public DateTime? SubscriptionExpiresAt { get; set; }
     }
 }
