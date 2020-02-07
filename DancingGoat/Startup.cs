@@ -39,8 +39,7 @@ namespace DancingGoat
             services.AddDeliveryClient(Configuration);
 
             // Configuration
-            services.Configure<AppConfiguration>(Configuration.GetSection(nameof(AppConfiguration)));
-            services.Configure<DeliveryOptions>(Configuration.GetSection(nameof(DeliveryOptions)));
+            services.ConfigureWritable<AppConfiguration>(Configuration.GetSection(nameof(AppConfiguration)));
             services.ConfigureWritable<DeliveryOptions>(Configuration.GetSection(nameof(DeliveryOptions)));
 
             // I18N

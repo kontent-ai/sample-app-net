@@ -9,12 +9,13 @@ namespace DancingGoat.Infrastructure
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
     public class SelfConfigActionFilterAttribute : ActionFilterAttribute
     {
-        public IOptions<AppConfiguration> Config { get; }
-        public IOptions<DeliveryOptions> DeliveryOptions { get; }
+        public IOptionsSnapshot<AppConfiguration> AppConfig { get; }
 
-        public SelfConfigActionFilterAttribute(IOptions<AppConfiguration> config, IOptions<DeliveryOptions> deliveryOptions)
+        public IOptionsSnapshot<DeliveryOptions> DeliveryOptions { get; }
+
+        public SelfConfigActionFilterAttribute(IOptionsSnapshot<AppConfiguration> appConfig, IOptionsSnapshot<DeliveryOptions> deliveryOptions)
         {
-            Config = config;
+            AppConfig = appConfig;
             DeliveryOptions = deliveryOptions;
         }
 
@@ -26,7 +27,7 @@ namespace DancingGoat.Infrastructure
             {
                 filterContext.Result = Helpers.RedirectHelpers.GetSelfConfigIndexResult(null);
             }
-            else if (Config.Value.SubscriptionExpiresAt.HasValue && Config.Value.SubscriptionExpiresAt <= DateTime.Now)
+            else if (AppConfig.Value.SubscriptionExpiresAt.HasValue && AppConfig.Value.SubscriptionExpiresAt <= DateTime.Now)
             {
                 filterContext.Result = Helpers.RedirectHelpers.GetSelfConfigIndexResult(new MessageModel(){ Message = "Current subscription is expired.", MessageType = Areas.Admin.Models.MessageType.Error});
             }

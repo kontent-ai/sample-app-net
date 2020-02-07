@@ -6,6 +6,7 @@ using DancingGoat.Helpers;
 using Kentico.Kontent.Delivery;
 using Kentico.Kontent.Delivery.Abstractions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
@@ -30,11 +31,13 @@ namespace DancingGoat.Areas.Admin.Controllers
         protected IDeliveryClient client;
 
         public IWritableOptions<DeliveryOptions> Options { get; }
-        public IWritableOptions<AppConfiguration> Configuration { get; }
+        public IWritableOptions<AppConfiguration> AppConfig { get; }
+        public IConfiguration Configuration { get; }
 
-        public SelfConfigController(IDeliveryClient deliveryClient, IWritableOptions<DeliveryOptions> options, IWritableOptions<AppConfiguration> configuration)
+        public SelfConfigController(IDeliveryClient deliveryClient, IWritableOptions<DeliveryOptions> options, IWritableOptions<AppConfiguration> appConfig, IConfiguration configuration)
         {
             Options = options;
+            AppConfig = appConfig;
             Configuration = configuration;
             client = deliveryClient;
         }
@@ -61,7 +64,7 @@ namespace DancingGoat.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult UseShared()
         {
-            return SetConfiguration(MESSAGE_SHARED_PROJECT, Configuration.Value.DefaultProjectId, null, false);
+            return SetConfiguration(MESSAGE_SHARED_PROJECT, AppConfig.Value.DefaultProjectId, null, false);
         }
 
         [HttpPost]
@@ -79,11 +82,14 @@ namespace DancingGoat.Areas.Admin.Controllers
         {
             try
             {
+                Options.Update(opt => { opt.ProjectId = projectGuid.ToString(); });
+
                 if (endAt.HasValue)
                 {
-                    Options.Update(opt => { opt.ProjectId = projectGuid.ToString(); });
-                    Configuration.Update(opt => { opt.SubscriptionExpiresAt = endAt.Value.ToUniversalTime(); });
+                    AppConfig.Update(opt => { opt.SubscriptionExpiresAt = endAt.Value.ToUniversalTime(); });
                 }
+
+                ((IConfigurationRoot)Configuration).Reload();
 
                 if (isNew)
                 {
