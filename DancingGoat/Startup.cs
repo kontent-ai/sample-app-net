@@ -34,6 +34,7 @@ namespace DancingGoat
             services.AddOptions();
 
             // Enable Delivery Client
+            services.AddHttpClient<IDeliveryHttpClient, DeliveryHttpClient>();
             services.AddSingleton<ITypeProvider, CustomTypeProvider>();
             services.AddSingleton<IContentLinkUrlResolver, CustomContentLinkUrlResolver>();
             services.AddDeliveryClient(Configuration);
