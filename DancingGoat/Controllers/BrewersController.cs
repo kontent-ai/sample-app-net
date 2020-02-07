@@ -3,25 +3,28 @@ using Kentico.Kontent.Delivery;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DancingGoat.Areas.Admin.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Options;
-using DancingGoat.Localization;
+using Kentico.AspNetCore.LocalizedRouting.Attributes;
 
 namespace DancingGoat.Controllers
 {
+    [LocalizedRoute("en-US", "Brewers")]
+    [LocalizedRoute("es-ES", "Brewers")]
     public class BrewersController : ControllerBase
     {
-        public BrewersController(IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
+        public BrewersController(IDeliveryClient deliveryClient) : base(deliveryClient)
         {
         }
+        [LocalizedRoute("en-US", "Index")]
+        [LocalizedRoute("es-ES", "Index")]
         public async Task<ActionResult> Index()
         {
             var itemsTask = _client.GetItemsAsync<Brewer>(
                 new EqualsFilter("system.type", "brewer"),
                 new OrderParameter("elements.product_name"),
                 new ElementsParameter(Brewer.ImageCodename, Brewer.PriceCodename, Brewer.ProductStatusCodename, Brewer.ProductNameCodename, Brewer.UrlPatternCodename),
+                new LanguageParameter(Language),
                 new DepthParameter(0)
             );
 
@@ -41,13 +44,16 @@ namespace DancingGoat.Controllers
             return View(model);
         }
 
+        [LocalizedRoute("en-US", "Filter")]
+        [LocalizedRoute("es-ES", "Filter")]
         public async Task<ActionResult> Filter(BrewerFilterViewModel model)
         {
             var parameters = new List<IQueryParameter> {
                 new EqualsFilter("system.type", "brewer"),
                 new OrderParameter("elements.product_name"),
                 new ElementsParameter(Brewer.ImageCodename, Brewer.PriceCodename, Brewer.ProductStatusCodename, Brewer.ProductNameCodename, Brewer.UrlPatternCodename),
-                new DepthParameter(0)
+                new DepthParameter(0),
+                new LanguageParameter(Language)
             };
 
             var manufacturers = model.GetFilteredManufacturers().ToArray();

@@ -1,14 +1,18 @@
-﻿using System.Globalization;
+﻿using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using DancingGoat.Areas.Admin;
 using DancingGoat.Areas.Admin.Abstractions;
 using DancingGoat.Areas.Admin.Infrastructure;
-using DancingGoat.Localization;
+using DancingGoat.Infrastructure;
 using DancingGoat.Models;
+using Kentico.AspNetCore.LocalizedRouting.Extensions;
 using Kentico.Kontent.Delivery;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Localization.Routing;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,14 +24,9 @@ namespace DancingGoat
     {
         public IConfiguration Configuration { get; set; }
 
-        public Startup(IWebHostEnvironment environment)
+        public Startup(IConfiguration configuration)
         {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(environment.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
-                .AddEnvironmentVariables();
-            Configuration = builder.Build();
+            Configuration = configuration;
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -35,36 +34,22 @@ namespace DancingGoat
             // Enable configuration services
             services.AddOptions();
 
+            //Enable Delivery Client
+            services.AddSingleton<ITypeProvider, CustomTypeProvider>();
+            services.AddSingleton<IContentLinkUrlResolver, CustomContentLinkUrlResolver>();
+            services.AddDeliveryClient(Configuration);
+
             // ConfigurationManagerProvider is here now
             services.Configure<AppSettings>(Configuration.GetSection("AppConfiguration"));
             services.Configure<DeliveryOptions>(Configuration.GetSection(nameof(DeliveryOptions)));
             services.AddScoped<IAppSettingProvider, AppSettingProvider>();
 
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.AddLocalization(options => options.ResourcesPath = "Resources");
-            services.Configure<RequestLocalizationOptions>(options =>
-            {
-                var supportedCultures = new[]
-                {
-                    new CultureInfo("en-US"),
-                    new CultureInfo("en-GB"),
-                    new CultureInfo("de-DE")
-                };
-                options.DefaultRequestCulture = new RequestCulture("en-US", "en-US");
-
-                // You must explicitly state which cultures your application supports.
-                // These are the cultures the app supports for formatting 
-                // numbers, dates, etc.
-
-                options.SupportedCultures = supportedCultures;
-
-                // These are the cultures the app supports for UI strings, 
-                // i.e. we have localized resources for.
-
-                options.SupportedUICultures = supportedCultures;
-            });
-            services.AddTransient<IDeliveryClientFactory, DeliveryClientFactory>();
             services.AddScoped<ISelfConfigManager, SelfConfigManager>();
+            services.AddSingleton<CustomLocalizedRoutingTranslationTransformer>();
             services.AddControllersWithViews();
+            services.AddLocalizedRouting();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -86,37 +71,41 @@ namespace DancingGoat
                 app.UseRewriter(options);
             }
 
-            var supportedCultures = new[]
+            IList<CultureInfo> supportedCultures = new List<CultureInfo>
             {
                 new CultureInfo("en-US"),
-                new CultureInfo("es"),
+                new CultureInfo("es-ES"),
             };
-
-            app.UseRequestLocalization(new RequestLocalizationOptions
+            var requestLocalizationOptions = new RequestLocalizationOptions
             {
                 DefaultRequestCulture = new RequestCulture("en-US"),
-                // Formatting numbers, dates, etc.
                 SupportedCultures = supportedCultures,
-                // UI strings that we have localized.
-                SupportedUICultures = supportedCultures
+                SupportedUICultures = supportedCultures,
+            };
+
+            requestLocalizationOptions.RequestCultureProviders.Insert(0, new RouteDataRequestCultureProvider()
+            {
+                RouteDataStringKey = "culture",
+                Options = requestLocalizationOptions
             });
+
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseAuthorization();
+
+            app.UseRequestLocalization(requestLocalizationOptions);
+
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-
-                // Replacing Areas/Admin/AdminAreaRegistration.cs
-                endpoints.MapControllerRoute(
-                    name: "areas",
-                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                endpoints.MapDynamicControllerRoute<CustomLocalizedRoutingTranslationTransformer>("{culture}/{controller}/{action}/{id?}");
+                endpoints.MapControllerRoute("default", "{culture=en-US}/{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("areas", "{area:exists}/{controller=Home}/{action=Index}/{id?}"
                 );
             });
+            
         }
     }
 }

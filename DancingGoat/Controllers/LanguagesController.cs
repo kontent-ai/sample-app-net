@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using DancingGoat.Areas.Admin.Abstractions;
 using DancingGoat.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 using Kentico.Kontent.Delivery;
-using DancingGoat.Localization;
 
 namespace DancingGoat.Controllers
 {
-    public class LanguageSelectorController : ControllerBase
+    public class LanguagesController : ControllerBase
     {
-        public LanguageSelectorController(IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
+        public LanguagesController(IDeliveryClient deliveryClient) : base(deliveryClient)
         {
 
         }
