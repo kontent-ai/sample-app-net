@@ -40,8 +40,8 @@ namespace DancingGoat
             services.AddDeliveryClient(Configuration);
 
             // Configuration
-            services.ConfigureWritable<AppConfiguration>(Configuration.GetSection(nameof(AppConfiguration)));
-            services.ConfigureWritable<DeliveryOptions>(Configuration.GetSection(nameof(DeliveryOptions)));
+            services.ConfigureWritable<AppConfiguration>((IConfigurationRoot)Configuration, Configuration.GetSection(nameof(AppConfiguration)));
+            services.ConfigureWritable<DeliveryOptions>((IConfigurationRoot)Configuration, Configuration.GetSection(nameof(DeliveryOptions)));
 
             // I18N
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();

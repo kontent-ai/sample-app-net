@@ -1,5 +1,4 @@
-﻿@using Microsoft.AspNetCore.Html
-@{
+﻿@{
     const string imagePathPattern = "~/images/Admin/{0}.svg";
     var routeDataMessageBody = Context.Request.Query["MessageBody"].FirstOrDefault();
     var routeDataMessageType = Context.Request.Query["MessageType"].FirstOrDefault();
@@ -22,9 +21,10 @@
 }
 
 @{
-    Func<dynamic, IHtmlContent> MessageImage(string source, string altText) =>
-    @<img src="@source" height="44" width="44" alt="@altText" />;
-
+    void MessageImage(string source, string altText)
+    {
+        <img src="@source" height="44" width="44" alt="@altText" />
+    }
 }
 
 @if ((!string.IsNullOrEmpty(ViewBag.ErrorMessage)) || (!string.IsNullOrEmpty(routeDataMessageBody)))
@@ -37,7 +37,7 @@
                 <table class="user-message message-@imageName">
                     <tr>
                         <td>
-                            @MessageImage(Url.Content(imagePath), string.Empty)
+                            @{ MessageImage(Url.Content(imagePath), string.Empty); }
                         </td>
                         <td>
                             <p>
@@ -53,7 +53,7 @@
                 <table class="user-message message-@imageName">
                     <tr>
                         <td>
-                            @MessageImage(Url.Content(imagePath), string.Empty)
+                            @{ MessageImage(Url.Content(imagePath), string.Empty); }
                         </td>
                         <td>
                             <p>
@@ -73,7 +73,7 @@ else
         <table class="user-message message-error">
             <tr>
                 <td>
-                    @MessageImage(Url.Content(string.Format(imagePathPattern, "error")), "Error")
+                    @{ MessageImage(Url.Content(string.Format(imagePathPattern, "error")), "Error"); }
                 </td>
                 <td>
                     <p class="message-text"></p>
