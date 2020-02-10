@@ -6,8 +6,6 @@ using DancingGoat.Helpers;
 using Kentico.Kontent.Delivery;
 using Kentico.Kontent.Delivery.Abstractions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
 namespace DancingGoat.Areas.Admin.Controllers
@@ -102,7 +100,6 @@ namespace DancingGoat.Areas.Admin.Controllers
             {
                 return View("Error", new MessageModel { Caption = CAPTION_CONFIGURATION_WRITE_ERROR, Message = ex.Message, MessageType = MessageType.Error });
             }
-
         }
     }
 }
