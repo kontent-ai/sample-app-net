@@ -1,10 +1,10 @@
-﻿using System.Web.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace DancingGoat.Controllers
 {
     public class ErrorsController : Controller
     {
-        public ActionResult NotFound()
+        public new ActionResult NotFound()
         {
             Response.StatusCode = 404;
             return View();

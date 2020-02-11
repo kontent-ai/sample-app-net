@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Configuration;
 using System.Threading.Tasks;
-using System.Web.Mvc;
-using Newtonsoft.Json;
-using DancingGoat.Helpers;
-using DancingGoat.Areas.Admin.Helpers;
 using DancingGoat.Areas.Admin.Models;
+using DancingGoat.Configuration;
+using DancingGoat.Helpers;
 using Kentico.Kontent.Delivery;
+using Kentico.Kontent.Delivery.Abstractions;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace DancingGoat.Areas.Admin.Controllers
 {
@@ -26,37 +26,41 @@ namespace DancingGoat.Areas.Admin.Controllers
 
         public const int PROJECT_EXISTENCE_VERIFICATION_REQUIRED_ITEMS = 30;
 
-        protected readonly SelfConfigManager _selfConfigManager;
-        protected readonly IDeliveryClient client = DancingGoat.Controllers.ControllerBase.CreateDeliveryClient();
+        protected IDeliveryClient client;
 
-        public SelfConfigController()
+        public IWritableOptions<DeliveryOptions> Options { get; }
+        public IWritableOptions<AppConfiguration> AppConfig { get; }
+
+        public SelfConfigController(IDeliveryClient deliveryClient, IWritableOptions<DeliveryOptions> options, IWritableOptions<AppConfiguration> appConfig)
         {
-            _selfConfigManager = new SelfConfigManager();
+            Options = options;
+            AppConfig = appConfig;
+            client = deliveryClient;
         }
 
         [HttpGet]
         public ActionResult Index()
         {
-            return View(new IndexViewModel());
+            return View("~/Areas/Admin/Views/SelfConfig/Index.cshtml", new IndexViewModel());
         }
 
         [HttpGet]
         public ActionResult Done()
         {
-            return RedirectHelpers.GetHomeRedirectResult(new MessageModel { Caption = null, Message = string.Format(MESSAGE_SELECTED_PROJECT, AppSettingProvider.ProjectId.Value), MessageType = MessageType.Info });
+            return RedirectHelpers.GetHomeRedirectResult(new MessageModel { Caption = null, Message = string.Format(MESSAGE_SELECTED_PROJECT, Options.Value.ProjectId), MessageType = MessageType.Info });
         }
 
         [HttpGet]
         public async Task<ActionResult> SampleProjectReady()
-        {             
+        {
             var items = (await client.GetItemsAsync()).Items;
-            return Json(items.Count >= PROJECT_EXISTENCE_VERIFICATION_REQUIRED_ITEMS, JsonRequestBehavior.AllowGet);
+            return Json(items.Count >= PROJECT_EXISTENCE_VERIFICATION_REQUIRED_ITEMS);
         }
 
         [HttpPost]
         public ActionResult UseShared()
         {
-            return SetConfiguration(MESSAGE_SHARED_PROJECT, AppSettingProvider.DefaultProjectId.Value, null, false);
+            return SetConfiguration(MESSAGE_SHARED_PROJECT, AppConfig.Value.DefaultProjectId, null, false);
         }
 
         [HttpPost]
@@ -64,7 +68,7 @@ namespace DancingGoat.Areas.Admin.Controllers
         {
             if (!model.ProjectGuid.HasValue)
             {
-                return View("Error", new MessageModel { Caption = CAPTION_CONFIGURATION_WRITE_ERROR, Message = MESSAGE_INVALID_PROJECT_GUID, MessageType = MessageType.Error });
+                return View("~/Areas/Admin/Views/Shared/Error.cshtml", new MessageModel { Caption = CAPTION_CONFIGURATION_WRITE_ERROR, Message = MESSAGE_INVALID_PROJECT_GUID, MessageType = MessageType.Error });
             }
 
             return SetConfiguration(string.Format(MESSAGE_SELECTED_PROJECT, model.ProjectGuid.Value), model.ProjectGuid.Value, model.EndAt, model.NewlyGeneratedProject);
@@ -74,22 +78,27 @@ namespace DancingGoat.Areas.Admin.Controllers
         {
             try
             {
-                _selfConfigManager.SetProjectIdAndExpirationAsync(projectGuid, endAt?.ToUniversalTime());
+                Options.Update(opt => { opt.ProjectId = projectGuid.ToString(); });
+
+                if (endAt.HasValue)
+                {
+                    AppConfig.Update(opt => { opt.SubscriptionExpiresAt = endAt.Value.ToUniversalTime(); });
+                }
 
                 if (isNew)
                 {
-                    return View("Wait");
+                    return View("~/Areas/Admin/Views/SelfConfig/Wait.cshtml");
                 }
 
                 return RedirectHelpers.GetHomeRedirectResult(new MessageModel { Caption = null, Message = message, MessageType = MessageType.Info });
             }
-            catch (ConfigurationErrorsException ex)
-            {
-                return View("Error", new MessageModel { Caption = CAPTION_CONFIGURATION_WRITE_ERROR, Message = ex.Message, MessageType = MessageType.Error });
-            }
             catch (JsonSerializationException ex)
             {
-                return View("Error", new MessageModel { Caption = CAPTION_DESERIALIZATION_ERROR, Message = ex.Message, MessageType = MessageType.Error });
+                return View("~/Areas/Admin/Views/Shared/Error.cshtml", new MessageModel { Caption = CAPTION_DESERIALIZATION_ERROR, Message = ex.Message, MessageType = MessageType.Error });
+            }
+            catch (Exception ex)
+            {
+                return View("~/Areas/Admin/Views/Shared/Error.cshtml", new MessageModel { Caption = CAPTION_CONFIGURATION_WRITE_ERROR, Message = ex.Message, MessageType = MessageType.Error });
             }
         }
     }

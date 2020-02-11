@@ -1,21 +1,30 @@
 ﻿using Kentico.Kontent.Delivery;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
+using Microsoft.AspNetCore.Mvc;
+using Kentico.AspNetCore.LocalizedRouting.Attributes;
+using Kentico.Kontent.Delivery.Abstractions;
 
 namespace DancingGoat.Controllers
 {
+
+    [LocalizedRoute("en-US", "Product")]
+    [LocalizedRoute("es-ES", "Tienda")]
     public class ProductController : ControllerBase
     {
+        public ProductController(IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
+        {
+        }
+
+        [LocalizedRoute("en-US", "Detail")]
+        [LocalizedRoute("es-ES", "Detail")]
         public async Task<ActionResult> Detail(string urlSlug)
         {
-            var item = (await client.GetItemsAsync<object>(new EqualsFilter("elements.url_pattern", urlSlug), new InFilter("system.type", "brewer", "coffee"))).Items.FirstOrDefault();
+            var item = (await _client.GetItemsAsync<object>(new EqualsFilter("elements.url_pattern", urlSlug), new InFilter("system.type", "brewer", "coffee"), new LanguageParameter(Language))).Items.FirstOrDefault();
 
             if (item == null)
             {
-                throw new HttpException(404, "Not found");
+                return NotFound();
             }
             else
             {
@@ -33,7 +42,7 @@ namespace DancingGoat.Controllers
         {
             // If needed, put your code here to work with the uploaded data in MVC.
             TempData["formSubmited"] = true;
-            return RedirectToAction("Detail", new { urlSlug = Request.Form["product_url_slug"]});
+            return RedirectToAction("Detail", new { urlSlug = Request.Form["product_url_slug"] });
         }
     }
 }

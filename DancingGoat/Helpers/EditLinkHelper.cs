@@ -1,7 +1,7 @@
-﻿using DancingGoat.Areas.Admin;
-
-using KenticoCloud.ContentManagement.Helpers;
-using KenticoCloud.ContentManagement.Helpers.Configuration;
+﻿using Kentico.Kontent.Delivery;
+using Kentico.Kontent.Management.Helpers;
+using Kentico.Kontent.Management.Helpers.Configuration;
+using Microsoft.Extensions.Configuration;
 
 namespace DancingGoat.Helpers
 {
@@ -9,31 +9,32 @@ namespace DancingGoat.Helpers
     {
         private static EditLinkHelper _instance = null;
         private static readonly object padlock = new object();
+        private readonly IConfiguration configuration;
+
         public EditLinkBuilder Builder { get; private set; }
 
-        private EditLinkHelper()
+
+        private EditLinkHelper(IConfiguration configuration)
         {
-            var projectId = AppSettingProvider.ProjectId.ToString() ?? AppSettingProvider.DefaultProjectId.ToString();
-            var linkBuilderOptions = new ContentManagementHelpersOptions() { ProjectId = projectId };
+            this.configuration = configuration;
+            var projectId = configuration.GetSection(nameof(DeliveryOptions))[nameof(DeliveryOptions.ProjectId)].ToString() ?? configuration.GetSection(nameof(AppConfiguration)).Get<AppConfiguration>().DefaultProjectId.ToString();
+            var linkBuilderOptions = new ManagementHelpersOptions() { ProjectId = projectId };
             Builder = new EditLinkBuilder(linkBuilderOptions);
         }
 
-        public static EditLinkHelper Instance
+        public static EditLinkHelper GetInstance(IConfiguration configuration)
         {
-            get
+            if (_instance == null)
             {
-                if (_instance == null)
+                lock (padlock)
                 {
-                    lock (padlock)
+                    if (_instance == null)
                     {
-                        if (_instance == null)
-                        {
-                            _instance = new EditLinkHelper();
-                        }
+                        _instance = new EditLinkHelper(configuration);
                     }
                 }
-                return _instance;
             }
+            return _instance;
         }
     }
 }

@@ -1,18 +1,27 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Web.Mvc;
-
 using DancingGoat.Models;
+using Kentico.AspNetCore.LocalizedRouting.Attributes;
 using Kentico.Kontent.Delivery;
-using KenticoCloud.ContentManagement.Helpers.Models;
+using Kentico.Kontent.Delivery.Abstractions;
+using Kentico.Kontent.Management.Helpers.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DancingGoat.Controllers
 {
+    [LocalizedRoute("en-US", "About")]
+    [LocalizedRoute("es-ES", "Quiénes")]
     public class AboutController : ControllerBase
     {
+        public AboutController(IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
+        {
+        }
+
+        [LocalizedRoute("en-US", "index")]
+        [LocalizedRoute("es-ES", "index")]
         public async Task<ActionResult> Index()
         {
-            var response = await client.GetItemAsync<AboutUs>("about_us");
+            var response = await _client.GetItemAsync<AboutUs>("about_us", new LanguageParameter(Language));
 
             var viewModel = new AboutUsViewModel
             {

@@ -1,7 +1,6 @@
-﻿using System.Web.Mvc;
-using System.Web.Routing;
-
-using DancingGoat.Areas.Admin.Models;
+﻿using DancingGoat.Areas.Admin.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 
 namespace DancingGoat.Helpers
 {
@@ -15,7 +14,7 @@ namespace DancingGoat.Helpers
                 Controller = "SelfConfig",
                 Area = "Admin",
                 MessageBody = message?.Message,
-                MessageType = message?.MessageType
+                message?.MessageType
             }));
         }
 
@@ -27,7 +26,7 @@ namespace DancingGoat.Helpers
                 Controller = "Home",
                 Area = "",
                 MessageBody = message?.Message,
-                MessageType = message?.MessageType
+                message?.MessageType
             }));
         }
     }

@@ -1,10 +1,11 @@
-﻿@using DancingGoat.Areas.Admin
-@using DancingGoat.Helpers.Extensions
+﻿@using DancingGoat.Helpers.Extensions
 @model DancingGoat.Areas.Admin.Models.IndexViewModel
 
 @{
     ViewBag.Title = "Sample Site—Configuration";
 }
+
+@inject IOptionsSnapshot<AppConfiguration> Config
 
 <header>
     <div class="content">
@@ -12,7 +13,7 @@
         <p>For your sample app to work, you should have a Kentico Kontent project containing content. Your app should be then configured with its project ID. You can either get it by signing in using your Kentico Kontent credentials or by signing up for a trial. Later, it will be converted to a free plan.</p>
     </div>
 </header>
-@Html.Partial("_MessagesPartial")
+@{ await Html.RenderPartialAsync("~/Areas/Admin/Views/Shared/_MessagesPartial.cshtml");}
 
 <script type="text/javascript">
     function openKenticoKontent() {
@@ -21,7 +22,7 @@
         var left = (window.screen.width / 2) - ((w / 2) + 10);
         var top = (window.screen.height / 2) - ((h / 2) + 50);
 
-        window.open("@(AppSettingProvider.KenticoKontentUrl.TrimEnd('/'))/sample-site-configuration", "Kentico Kontent",
+        window.open("@(Config.Value.KenticoKontentUrl.TrimEnd('/'))/sample-site-configuration", "Kentico Kontent",
             "status=no,height=" + w + ",width=" + h + ",resizable=yes,left="
             + left + ",top=" + top + ",screenX=" + left + ",screenY="
             + top + ",toolbar=no,menubar=no,location=no,directories=no");
@@ -30,7 +31,7 @@
     window.addEventListener("message", receiveMessage, false);
 
     function receiveMessage(event) {
-        if (event.origin.toLowerCase() !== "@(AppSettingProvider.KenticoKontentUrl.TrimEnd('/').ToLower())")
+        if (event.origin.toLowerCase() !== "@(Config.Value.KenticoKontentUrl.TrimEnd('/').ToLower())")
             return;
 
         if (!event.data.projectGuid)
@@ -69,7 +70,7 @@
     </section>
     <section class="section-secondary">
         <h2>Use the Shared Project</h2>
-        <p>Alternatively, you may wish to use the shared project (project ID "@(AppSettingProvider.DefaultProjectId.Value)").</p>
+        <p>Alternatively, you may wish to use the shared project (project ID "@(Config.Value.DefaultProjectId)").</p>
         <p><strong>Note:</strong> You cannot edit content in the shared project.</p>
         @using (Html.BeginForm("UseShared", "SelfConfig"))
         {

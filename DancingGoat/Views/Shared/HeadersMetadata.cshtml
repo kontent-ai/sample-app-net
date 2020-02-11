@@ -1,10 +1,14 @@
 ﻿@model DancingGoat.Models.IMetadata
-
+@using Microsoft.AspNetCore.Http.Extensions;
 <meta name=”description” content="@Model.MetadataMetaDescription" />
 
 <meta property="og:title" content="@Model.MetadataOgTitle" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="@(Request.Url?.AbsoluteUri)" />
+<meta property="og:url" content="@(UriHelper.BuildAbsolute(Context.Request.Scheme,
+                                                             Context.Request.Host,
+                                                             Context.Request.PathBase,
+                                                             Context.Request.Path,
+                                                             Context.Request.QueryString))" />
 <meta property="og:image" content="@(Model.MetadataOgImage?.FirstOrDefault()?.Url)" />
 <meta property="og:description" content="@Model.MetadataOgDescription" />
 

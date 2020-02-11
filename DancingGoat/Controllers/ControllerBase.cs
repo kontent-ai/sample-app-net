@@ -1,48 +1,18 @@
-﻿using DancingGoat.Areas.Admin;
+﻿using Microsoft.AspNetCore.Mvc;
 using DancingGoat.Infrastructure;
-using DancingGoat.Localization;
-using DancingGoat.Models;
-using Kentico.Kontent.Delivery;
-using System;
 using System.Globalization;
-using System.Web.Mvc;
+using Kentico.Kontent.Delivery.Abstractions;
 
 namespace DancingGoat.Controllers
 {
-    [SelfConfigActionFilter]
-    public class ControllerBase : AsyncController
+    [TypeFilter(typeof(SelfConfigActionFilterAttribute))]
+    public class ControllerBase : Controller
     {
-        protected static readonly IDeliveryClient baseClient = CreateDeliveryClient();
-        public readonly IDeliveryClient client;
-
-        public ControllerBase()
+        protected readonly IDeliveryClient _client;
+        protected string Language => CultureInfo.CurrentCulture.Name;
+        public ControllerBase(IDeliveryClientFactory deliveryClientFactory)
         {
-            var currentCulture = CultureInfo.CurrentUICulture.Name;
-            if (currentCulture.Equals(LanguageClient.DEFAULT_LANGUAGE, StringComparison.InvariantCultureIgnoreCase))
-            {
-                client = baseClient;
-            }
-            else
-            {
-                client = new LanguageClient(baseClient, currentCulture);
-            }
-        }
-
-
-        public static IDeliveryClient CreateDeliveryClient()
-        {
-            // Use the provider to get environment variables
-            ConfigurationManagerProvider provider = new ConfigurationManagerProvider();
-
-            // Build DeliveryOptions with default or explicit values
-            var options = provider.GetDeliveryOptions();
-
-            options.ProjectId = options.ProjectId ?? AppSettingProvider.DefaultProjectId.ToString();
-            var clientInstance = DeliveryClientBuilder.WithOptions(o => options)
-                .WithTypeProvider(new CustomTypeProvider())
-                .WithContentLinkUrlResolver(new CustomContentLinkUrlResolver()).Build();
-
-            return clientInstance;
+            _client = deliveryClientFactory.Get();
         }
     }
 }

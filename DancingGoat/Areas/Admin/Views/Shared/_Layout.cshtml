@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,600,700,700i&amp;subset=latin-ext">
-    <link rel="stylesheet" href="@Url.Content("~/Areas/Admin/Content/Styles/Admin.css")" type="text/css" />
+    <link rel="stylesheet" href="@Url.Content("~/css/Admin/Admin.css")" type="text/css" />
+    @RenderSection("headers", false)
 </head>
 <body>
     <div class="logotype-row">
@@ -24,8 +25,8 @@
         </div>
     </div>
     @RenderBody()
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jqueryval")
-    @RenderSection("Scripts", required: false)
+@RenderSection("Scripts", required: false)
+<script src="~/lib/jquery/jquery.min.js"></script>
+<script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
 </body>
 </html>

@@ -1,52 +1,68 @@
-﻿using DancingGoat.Models;
-using Kentico.Kontent.Delivery;
-using Kentico.Kontent.Recommender;
-using System;
-using System.Configuration;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
+using DancingGoat.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Kentico.Kontent.Delivery;
+using Kentico.Kontent.Recommender;
+using Kentico.AspNetCore.LocalizedRouting.Attributes;
+using Kentico.Kontent.Delivery.Abstractions;
 
 namespace DancingGoat.Controllers
 {
+    [LocalizedRoute("en-US", "Articles")]
+    [LocalizedRoute("es-ES", "Artículos")]
     public class ArticlesController : ControllerBase
     {
+        private readonly IConfiguration _configuration;
+
+        public ArticlesController(IConfiguration configuration, IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
+        {
+            _configuration = configuration;
+        }
+
+        [LocalizedRoute("en-US", "Index")]
+        [LocalizedRoute("es-ES", "Index")]
         public async Task<ActionResult> Index()
         {
-            var response = await client.GetItemsAsync<Article>(
+            var response = await _client.GetItemsAsync<Article>(
                 new EqualsFilter("system.type", "article"),
                 new OrderParameter("elements.post_date", SortOrder.Descending),
-                new ElementsParameter("teaser_image", "post_date", "summary", "url_pattern", "title")
+                new ElementsParameter("teaser_image", "post_date", "summary", "url_pattern", "title"),
+                new LanguageParameter(Language)
             );
 
             return View(response.Items);
         }
 
+        [LocalizedRoute("en-US", "Detail")]
+        [LocalizedRoute("es-ES", "Detail")]
         public async Task<ActionResult> Show(string urlSlug)
         {
-            var response = await client.GetItemsAsync<Article>(
+            var response = await _client.GetItemsAsync<Article>(
                 new EqualsFilter("elements.url_pattern", urlSlug),
                 new EqualsFilter("system.type", "article"),
-                new DepthParameter(1)
+                new DepthParameter(1),
+                new LanguageParameter(Language)
             );
 
             if (response.Items.Count == 0)
             {
-                throw new HttpException(404, "Not found");
+                return NotFound();
             }
             else
             {
                 try
                 {
                     var article = response.Items[0];
-                    var recommendationApiKey = ConfigurationManager.AppSettings["RecommendationApiKey"];
+                    var recommendationApiKey = _configuration.GetValue<string>("RecommendationApiKey");
 
                     // If the recommender API key is present
                     if (!string.IsNullOrWhiteSpace(recommendationApiKey))
                     {
                         /* Get recommendations from the Recommendation engine */
-                        var recommendationClient = new Kentico.Kontent.Recommender.MVC.RecommendationClient(recommendationApiKey, 5);
+                        var recommendationClient = new RecommendationClient(recommendationApiKey, 5);
                         var lastMonth = TimeSpan.FromDays(30).Milliseconds;
 
                         var recommendedArticles = await recommendationClient
@@ -55,7 +71,7 @@ namespace DancingGoat.Controllers
                             //.WithBoosterQuery($"if 'lastupdated' >= now() - {lastMonth} then 2 else 1")
                             .Execute();
 
-                        var articles = (await client.GetItemsAsync<Article>(new InFilter("system.codename", recommendedArticles.Select(a => a.Codename).ToArray()))).Items;
+                        var articles = (await _client.GetItemsAsync<Article>(new InFilter("system.codename", recommendedArticles.Select(a => a.Codename).ToArray()))).Items;
                         article.RelatedArticles = articles.Select(a => (object)a);
                         return View(article);
                     }

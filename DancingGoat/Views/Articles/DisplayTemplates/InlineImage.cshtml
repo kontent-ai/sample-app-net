@@ -1,9 +1,9 @@
-﻿@model Kentico.Kontent.Delivery.IInlineImage
-
+﻿@model Kentico.Kontent.Delivery.Abstractions.IInlineImage
+@inject IConfiguration  Configuration
 <div class="article-inline-image">
     <a href="@Model.Src" target="_blank">
         <figure>
-            @Html.InlineImage(Model)
+            @Html.InlineImage(Configuration, Model)
         </figure>
         @if (!string.IsNullOrEmpty(Model.AltText))
         {

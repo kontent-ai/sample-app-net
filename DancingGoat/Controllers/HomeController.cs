@@ -1,16 +1,26 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using System.Web.Mvc;
 using DancingGoat.Models;
+using Microsoft.AspNetCore.Mvc;
 using Kentico.Kontent.Delivery;
+using Kentico.AspNetCore.LocalizedRouting.Attributes;
+using Kentico.Kontent.Delivery.Abstractions;
 
 namespace DancingGoat.Controllers
 {
+    [LocalizedRoute("en-US", "Home")]
+    [LocalizedRoute("es-ES", "Inicio")]
     public class HomeController : ControllerBase
     {
+        public HomeController(IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
+        {
+        }
+
+        [LocalizedRoute("en-US", "Index")]
+        [LocalizedRoute("es-ES", "Index")]
         public async Task<ActionResult> Index()
         {
-            var response = await client.GetItemAsync<Home>("home");
+            var response = await _client.GetItemAsync<Home>("home", new LanguageParameter(Language), new DepthParameter(1));
 
             var viewModel = new HomeViewModel
             {
@@ -19,14 +29,6 @@ namespace DancingGoat.Controllers
             };
 
             return View(viewModel);
-        }
-
-        [ChildActionOnly]
-        public ActionResult CompanyAddress()
-        {
-            var contact = Task.Run(() => client.GetItemAsync<Home>("home", new ElementsParameter("contact"))).Result.Item.Contact;
-
-            return PartialView("CompanyAddress", contact);
         }
     }
 }

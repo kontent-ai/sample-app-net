@@ -1,14 +1,10 @@
-﻿@using DancingGoat.Helpers
-@using DancingGoat.Models
-<!DOCTYPE html>
-
+﻿<!DOCTYPE html>
 <html>
-<head id="head">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewBag.Title - Dancing Goat</title>
-    <link href="@Url.Content("~/Content/Styles/Site.css")" rel="stylesheet" type="text/css" />
-    @RenderSection("headers", required: false)
+    <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
     <div class="page-wrap">
@@ -18,25 +14,25 @@
                     <nav role="navigation">
                         <ul>
                             <li>
-                                @Html.ActionLink(Resources.DancingGoat.Home, "Index", "Home")
+                                @Html.ActionLink(Localizer["Home"], "Index", "Home")
                             </li>
                             <li>
-                                @Html.ActionLink(Resources.DancingGoat.Store, "Index", "Coffees")
+                                @Html.ActionLink(Localizer["Store"], "Index", "Coffees")
                             </li>
                             <li>
-                                @Html.ActionLink(Resources.DancingGoat.Articles, "Index", "Articles")
+                                @Html.ActionLink(Localizer["Articles"], "Index", "Articles")
                             </li>
                             <li>
-                                @Html.ActionLink(Resources.DancingGoat.AboutUs, "Index", "About")
+                                @Html.ActionLink(Localizer["AboutUs"], "Index", "About")
                             </li>
                             <li>
-                                @Html.ActionLink(Resources.DancingGoat.Cafes, "Index", "Cafes")
+                                @Html.ActionLink(Localizer["Cafes"], "Index", "Cafes")
                             </li>
                             <li>
-                                @Html.ActionLink(Resources.DancingGoat.Contact, "Index", "Contacts")
+                                @Html.ActionLink(Localizer["Contact"], "Index", "Contacts")
                             </li>
                             <li>
-                                @Html.ActionLink(Resources.DancingGoat.Partnership, "Index", "Partnership")
+                                @Html.ActionLink(Localizer["Partnership"], "Index", "Partnership")
                             </li>
                         </ul>
                     </nav>
@@ -44,10 +40,10 @@
                         <nav role="navigation">
                             <ul class="dropdown-items-list dropdown-desktop-visible">
                                 <li>
-                                    @Html.ActionLink("English", "Index", "LanguageSelector", LanguageSwitchHelper.GetLangugageSwitchParameters(ViewContext.RouteData.Values, "en-us", Model as IDetailItem), null)
+                                    <a asp-controller="Languagues" asp-action="ChangeLanguage" asp-route-culture="en-US">English</a> |
                                 </li>
                                 <li>
-                                    @Html.ActionLink("Español", "Index", "LanguageSelector", LanguageSwitchHelper.GetLangugageSwitchParameters(ViewContext.RouteData.Values, "es-es", Model as IDetailItem), null)
+                                    <a asp-controller="Languagues" asp-action="ChangeLanguage" asp-route-culture="es-ES">Spanish</a>
                                 </li>
                             </ul>
                         </nav>
@@ -55,7 +51,7 @@
                 </div>
             </div>
             <div id="message-box" class="container message">
-                @Html.Partial("~/Areas/Admin/Views/Shared/_MessagesPartial.cshtml")
+                <partial name="~/Areas/Admin/Views/Shared/_MessagesPartial.cshtml" />
             </div>
             <div class="header-row">
                 <div class="container">
@@ -78,16 +74,16 @@
                     <div class="row">
                         <div class="col-md-4 col-lg-4 footer-col">
                             <p>
-                                @Html.Action("CompanyAddress", "Home")
+                                @await Component.InvokeAsync("CompanyAddress")
                             </p>
                         </div>
                         <div class="col-md-4 col-lg-4 footer-col">
-                            <h3>@Resources.DancingGoat.FollowUs_Title</h3>
+                            <h3>@Localizer["FollowUs.Title"]</h3>
                             <a class="followus-link" href="https://www.facebook.com/Dancing.Goat" target="_blank">
-                                <img alt="@Resources.DancingGoat.FollowUsOnFacebook" class="" src="~/Content/Images/facebook-icon.png" title="@Resources.DancingGoat.FollowUsOnFacebook">
+                                <img alt="@Localizer["FollowUsOnFacebook"]" class="" src="~/images/facebook-icon.png" title="@Localizer["FollowUsOnFacebook"]">
                             </a>
                             <a class="followus-link" href="https://twitter.com/DancingGoat78" target="_blank">
-                                <img alt="@Resources.DancingGoat.FollowUsOnTwitter" class="" src="~/Content/Images/twitter-icon.png" title="@Resources.DancingGoat.FollowUsOnTwitter">
+                                <img alt="@Localizer["FollowUsOnTwitter"]" class="" src="~/images/twitter-icon.png" title="@Localizer["FollowUsOnTwitter"]">
                             </a>
                         </div>
                     </div>
@@ -98,10 +94,11 @@
             </div>
         </footer>
     </div>
+    <script src="~/lib/jquery/jquery.js"></script>
+    <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jqueryval")
-    @RenderSection("scripts", required: false)
+    @RenderSection("Scripts", required: false)
 
     <script type="text/javascript">
         function toggleEditMode(isChecked) {
@@ -109,7 +106,5 @@
             isChecked ? body.classList.add('edit-mode') : body.classList.remove('edit-mode');
         }
     </script>
-
-
 </body>
 </html>

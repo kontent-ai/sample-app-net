@@ -1,35 +1,35 @@
 @model DancingGoat.Models.ContactsViewModel
 
 @{
-    ViewBag.Title = Resources.DancingGoat.Contact;
+    ViewBag.Title = Localizer["Contact"];
 }
 
 @if (Model.Roastery != null)
 {
-<div class="col-md-12">
-    <h2 class="contact-title">@Resources.DancingGoat.Roastery</h2>
-    <ul class="contact-info">
-        <li>@Html.DisplayFor(vm => vm.Roastery.Phone)</li>
-        <li>@Html.DisplayFor(vm => vm.Roastery.Email)</li>
-        <li>
-            <a href="javascript:void(0)" data-address="@Model.Roastery.City, @Model.Roastery.Street" class="js-scroll-to-map">
-                @Html.DisplayFor(vm => vm.Roastery.Street), @Html.DisplayFor(vm => vm.Roastery.City)<br />
-                @Html.DisplayFor(vm => vm.Roastery.ZipCode), @Html.DisplayFor(vm => vm.Roastery.Country), @Html.DisplayFor(vm => vm.Roastery.State)<br />
-        </a>
-    </li>
-</ul>
-</div>
+    <div class="col-md-12">
+        <h2 class="contact-title">@Localizer["Roastery"]</h2>
+        <ul class="contact-info">
+            <li>@Html.DisplayFor(vm => vm.Roastery.Phone)</li>
+            <li>@Html.DisplayFor(vm => vm.Roastery.Email)</li>
+            <li>
+                <a href="javascript:void(0)" data-address="@Model.Roastery.City, @Model.Roastery.Street" class="js-scroll-to-map">
+                    @Html.DisplayFor(vm => vm.Roastery.Street), @Html.DisplayFor(vm => vm.Roastery.City)<br />
+                    @Html.DisplayFor(vm => vm.Roastery.ZipCode), @Html.DisplayFor(vm => vm.Roastery.Country), @Html.DisplayFor(vm => vm.Roastery.State)<br />
+                </a>
+            </li>
+        </ul>
+    </div>
 }
 
-<h2>@Resources.DancingGoat.CompanyCafes</h2>
+<h2>@Localizer["CompanyCafes"]</h2>
 <div class="row">
     @Html.DisplayFor(vm => vm.Cafes)
 </div>
 
-<h2 class="map-title">@Resources.DancingGoat.ContactUs_MapTitle</h2>
+<h2 class="map-title">@Localizer["ContactUs.MapTitle"]</h2>
 <div class="map js-map"></div>
 
 @section Scripts {
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVOq4C-rf7JVeHt6ws9vsf-KHIRpueASg"></script>
-    @Scripts.Render("~/Scripts/map.js")
+    <script src="~/Scripts/map.js"></script>
 }
