@@ -68,7 +68,7 @@ namespace DancingGoat.Areas.Admin.Controllers
         {
             if (!model.ProjectGuid.HasValue)
             {
-                return View("Error", new MessageModel { Caption = CAPTION_CONFIGURATION_WRITE_ERROR, Message = MESSAGE_INVALID_PROJECT_GUID, MessageType = MessageType.Error });
+                return View("~/Areas/Admin/Views/Shared/Error.cshtml", new MessageModel { Caption = CAPTION_CONFIGURATION_WRITE_ERROR, Message = MESSAGE_INVALID_PROJECT_GUID, MessageType = MessageType.Error });
             }
 
             return SetConfiguration(string.Format(MESSAGE_SELECTED_PROJECT, model.ProjectGuid.Value), model.ProjectGuid.Value, model.EndAt, model.NewlyGeneratedProject);
@@ -87,18 +87,18 @@ namespace DancingGoat.Areas.Admin.Controllers
 
                 if (isNew)
                 {
-                    return View("Wait");
+                    return View("~/Areas/Admin/Views/SelfConfig/Wait.cshtml");
                 }
 
                 return RedirectHelpers.GetHomeRedirectResult(new MessageModel { Caption = null, Message = message, MessageType = MessageType.Info });
             }
             catch (JsonSerializationException ex)
             {
-                return View("Error", new MessageModel { Caption = CAPTION_DESERIALIZATION_ERROR, Message = ex.Message, MessageType = MessageType.Error });
+                return View("~/Areas/Admin/Views/Shared/Error.cshtml", new MessageModel { Caption = CAPTION_DESERIALIZATION_ERROR, Message = ex.Message, MessageType = MessageType.Error });
             }
             catch (Exception ex)
             {
-                return View("Error", new MessageModel { Caption = CAPTION_CONFIGURATION_WRITE_ERROR, Message = ex.Message, MessageType = MessageType.Error });
+                return View("~/Areas/Admin/Views/Shared/Error.cshtml", new MessageModel { Caption = CAPTION_CONFIGURATION_WRITE_ERROR, Message = ex.Message, MessageType = MessageType.Error });
             }
         }
     }
