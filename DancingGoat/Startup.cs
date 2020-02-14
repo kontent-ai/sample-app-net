@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using DancingGoat.Configuration;
+﻿using DancingGoat.Configuration;
 using DancingGoat.Infrastructure;
 using DancingGoat.Models;
 using Kentico.AspNetCore.LocalizedRouting.Extensions;
@@ -9,10 +6,7 @@ using Kentico.Kontent.Delivery;
 using Kentico.Kontent.Delivery.Abstractions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Localization.Routing;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -63,39 +57,13 @@ namespace DancingGoat
                 app.UseHsts();
             }
 
-            // see if we need an extension method or not for this
-            using (var urlRewriteStreamReader = File.OpenText("UrlRewrite.xml"))
-            {
-                var options = new RewriteOptions().AddIISUrlRewrite(urlRewriteStreamReader);
-                app.UseRewriter(options);
-            }
-
-            IList<CultureInfo> supportedCultures = new List<CultureInfo>
-            {
-                new CultureInfo("en-US"),
-                new CultureInfo("es-ES"),
-            };
-            var requestLocalizationOptions = new RequestLocalizationOptions
-            {
-                DefaultRequestCulture = new RequestCulture("en-US"),
-                SupportedCultures = supportedCultures,
-                SupportedUICultures = supportedCultures,
-            };
-
-            requestLocalizationOptions.RequestCultureProviders.Insert(0, new RouteDataRequestCultureProvider()
-            {
-                RouteDataStringKey = "culture",
-                Options = requestLocalizationOptions
-            });
-
-
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
             app.UseAuthorization();
 
-            app.UseRequestLocalization(requestLocalizationOptions);
+            app.UseRequestLocalization("en-US", "es-ES");
 
             app.UseEndpoints(endpoints =>
             {
@@ -104,7 +72,6 @@ namespace DancingGoat
                 endpoints.MapControllerRoute("areas", "{area:exists}/{controller=Home}/{action=Index}/{id?}"
                 );
             });
-            
         }
     }
 }

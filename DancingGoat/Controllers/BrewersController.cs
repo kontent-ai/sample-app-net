@@ -17,6 +17,7 @@ namespace DancingGoat.Controllers
         public BrewersController(IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
         {
         }
+
         [LocalizedRoute("en-US", "Index")]
         [LocalizedRoute("es-ES", "Index")]
         public async Task<ActionResult> Index()
