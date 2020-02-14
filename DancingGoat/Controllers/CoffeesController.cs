@@ -23,7 +23,6 @@ namespace DancingGoat.Controllers
         public async Task<ActionResult> Index()
         {
             var itemsTask = _client.GetItemsAsync<Coffee>(
-                new EqualsFilter("system.type", "coffee"),
                 new OrderParameter("elements.product_name"),
                 new ElementsParameter(Coffee.ImageCodename, Coffee.PriceCodename, Coffee.ProductStatusCodename, Coffee.ProductNameCodename, Coffee.UrlPatternCodename),
                 new DepthParameter(0),
@@ -51,7 +50,6 @@ namespace DancingGoat.Controllers
         public async Task<ActionResult> Filter(CoffeesFilterViewModel model)
         {
             var parameters = new List<IQueryParameter> {
-                new EqualsFilter("system.type", "coffee"),
                 new OrderParameter("elements.product_name"),
                 new ElementsParameter(Coffee.ImageCodename, Coffee.PriceCodename, Coffee.ProductStatusCodename, Coffee.ProductNameCodename, Coffee.UrlPatternCodename),
                 new DepthParameter(0),

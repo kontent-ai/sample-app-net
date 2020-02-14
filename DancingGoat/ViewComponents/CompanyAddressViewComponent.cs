@@ -17,7 +17,7 @@ namespace DancingGoat.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var contact = await DeliveryClient.GetItemAsync<Home>("home", new ElementsParameter("contact"));
+            var contact = await DeliveryClient.GetItemAsync<Home>("home", new ElementsParameter(Home.ContactCodename));
             return View(contact.Item.Contact);
         }
     }

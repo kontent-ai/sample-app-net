@@ -27,9 +27,8 @@ namespace DancingGoat.Controllers
         public async Task<ActionResult> Index()
         {
             var response = await _client.GetItemsAsync<Article>(
-                new EqualsFilter("system.type", "article"),
                 new OrderParameter("elements.post_date", SortOrder.Descending),
-                new ElementsParameter("teaser_image", "post_date", "summary", "url_pattern", "title"),
+                new ElementsParameter(Article.TeaserImageCodename, Article.PostDateCodename, Article.SummaryCodename, Article.UrlPatternCodename, Article.TitleCodename),
                 new LanguageParameter(Language)
             );
 
@@ -41,8 +40,7 @@ namespace DancingGoat.Controllers
         public async Task<ActionResult> Show(string urlSlug)
         {
             var response = await _client.GetItemsAsync<Article>(
-                new EqualsFilter("elements.url_pattern", urlSlug),
-                new EqualsFilter("system.type", "article"),
+                new EqualsFilter($"elements.{Article.UrlPatternCodename}", urlSlug),
                 new DepthParameter(1),
                 new LanguageParameter(Language)
             );

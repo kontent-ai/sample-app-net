@@ -22,7 +22,6 @@ namespace DancingGoat.Controllers
         public async Task<ActionResult> Index()
         {
             var itemsTask = _client.GetItemsAsync<Brewer>(
-                new EqualsFilter("system.type", "brewer"),
                 new OrderParameter("elements.product_name"),
                 new ElementsParameter(Brewer.ImageCodename, Brewer.PriceCodename, Brewer.ProductStatusCodename, Brewer.ProductNameCodename, Brewer.UrlPatternCodename),
                 new LanguageParameter(Language),
@@ -50,8 +49,7 @@ namespace DancingGoat.Controllers
         public async Task<ActionResult> Filter(BrewerFilterViewModel model)
         {
             var parameters = new List<IQueryParameter> {
-                new EqualsFilter("system.type", "brewer"),
-                new OrderParameter("elements.product_name"),
+                new OrderParameter($"elements.{Brewer.ProductNameCodename}"),
                 new ElementsParameter(Brewer.ImageCodename, Brewer.PriceCodename, Brewer.ProductStatusCodename, Brewer.ProductNameCodename, Brewer.UrlPatternCodename),
                 new DepthParameter(0),
                 new LanguageParameter(Language)

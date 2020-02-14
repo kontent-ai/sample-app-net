@@ -21,7 +21,6 @@ namespace DancingGoat.Controllers
         public async Task<ActionResult> Index()
         {
             var response = await _client.GetItemsAsync<Cafe>(
-                new EqualsFilter("system.type", "cafe"),
                 new OrderParameter("system.name"),
                 new LanguageParameter(Language)
             );
