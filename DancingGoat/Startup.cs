@@ -1,6 +1,7 @@
 ﻿using DancingGoat.Configuration;
 using DancingGoat.Infrastructure;
 using DancingGoat.Models;
+using DancingGoat.Repositories;
 using Kentico.AspNetCore.LocalizedRouting.Extensions;
 using Kentico.Kontent.Delivery;
 using Kentico.Kontent.Delivery.Abstractions;
@@ -32,6 +33,9 @@ namespace DancingGoat
             services.AddSingleton<ITypeProvider, CustomTypeProvider>();
             services.AddSingleton<IContentLinkUrlResolver, CustomContentLinkUrlResolver>();
             services.AddDeliveryClient(Configuration);
+
+            // Repositories
+            services.AddSingleton<ICafesRepository, CafesRepository>();
 
             // Configuration
             services.ConfigureWritable<AppConfiguration>((IConfigurationRoot)Configuration, Configuration.GetSection(nameof(AppConfiguration)));

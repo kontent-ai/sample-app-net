@@ -9,10 +9,17 @@ namespace DancingGoat.Controllers
     public class ControllerBase : Controller
     {
         protected readonly IDeliveryClient _client;
+
         protected string Language => CultureInfo.CurrentCulture.Name;
-        public ControllerBase(IDeliveryClientFactory deliveryClientFactory)
+
+        public ControllerBase(IDeliveryClientFactory deliveryClientFactory) : this()
         {
             _client = deliveryClientFactory.Get();
+        }
+
+        public ControllerBase()
+        {
+
         }
     }
 }

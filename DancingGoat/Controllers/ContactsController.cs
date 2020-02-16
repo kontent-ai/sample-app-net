@@ -5,27 +5,26 @@ using Microsoft.AspNetCore.Mvc;
 using Kentico.Kontent.Delivery;
 using Kentico.AspNetCore.LocalizedRouting.Attributes;
 using Kentico.Kontent.Delivery.Abstractions;
+using DancingGoat.Repositories;
 
 namespace DancingGoat.Controllers
 {
-
     [LocalizedRoute("en-US", "Contacts")]
     [LocalizedRoute("es-ES", "Contacto")]
     public class ContactsController : ControllerBase
     {
-        public ContactsController(IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
+        public ICafesRepository CafesRepository { get; }
+
+        public ContactsController(ICafesRepository cafesRepository) : base()
         {
+            CafesRepository = cafesRepository;
         }
 
         [LocalizedRoute("en-US", "Index")]
         [LocalizedRoute("es-ES", "Index")]
         public async Task<ActionResult> Index()
         {
-            var response = await _client.GetItemsAsync<Cafe>(
-                new EqualsFilter($"elements.{Cafe.CountryCodename}", "USA"),
-                new LanguageParameter(Language)
-            );
-            var cafes = response.Items;
+            var cafes = await  CafesRepository.GetCafes(Language, "USA", null);
 
             var viewModel = new ContactsViewModel
             {

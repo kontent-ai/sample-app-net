@@ -6,6 +6,6 @@ namespace DancingGoat.Models
     {
         public Cafe Roastery { get; set; }
 
-        public IReadOnlyList<Cafe> Cafes { get; set; }
+        public IEnumerable<Cafe> Cafes { get; set; }
     }
 }
