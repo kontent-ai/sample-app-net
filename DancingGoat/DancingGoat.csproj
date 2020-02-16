@@ -23,6 +23,8 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Views\SelfConfig\" />
     <Folder Include="Areas\Admin\Views\Shared\EditorTemplates\" />
+    <Folder Include="Models\ContentTypes\" />
+    <Folder Include="Repositories\" />
     <Folder Include="wwwroot\css\admin\" />
     <Folder Include="wwwroot\images\Admin\" />
   </ItemGroup>
