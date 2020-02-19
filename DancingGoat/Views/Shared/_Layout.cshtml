@@ -43,8 +43,8 @@
                                 <li>
                                     @Html.ActionLink("English", "Index", "Languages", new
                                     {
-                                       id = (Model as IDetailItem)?.Id,
-                                       type = (Model as IDetailItem)?.Type,
+                                       itemId = (Model as IDetailItem)?.Id,
+                                       itemType = (Model as IDetailItem)?.Type,
                                        language = "en-US",
                                        originalAction = ViewContext.RouteData.Values["action"].ToString(),
                                        originalController = ViewContext.RouteData.Values["controller"].ToString()
@@ -54,8 +54,8 @@
                                 <li>
                                     @Html.ActionLink("Spanish", "Index", "Languages", new
                                     {
-                                       id = (Model as IDetailItem)?.Id,
-                                       type = (Model as IDetailItem)?.Type,
+                                       itemId = (Model as IDetailItem)?.Id,
+                                       itemType = (Model as IDetailItem)?.Type,
                                        language = "es-ES",
                                        originalAction = ViewContext.RouteData.Values["action"].ToString(),
                                        originalController = ViewContext.RouteData.Values["controller"].ToString()

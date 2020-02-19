@@ -20,17 +20,17 @@ namespace DancingGoat.Controllers
             _localizedRoutingProvider = localizedRoutingProvider;
         }
 
-        public async Task<ActionResult> Index(Guid id, string originalAction, string type, string originalController, string language)
+        public async Task<ActionResult> Index([FromQuery]Guid itemId, [FromQuery]string originalAction, [FromQuery]string itemType, [FromQuery]string originalController, [FromQuery]string language)
         {
             // Specific item is not selected, url will not be changed after redirect
-            if (id == Guid.Empty || string.IsNullOrEmpty(type))
+            if (itemId == Guid.Empty || string.IsNullOrEmpty(itemType))
             {
                 return RedirectToAction(originalAction, originalController, new { culture = language });
             }
 
             var item = (await _client.GetItemsAsync<object>(
-                new SystemTypeEqualsFilter(type),
-                new EqualsFilter("system.id", id.ToString()),
+                new SystemTypeEqualsFilter(itemType),
+                new EqualsFilter("system.id", itemId.ToString()),
                 new LanguageParameter(language),
                 new ElementsParameter("url_pattern"))).Items.FirstOrDefault();
 
