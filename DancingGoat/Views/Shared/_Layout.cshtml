@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using DancingGoat.Models
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -40,10 +41,25 @@
                         <nav role="navigation">
                             <ul class="dropdown-items-list dropdown-desktop-visible">
                                 <li>
-                                    <a asp-controller="Languagues" asp-action="ChangeLanguage" asp-route-culture="en-US">English</a> |
+                                    @Html.ActionLink("English", "Index", "Languages", new
+                                    {
+                                       id = (Model as IDetailItem)?.Id,
+                                       type = (Model as IDetailItem)?.Type,
+                                       language = "en-US",
+                                       originalAction = ViewContext.RouteData.Values["action"].ToString(),
+                                       originalController = ViewContext.RouteData.Values["controller"].ToString()
+                                    })
+                                  
                                 </li>
                                 <li>
-                                    <a asp-controller="Languagues" asp-action="ChangeLanguage" asp-route-culture="es-ES">Spanish</a>
+                                    @Html.ActionLink("Spanish", "Index", "Languages", new
+                                    {
+                                       id = (Model as IDetailItem)?.Id,
+                                       type = (Model as IDetailItem)?.Type,
+                                       language = "es-ES",
+                                       originalAction = ViewContext.RouteData.Values["action"].ToString(),
+                                       originalController = ViewContext.RouteData.Values["controller"].ToString()
+                                   })
                                 </li>
                             </ul>
                         </nav>

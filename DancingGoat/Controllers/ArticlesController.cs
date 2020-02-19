@@ -35,8 +35,8 @@ namespace DancingGoat.Controllers
             return View(response.Items);
         }
 
-        [LocalizedRoute("en-US", "Detail")]
-        [LocalizedRoute("es-ES", "Detail")]
+        [LocalizedRoute("en-US", "Show")]
+        [LocalizedRoute("es-ES", "Show")]
         public async Task<ActionResult> Show(string urlSlug)
         {
             var response = await _client.GetItemsAsync<Article>(
