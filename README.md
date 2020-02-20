@@ -26,7 +26,7 @@ To run the app:
 
 To run the app, just click the below "Deploy to Azure" button.
 
-[![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://azuredeploy.net/)
 
 ### Connecting to your sample project
 
