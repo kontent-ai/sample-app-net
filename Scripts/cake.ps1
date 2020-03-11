@@ -44,7 +44,8 @@ if (!(Test-Path $NUGET_EXE)) {
     Write-Verbose -Message "Downloading NuGet.exe..."
     try {
         Invoke-WebRequest -Uri $NUGET_URL -OutFile $NUGET_EXE
-    } catch {
+    }
+    catch {
         Throw "Could not download NuGet.exe."
     }
 }
@@ -53,9 +54,9 @@ if (!(Test-Path $NUGET_EXE)) {
 $ENV:NUGET_EXE = $NUGET_EXE
 
 # Restore Cake from NuGet if does not exist
-if(!(Test-Path $CAKE_EXE)) {
+if (!(Test-Path $CAKE_EXE)) {
     Write-Verbose -Message "Restoring Cake from NuGet..."
-    $NuGetOutput = Invoke-Expression "&`"$NUGET_EXE`" install Cake -ExcludeVersion -Version 0.26.1 -OutputDirectory `"$TOOLS_DIR`""
+    $NuGetOutput = Invoke-Expression "&`"$NUGET_EXE`" install Cake -ExcludeVersion -Version 0.35.0 -OutputDirectory `"$TOOLS_DIR`""
 
     if ($LASTEXITCODE -ne 0) {
         Throw "An error occured while restoring Cake."

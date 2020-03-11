@@ -17,7 +17,7 @@ Task("Publish")
     CreateDirectory(tempPublishDirectory);
     WebDeployToFolder(ProjectFile, tempPublishDirectory.FullPath);
 
-	  Zip(tempPublishDirectory, publishArchive);
+    Zip(tempPublishDirectory, publishArchive);
     DeleteDirectory(tempPublishDirectory, recursive: true);
     Information($"##vso[artifact.upload containerfolder={projectName};artifactname={projectName};]{MakeAbsolute(File(publishArchive))}");
 });
@@ -27,16 +27,15 @@ private void WebDeployToFolder(string projectFile, string publishDirectory)
 {
     var solutionDir = MakeAbsolute(Directory("../"));
 
-    MSBuild(projectFile, settings =>
-        settings.SetConfiguration("Debug")
-            .SetVerbosity(Cake.Core.Diagnostics.Verbosity.Minimal)
-            .WithTarget("Build;WebPublish")
-            .WithProperty("WebPublishMethod","FileSystem")
-            .WithProperty("publishUrl", publishDirectory)
-            .WithProperty("SolutionDir", solutionDir.FullPath)
-            .WithProperty("DeployAPI", "true")
-            .WithProperty("ProfileTransformWebConfigEnabled", "false")
-        );
+    DotNetCoreMSBuild(projectFile, new DotNetCoreMSBuildSettings()
+        .SetConfiguration("Debug")
+        .WithProperty("WebPublishMethod","FileSystem")
+        .WithProperty("publishUrl", publishDirectory)
+        .WithProperty("SolutionDir", solutionDir.FullPath)
+        .WithProperty("DeployTarget", "WebPublish")
+        .WithProperty("DeployOnBuild", "true")
+        .WithProperty("AutoParameterizationWebConfigConnectionStrings", "false")
+    );
 }
 
 RunTarget(target);
