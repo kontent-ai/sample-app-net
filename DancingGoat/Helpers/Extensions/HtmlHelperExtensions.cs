@@ -3,15 +3,10 @@ using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using System;
-using System.IO;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
 using Kentico.Kontent.Delivery;
-using Kentico.Kontent.Delivery.Abstractions;
-using Kentico.Kontent.Delivery.ImageTransformation;
 using Kentico.Kontent.Management.Helpers.Models;
 
 using IHtmlContent = Microsoft.AspNetCore.Html.IHtmlContent;
@@ -20,47 +15,6 @@ namespace DancingGoat.Helpers.Extensions
 {
     public static class HtmlHelperExtensions
     {
-        /// <summary>
-        /// Generates an IMG tag for an inline image.
-        /// </summary>
-        /// <param name="htmlHelper">HTML helper.</param>
-        /// <param name="image">Inline image.</param>
-        /// <param name="sizes">Media conditions mapping screen width to image size</param>
-        public static IHtmlContent InlineImage(this IHtmlHelper htmlHelper, IConfiguration configuration, IInlineImage image, ResponsiveImageSizes sizes = null)
-        {
-            if (image == null)
-            {
-                return new HtmlString(string.Empty);
-            }
-
-            var imageTag = new TagBuilder("img");
-            bool responsiveImagesEnabled = configuration.GetSection(nameof(AppConfiguration)).Get<AppConfiguration>().ResponsiveImagesEnabled;
-
-            if (responsiveImagesEnabled)
-            {
-                imageTag.MergeAttribute("srcset", GenerateSrcsetValue(image.Src, configuration));
-
-                if (sizes != null)
-                {
-                    imageTag.MergeAttribute("sizes", sizes.GenerateSizesValue());
-                }
-            }
-
-            imageTag.MergeAttribute("src", image.Src);
-            imageTag.MergeAttribute("alt", image.AltText);
-            imageTag.TagRenderMode = TagRenderMode.SelfClosing;
-
-            string result;
-
-            using (var writer = new StringWriter())
-            {
-                imageTag.WriteTo(writer, HtmlEncoder.Default);
-                result = writer.ToString();
-            }
-
-            return new HtmlString(result);
-        }
-
         /// <summary>
         /// Displays a <see cref="DateTime"/> in a formatted manner.
         /// </summary>
@@ -188,13 +142,6 @@ namespace DancingGoat.Helpers.Extensions
         private static string GetItemElementUrl(IConfiguration configuration, string language, params ElementIdentifier[] elementIdentifiers)
         {
             return EditLinkHelper.GetInstance(configuration).Builder.BuildEditItemUrl(language, elementIdentifiers);
-        }
-
-        private static string GenerateSrcsetValue(string imageUrl, IConfiguration configuration)
-        {
-            var imageUrlBuilder = new ImageUrlBuilder(imageUrl);
-            var responsiveWidths = configuration.GetSection(nameof(AppConfiguration)).Get<AppConfiguration>().ResponsiveWidthsArray;
-            return string.Join(",", responsiveWidths.Select(w => $"{imageUrlBuilder.WithWidth(Convert.ToDouble(w)).Url} {w}w"));
         }
     }
 }

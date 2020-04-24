@@ -1,14 +1,13 @@
 ﻿@model Kentico.Kontent.Delivery.Abstractions.IInlineImage
-@inject IConfiguration  Configuration
 <div class="article-inline-image">
-    <a href="@Model.Src" target="_blank">
+    <a href="@Model.Url" target="_blank">
         <figure>
-            @Html.InlineImage(Configuration, Model)
+            <img-asset asset="@Model" />
         </figure>
-        @if (!string.IsNullOrEmpty(Model.AltText))
+        @if (!string.IsNullOrEmpty(Model.Description))
         {
             <div class="inline-image-title">
-                @Model.AltText
+                @Model.Description
             </div>
         }
     </a>
