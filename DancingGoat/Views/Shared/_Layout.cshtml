@@ -115,12 +115,5 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @RenderSection("Scripts", required: false)
-
-    <script type="text/javascript">
-        function toggleEditMode(isChecked) {
-            const body = document.getElementsByTagName('body')[0];
-            isChecked ? body.classList.add('edit-mode') : body.classList.remove('edit-mode');
-        }
-    </script>
 </body>
 </html>

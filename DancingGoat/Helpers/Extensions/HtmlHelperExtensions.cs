@@ -1,13 +1,7 @@
-﻿using DancingGoat.Models;
-using Microsoft.AspNetCore.Html;
+﻿using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Configuration;
 using System;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
-
-using Kentico.Kontent.Delivery;
-using Kentico.Kontent.Management.Helpers.Models;
 
 using IHtmlContent = Microsoft.AspNetCore.Html.IHtmlContent;
 
@@ -25,69 +19,6 @@ namespace DancingGoat.Helpers.Extensions
         public static IHtmlContent DateTimeFormattedFor<TModel>(this IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, DateTime?>> expression, string format)
         {
             return htmlHelper.DisplayFor(expression, "DateTime", new DateTimeFormatterParameters { FormatCharacter = format });
-        }
-
-        /// <summary>
-        /// Returns a navigation button linked to Kentico Kontent's item suitable for block elements.
-        /// </summary>
-        /// <param name="htmlHelper">HTML helper</param>
-        /// <param name="language">Codename of language variant.</param>
-        /// <param name="elementIdentifiers">Identifiers of hierarchy of content item.</param>
-        public static IHtmlContent BlockElementEditLink(
-            this IHtmlHelper htmlHelper,
-            IConfiguration configuration,
-            string language,
-            params ElementIdentifier[] elementIdentifiers
-            )
-        {
-            var itemUrl = GetItemElementUrl(configuration, language, elementIdentifiers);
-
-            var generatedHtml = $@"
-<a target=""_blank"" class=""edit-link__overlay--block"" href=""{itemUrl}"" >
-  <span>
-      <i aria-hidden=""true"" class=""edit-link__button-icon edit-link__button-icon--block""></i>
-  </span>
-</a>";
-            return new HtmlString(generatedHtml);
-        }
-
-        /// <summary>
-        /// Returns a navigation button linked to Kentico Kontent's item suitable for inline elements.
-        /// </summary>
-        /// <param name="htmlHelper">HTML helper</param>
-        /// <param name="language">Codename of language variant.</param>
-        /// <param name="elementIdentifiers">Identifiers of hierarchy of content item.</param>
-        public static IHtmlContent InlineElementEditLink(
-            this IHtmlHelper htmlHelper,
-            IConfiguration configuration,
-            string language,
-            params ElementIdentifier[] elementIdentifiers
-            )
-        {
-            var itemUrl = GetItemElementUrl(configuration, language, elementIdentifiers);
-
-            var generatedHtml = $@"
-<a target=""_blank"" class=""edit-link__overlay--inline"" href=""{itemUrl}"">
-    <i aria-hidden=""true"" class=""edit-link__button-icon edit-link__button-icon--inline""></i>
-</a>";
-
-            return new HtmlString(generatedHtml);
-        }
-
-        /// <summary>
-        /// Displays Edit Mode Panel while using preview api.
-        /// </summary>
-        /// <param name="htmlHelper">HTML helper</param>
-        /// <param name="itemId">Id (guid) of content item identifier</param>
-        /// <param name="language">Codename of language variant</param>
-        public static async Task EditPanelAsync(this IHtmlHelper htmlHelper, IConfiguration configuration, string itemId, string language)
-        {
-            if (configuration.GetSection(nameof(DeliveryOptions)).Get<DeliveryOptions>().UsePreviewApi)
-            {
-                var itemUrl = GetItemUrl(language, itemId, configuration);
-                var editPanelViewModel = new EditPanelViewModel() { ItemUrl = itemUrl };
-                await htmlHelper.RenderPartialAsync("EditModePanel", editPanelViewModel);
-            }
         }
 
         /// <summary>
@@ -132,16 +63,6 @@ namespace DancingGoat.Helpers.Extensions
             builder.AppendHtml(@"</div></div>");
 
             return builder;
-        }
-
-        private static string GetItemUrl(string language, string itemId, IConfiguration configuration)
-        {
-            return EditLinkHelper.GetInstance(configuration).Builder.BuildEditItemUrl(language, itemId);
-        }
-
-        private static string GetItemElementUrl(IConfiguration configuration, string language, params ElementIdentifier[] elementIdentifiers)
-        {
-            return EditLinkHelper.GetInstance(configuration).Builder.BuildEditItemUrl(language, elementIdentifiers);
         }
     }
 }

@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Kentico.Kontent.Delivery;
 using Kentico.Kontent.Delivery.Abstractions;
 using Kentico.AspNetCore.LocalizedRouting;
-using Kentico.AspNetCore.LocalizedRouting.Attributes;
 
 namespace DancingGoat.Controllers
 {
