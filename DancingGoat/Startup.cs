@@ -3,6 +3,7 @@ using DancingGoat.Infrastructure;
 using DancingGoat.Models;
 using DancingGoat.Repositories;
 using Kentico.AspNetCore.LocalizedRouting.Extensions;
+using Kentico.Kontent.AspNetCore.ImageTransformation;
 using Kentico.Kontent.Delivery;
 using Kentico.Kontent.Delivery.Abstractions;
 using Microsoft.AspNetCore.Builder;
@@ -27,6 +28,9 @@ namespace DancingGoat
         {
             // Enable configuration services
             services.AddOptions();
+
+            // Register the ImageTransformationOptions required by Kentico Kontent tag helpers
+            services.Configure<ImageTransformationOptions>(Configuration.GetSection(nameof(ImageTransformationOptions)));
 
             // Enable Delivery Client
             services.AddHttpClient<IDeliveryHttpClient, DeliveryHttpClient>();

@@ -10,79 +10,16 @@ using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
 using Kentico.Kontent.Delivery;
+using Kentico.Kontent.Delivery.Abstractions;
 using Kentico.Kontent.Delivery.ImageTransformation;
 using Kentico.Kontent.Management.Helpers.Models;
 
 using IHtmlContent = Microsoft.AspNetCore.Html.IHtmlContent;
-using Kentico.Kontent.Delivery.Abstractions;
 
 namespace DancingGoat.Helpers.Extensions
 {
     public static class HtmlHelperExtensions
     {
-
-        /// <summary>
-        /// Generates an IMG tag for an image file.
-        /// </summary>
-        /// <remarks>Should replace it with the asp.net core's img TagHelper in each view</remarks>
-        /// <param name="htmlHelper">HTML helper.</param>
-        /// <param name="asset">Asset</param>
-        /// <param name="title">Title</param>
-        /// <param name="cssClass">CSS class</param>
-        /// <param name="width">Optional width size</param>
-        /// <param name="height">Optional height size</param>
-        /// <param name="sizes">Media conditions mapping screen width to image size</param>
-        public static IHtmlContent AssetImage(this IHtmlHelper htmlHelper, IConfiguration configuration, Asset asset, string title = null, string cssClass = "", int? width = null, int? height = null, ResponsiveImageSizes sizes = null)
-        {
-            if (asset == null)
-            {
-                return new HtmlString(string.Empty);
-            }
-
-            var imageUrlBuilder = new ImageUrlBuilder(asset.Url);
-            var image = new TagBuilder("img");
-
-            if (width.HasValue)
-            {
-                image.MergeAttribute("width", width.ToString());
-                imageUrlBuilder = imageUrlBuilder.WithWidth(Convert.ToDouble(width));
-            }
-
-            if (height.HasValue)
-            {
-                image.MergeAttribute("height", height.ToString());
-                imageUrlBuilder = imageUrlBuilder.WithHeight(Convert.ToDouble(height));
-            }
-
-            bool responsiveImagesEnabled = configuration.GetSection(nameof(AppConfiguration)).Get<AppConfiguration>().ResponsiveImagesEnabled;
-
-            if (responsiveImagesEnabled && !width.HasValue && !height.HasValue)
-            {
-                image.MergeAttribute("srcset", GenerateSrcsetValue(asset.Url, configuration));
-
-                if (sizes != null)
-                {
-                    image.MergeAttribute("sizes", sizes.GenerateSizesValue());
-                }
-            }
-
-            image.MergeAttribute("src", $"{imageUrlBuilder.Url}");
-            image.AddCssClass(cssClass);
-            string titleToUse = title ?? asset.Description ?? string.Empty;
-            image.MergeAttribute("alt", titleToUse);
-            image.MergeAttribute("title", titleToUse);
-            image.TagRenderMode = TagRenderMode.SelfClosing;
-
-            string result;
-            using (var writer = new StringWriter())
-            {
-                image.WriteTo(writer, HtmlEncoder.Default);
-                result = writer.ToString();
-            }
-
-            return new HtmlString(result);
-        }
-
         /// <summary>
         /// Generates an IMG tag for an inline image.
         /// </summary>

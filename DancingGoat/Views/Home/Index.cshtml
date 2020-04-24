@@ -1,5 +1,4 @@
 ﻿@model DancingGoat.Models.HomeViewModel
-@inject IConfiguration Configuration
 @{
     ViewBag.Title = Model.ContentItem.MetadataMetaTitle;
 }
@@ -31,8 +30,11 @@
             <div class="article-tile article-tile-large">
                 <div class="col-md-12 col-lg-6">
                     <a href="@Url.Action("Show", "Articles", new {urlSlug = article.UrlPattern})">
-                        @Html.AssetImage(Configuration, article.TeaserImage.FirstOrDefault(), cssClass: "article-tile-image"
-                            , sizes: new ResponsiveImageSizes(300).WithMediaCondition(new MediaCondition { MinWidth = 1120, ImageWidth = 540 }).WithMediaCondition(new MediaCondition { MinWidth = 768, MaxWidth = 1120, ImageWidth = 736 }).WithMediaCondition(new MediaCondition { MinWidth = 330, MaxWidth = 768, ImageWidth = 468 }))
+                        <img-asset asset="@article.TeaserImage.First()" class="article-tile-image" default-width="300">
+                            <media-condition min-width="1120" image-width="540" />
+                            <media-condition min-width="768" max-width="1120" image-width="736" />
+                            <media-condition min-width="330" max-width="768" image-width="468" />
+                        </img-asset>
                     </a>
                 </div>
                 <div class="col-md-12 col-lg-6">
@@ -85,13 +87,9 @@
                 <a href="@Url.Action("Index", "Cafes")" class="ourcoffee-tile-link">
                     <h2 class="ourcoffee-tile-text center-text">@cafe.System.Name</h2>
                     <span class="cafe-overlay"> </span>
-                    @Html.AssetImage(Configuration, cafe.Photo.FirstOrDefault(), cssClass: "ourcoffee-tile-image", sizes: new ResponsiveImageSizes(270))
+                    <img-asset asset="@cafe.Photo.First()" class="ourcoffee-tile-image" default-width="270" />
                 </a>
-
-
             </div>
-
-
         </div>
     }
 </div>

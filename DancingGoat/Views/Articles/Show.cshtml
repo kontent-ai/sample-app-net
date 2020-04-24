@@ -1,6 +1,5 @@
 ﻿@using DancingGoat.Helpers.Extensions
 @model DancingGoat.Models.Article
-@inject IConfiguration Configuration
 @{
     ViewBag.Title = @Model.MetadataMetaTitle;
 }
@@ -15,7 +14,7 @@
     </div>
     <div class="row">
         <div class="article-detail-image col-md-push-2 col-md-8">
-            @Html.AssetImage(Configuration, Model.TeaserImage.FirstOrDefault(), title: $"Article {Model.System.Name}", cssClass: "img-responsive")
+            <img-asset asset="@Model.TeaserImage.First()" class="img-responsive" default-width="300" title="Article @Model.System.Name" />
         </div>
     </div>
     <div class="row">

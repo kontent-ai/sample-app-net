@@ -1,11 +1,11 @@
 ﻿@model DancingGoat.Models.Article
-@inject IConfiguration Configuration
 
 <div class="col-md-3">
     <div class="article-tile">
         <a href="@Url.Action("Show", "Articles", new { urlSlug = Model.UrlPattern })">
-            @Html.AssetImage(Configuration, Model.TeaserImage.FirstOrDefault(), title: $"Article {Model.Title}", cssClass: "article-tile-image", sizes: new ResponsiveImageSizes(300)
-                            .WithMediaCondition(new MediaCondition { MinWidth = 330, MaxWidth = 768, ImageWidth = 468 }))
+            <img-asset asset="@Model.TeaserImage.First()" class="article-tile-image" default-width="300" title="Article @Model.Title">
+                <media-condition min-width="330" max-width="768" image-width="468" />
+            </img-asset>
         </a>
         <div class="article-tile-date">
             @Model.PostDate?.ToString("M")
