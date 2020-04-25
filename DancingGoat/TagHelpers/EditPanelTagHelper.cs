@@ -9,7 +9,9 @@ namespace DancingGoat.TagHelpers
     public class EditPanelTagHelper : TagHelper
     {
         IEditLinkBuilder EditLinkBuilder { get; set; }
+
         public IOptionsMonitor<DeliveryOptions> DeliveryOptions { get; }
+
         [HtmlAttributeName("content-item-id")]
         public string ContentItemId { get; set; }
 
@@ -23,7 +25,6 @@ namespace DancingGoat.TagHelpers
             EditLinkBuilder = editLinkBuilder;
             DeliveryOptions = deliveryOptions;
         }
-             
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
