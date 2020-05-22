@@ -5,3 +5,6 @@ before_build:
 - ps: nuget restore
 build:
   verbosity: minimal
+after_build:
+- ps: >-
+    .\publish.ps1
