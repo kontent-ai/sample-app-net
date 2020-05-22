@@ -8,3 +8,5 @@ build:
 after_build:
 - ps: >-
     .\publish.ps1
+artifacts:
+- path: artifacts\*.zip
