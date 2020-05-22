@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 namespace DancingGoat
 {
@@ -9,24 +8,18 @@ namespace DancingGoat
     public class AppConfiguration
     {
         /// <summary>
-        /// Gets to use image transformation (https://docs.kontent.ai/reference/image-transformation).
+        /// URL of the Kentico Kontent app
         /// </summary>
-        public bool ResponsiveImagesEnabled => ResponsiveWidthsArray.Any();
-
-        /// <summary>
-        /// Widths used to generate srcset of responsive images.
-        /// </summary>
-        public string ResponsiveWidths { get; set; }
-
-        public string[] ResponsiveWidthsArray => ResponsiveWidths?.Split(',') ?? new string[] { };
+        public string KenticoKontentUrl { get; set; }
 
         /// <summary>
         /// Project ID of a reference Kentico Kontent sample project.
         /// </summary>
         public Guid DefaultProjectId { get; set; }
 
-        public string KenticoKontentUrl { get; set; }
-
+        /// <summary>
+        /// Expiration date of a subscription the <see cref="Kentico.Kontent.Delivery.DeliveryOptions.ProjectId"/> is bound to.
+        /// </summary>
         public DateTime? SubscriptionExpiresAt { get; set; }
     }
 }

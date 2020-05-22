@@ -3,7 +3,7 @@ using Kentico.Kontent.Delivery.Abstractions;
 
 namespace DancingGoat.Models
 {
-    public partial class Brewer : IProduct
+    public partial class Brewer : IProduct, IMetadata, IDetailItem
     {
         public ContentItemSystemAttributes ProductSystem
         {
@@ -45,5 +45,7 @@ namespace DancingGoat.Models
             get { return UrlPattern; }
             set { UrlPattern = value; }
         }
+        public string Type => System.Type;
+        public string Id => System.Id;
     }
 }

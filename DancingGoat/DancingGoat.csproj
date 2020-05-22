@@ -29,14 +29,25 @@
     <Folder Include="wwwroot\images\Admin\" />
   </ItemGroup>
 
-
   <ItemGroup>
     <None Update="UrlRewrite.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
-
-  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+  <Target Name="GenerateModels" BeforeTargets="BeforeBuild;BeforeRebuild">
+    <PropertyGroup>
+      <PowerShellExe Condition=" '$(PowerShellExe)'=='' ">%WINDIR%\System32\WindowsPowerShell\v1.0\powershell.exe</PowerShellExe>
+      <ScriptLocation Condition=" '$(ScriptLocation)'=='' ">$(ProjectDir)\Tools\GenerateModels.ps1</ScriptLocation>
+    </PropertyGroup>
+    <Exec Command="&quot;$(PowerShellExe)&quot; -NonInteractive -executionpolicy Unrestricted -command &quot;&amp; { &quot;$(ScriptLocation)&quot; } &quot;">
+    </Exec>
+    <ItemGroup>
+      <Compile Remove="Models\ContentTypes\**\*.cs" />
+      <Compile Include="Models\ContentTypes\**\*.cs" />
+      <FileWrites Remove="Models\ContentTypes\**\*.cs" />
+      <FileWrites Update="Models\ContentTypes\**\*.cs" />
+    </ItemGroup>
+  </Target>
 
 </Project>
