@@ -54,11 +54,11 @@ To explore how the functionality is implemented, navigate to the [`TagHelpers`](
 The sample app contains a sample implementation of the `img-asset` tag helper from the [Kentico.Kontent.AspNetCore](https://www.nuget.org/packages/Kentico.Kontent.AspNetCore) NuGet package. Using the `img-asset` tag helper, you can easily create an `img` tag with `srcset` and `sizes` attributes. Read more about image transformation API in the [docs](https://docs.kontent.ai/reference/image-transformation).
 You can adjust the behavir in the `appsettings.json` file.
 
-    ```json
-	"ImageTransformationOptions": {
-      "ResponsiveWidths": [ 200, 400, 600, 800, 1000, 1200, 1400, 1600, 2000, 4000 ]
-  },
-    ```
+```json
+"ImageTransformationOptions": {
+  "ResponsiveWidths": [ 200, 400, 600, 800, 1000, 1200, 1400, 1600, 2000, 4000 ]
+},
+```
 
 ### Localized routing
 The app demonstrates the usage of the [`Kentico.AspNetCore.LocalizedRouting`](https://www.nuget.org/packages/Kentico.AspNetCore.LocalizedRouting) NuGet package for localizing URLs for SEO purposes.
