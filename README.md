@@ -38,10 +38,8 @@ To see Edit mode in action:
 
     ```json
 	"DeliveryOptions": {
-		...
 		"UsePreviewApi": true,
 		"PreviewApiKey": "YOUR_DELIVERY_PREVIEW_API_KEY"
-		...
 	},
     ```
 	* **Delivery Preview API**: Create a new key named `PreviewApiKey` in the `DeliveryOptions` section, and use the Delivery Preview API key as its value. To enable calls over the Delivery Preview API, you also need to add a key named `UsePreviewApi` and set it to `true`.
@@ -64,6 +62,8 @@ You can adjust the behavir in the `appsettings.json` file.
   },
     ```
 
+### Localized routing
+The app demonstrates the usage of the `Kentico.AspNetCore.LocalizedRouting` NuGet package for localizing URLs for SEO purposes.
 
 ## Get involved
 
