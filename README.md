@@ -61,7 +61,7 @@ You can adjust the behavir in the `appsettings.json` file.
     ```
 
 ### Localized routing
-The app demonstrates the usage of the `Kentico.AspNetCore.LocalizedRouting` NuGet package for localizing URLs for SEO purposes.
+The app demonstrates the usage of the [`Kentico.AspNetCore.LocalizedRouting`](https://www.nuget.org/packages/Kentico.AspNetCore.LocalizedRouting) NuGet package for localizing URLs for SEO purposes.
 
 ## Get involved
 
