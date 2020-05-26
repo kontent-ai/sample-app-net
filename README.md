@@ -17,9 +17,7 @@ To run the app:
 
     ```json
 	"DeliveryOptions": {
-		...
 		"ProjectId": "YOUR_PROJECT_ID",
-		...
 	},
     ```
 
