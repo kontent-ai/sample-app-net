@@ -19,6 +19,7 @@
     <PackageReference Include="Kentico.Kontent.Delivery" Version="14.0.0-alpha2" />
     <PackageReference Include="Kentico.Kontent.Recommender" Version="6.0.0" />
     <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.76" />
+    <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />
   </ItemGroup>
 
   <ItemGroup>
