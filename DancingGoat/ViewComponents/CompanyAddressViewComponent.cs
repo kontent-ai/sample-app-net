@@ -12,7 +12,7 @@ namespace DancingGoat.ViewComponents
 
         public CompanyAddressViewComponent(IDeliveryClientFactory deliveryClientFactory)
         {
-            DeliveryClient = deliveryClientFactory.Get("default");
+            DeliveryClient = deliveryClientFactory.Get();
         }
 
         public async Task<IViewComponentResult> InvokeAsync()

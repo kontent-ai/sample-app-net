@@ -54,7 +54,7 @@ namespace DancingGoat.Areas.Admin.Controllers
         [HttpGet]
         public async Task<ActionResult> SampleProjectReady()
         {
-            var defaultProjectClient = DeliveryClientFactory.Get("default");
+            var defaultProjectClient = DeliveryClientFactory.Get();
             var items = (await defaultProjectClient.GetItemsAsync()).Items;
             return Json(items.Count >= await GetRequiredItems());
         }
