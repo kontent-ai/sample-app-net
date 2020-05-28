@@ -15,7 +15,7 @@ namespace DancingGoat.Repositories
 
         public CafesRepository(IDeliveryClientFactory deliveryClientFactory)
         {
-            DeliveryClient = deliveryClientFactory.Get();
+            DeliveryClient = deliveryClientFactory.Get("default");
         }
 
         public async Task<IEnumerable<Cafe>> GetCafes(string language, string country = null, string order = "system.name")
