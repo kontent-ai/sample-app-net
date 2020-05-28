@@ -88,6 +88,7 @@ namespace DancingGoat.Areas.Admin.Controllers
                 }
                 catch
                 {
+                    // An approximate number of content items indicating that the project is ready
                     requiredItems = 30;
                 }
             }
