@@ -24,18 +24,19 @@ namespace DancingGoat.Areas.Admin.Controllers
 
         protected const string MESSAGE_INVALID_PROJECT_GUID = "ProjectId is not valid GUID.";
 
-        public const int PROJECT_EXISTENCE_VERIFICATION_REQUIRED_ITEMS = 30;
+        protected IDeliveryClientFactory DeliveryClientFactory;
 
-        protected IDeliveryClient client;
+        protected int? requiredItems = null;
+
 
         public IWritableOptions<DeliveryOptions> Options { get; }
         public IWritableOptions<AppConfiguration> AppConfig { get; }
 
-        public SelfConfigController(IDeliveryClient deliveryClient, IWritableOptions<DeliveryOptions> options, IWritableOptions<AppConfiguration> appConfig)
+        public SelfConfigController(IDeliveryClientFactory deliveryClientFactory, IWritableOptions<DeliveryOptions> options, IWritableOptions<AppConfiguration> appConfig)
         {
             Options = options;
             AppConfig = appConfig;
-            client = deliveryClient;
+            DeliveryClientFactory = deliveryClientFactory;
         }
 
         [HttpGet]
@@ -53,14 +54,15 @@ namespace DancingGoat.Areas.Admin.Controllers
         [HttpGet]
         public async Task<ActionResult> SampleProjectReady()
         {
-            var items = (await client.GetItemsAsync()).Items;
-            return Json(items.Count >= PROJECT_EXISTENCE_VERIFICATION_REQUIRED_ITEMS);
+            var defaultProjectClient = DeliveryClientFactory.Get("default");
+            var items = (await defaultProjectClient.GetItemsAsync()).Items;
+            return Json(items.Count >= await GetRequiredItems());
         }
 
         [HttpPost]
         public ActionResult UseShared()
         {
-            return SetConfiguration(MESSAGE_SHARED_PROJECT, AppConfig.Value.DefaultProjectId, null, false);
+            return SetConfiguration(MESSAGE_SHARED_PROJECT, Guid.Parse(AppConfig.Value.DefaultDeliveryOptions.ProjectId), null, false);
         }
 
         [HttpPost]
@@ -72,6 +74,24 @@ namespace DancingGoat.Areas.Admin.Controllers
             }
 
             return SetConfiguration(string.Format(MESSAGE_SELECTED_PROJECT, model.ProjectGuid.Value), model.ProjectGuid.Value, model.EndAt, model.NewlyGeneratedProject);
+        }
+
+        private async Task<int> GetRequiredItems()
+        {
+            if (requiredItems == null)
+            {
+                try
+                {
+                    var referenceProjectClient = DeliveryClientFactory.Get("reference");
+                    var items = (await referenceProjectClient.GetItemsAsync()).Items;
+                    requiredItems = items.Count;
+                }
+                catch
+                {
+                    requiredItems = 30;
+                }
+            }
+            return requiredItems.Value;
         }
 
         private ActionResult SetConfiguration(string message, Guid projectGuid, DateTime? endAt, bool isNew)

@@ -14,7 +14,7 @@ namespace DancingGoat.Controllers
 
         public ControllerBase(IDeliveryClientFactory deliveryClientFactory) : this()
         {
-            _client = deliveryClientFactory.Get();
+            _client = deliveryClientFactory.Get("default");
         }
 
         public ControllerBase()

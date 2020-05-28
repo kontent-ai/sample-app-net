@@ -42,7 +42,8 @@ namespace DancingGoat
             services.AddHttpClient<IDeliveryHttpClient, DeliveryHttpClient>();
             services.AddSingleton<ITypeProvider, CustomTypeProvider>();
             services.AddSingleton<IContentLinkUrlResolver, CustomContentLinkUrlResolver>();
-            services.AddDeliveryClient(Configuration);
+            services.AddDeliveryClient("default", Configuration, nameof(DeliveryOptions));
+            services.AddDeliveryClient("reference", Configuration, $"{nameof(AppConfiguration)}:{nameof(DeliveryOptions)}");
 
             // Repositories
             services.AddSingleton<ICafesRepository, CafesRepository>();

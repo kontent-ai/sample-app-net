@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kentico.Kontent.Delivery;
+using System;
 
 namespace DancingGoat
 {
@@ -13,9 +14,9 @@ namespace DancingGoat
         public string KenticoKontentUrl { get; set; }
 
         /// <summary>
-        /// Project ID of a reference Kentico Kontent sample project.
+        /// Delivery options referencing the default Kentico Kontent sample project.
         /// </summary>
-        public Guid DefaultProjectId { get; set; }
+        public DeliveryOptions DefaultDeliveryOptions { get; set; }
 
         /// <summary>
         /// Expiration date of a subscription the <see cref="Kentico.Kontent.Delivery.DeliveryOptions.ProjectId"/> is bound to.
