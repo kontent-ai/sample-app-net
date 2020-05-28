@@ -6,10 +6,11 @@
         <div class="store-menu-list row">
             <ul>
                 <li>
-                    @Html.ActionLink(Localizer["Coffees"], "Index", "Coffees")
+                    <a asp-controller="Coffees" asp-action="Index">@Localizer["Coffees"]</a>
+                    
                 </li>
                 <li>
-                    @Html.ActionLink(Localizer["Brewers"], "Index", "Brewers")
+                    <a asp-controller="Brewers" asp-action="Index">@Localizer["Brewers"]</a>
                 </li>
             </ul>
         </div>

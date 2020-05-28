@@ -19,7 +19,7 @@ namespace DancingGoat.Controllers
         }
 
         [LocalizedRoute("en-US", "Index")]
-        [LocalizedRoute("es-ES", "Index")]
+        [LocalizedRoute("es-ES", "Indice")]
         public async Task<ActionResult> Index()
         {
             var cafes = await CafesRepository.GetCafes(Language);

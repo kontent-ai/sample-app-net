@@ -8,7 +8,7 @@ namespace DancingGoat.Controllers
     public class PartnerShipController : Controller
     {
         [LocalizedRoute("en-US", "Index")]
-        [LocalizedRoute("es-ES", "Index")]
+        [LocalizedRoute("es-ES", "Indice")]
         public ActionResult Index()
         {
             ViewBag.PartnershipRequested = TempData["formApplied"] ?? false;
