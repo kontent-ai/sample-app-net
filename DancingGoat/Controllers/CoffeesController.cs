@@ -11,7 +11,7 @@ using Kentico.Kontent.Delivery.Abstractions;
 namespace DancingGoat.Controllers
 {
     [LocalizedRoute("en-US", "Coffees")]
-    [LocalizedRoute("es-ES", "Coffees")]
+    [LocalizedRoute("es-ES", "Tienda")]
     public class CoffeesController : ControllerBase
     {
         public CoffeesController(IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)

@@ -4,7 +4,7 @@
 }
 
 <article class="product-tile">
-    <a href="@Url.Action("Detail", "Product", new {urlSlug = Model.ProductUrlPattern})">
+    <a asp-controller="Detail" asp-action="Product" asp-route-urlSlug="@Model.ProductUrlPattern">
         <h1 class="product-heading">@Model.ProductProductName</h1>
         @if (Model.ProductProductStatus.Any())
         {

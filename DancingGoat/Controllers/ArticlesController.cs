@@ -12,7 +12,7 @@ using Kentico.Kontent.Delivery.Abstractions;
 namespace DancingGoat.Controllers
 {
     [LocalizedRoute("en-US", "Articles")]
-    [LocalizedRoute("es-ES", "Artículos")]
+    [LocalizedRoute("es-ES", "Articulos")]
     public class ArticlesController : ControllerBase
     {
         private readonly IConfiguration _configuration;
@@ -22,8 +22,8 @@ namespace DancingGoat.Controllers
             _configuration = configuration;
         }
 
-        [LocalizedRoute("en-US", "Index")]
-        [LocalizedRoute("es-ES", "Indice")]
+        [LocalizedRoute("en-US", "")]
+        [LocalizedRoute("es-ES", "")]
         public async Task<ActionResult> Index()
         {
             var response = await _client.GetItemsAsync<Article>(

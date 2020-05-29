@@ -29,7 +29,7 @@
             isFirstArticle = false;
             <div class="article-tile article-tile-large">
                 <div class="col-md-12 col-lg-6">
-                    <a href="@Url.Action("Show", "Articles", new {urlSlug = article.UrlPattern})">
+                    <a asp-controller="Articles" asp-action="Show" asp-route-urlSlug="@article.UrlPattern">
                         <img-asset asset="@article.TeaserImage.First()" class="article-tile-image" default-width="300">
                             <media-condition min-width="1120" image-width="540" />
                             <media-condition min-width="768" max-width="1120" image-width="736" />
@@ -43,7 +43,7 @@
                     </div>
                     <div class="article-tile-content">
                         <h2>
-                            <a href="@Url.Action("Show", "Articles", new { urlSlug = article.UrlPattern })">@article.Title</a>
+                            <a asp-controller="Articles" asp-action="Show" asp-route-urlSlug="@article.UrlPattern">@article.Title</a>
                         </h2>
                         <p class="article-tile-text lead-paragraph">
                             @Html.DisplayFor(vm => article.Summary)
@@ -59,7 +59,7 @@
     }
 </div>
 
-@await Html.PartialAsync("_MoreButtonPartial", new DancingGoat.Models.MoreButtonPartialViewModel { Text = Localizer["Articles.More"], Url = Url.Action("Index", "Articles") })
+@await Html.PartialAsync("_MoreButtonPartial", new DancingGoat.Models.MoreButtonPartialViewModel { Text = Localizer["Articles.More"], Controller = "Articles", Action = "Index" })
 
 @foreach (DancingGoat.Models.FactAboutUs factAboutUs in Model.ContentItem.OurStory)
 {
@@ -73,7 +73,7 @@
         </div>
     </div>
 
-    @await Html.PartialAsync("_MoreButtonPartial", new DancingGoat.Models.MoreButtonPartialViewModel { Text = Localizer["Story.WholeStory"], Url = Url.Action("Index", "About") })
+    @await Html.PartialAsync("_MoreButtonPartial", new DancingGoat.Models.MoreButtonPartialViewModel { Text = Localizer["Story.WholeStory"], Controller = "About", Action = "Index" })
 }
 
 <div class="row">
@@ -84,7 +84,7 @@
     {
         <div class="col-xs-6 col-md-3">
             <div>
-                <a href="@Url.Action("Index", "Cafes")" class="ourcoffee-tile-link">
+                <a asp-controller="Cafes" asp-action="Index" class="ourcoffee-tile-link">
                     <h2 class="ourcoffee-tile-text center-text">@cafe.System.Name</h2>
                     <span class="cafe-overlay"> </span>
                     <img-asset asset="@cafe.Photo.First()" class="ourcoffee-tile-image" default-width="270" />
@@ -94,4 +94,4 @@
     }
 </div>
 
-@await Html.PartialAsync("_MoreButtonPartial", new DancingGoat.Models.MoreButtonPartialViewModel { Text = Localizer["Cafes.More"], Url = Url.Action("Index", "Cafes") })
+@await Html.PartialAsync("_MoreButtonPartial", new DancingGoat.Models.MoreButtonPartialViewModel { Text = Localizer["Cafes.More"], Controller = "Cafes", Action = "Index" })

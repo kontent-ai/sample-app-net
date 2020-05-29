@@ -6,6 +6,7 @@ using Kentico.Kontent.Delivery.Abstractions;
 namespace DancingGoat.Controllers
 {
     [TypeFilter(typeof(SelfConfigActionFilterAttribute))]
+    [TypeFilter(typeof(CultureValidatorActionFilter))]
     public class ControllerBase : Controller
     {
         protected readonly IDeliveryClient _client;

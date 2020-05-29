@@ -71,9 +71,10 @@ namespace DancingGoat
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/en-US/Errors/NotFound");
                 app.UseHsts();
             }
+            app.UseStatusCodePagesWithReExecute("/en-US/Errors/NotFound"); // Error page
 
             app.UseSerilogRequestLogging();
 
@@ -83,11 +84,13 @@ namespace DancingGoat
             app.UseRouting();
             app.UseAuthorization();
 
+          
             app.UseRequestLocalization("en-US", "es-ES");
+
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapDynamicControllerRoute<CustomLocalizedRoutingTranslationTransformer>("{culture}/{controller}/{action}/{id?}");
+                endpoints.MapDynamicControllerRoute<CustomLocalizedRoutingTranslationTransformer>("{culture=en-US}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute("default", "{culture=en-US}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute("areas", "{area:exists}/{controller=Home}/{action=Index}/{id?}"
                 );

@@ -21,10 +21,13 @@ namespace DancingGoat.Controllers
 
         public async Task<ActionResult> Index([FromQuery]Guid itemId, [FromQuery]string originalAction, [FromQuery]string itemType, [FromQuery]string originalController, [FromQuery]string language)
         {
+            var translatedController = await _localizedRoutingProvider.ProvideRouteAsync(language, originalController, originalController, ProvideRouteType.OriginalToTranslated);
+            var tranclatedAction = await _localizedRoutingProvider.ProvideRouteAsync(language, originalAction, originalController, ProvideRouteType.OriginalToTranslated);
+
             // Specific item is not selected, url will not be changed after redirect
             if (itemId == Guid.Empty || string.IsNullOrEmpty(itemType))
             {
-                return RedirectToAction(originalAction, originalController, new { culture = language });
+                return RedirectToAction(tranclatedAction, translatedController, new { culture = language });
             }
 
             var item = (await _client.GetItemsAsync<object>(
@@ -38,8 +41,6 @@ namespace DancingGoat.Controllers
                 return NotFound();
             }
 
-            var translatedController = await _localizedRoutingProvider.ProvideRouteAsync(language, originalController, ProvideRouteType.OriginalToTranslated);
-            var tranclatedAction = await _localizedRoutingProvider.ProvideRouteAsync(language, originalAction, ProvideRouteType.OriginalToTranslated);
 
             return RedirectToAction(tranclatedAction, translatedController, new { culture = language, urlSlug = detaiItem.UrlPattern });
         }

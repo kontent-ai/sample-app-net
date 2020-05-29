@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Kentico.AspNetCore.LocalizedRouting" Version="1.0.0-beta1" />
+    <PackageReference Include="Kentico.AspNetCore.LocalizedRouting" Version="1.0.0-beta2" />
     <PackageReference Include="Kentico.Kontent.AspNetCore" Version="0.0.8" />
     <PackageReference Include="Kentico.Kontent.Management.Helpers" Version="2.1.1-beta1" />
     <PackageReference Include="Kentico.Kontent.Delivery" Version="14.0.0-alpha2" />

@@ -16,8 +16,8 @@ namespace DancingGoat.Controllers
         {
         }
 
-        [LocalizedRoute("en-US", "Index")]
-        [LocalizedRoute("es-ES", "Indice")]
+        [LocalizedRoute("en-US", "")]
+        [LocalizedRoute("es-ES", "")]
         public async Task<ActionResult> Index()
         {
             var response = await _client.GetItemAsync<Home>("home", new LanguageParameter(Language), new DepthParameter(1));
