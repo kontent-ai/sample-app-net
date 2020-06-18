@@ -84,8 +84,8 @@ namespace DancingGoat
             app.UseRouting();
             app.UseAuthorization();
 
-          
-            app.UseRequestLocalization("en-US", "es-ES");
+
+            app.UseRequestLocalization(CultureConstants.EnglishCulture, CultureConstants.SpanishCulture);
 
 
             app.UseEndpoints(endpoints =>

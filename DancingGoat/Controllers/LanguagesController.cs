@@ -24,6 +24,11 @@ namespace DancingGoat.Controllers
             var translatedController = await _localizedRoutingProvider.ProvideRouteAsync(language, originalController, originalController, ProvideRouteType.OriginalToTranslated);
             var tranclatedAction = await _localizedRoutingProvider.ProvideRouteAsync(language, originalAction, originalController, ProvideRouteType.OriginalToTranslated);
 
+            if(tranclatedAction == null || translatedController == null)
+            {
+                return NotFound();
+            }
+
             // Specific item is not selected, url will not be changed after redirect
             if (itemId == Guid.Empty || string.IsNullOrEmpty(itemType))
             {

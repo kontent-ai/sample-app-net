@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using DancingGoat.Configuration;
 using DancingGoat.Models;
 using Kentico.AspNetCore.LocalizedRouting.Attributes;
 using Kentico.Kontent.Delivery;
@@ -9,16 +10,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DancingGoat.Controllers
 {
-    [LocalizedRoute("en-US", "About")]
-    [LocalizedRoute("es-ES", "Quiénes")]
+    [LocalizedRoute(CultureConstants.EnglishCulture, "About")]
+    [LocalizedRoute(CultureConstants.SpanishCulture, "Quiénes")]
     public class AboutController : ControllerBase
     {
         public AboutController(IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
         {
         }
 
-        [LocalizedRoute("en-US", "Index")]
-        [LocalizedRoute("es-ES", "Indice")]
+        [LocalizedRoute(CultureConstants.EnglishCulture, "Index")]
+        [LocalizedRoute(CultureConstants.SpanishCulture, "Indice")]
         public async Task<ActionResult> Index()
         {
             var response = await _client.GetItemAsync<AboutUs>("about_us", new LanguageParameter(Language));

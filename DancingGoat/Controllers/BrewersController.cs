@@ -7,19 +7,20 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Kentico.AspNetCore.LocalizedRouting.Attributes;
 using Kentico.Kontent.Delivery.Abstractions;
+using DancingGoat.Configuration;
 
 namespace DancingGoat.Controllers
 {
-    [LocalizedRoute("en-US", "Brewers")]
-    [LocalizedRoute("es-ES", "Brewers")]
+    [LocalizedRoute(CultureConstants.EnglishCulture, "Brewers")]
+    [LocalizedRoute(CultureConstants.SpanishCulture, "Cerveceros")]
     public class BrewersController : ControllerBase
     {
         public BrewersController(IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
         {
         }
 
-        [LocalizedRoute("en-US", "Index")]
-        [LocalizedRoute("es-ES", "Indice")]
+        [LocalizedRoute(CultureConstants.EnglishCulture, "Index")]
+        [LocalizedRoute(CultureConstants.SpanishCulture, "Indice")]
         public async Task<ActionResult> Index()
         {
             var itemsTask = _client.GetItemsAsync<Brewer>(
@@ -45,8 +46,8 @@ namespace DancingGoat.Controllers
             return View(model);
         }
 
-        [LocalizedRoute("en-US", "Filter")]
-        [LocalizedRoute("es-ES", "Filter")]
+        [LocalizedRoute(CultureConstants.EnglishCulture, "Filter")]
+        [LocalizedRoute(CultureConstants.SpanishCulture, "Filter")]
         public async Task<ActionResult> Filter(BrewerFilterViewModel model)
         {
             var parameters = new List<IQueryParameter> {
