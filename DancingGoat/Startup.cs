@@ -56,6 +56,7 @@ namespace DancingGoat
             services.ConfigureWritable<DeliveryOptions>((IConfigurationRoot)Configuration, Configuration.GetSection(nameof(DeliveryOptions)));
 
             // I18N
+            services.ConfigureRequestLocalization(CultureConstants.DefaultCulture, CultureConstants.SpanishCulture);
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.AddSingleton<CustomLocalizedRoutingTranslationTransformer>();
@@ -71,10 +72,10 @@ namespace DancingGoat
             }
             else
             {
-                app.UseExceptionHandler("/en-US/Errors/NotFound");
+                app.UseExceptionHandler($"/{CultureConstants.DefaultCulture}/Errors/NotFound");
                 app.UseHsts();
             }
-            app.UseStatusCodePagesWithReExecute("/en-US/Errors/NotFound"); // Error page
+            app.UseStatusCodePagesWithReExecute($"/{CultureConstants.DefaultCulture}/Errors/NotFound");
 
             app.UseSerilogRequestLogging();
 
@@ -84,9 +85,7 @@ namespace DancingGoat
             app.UseRouting();
             app.UseAuthorization();
 
-
-            app.UseRequestLocalization(CultureConstants.EnglishCulture, CultureConstants.SpanishCulture);
-
+            app.UseRequestLocalization();
 
             app.UseEndpoints(endpoints =>
             {
