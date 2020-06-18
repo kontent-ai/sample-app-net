@@ -5,19 +5,20 @@ using Microsoft.AspNetCore.Mvc;
 using Kentico.Kontent.Delivery;
 using Kentico.AspNetCore.LocalizedRouting.Attributes;
 using Kentico.Kontent.Delivery.Abstractions;
+using DancingGoat.Configuration;
 
 namespace DancingGoat.Controllers
 {
-    [LocalizedRoute("en-US", "Home")]
-    [LocalizedRoute("es-ES", "Inicio")]
+    [LocalizedRoute(CultureConstants.EnglishCulture, "Home")]
+    [LocalizedRoute(CultureConstants.SpanishCulture, "Inicio")]
     public class HomeController : ControllerBase
     {
         public HomeController(IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
         {
         }
 
-        [LocalizedRoute("en-US", "Index")]
-        [LocalizedRoute("es-ES", "Index")]
+        [LocalizedRoute(CultureConstants.EnglishCulture, "")]
+        [LocalizedRoute(CultureConstants.SpanishCulture, "")]
         public async Task<ActionResult> Index()
         {
             var response = await _client.GetItemAsync<Home>("home", new LanguageParameter(Language), new DepthParameter(1));

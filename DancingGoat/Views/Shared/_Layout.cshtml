@@ -15,25 +15,25 @@
                     <nav role="navigation">
                         <ul>
                             <li>
-                                @Html.ActionLink(Localizer["Home"], "Index", "Home")
+                                <a asp-controller="Home" asp-action="Index">@Localizer["Home"]</a>
                             </li>
                             <li>
-                                @Html.ActionLink(Localizer["Store"], "Index", "Coffees")
+                                <a asp-controller="Coffees" asp-action="Index">@Localizer["Store"]</a>
                             </li>
                             <li>
-                                @Html.ActionLink(Localizer["Articles"], "Index", "Articles")
+                                <a asp-controller="Articles" asp-action="Index">@Localizer["Articles"]</a>
                             </li>
                             <li>
-                                @Html.ActionLink(Localizer["AboutUs"], "Index", "About")
+                                <a asp-controller="About" asp-action="Index">@Localizer["AboutUs"]</a>
                             </li>
                             <li>
-                                @Html.ActionLink(Localizer["Cafes"], "Index", "Cafes")
+                                <a asp-controller="Cafes" asp-action="Index">@Localizer["Cafes"]</a>
                             </li>
                             <li>
-                                @Html.ActionLink(Localizer["Contact"], "Index", "Contacts")
+                                <a asp-controller="Contacts" asp-action="Index">@Localizer["Contact"]</a>
                             </li>
                             <li>
-                                @Html.ActionLink(Localizer["Partnership"], "Index", "Partnership")
+                                <a asp-controller="Partnership" asp-action="Index">@Localizer["Partnership"]</a>
                             </li>
                         </ul>
                     </nav>
@@ -49,7 +49,6 @@
                                        originalAction = ViewContext.RouteData.Values["action"].ToString(),
                                        originalController = ViewContext.RouteData.Values["controller"].ToString()
                                     })
-                                  
                                 </li>
                                 <li>
                                     @Html.ActionLink("Spanish", "Index", "Languages", new
@@ -73,7 +72,7 @@
                 <div class="container">
                     <div class="col-xs-8 col-md-8 col-lg-4 logo">
                         <h1 class="logo">
-                            @Html.ActionLink("Dancing Goat", "Index", new { controller = "Home" }, new { @class = "logo-link" })
+                            <a asp-controller="Home" asp-action="Index" class="logo-link">Dancing Goat</a>
                         </h1>
                     </div>
                 </div>

@@ -2,7 +2,7 @@
 
 <div class="col-lg-3 col-md-6 col-sm-12">
     <div class="article-tile">
-        <a href="@Url.Action("Show", "Articles", new { urlslug = Model.UrlPattern })">
+        <a asp-controller="Articles" asp-action="Show" asp-route-urlSlug="@Model.UrlPattern">
             <img-asset asset="@Model.TeaserImage.First()" class="article-tile-image" title="Article @Model.Title" />
         </a>
         <div class="article-tile-date">
@@ -10,7 +10,7 @@
         </div>
         <div class="article-tile-content">
             <h2 class="h4">
-                <a href="@Url.Action("Show", "Articles", new { urlslug = Model.UrlPattern})">@Html.DisplayFor(vm => vm.Title)</a>
+                <a asp-controller="Articles" asp-action="Show" asp-route-urlSlug="@Model.UrlPattern">@Html.DisplayFor(vm => vm.Title)</a>
             </h2>
             <p class="article-tile-text">
                 @Html.DisplayFor(vm => vm.Summary)

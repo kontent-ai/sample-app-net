@@ -14,11 +14,11 @@
                 </h2>
                 <p>@Localizer["NotFound.Message"]</p>
                 <p>
-                    @Html.Raw(string.Format(Localizer["NotFound.Instructions"],
+                    @Html.Raw(string.Format(Localizer["NotFound.Instructions"], //Refactoring to anchor tag helper
                       Html.ActionLink(Localizer["NotFound.Homepage"], "Index", "Home"),
                       Html.ActionLink(Localizer["NotFound.ContactUs"], "Index", "Contacts")))
                 </p>
-                <a href="@Url.Action("Index", "Home")" class="btn">
+                <a asp-controller="Home" asp-action="Index" class="btn">
                     @Localizer["NotFound.GoHome"]
                 </a>
             </div>

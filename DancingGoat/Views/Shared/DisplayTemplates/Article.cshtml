@@ -2,7 +2,7 @@
 
 <div class="col-md-3">
     <div class="article-tile">
-        <a href="@Url.Action("Show", "Articles", new { urlSlug = Model.UrlPattern })">
+        <a asp-controller="Articles" asp-action="Show" asp-route-urlSlug="@Model.UrlPattern">
             <img-asset asset="@Model.TeaserImage.First()" class="article-tile-image" default-width="300" title="Article @Model.Title">
                 <media-condition min-width="330" max-width="768" image-width="468" />
             </img-asset>
@@ -12,7 +12,7 @@
         </div>
         <div class="article-tile-content">
             <h2 class="h4">
-                <a href="@Url.Action("Show", "Articles", new { urlSlug = Model.UrlPattern })">@Model.Title</a>
+                <a asp-controller="Articles" asp-action="Show" asp-route-urlSlug="@Model.UrlPattern">@Model.Title</a>
             </h2>
             <p class="article-tile-text">
                 @Html.DisplayFor(vm => vm.Summary)

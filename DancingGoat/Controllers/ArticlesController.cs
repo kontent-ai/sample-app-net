@@ -8,11 +8,12 @@ using Kentico.Kontent.Delivery;
 using Kentico.Kontent.Recommender;
 using Kentico.AspNetCore.LocalizedRouting.Attributes;
 using Kentico.Kontent.Delivery.Abstractions;
+using DancingGoat.Configuration;
 
 namespace DancingGoat.Controllers
 {
-    [LocalizedRoute("en-US", "Articles")]
-    [LocalizedRoute("es-ES", "Artículos")]
+    [LocalizedRoute(CultureConstants.EnglishCulture, "Articles")]
+    [LocalizedRoute(CultureConstants.SpanishCulture, "Articulos")]
     public class ArticlesController : ControllerBase
     {
         private readonly IConfiguration _configuration;
@@ -22,8 +23,8 @@ namespace DancingGoat.Controllers
             _configuration = configuration;
         }
 
-        [LocalizedRoute("en-US", "Index")]
-        [LocalizedRoute("es-ES", "Index")]
+        [LocalizedRoute(CultureConstants.EnglishCulture, "")]
+        [LocalizedRoute(CultureConstants.SpanishCulture, "")]
         public async Task<ActionResult> Index()
         {
             var response = await _client.GetItemsAsync<Article>(
@@ -35,8 +36,8 @@ namespace DancingGoat.Controllers
             return View(response.Items);
         }
 
-        [LocalizedRoute("en-US", "Show")]
-        [LocalizedRoute("es-ES", "Show")]
+        [LocalizedRoute(CultureConstants.EnglishCulture, "Show")]
+        [LocalizedRoute(CultureConstants.SpanishCulture, "Show")]
         public async Task<ActionResult> Show(string urlSlug)
         {
             var response = await _client.GetItemsAsync<Article>(
