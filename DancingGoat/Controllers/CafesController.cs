@@ -8,7 +8,7 @@ using Kentico.AspNetCore.LocalizedRouting.Attributes;
 namespace DancingGoat.Controllers
 {
     [LocalizedRoute("en-US", "Cafes")]
-    [LocalizedRoute("es-ES", "Cafés")]
+    [LocalizedRoute("es-ES", "Cafeterias")]
     public class CafesController : ControllerBase
     {
         public ICafesRepository CafesRepository { get; }

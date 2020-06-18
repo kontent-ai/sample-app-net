@@ -18,7 +18,7 @@ namespace DancingGoat.Controllers
         }
 
         [LocalizedRoute("en-US", "Detail")]
-        [LocalizedRoute("es-ES", "Detail")]
+        [LocalizedRoute("es-ES", "Detalle")]
         public async Task<ActionResult> Detail(string urlSlug)
         {
             var item = (await _client.GetItemsAsync<object>(new EqualsFilter("elements.url_pattern", urlSlug), new InFilter("system.type", Brewer.Codename, Coffee.Codename), new LanguageParameter(Language))).Items.FirstOrDefault();
