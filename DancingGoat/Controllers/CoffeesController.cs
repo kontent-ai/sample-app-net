@@ -12,7 +12,7 @@ using DancingGoat.Configuration;
 namespace DancingGoat.Controllers
 {
     [LocalizedRoute(CultureConstants.EnglishCulture, "Coffees")]
-    [LocalizedRoute(CultureConstants.SpanishCulture, "Cafés")]
+    [LocalizedRoute(CultureConstants.SpanishCulture, "Cafes")]
     public class CoffeesController : ControllerBase
     {
         public CoffeesController(IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
