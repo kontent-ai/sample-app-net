@@ -16,8 +16,8 @@ namespace DancingGoat.Models
         public const string VideoHostCodename = "video_host";
         public const string VideoIdCodename = "video_id";
 
-        public ContentItemSystemAttributes System { get; set; }
-        public IEnumerable<MultipleChoiceOption> VideoHost { get; set; }
+        public IContentItemSystemAttributes System { get; set; }
+        public IEnumerable<IMultipleChoiceOption> VideoHost { get; set; }
         public string VideoId { get; set; }
     }
 }

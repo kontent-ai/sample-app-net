@@ -1,5 +1,4 @@
 ﻿using DancingGoat.Models;
-using Kentico.Kontent.Delivery;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Kentico.AspNetCore.LocalizedRouting.Attributes;
 using Kentico.Kontent.Delivery.Abstractions;
 using DancingGoat.Configuration;
+using Kentico.Kontent.Delivery.Urls.QueryParameters.Filters;
+using Kentico.Kontent.Delivery.Urls.QueryParameters;
 
 namespace DancingGoat.Controllers
 {
@@ -38,8 +39,8 @@ namespace DancingGoat.Controllers
                 Items = (await itemsTask).Items,
                 Filter = new CoffeesFilterViewModel
                 {
-                    AvailableProcessings = GetTaxonomiesAsSelectList(await processingTask),
-                    AvailableProductStatuses = GetTaxonomiesAsSelectList(await statusTask)
+                    AvailableProcessings = GetTaxonomiesAsSelectList((await processingTask).Taxonomy),
+                    AvailableProductStatuses = GetTaxonomiesAsSelectList((await statusTask).Taxonomy)
                 }
             };
 
@@ -74,7 +75,7 @@ namespace DancingGoat.Controllers
             return PartialView("ProductListing", response.Items);
         }
 
-        private IList<SelectListItem> GetTaxonomiesAsSelectList(TaxonomyGroup taxonomyGroup)
+        private IList<SelectListItem> GetTaxonomiesAsSelectList(ITaxonomyGroup taxonomyGroup)
         {
             return taxonomyGroup.Terms.Select(x => new SelectListItem { Text = x.Name, Value = x.Codename }).ToList();
         }

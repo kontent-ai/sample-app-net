@@ -1,4 +1,4 @@
-﻿using Kentico.Kontent.Delivery;
+﻿using Kentico.Kontent.Delivery.Abstractions;
 using Kentico.Kontent.Management.Helpers;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.Options;

@@ -6,6 +6,7 @@ using Kentico.AspNetCore.LocalizedRouting.Extensions;
 using Kentico.Kontent.AspNetCore.ImageTransformation;
 using Kentico.Kontent.Delivery;
 using Kentico.Kontent.Delivery.Abstractions;
+using Kentico.Kontent.Delivery.Extensions;
 using Kentico.Kontent.Management.Helpers;
 using Kentico.Kontent.Management.Helpers.Configuration;
 using Microsoft.AspNetCore.Builder;

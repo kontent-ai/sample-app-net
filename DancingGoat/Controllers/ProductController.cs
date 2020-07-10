@@ -1,11 +1,12 @@
-﻿using Kentico.Kontent.Delivery;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Kentico.AspNetCore.LocalizedRouting.Attributes;
 using Kentico.Kontent.Delivery.Abstractions;
 using DancingGoat.Models;
 using DancingGoat.Configuration;
+using Kentico.Kontent.Delivery.Urls.QueryParameters.Filters;
+using Kentico.Kontent.Delivery.Urls.QueryParameters;
 
 namespace DancingGoat.Controllers
 {

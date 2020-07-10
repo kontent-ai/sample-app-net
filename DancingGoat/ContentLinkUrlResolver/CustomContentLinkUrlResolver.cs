@@ -25,7 +25,7 @@ namespace DancingGoat
             
         }
 
-        public string ResolveLinkUrl(ContentLink link)
+        public string ResolveLinkUrl(IContentLink link)
         {
             var urlHelper = GetHelper(_urlHelperFactory, _actionContextAccessor);
             switch (link.ContentTypeCodename)

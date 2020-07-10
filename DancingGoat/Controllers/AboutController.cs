@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using DancingGoat.Configuration;
 using DancingGoat.Models;
 using Kentico.AspNetCore.LocalizedRouting.Attributes;
-using Kentico.Kontent.Delivery;
 using Kentico.Kontent.Delivery.Abstractions;
+using Kentico.Kontent.Delivery.Urls.QueryParameters;
 using Kentico.Kontent.Management.Helpers.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,7 +34,7 @@ namespace DancingGoat.Controllers
             return View(viewModel);
         }
 
-        private IList<FactAboutUsViewModel> MapFactsAboutUs(DeliveryItemResponse<AboutUs> response)
+        private IList<FactAboutUsViewModel> MapFactsAboutUs(IDeliveryItemResponse<AboutUs> response)
         {
             var facts = new List<FactAboutUsViewModel>();
 

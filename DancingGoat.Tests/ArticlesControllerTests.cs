@@ -11,6 +11,7 @@ using Xunit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
+using Kentico.Kontent.Delivery.Builders.DeliveryClient;
 
 namespace DancingGoat.Tests
 {

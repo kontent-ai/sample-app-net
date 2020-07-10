@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using DancingGoat.Areas.Admin.Models;
 using DancingGoat.Configuration;
 using DancingGoat.Helpers;
-using Kentico.Kontent.Delivery;
 using Kentico.Kontent.Delivery.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -55,7 +54,7 @@ namespace DancingGoat.Areas.Admin.Controllers
         public async Task<ActionResult> SampleProjectReady()
         {
             var defaultProjectClient = DeliveryClientFactory.Get();
-            var items = (await defaultProjectClient.GetItemsAsync()).Items;
+            var items = (await defaultProjectClient.GetItemsAsync<object>()).Items;
             return Json(items.Count >= await GetRequiredItems());
         }
 
@@ -83,7 +82,7 @@ namespace DancingGoat.Areas.Admin.Controllers
                 try
                 {
                     var referenceProjectClient = DeliveryClientFactory.Get("reference");
-                    var items = (await referenceProjectClient.GetItemsAsync()).Items;
+                    var items = (await referenceProjectClient.GetItemsAsync<object>()).Items;
                     requiredItems = items.Count;
                 }
                 catch

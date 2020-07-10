@@ -19,9 +19,9 @@ namespace DancingGoat.Models
         public const string TitleCodename = "title";
 
         public IRichTextContent Description { get; set; }
-        public IEnumerable<Asset> Image { get; set; }
-        public IEnumerable<TaxonomyTerm> Sitemap { get; set; }
-        public ContentItemSystemAttributes System { get; set; }
+        public IEnumerable<IAsset> Image { get; set; }
+        public IEnumerable<ITaxonomyTerm> Sitemap { get; set; }
+        public IContentItemSystemAttributes System { get; set; }
         public string Title { get; set; }
     }
 }

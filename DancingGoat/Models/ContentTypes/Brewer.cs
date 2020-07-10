@@ -5,7 +5,7 @@ namespace DancingGoat.Models
 {
     public partial class Brewer : IProduct, IMetadata, IDetailItem
     {
-        public ContentItemSystemAttributes ProductSystem
+        public IContentItemSystemAttributes ProductSystem
         {
             get { return System; }
             set { System = value; }
@@ -20,12 +20,12 @@ namespace DancingGoat.Models
             get { return Price; }
             set { Price = value; }
         }
-        public IEnumerable<Asset> ProductImage
+        public IEnumerable<IAsset> ProductImage
         {
             get { return Image; }
             set { Image = value; }
         }
-        public IEnumerable<TaxonomyTerm> ProductProductStatus
+        public IEnumerable<ITaxonomyTerm> ProductProductStatus
         {
             get { return ProductStatus; }
             set { ProductStatus = value; }
