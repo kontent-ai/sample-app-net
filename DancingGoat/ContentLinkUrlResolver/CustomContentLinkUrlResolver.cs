@@ -22,35 +22,35 @@ namespace DancingGoat
             _urlHelperFactory = urlHelperFactory;
             _actionContextAccessor = actionContextAccessor;
             _localizedRoutingProvider = localizedRoutingProvider;
-            
+
         }
 
-        public string ResolveLinkUrl(IContentLink link)
+        public async Task<string> ResolveLinkUrl(IContentLink link)
         {
             var urlHelper = GetHelper(_urlHelperFactory, _actionContextAccessor);
             switch (link.ContentTypeCodename)
             {
                 case AboutUs.Codename:
                 case FactAboutUs.Codename:
-                    return TranslateLink("Index", "About").Result;
+                    return await TranslateLink("Index", "About");
                 case Article.Codename:
-                    return TranslateLink("Show", "Articles", new { urlSlug = link.UrlSlug }).Result;
+                    return await TranslateLink("Show", "Articles", new { urlSlug = link.UrlSlug });
                 case Brewer.Codename:
                 case Coffee.Codename:
-                    return TranslateLink("Detail", "Product", new { urlSlug = link.UrlSlug }).Result;
+                    return await TranslateLink("Detail", "Product", new { urlSlug = link.UrlSlug });
                 case Cafe.Codename:
-                    return TranslateLink("Index", "Cafes").Result;
+                    return await TranslateLink("Index", "Cafes");
                 case Home.Codename:
-                    return TranslateLink("Index", "Home").Result;
+                    return await TranslateLink("Index", "Home");
                 default:
                     return urlHelper.Action("NotFound", "Errors");
             }
         }
 
-        public string ResolveBrokenLinkUrl()
+        public Task<string> ResolveBrokenLinkUrl()
         {
             var urlHelper = GetHelper(_urlHelperFactory, _actionContextAccessor);
-            return urlHelper.Action("NotFound", "Errors");
+            return Task.FromResult(urlHelper.Action("NotFound", "Errors"));
         }
 
         private async Task<string> TranslateLink(string action, string controller, object data = null)
