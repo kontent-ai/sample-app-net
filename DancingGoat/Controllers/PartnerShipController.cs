@@ -4,12 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DancingGoat.Controllers
 {
-    [LocalizedRoute(CultureConstants.EnglishCulture, "Partner")]
-    [LocalizedRoute(CultureConstants.SpanishCulture, "Afiliados")]
+    [LocalizedRoute(Constants.EnglishCulture, "Partner")]
+    [LocalizedRoute(Constants.SpanishCulture, "Afiliados")]
     public class PartnerShipController : Controller
     {
-        [LocalizedRoute(CultureConstants.EnglishCulture, "Index")]
-        [LocalizedRoute(CultureConstants.SpanishCulture, "Indice")]
+        [LocalizedRoute(Constants.EnglishCulture, "Index")]
+        [LocalizedRoute(Constants.SpanishCulture, "Indice")]
         public ActionResult Index()
         {
             ViewBag.PartnershipRequested = TempData["formApplied"] ?? false;

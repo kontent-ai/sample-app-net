@@ -9,16 +9,16 @@ using Kentico.Kontent.Delivery.Urls.QueryParameters;
 
 namespace DancingGoat.Controllers
 {
-    [LocalizedRoute(CultureConstants.EnglishCulture, "Home")]
-    [LocalizedRoute(CultureConstants.SpanishCulture, "Inicio")]
+    [LocalizedRoute(Constants.EnglishCulture, "Home")]
+    [LocalizedRoute(Constants.SpanishCulture, "Inicio")]
     public class HomeController : ControllerBase
     {
         public HomeController(IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
         {
         }
 
-        [LocalizedRoute(CultureConstants.EnglishCulture, "")]
-        [LocalizedRoute(CultureConstants.SpanishCulture, "")]
+        [LocalizedRoute(Constants.EnglishCulture, "")]
+        [LocalizedRoute(Constants.SpanishCulture, "")]
         public async Task<ActionResult> Index()
         {
             var response = await _client.GetItemAsync<Home>("home", new LanguageParameter(Language), new DepthParameter(1));

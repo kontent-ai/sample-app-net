@@ -8,8 +8,8 @@ using DancingGoat.Configuration;
 
 namespace DancingGoat.Controllers
 {
-    [LocalizedRoute(CultureConstants.EnglishCulture, "Cafes")]
-    [LocalizedRoute(CultureConstants.SpanishCulture, "Cafeterias")]
+    [LocalizedRoute(Constants.EnglishCulture, "Cafes")]
+    [LocalizedRoute(Constants.SpanishCulture, "Cafeterias")]
     public class CafesController : ControllerBase
     {
         public ICafesRepository CafesRepository { get; }
@@ -19,8 +19,8 @@ namespace DancingGoat.Controllers
             CafesRepository = cafesRepository;
         }
 
-        [LocalizedRoute(CultureConstants.EnglishCulture, "Index")]
-        [LocalizedRoute(CultureConstants.SpanishCulture, "Indice")]
+        [LocalizedRoute(Constants.EnglishCulture, "Index")]
+        [LocalizedRoute(Constants.SpanishCulture, "Indice")]
         public async Task<ActionResult> Index()
         {
             var cafes = await CafesRepository.GetCafes(Language);

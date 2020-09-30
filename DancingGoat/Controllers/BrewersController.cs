@@ -12,16 +12,16 @@ using Kentico.Kontent.Delivery.Urls.QueryParameters;
 
 namespace DancingGoat.Controllers
 {
-    [LocalizedRoute(CultureConstants.EnglishCulture, "Brewers")]
-    [LocalizedRoute(CultureConstants.SpanishCulture, "Cerveceros")]
+    [LocalizedRoute(Constants.EnglishCulture, "Brewers")]
+    [LocalizedRoute(Constants.SpanishCulture, "Cerveceros")]
     public class BrewersController : ControllerBase
     {
         public BrewersController(IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
         {
         }
 
-        [LocalizedRoute(CultureConstants.EnglishCulture, "Index")]
-        [LocalizedRoute(CultureConstants.SpanishCulture, "Indice")]
+        [LocalizedRoute(Constants.EnglishCulture, "Index")]
+        [LocalizedRoute(Constants.SpanishCulture, "Indice")]
         public async Task<ActionResult> Index()
         {
             var itemsTask = _client.GetItemsAsync<Brewer>(
@@ -47,8 +47,8 @@ namespace DancingGoat.Controllers
             return View(model);
         }
 
-        [LocalizedRoute(CultureConstants.EnglishCulture, "Filter")]
-        [LocalizedRoute(CultureConstants.SpanishCulture, "Filter")]
+        [LocalizedRoute(Constants.EnglishCulture, "Filter")]
+        [LocalizedRoute(Constants.SpanishCulture, "Filter")]
         public async Task<ActionResult> Filter(BrewerFilterViewModel model)
         {
             var parameters = new List<IQueryParameter> {

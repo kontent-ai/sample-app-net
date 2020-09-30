@@ -16,6 +16,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
+using static DancingGoat.Configuration.Constants;
 
 namespace DancingGoat
 {
@@ -47,7 +48,7 @@ namespace DancingGoat
             services.AddDeliveryClient(Configuration);
 
             // Register a second client for the configuration wizard
-            services.AddDeliveryClient("reference", Configuration, $"{nameof(AppConfiguration)}:{nameof(DeliveryOptions)}");
+            services.AddDeliveryClient(ReferenceClient, Configuration, $"{nameof(AppConfiguration)}:{nameof(DeliveryOptions)}");
 
             // Repositories
             services.AddSingleton<ICafesRepository, CafesRepository>();
@@ -57,7 +58,7 @@ namespace DancingGoat
             services.ConfigureWritable<DeliveryOptions>((IConfigurationRoot)Configuration, Configuration.GetSection(nameof(DeliveryOptions)));
 
             // I18N
-            services.ConfigureRequestLocalization(CultureConstants.DefaultCulture, CultureConstants.SpanishCulture);
+            services.ConfigureRequestLocalization(DefaultCulture, SpanishCulture);
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.AddSingleton<CustomLocalizedRoutingTranslationTransformer>();
@@ -73,10 +74,10 @@ namespace DancingGoat
             }
             else
             {
-                app.UseExceptionHandler($"/{CultureConstants.DefaultCulture}/Errors/NotFound");
+                app.UseExceptionHandler($"/{DefaultCulture}/Errors/NotFound");
                 app.UseHsts();
             }
-            app.UseStatusCodePagesWithReExecute($"/{CultureConstants.DefaultCulture}/Errors/NotFound");
+            app.UseStatusCodePagesWithReExecute($"/{DefaultCulture}/Errors/NotFound");
 
             app.UseSerilogRequestLogging();
 

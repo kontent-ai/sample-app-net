@@ -81,7 +81,7 @@ namespace DancingGoat.Areas.Admin.Controllers
             {
                 try
                 {
-                    var referenceProjectClient = DeliveryClientFactory.Get("reference");
+                    var referenceProjectClient = DeliveryClientFactory.Get(Constants.ReferenceClient);
                     var items = (await referenceProjectClient.GetItemsAsync<object>()).Items;
                     requiredItems = items.Count;
                 }

@@ -10,16 +10,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DancingGoat.Controllers
 {
-    [LocalizedRoute(CultureConstants.EnglishCulture, "About")]
-    [LocalizedRoute(CultureConstants.SpanishCulture, "Quiénes")]
+    [LocalizedRoute(Constants.EnglishCulture, "About")]
+    [LocalizedRoute(Constants.SpanishCulture, "Quiénes")]
     public class AboutController : ControllerBase
     {
         public AboutController(IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
         {
         }
 
-        [LocalizedRoute(CultureConstants.EnglishCulture, "Index")]
-        [LocalizedRoute(CultureConstants.SpanishCulture, "Indice")]
+        [LocalizedRoute(Constants.EnglishCulture, "Index")]
+        [LocalizedRoute(Constants.SpanishCulture, "Indice")]
         public async Task<ActionResult> Index()
         {
             var response = await _client.GetItemAsync<AboutUs>("about_us", new LanguageParameter(Language));

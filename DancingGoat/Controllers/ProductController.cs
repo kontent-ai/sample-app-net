@@ -11,16 +11,16 @@ using Kentico.Kontent.Delivery.Urls.QueryParameters;
 namespace DancingGoat.Controllers
 {
 
-    [LocalizedRoute(CultureConstants.EnglishCulture, "Product")]
-    [LocalizedRoute(CultureConstants.SpanishCulture, "Tienda")]
+    [LocalizedRoute(Constants.EnglishCulture, "Product")]
+    [LocalizedRoute(Constants.SpanishCulture, "Tienda")]
     public class ProductController : ControllerBase
     {
         public ProductController(IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
         {
         }
 
-        [LocalizedRoute(CultureConstants.EnglishCulture, "Detail")]
-        [LocalizedRoute(CultureConstants.SpanishCulture, "Detalle")]
+        [LocalizedRoute(Constants.EnglishCulture, "Detail")]
+        [LocalizedRoute(Constants.SpanishCulture, "Detalle")]
         public async Task<ActionResult> Detail(string urlSlug)
         {
             var item = (await _client.GetItemsAsync<object>(new EqualsFilter("elements.url_pattern", urlSlug), new InFilter("system.type", Brewer.Codename, Coffee.Codename), new LanguageParameter(Language))).Items.FirstOrDefault();

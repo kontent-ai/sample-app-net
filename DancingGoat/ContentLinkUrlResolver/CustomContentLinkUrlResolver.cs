@@ -22,10 +22,9 @@ namespace DancingGoat
             _urlHelperFactory = urlHelperFactory;
             _actionContextAccessor = actionContextAccessor;
             _localizedRoutingProvider = localizedRoutingProvider;
-
         }
 
-        public async Task<string> ResolveLinkUrl(IContentLink link)
+        public async Task<string> ResolveLinkUrlAsync(IContentLink link)
         {
             var urlHelper = GetHelper(_urlHelperFactory, _actionContextAccessor);
             switch (link.ContentTypeCodename)
@@ -47,7 +46,7 @@ namespace DancingGoat
             }
         }
 
-        public Task<string> ResolveBrokenLinkUrl()
+        public Task<string> ResolveBrokenLinkUrlAsync()
         {
             var urlHelper = GetHelper(_urlHelperFactory, _actionContextAccessor);
             return Task.FromResult(urlHelper.Action("NotFound", "Errors"));

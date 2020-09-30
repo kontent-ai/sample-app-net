@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DancingGoat.Controllers
 {
-    [LocalizedRoute(CultureConstants.EnglishCulture, "Errors")]
+    [LocalizedRoute(Constants.EnglishCulture, "Errors")]
     public class ErrorsController : Controller
     {
-        [LocalizedRoute(CultureConstants.EnglishCulture, "NotFound")]
+        [LocalizedRoute(Constants.EnglishCulture, "NotFound")]
         public new ActionResult NotFound()
         {
             return View();

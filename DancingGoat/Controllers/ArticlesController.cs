@@ -13,8 +13,8 @@ using Kentico.Kontent.Delivery.Urls.QueryParameters.Filters;
 
 namespace DancingGoat.Controllers
 {
-    [LocalizedRoute(CultureConstants.EnglishCulture, "Articles")]
-    [LocalizedRoute(CultureConstants.SpanishCulture, "Articulos")]
+    [LocalizedRoute(Constants.EnglishCulture, "Articles")]
+    [LocalizedRoute(Constants.SpanishCulture, "Articulos")]
     public class ArticlesController : ControllerBase
     {
         private readonly IConfiguration _configuration;
@@ -24,8 +24,8 @@ namespace DancingGoat.Controllers
             _configuration = configuration;
         }
 
-        [LocalizedRoute(CultureConstants.EnglishCulture, "")]
-        [LocalizedRoute(CultureConstants.SpanishCulture, "")]
+        [LocalizedRoute(Constants.EnglishCulture, "")]
+        [LocalizedRoute(Constants.SpanishCulture, "")]
         public async Task<ActionResult> Index()
         {
             var response = await _client.GetItemsAsync<Article>(
@@ -37,8 +37,8 @@ namespace DancingGoat.Controllers
             return View(response.Items);
         }
 
-        [LocalizedRoute(CultureConstants.EnglishCulture, "Show")]
-        [LocalizedRoute(CultureConstants.SpanishCulture, "Show")]
+        [LocalizedRoute(Constants.EnglishCulture, "Show")]
+        [LocalizedRoute(Constants.SpanishCulture, "Show")]
         public async Task<ActionResult> Show(string urlSlug)
         {
             var response = await _client.GetItemsAsync<Article>(

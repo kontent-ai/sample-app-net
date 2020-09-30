@@ -29,7 +29,7 @@ namespace DancingGoat.Infrastructure
             }
             else if (AppConfig.Value.SubscriptionExpiresAt.HasValue && AppConfig.Value.SubscriptionExpiresAt <= DateTime.Now)
             {
-                filterContext.Result = Helpers.RedirectHelpers.GetSelfConfigIndexResult(new MessageModel(){ Message = "Current subscription is expired.", MessageType = Areas.Admin.Models.MessageType.Error});
+                filterContext.Result = Helpers.RedirectHelpers.GetSelfConfigIndexResult(new MessageModel(){ Message = "Current subscription is expired.", MessageType = MessageType.Error});
             }
         }
     }
