@@ -1,8 +1,6 @@
 ﻿@model DancingGoat.Models.CafesViewModel
 
-@{
-    ViewBag.Title = Localizer["Cafes"];
-}
+@{ ViewBag.Title = Localizer["Cafes"]; }
 
 <h2>@Localizer["CompanyCafes"]</h2>
 <div class="row">
@@ -13,11 +11,11 @@
 <div class="row">
     @foreach (var cafe in Model.PartnerCafes)
     {
-        <h3>@Html.DisplayFor(vm => cafe.City), @Html.DisplayFor(vm => cafe.Country)</h3>
-        <p>
-            @Html.DisplayFor(vm => cafe.System.Name), @Html.DisplayFor(vm => cafe.Street), @Html.DisplayFor(vm => cafe.Phone)
-        </p>
-    }
+<div data-kontent-item-id="@cafe.System.Id">
+    <h3><span data-kontent-element-codename="@Cafe.CityCodename">@Html.DisplayFor(vm => cafe.City)</span>, <span data-kontent-element-codename="@Cafe.CountryCodename">@Html.DisplayFor(vm => cafe.Country)</span></h3>
+    <p>
+        <span data-kontent-element-codename="@Cafe.CityCodename">@Html.DisplayFor(vm => cafe.City)</span>, <span data-kontent-element-codename="@Cafe.StreetCodename">@Html.DisplayFor(vm => cafe.Street)</span>, <span data-kontent-element-codename="@Cafe.PhoneCodename">@Html.DisplayFor(vm => cafe.Phone)</span></p>
+</div>}
 </div>
 
 <h2 class="map-title">@Localizer["Cafes.MapTitle"]</h2>
@@ -26,5 +24,5 @@
 @section Scripts
 {
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVOq4C-rf7JVeHt6ws9vsf-KHIRpueASg"></script>
-    <script src="~/Scripts/map.js"></script>
+    <script src="~/js/map.js"></script>
 }

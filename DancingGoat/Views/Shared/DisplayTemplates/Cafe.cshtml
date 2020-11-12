@@ -1,18 +1,20 @@
 ﻿@model DancingGoat.Models.Cafe
 
-<div class="col-md-6">
+<div class="col-md-6" data-kontent-item-id="@Model.System.Id">
     <div class="cafe-tile cursor-hand js-scroll-to-map" data-address="@Model.City, @Model.Street">
         @if (ViewData.ContainsKey("ShowImage") && (bool)ViewData["ShowImage"] == true)
         {
             var photo = Model.Photo.FirstOrDefault();
-            <div class="cafe-image-tile-image-wrapper" style="background-image:url('@(photo != null ? photo.Url: "")'); background-size: cover; background-position: right center;"></div>
+            <div class="cafe-image-tile-image-wrapper" style="background-image:url('@(photo != null ? photo.Url: "")'); background-size: cover; background-position: right center;" data-kontent-element-codename="@Cafe.PhotoCodename"></div>
         }
         <div class="cafe-tile-content">
-            <h3 class="cafe-tile-name">@Html.DisplayFor(vm => vm.System.Name)</h3>
+            <h3 class="cafe-tile-name" data-kontent-element-codename="@Cafe.CityCodename" >@Html.DisplayFor(vm => vm.City)</h3>
             <address class="cafe-tile-address">
-                <a href="javascript:void(0)" class="cafe-tile-address-anchor">@Html.DisplayFor(vm => vm.Street), @Html.DisplayFor(vm => vm.City)<br />@Html.DisplayFor(vm => vm.ZipCode), @Html.DisplayFor(vm => vm.Country), @Html.DisplayFor(vm => vm.State)</a>
+                <a href="javascript:void(0)" class="cafe-tile-address-anchor">
+                    <span data-kontent-element-codename="@Cafe.StreetCodename">@Html.DisplayFor(vm => vm.Street)</span>, <span data-kontent-element-codename="@Cafe.CityCodename">@Html.DisplayFor(vm => vm.City)
+                    </span><br /><span data-kontent-element-codename="@Cafe.ZipCodeCodename">@Html.DisplayFor(vm => vm.ZipCode)</span>, <span data-kontent-element-codename="@Cafe.CountryCodename">@Html.DisplayFor(vm => vm.Country)</span>, <span data-kontent-element-codename="@Cafe.StateCodename">@Html.DisplayFor(vm => vm.State)</span></a>
             </address>
-            <p class="cafe-tile-phone">@Html.DisplayFor(vm => vm.Phone)</p>
+            <p class="cafe-tile-phone" data-kontent-element-codename="@Cafe.PhoneCodename">@Html.DisplayFor(vm => vm.Phone)</p>
         </div>
     </div>
 </div>

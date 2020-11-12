@@ -47,5 +47,17 @@ namespace DancingGoat.Models
         }
         public string Type => System.Type;
         public string Id => System.Id;
+
+        public string ProductNameElementCodename => ProductNameCodename;
+
+        public string ProductStatusElementCodename => ProductStatusCodename;
+
+        public string ProductImageElementCodename => ImageCodename;
+
+        public string ProductPriceElementCodename => PriceCodename;
+
+        public string ProductShortDescriptionCodename => ShortDescriptionCodename;
+
+        public string ProductLongDescriptionCodename => LongDescriptionCodename;
     }
 }

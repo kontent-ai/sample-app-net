@@ -1,27 +1,29 @@
 ﻿@using Kentico.Kontent.Delivery.Abstractions
 @model DancingGoat.Models.IProduct
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = Model.ProductProductName;
-}
+@{ Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Model.ProductProductName; }
 <section title="headers" id="head">
     @await Html.PartialAsync("HeadersMetadata", Model)
 </section>
-<article class="product-detail">
+<article class="product-detail" data-kontent-item-id="@Model.System.Id">
     <div class="row">
         <div class="col-md-12">
             <header>
-                <h2>@Html.DisplayFor(vm => vm.ProductProductName)</h2>
+                <h2 data-kontent-element-codename="@Model.ProductNameElementCodename">@Html.DisplayFor(vm => vm.ProductProductName)</h2>
             </header>
         </div>
     </div>
     <div class="row-fluid">
         <div class="col-lg-7 col-md-6">
             <figure class="image">
-                <img-asset asset="@Model.ProductImage.First()" />
+                <img-asset asset="@Model.ProductImage.First()" data-kontent-element-codename="@Model.ProductImageElementCodename" />
             </figure>
             <div class="description">
-                @Html.Raw(string.Join("\n", Model.ProductShortDescription?.Blocks ?? (Model.ProductLongDescription?.Blocks ?? Enumerable.Empty<IRichTextBlock>())))
+                <div data-kontent-element-codename="@(Model.ProductShortDescription?.Blocks.Count() > 0
+                    ? @Model.ProductShortDescriptionCodename : @Model.ProductLongDescription?.Blocks.Count() > 0
+                        ? @Model.ProductLongDescriptionCodename : null)">
+                    @Html.Raw(string.Join("\n", Model.ProductShortDescription?.Blocks ?? (Model.ProductLongDescription?.Blocks ?? Enumerable.Empty<IRichTextBlock>())))
+                </div>
                 @RenderSection("ProductSpecificProperties", false)
             </div>
         </div>

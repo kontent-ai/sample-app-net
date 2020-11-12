@@ -11,9 +11,13 @@
 @if (Model.Header != null)
 {
     var image = Model.Header.Image.FirstOrDefault();
-    <section class="banner-section" style="background-image: url('@(image != null ? image.Url : "")');">
-        <h2 class="banner-heading">@Html.DisplayFor(vm => vm.Header.Title)</h2>
-        <div class="banner-text">
+    <section 
+             class="banner-section" 
+             style="background-image: url('@(image != null ? image.Url : "")');"
+             data-kontent-item-id="@Model.Header.System.Id"
+             data-kontent-element-codename="@HeroUnit.ImageCodename">
+        <h2 class="banner-heading" data-kontent-element-codename="@HeroUnit.TitleCodename">@Html.DisplayFor(vm => vm.Header.Title)</h2>
+        <div class="banner-text" data-kontent-element-codename="@HeroUnit.MarketingMessageCodename">
             @Html.DisplayFor(vm => vm.Header.MarketingMessage)
         </div>
     </section>
@@ -27,10 +31,14 @@
         if (isFirstArticle)
         {
             isFirstArticle = false;
-            <div class="article-tile article-tile-large">
+            <div class="article-tile article-tile-large" data-kontent-item-id="@article.System.Id">
                 <div class="col-md-12 col-lg-6">
                     <a asp-controller="Articles" asp-action="Show" asp-route-urlSlug="@article.UrlPattern">
-                        <img-asset asset="@article.TeaserImage.First()" class="article-tile-image" default-width="300">
+                        <img-asset 
+                                   asset="@article.TeaserImage.First()" 
+                                   class="article-tile-image" 
+                                   default-width="300"
+                                   data-kontent-element-codename="@Article.TeaserImageCodename">
                             <media-condition min-width="1120" image-width="540" />
                             <media-condition min-width="768" max-width="1120" image-width="736" />
                             <media-condition min-width="330" max-width="768" image-width="468" />
@@ -38,14 +46,14 @@
                     </a>
                 </div>
                 <div class="col-md-12 col-lg-6">
-                    <div class="article-tile-date">
+                    <div class="article-tile-date" data-kontent-element-codename="@Article.PostDateCodename">
                         @article.PostDate?.ToString("M")
                     </div>
                     <div class="article-tile-content">
-                        <h2>
+                        <h2 data-kontent-element-codename="@Article.TitleCodename">
                             <a asp-controller="Articles" asp-action="Show" asp-route-urlSlug="@article.UrlPattern">@article.Title</a>
                         </h2>
-                        <p class="article-tile-text lead-paragraph">
+                        <p class="article-tile-text lead-paragraph" data-kontent-element-codename="@Article.SummaryCodename">
                             @Html.DisplayFor(vm => article.Summary)
                         </p>
                     </div>
@@ -64,11 +72,13 @@
 @foreach (DancingGoat.Models.FactAboutUs factAboutUs in Model.ContentItem.OurStory)
 {
     var image = factAboutUs.Image.FirstOrDefault();
-    <div class="row">
-        <h1 class="title-tab">@factAboutUs.Title</h1>
+    <div class="row" data-kontent-item-id="@factAboutUs.System.Id">
+        <h1 class="title-tab" data-kontent-element-codename="@FactAboutUs.TitleCodename">@factAboutUs.Title</h1>
         <div class="col-sm-12">
-            <div class="ourstory-section center-text" style="background-image: url('@(image != null ? image.Url : "")');">
-                @Html.DisplayFor(vm => factAboutUs.Description)
+            <div class="ourstory-section center-text" style="background-image: url('@(image != null ? image.Url : "")');" data-kontent-element-codename="@FactAboutUs.ImageCodename">
+                <div data-kontent-element-codename="@FactAboutUs.DescriptionCodename">
+                    @Html.DisplayFor(vm => factAboutUs.Description)
+                </div>
             </div>
         </div>
     </div>
@@ -82,12 +92,12 @@
     </div>
     @foreach (DancingGoat.Models.Cafe cafe in Model.ContentItem.Cafes)
     {
-        <div class="col-xs-6 col-md-3">
+        <div class="col-xs-6 col-md-3" data-kontent-item-id="@cafe.System.Id">
             <div>
                 <a asp-controller="Cafes" asp-action="Index" class="ourcoffee-tile-link">
-                    <h2 class="ourcoffee-tile-text center-text">@cafe.System.Name</h2>
+                    <h2 class="ourcoffee-tile-text center-text" data-kontent-element-codename="@Cafe.CityCodename">@cafe.City</h2>
                     <span class="cafe-overlay"> </span>
-                    <img-asset asset="@cafe.Photo.First()" class="ourcoffee-tile-image" default-width="270" />
+                    <img-asset asset="@cafe.Photo.First()" class="ourcoffee-tile-image" default-width="270" data-kontent-element-codename="@Cafe.PhotoCodename"/>
                 </a>
             </div>
         </div>

@@ -1,18 +1,18 @@
 ﻿@model DancingGoat.Models.Article
 
 <div class="col-lg-3 col-md-6 col-sm-12">
-    <div class="article-tile">
+    <div class="article-tile" data-kontent-item-id="@Model.System.Id">
         <a asp-controller="Articles" asp-action="Show" asp-route-urlSlug="@Model.UrlPattern">
-            <img-asset asset="@Model.TeaserImage.First()" class="article-tile-image" title="Article @Model.Title" />
+            <img-asset asset="@Model.TeaserImage.First()" class="article-tile-image" title="Article @Model.Title" data-kontent-element-codename="@Article.TeaserImageCodename"/>
         </a>
-        <div class="article-tile-date">
+        <div class="article-tile-date" data-kontent-element-codename="@Article.PostDateCodename">
             @Html.DateTimeFormattedFor(vm => vm.PostDate, "M")
         </div>
         <div class="article-tile-content">
-            <h2 class="h4">
+            <h2 class="h4" data-kontent-element-codename="@Article.TitleCodename">
                 <a asp-controller="Articles" asp-action="Show" asp-route-urlSlug="@Model.UrlPattern">@Html.DisplayFor(vm => vm.Title)</a>
             </h2>
-            <p class="article-tile-text">
+            <p class="article-tile-text" data-kontent-element-codename="@Article.SummaryCodename">
                 @Html.DisplayFor(vm => vm.Summary)
             </p>
         </div>

@@ -11,16 +11,16 @@
     <div class="product-detail-properties">
         <h4>@Localizer["Product.Parameters"]</h4>
         <dl class="row">
-            <dt class="col-xs-12 col-sm-4">@Localizer["Coffee.Farm"]</dt>
-            <dd class="col-xs-12 col-sm-8">@Html.DisplayFor(vm => vm.Farm)</dd>
+            <dt class="col-xs-12 col-sm-4">            @Localizer["Coffee.Farm"]</dt>
+            <dd class="col-xs-12 col-sm-8" data-kontent-element-codename="@Coffee.FarmCodename">@Html.DisplayFor(vm => vm.Farm)</dd>
             <dt class="col-xs-12 col-sm-4">@Localizer["Coffee.Variety"]</dt>
-            <dd class="col-xs-12 col-sm-8">@Html.DisplayFor(vm => vm.Variety)</dd>
+            <dd class="col-xs-12 col-sm-8" data-kontent-element-codename="@Coffee.VarietyCodename">@Html.DisplayFor(vm => vm.Variety)</dd>
             <dt class="col-xs-12 col-sm-4">@Localizer["Coffee.Processing"]</dt>
-            <dd class="col-xs-12 col-sm-8">@if (Model.Processing.Any()) { @Html.Raw(string.Join(", ", Model.Processing.Select((x, i) => x.Name))) }</dd>
+            <dd class="col-xs-12 col-sm-8" data-kontent-element-codename="@Coffee.ProcessingCodename">@if (Model.Processing.Any()) { @Html.Raw(string.Join(", ", Model.Processing.Select((x, i) => x.Name))) }</dd>
             <dt class="col-xs-12 col-sm-4">@Localizer["Coffee.Altitude"]</dt>
             @if (altitudeParsed)
             {
-                <dd class="col-xs-12 col-sm-8">@altitude.ToString("N0") ft</dd>
+                <dd class="col-xs-12 col-sm-8" data-kontent-element-codename="@Coffee.AltitudeCodename">@altitude.ToString("N0") ft</dd>
             }
         </dl>
     </div>

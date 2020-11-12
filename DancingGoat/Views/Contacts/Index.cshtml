@@ -1,25 +1,22 @@
 @model DancingGoat.Models.ContactsViewModel
 
-@{
-    ViewBag.Title = Localizer["Contact"];
-}
+@{ ViewBag.Title = Localizer["Contact"]; }
 
 @if (Model.Roastery != null)
 {
-    <div class="col-md-12">
-        <h2 class="contact-title">@Localizer["Roastery"]</h2>
-        <ul class="contact-info">
-            <li>@Html.DisplayFor(vm => vm.Roastery.Phone)</li>
-            <li>@Html.DisplayFor(vm => vm.Roastery.Email)</li>
-            <li>
-                <a href="javascript:void(0)" data-address="@Model.Roastery.City, @Model.Roastery.Street" class="js-scroll-to-map">
-                    @Html.DisplayFor(vm => vm.Roastery.Street), @Html.DisplayFor(vm => vm.Roastery.City)<br />
-                    @Html.DisplayFor(vm => vm.Roastery.ZipCode), @Html.DisplayFor(vm => vm.Roastery.Country), @Html.DisplayFor(vm => vm.Roastery.State)<br />
-                </a>
-            </li>
-        </ul>
-    </div>
-}
+<div class="col-md-12" data-kontent-item-id="@Model.Roastery.System.Id">
+    <h2 class="contact-title">@Localizer["Roastery"]</h2>
+    <ul class="contact-info">
+        <li data-kontent-element-codename="@Cafe.PhoneCodename">@Html.DisplayFor(vm => vm.Roastery.Phone)</li>
+        <li data-kontent-element-codename="@Cafe.EmailCodename">@Html.DisplayFor(vm => vm.Roastery.Email)</li>
+        <li>
+            <a href="javascript:void(0)" data-address="@Model.Roastery.City, @Model.Roastery.Street" class="js-scroll-to-map">
+                <span data-kontent-element-codename="@Cafe.StreetCodename">@Html.DisplayFor(vm => vm.Roastery.Street)</span>, <span data-kontent-element-codename="@Cafe.CityCodename">@Html.DisplayFor(vm => vm.Roastery.City)</span><br />
+                <span data-kontent-element-codename="@Cafe.ZipCodeCodename">@Html.DisplayFor(vm => vm.Roastery.ZipCode)</span>, <span data-kontent-element-codename="@Cafe.CountryCodename">@Html.DisplayFor(vm => vm.Roastery.Country)</span>, <span data-kontent-element-codename="@Cafe.StateCodename">@Html.DisplayFor(vm => vm.Roastery.State)</span><br />
+            </a>
+        </li>
+    </ul>
+</div>}
 
 <h2>@Localizer["CompanyCafes"]</h2>
 <div class="row">
@@ -31,5 +28,5 @@
 
 @section Scripts {
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVOq4C-rf7JVeHt6ws9vsf-KHIRpueASg"></script>
-    <script src="~/Scripts/map.js"></script>
+    <script src="~/js/map.js"></script>
 }

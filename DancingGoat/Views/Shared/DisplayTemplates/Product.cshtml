@@ -3,20 +3,20 @@
     var price = Model.ProductPrice.HasValue ? Model.ProductPrice.Value.ToString("C") : "Price hasn't been set yet.";
 }
 
-<article class="product-tile">
-    <a asp-controller="Product" asp-action="Detail" asp-route-urlSlug="@Model.ProductUrlPattern">
-        <h1 class="product-heading">@Model.ProductProductName</h1>
+<article class="product-tile" >
+    <a asp-controller="Product" asp-action="Detail" asp-route-urlSlug="@Model.ProductUrlPattern" data-kontent-item-id="@Model.System.Id">
+        <h1 class="product-heading" data-kontent-element-codename="@Model.ProductNameElementCodename">@Model.ProductProductName</h1>
         @if (Model.ProductProductStatus.Any())
         {
-            <span class="product-tile-status">
+            <span class="product-tile-status" data-kontent-element-codename="@Model.ProductStatusElementCodename">
                 @Html.DisplayFor(vm => vm.ProductProductStatus.First().Name)
             </span>
         }
         <figure class="product-tile-image">
-            <img-asset asset="@Model.ProductImage.First()" class="img-responsive" width="452" height="452" />
+            <img-asset asset="@Model.ProductImage.First()" class="img-responsive" width="452" height="452" data-kontent-element-codename="@Model.ProductImageElementCodename"/>
         </figure>
         <div class="product-tile-info">
-            <span class="product-tile-price">
+            <span class="product-tile-price" data-kontent-element-codename="@Model.ProductPriceElementCodename">
                 @Html.DisplayFor(vm => price)
             </span>
         </div>
