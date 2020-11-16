@@ -1,8 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <TypeScriptToolsVersion>3.5</TypeScriptToolsVersion>
+    <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,9 +15,9 @@
     <PackageReference Include="Kentico.AspNetCore.LocalizedRouting" Version="1.0.0-beta2" />
     <PackageReference Include="Kentico.Kontent.AspNetCore" Version="0.0.9" />
     <PackageReference Include="Kentico.Kontent.Management.Helpers" Version="2.1.1-beta1" />
-    <PackageReference Include="Kentico.Kontent.Delivery" Version="14.0.0" />
+    <PackageReference Include="Kentico.Kontent.Delivery" Version="14.0.1" />
     <PackageReference Include="Kentico.Kontent.Recommender" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.76" />
+    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.113" />
     <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
   </ItemGroup>
 
