@@ -1,12 +1,22 @@
 version: 1.0.{build}
+skip_branch_with_pr: true
 image:
 - Visual Studio 2019
-before_build:
-- ps: nuget restore
-build:
-  verbosity: minimal
-after_build:
+install:
+- ps: "Invoke-WebRequest https://dot.net/v1/dotnet-install.ps1 -OutFile dotnet-install.ps1\n./dotnet-install.ps1 --Version 5.0.100 -InstallDir 'C:\\Program Files\\dotnet'\n\nif($Env:APPVEYOR_REPO_TAG -eq $true) \n{\n  $Env:VERSION = $Env:APPVEYOR_REPO_TAG_NAME\n  $Env:APPVEYOR_BUILD_VERSION = $Env:APPVEYOR_REPO_TAG_NAME\n}"
+build_script:
 - ps: >-
+    # Restore NuGets
+
+    dotnet restore
+
+    # Build
+
+    dotnet build --configuration Release
+
+    ## Publish
+
     .\publish.ps1
+
 artifacts:
 - path: artifacts\*.zip
