@@ -47,7 +47,7 @@ namespace DancingGoat.TagHelpers
         </div>
     </div>
     <div class=""edit-mode-panel__navigate-link"">
-        <a target=""_blank"" href=""{itemUrl}"">Open content item in Kontent</a>
+        <a target=""_blank"" rel=""noopener"" href=""{itemUrl}"">Open content item in Kontent</a>
     </div>";
                 output.Content.SetHtmlContent(html);
 

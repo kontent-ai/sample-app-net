@@ -31,6 +31,7 @@ namespace DancingGoat.TagHelpers
 
             output.TagName = "a";
             output.Attributes.SetAttribute("target", "_blank");
+            output.Attributes.SetAttribute("rel", "noopener");
             output.Attributes.SetAttribute("href", itemUrl);
             output.Attributes.Add("class", $"edit-link__overlay--{style}");
             output.TagMode = TagMode.StartTagAndEndTag;
