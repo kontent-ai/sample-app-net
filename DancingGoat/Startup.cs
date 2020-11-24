@@ -92,6 +92,13 @@ namespace DancingGoat
 
             app.UseRequestLocalization();
 
+            // Set X-Frame-Options header because of webspotlight preview
+            app.Use(async (context, next) =>
+            {
+                context.Response.Headers.Add("X-Frame-Options", "ALLOW-FROM https://app.kontent.ai");
+                await next();
+            });
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDynamicControllerRoute<CustomLocalizedRoutingTranslationTransformer>("{culture=en-US}/{controller=Home}/{action=Index}/{id?}");
@@ -100,12 +107,6 @@ namespace DancingGoat
                 );
             });
 
-            // Set X-Frame-Options header because of webspotlight preview
-            app.Use(async (context, next) =>
-            {
-                context.Response.Headers.Add("X-Frame-Options", "ALLOW-FROM https://app.kontent.ai");
-                await next();
-            });
         }
     }
 }
