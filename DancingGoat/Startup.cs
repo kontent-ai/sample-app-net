@@ -1,8 +1,8 @@
-﻿using DancingGoat.Configuration;
+﻿using AspNetCore.Mvc.Routing.Localization.Extensions;
+using DancingGoat.Configuration;
 using DancingGoat.Infrastructure;
 using DancingGoat.Models;
 using DancingGoat.Repositories;
-using Kentico.AspNetCore.LocalizedRouting.Extensions;
 using Kentico.Kontent.AspNetCore.ImageTransformation;
 using Kentico.Kontent.Delivery;
 using Kentico.Kontent.Delivery.Abstractions;
@@ -68,16 +68,15 @@ namespace DancingGoat
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
+            //else
+            //{
                 app.UseExceptionHandler($"/{DefaultCulture}/Errors/NotFound");
                 app.UseHsts();
-            }
-            app.UseStatusCodePagesWithReExecute($"/{DefaultCulture}/Errors/NotFound");
+            //}
 
             app.UseSerilogRequestLogging();
 

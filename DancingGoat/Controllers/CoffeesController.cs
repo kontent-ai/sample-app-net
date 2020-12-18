@@ -4,11 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Kentico.AspNetCore.LocalizedRouting.Attributes;
 using Kentico.Kontent.Delivery.Abstractions;
 using DancingGoat.Configuration;
 using Kentico.Kontent.Delivery.Urls.QueryParameters.Filters;
 using Kentico.Kontent.Delivery.Urls.QueryParameters;
+using AspNetCore.Mvc.Routing.Localization.Attributes;
 
 namespace DancingGoat.Controllers
 {

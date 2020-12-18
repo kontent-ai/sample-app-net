@@ -15,25 +15,25 @@
                     <nav role="navigation">
                         <ul>
                             <li>
-                                <a asp-controller="Home" asp-action="Index">@Localizer["Home"]</a>
+                                <localized-route asp-controller="Home" asp-action="Index">@Localizer["Home"]</localized-route>
                             </li>
                             <li>
-                                <a asp-controller="Coffees" asp-action="Index">@Localizer["Store"]</a>
+                                <localized-route asp-controller="Coffees" asp-action="Index">@Localizer["Store"]</localized-route>
                             </li>
                             <li>
-                                <a asp-controller="Articles" asp-action="Index">@Localizer["Articles"]</a>
+                                <localized-route asp-controller="Articles" asp-action="Index">@Localizer["Articles"]</localized-route>
                             </li>
                             <li>
-                                <a asp-controller="About" asp-action="Index">@Localizer["AboutUs"]</a>
+                                <localized-route asp-controller="About" asp-action="Index">@Localizer["AboutUs"]</localized-route>
                             </li>
                             <li>
-                                <a asp-controller="Cafes" asp-action="Index">@Localizer["Cafes"]</a>
+                                <localized-route asp-controller="Cafes" asp-action="Index">@Localizer["Cafes"]</localized-route>
                             </li>
                             <li>
-                                <a asp-controller="Contacts" asp-action="Index">@Localizer["Contact"]</a>
+                                <localized-route asp-controller="Contacts" asp-action="Index">@Localizer["Contact"]</localized-route>
                             </li>
                             <li>
-                                <a asp-controller="Partnership" asp-action="Index">@Localizer["Partnership"]</a>
+                                <localized-route asp-controller="Partnership" asp-action="Index">@Localizer["Partnership"]</localized-route>
                             </li>
                         </ul>
                     </nav>
@@ -41,24 +41,21 @@
                         <nav role="navigation">
                             <ul class="dropdown-items-list dropdown-desktop-visible">
                                 <li>
-                                    @Html.ActionLink("English", "Index", "Languages", new
-                                    {
-                                       itemId = (Model as IDetailItem)?.Id,
-                                       itemType = (Model as IDetailItem)?.Type,
-                                       language = "en-US",
-                                       originalAction = ViewContext.RouteData.Values["action"].ToString(),
-                                       originalController = ViewContext.RouteData.Values["controller"].ToString()
-                                    })
+                                    <a
+                                       asp-controller="Languages" asp-action="Index" asp-route-itemId="@((Model as IDetailItem)?.Id)"
+                                       asp-route-itemType="@((Model as IDetailItem)?.Type)"
+                                       asp-route-language="en-US"
+                                       asp-route-culture="en-US"
+                                       asp-route-originalAction="@ViewContext.RouteData.Values["action"].ToString()"
+                                       asp-route-originalController="@ViewContext.RouteData.Values["controller"].ToString()">English</a>
                                 </li>
                                 <li>
-                                    @Html.ActionLink("Spanish", "Index", "Languages", new
-                                    {
-                                       itemId = (Model as IDetailItem)?.Id,
-                                       itemType = (Model as IDetailItem)?.Type,
-                                       language = "es-ES",
-                                       originalAction = ViewContext.RouteData.Values["action"].ToString(),
-                                       originalController = ViewContext.RouteData.Values["controller"].ToString()
-                                   })
+                                    <a asp-controller="Languages" asp-action="Index" asp-route-itemId="@((Model as IDetailItem)?.Id)"
+                                                    asp-route-itemType="@((Model as IDetailItem)?.Type)"
+                                                    asp-route-language="es-ES"
+                                                    asp-route-culture="en-US"
+                                                    asp-route-originalAction="@ViewContext.RouteData.Values["action"].ToString()"
+                                                    asp-route-originalController="@ViewContext.RouteData.Values["controller"].ToString()">Spanish</a>
                                 </li>
                             </ul>
                         </nav>
@@ -72,7 +69,7 @@
                 <div class="container">
                     <div class="col-xs-8 col-md-8 col-lg-4 logo">
                         <h1 class="logo">
-                            <a asp-controller="Home" asp-action="Index" class="logo-link">Dancing Goat</a>
+                            <localized-route asp-controller="Home" asp-action="Index" class="logo-link">Dancing Goat</localized-route>
                         </h1>
                     </div>
                 </div>

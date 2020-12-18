@@ -2,17 +2,17 @@
 
 <div class="col-md-3">
     <div class="article-tile">
-        <a asp-controller="Articles" asp-action="Show" asp-route-urlSlug="@Model.UrlPattern">
+        <localized-route asp-controller="Articles" asp-action="Show" asp-route-urlSlug="@Model.UrlPattern">
             <img-asset asset="@Model.TeaserImage.First()" class="article-tile-image" default-width="300" title="Article @Model.Title">
                 <media-condition min-width="330" max-width="768" image-width="468" />
             </img-asset>
-        </a>
+        </localized-route>
         <div class="article-tile-date">
             @Model.PostDate?.ToString("M")
         </div>
         <div class="article-tile-content">
             <h2 class="h4">
-                <a asp-controller="Articles" asp-action="Show" asp-route-urlSlug="@Model.UrlPattern">@Model.Title</a>
+                <localized-route asp-controller="Articles" asp-action="Show" asp-route-urlSlug="@Model.UrlPattern">@Model.Title</localized-route>
             </h2>
             <p class="article-tile-text">
                 @Html.DisplayFor(vm => vm.Summary)

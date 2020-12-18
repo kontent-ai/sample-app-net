@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using DancingGoat.Models;
 using DancingGoat.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using Kentico.AspNetCore.LocalizedRouting.Attributes;
 using DancingGoat.Configuration;
+using AspNetCore.Mvc.Routing.Localization.Attributes;
 
 namespace DancingGoat.Controllers
 {

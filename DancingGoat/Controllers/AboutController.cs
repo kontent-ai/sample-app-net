@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using AspNetCore.Mvc.Routing.Localization.Attributes;
 using DancingGoat.Configuration;
 using DancingGoat.Models;
-using Kentico.AspNetCore.LocalizedRouting.Attributes;
 using Kentico.Kontent.Delivery.Abstractions;
 using Kentico.Kontent.Delivery.Urls.QueryParameters;
 using Kentico.Kontent.Management.Helpers.Models;

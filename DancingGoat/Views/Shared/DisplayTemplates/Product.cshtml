@@ -4,7 +4,7 @@
 }
 
 <article class="product-tile">
-    <a asp-controller="Product" asp-action="Detail" asp-route-urlSlug="@Model.ProductUrlPattern">
+    <localized-route asp-controller="Product" asp-action="Detail" asp-route-urlSlug="@Model.ProductUrlPattern">
         <h1 class="product-heading">@Model.ProductProductName</h1>
         @if (Model.ProductProductStatus.Any())
         {
@@ -20,5 +20,5 @@
                 @Html.DisplayFor(vm => price)
             </span>
         </div>
-    </a>
+    </localized-route>
 </article>

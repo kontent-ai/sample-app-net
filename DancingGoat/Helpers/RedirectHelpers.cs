@@ -1,4 +1,5 @@
 ﻿using DancingGoat.Areas.Admin.Models;
+using DancingGoat.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 

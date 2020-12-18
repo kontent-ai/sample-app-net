@@ -6,10 +6,10 @@
         <div class="store-menu-list row">
             <ul>
                 <li>
-                    <a asp-controller="Coffees" asp-action="Index">@Localizer["Coffees"]</a>
+                    <localized-route asp-controller="Coffees" asp-action="Index">@Localizer["Coffees"]</localized-route>
                 </li>
                 <li>
-                    <a asp-controller="Brewers" asp-action="Index">@Localizer["Brewers"]</a>
+                    <localized-route asp-controller="Brewers" asp-action="Index">@Localizer["Brewers"]</localized-route>
                 </li>
             </ul>
         </div>

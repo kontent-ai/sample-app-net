@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using DancingGoat.Models;
 using Microsoft.AspNetCore.Mvc;
 using Kentico.Kontent.Delivery.Abstractions;
-using Kentico.AspNetCore.LocalizedRouting;
 using Kentico.Kontent.Delivery.Urls.QueryParameters;
 using Kentico.Kontent.Delivery.Urls.QueryParameters.Filters;
+using AspNetCore.Mvc.Routing.Localization;
 
 namespace DancingGoat.Controllers
 {
@@ -20,12 +20,11 @@ namespace DancingGoat.Controllers
             _localizedRoutingProvider = localizedRoutingProvider;
         }
 
-        public async Task<ActionResult> Index([FromQuery]Guid itemId, [FromQuery]string originalAction, [FromQuery]string itemType, [FromQuery]string originalController, [FromQuery]string language)
+        public async Task<ActionResult> Index([FromQuery] Guid itemId, [FromQuery] string originalAction, [FromQuery] string itemType, [FromQuery] string originalController, [FromQuery] string language)
         {
-            var translatedController = await _localizedRoutingProvider.ProvideRouteAsync(language, originalController, originalController, ProvideRouteType.OriginalToTranslated);
-            var tranclatedAction = await _localizedRoutingProvider.ProvideRouteAsync(language, originalAction, originalController, ProvideRouteType.OriginalToTranslated);
+            var translatedUrl = await _localizedRoutingProvider.ProvideRouteAsync(language, originalController, originalAction, LocalizationDirection.OriginalToTranslated);
 
-            if(tranclatedAction == null || translatedController == null)
+            if (translatedUrl == null)
             {
                 return NotFound();
             }
@@ -33,7 +32,7 @@ namespace DancingGoat.Controllers
             // Specific item is not selected, url will not be changed after redirect
             if (itemId == Guid.Empty || string.IsNullOrEmpty(itemType))
             {
-                return RedirectToAction(tranclatedAction, translatedController, new { culture = language });
+                return RedirectToAction(translatedUrl.Action, translatedUrl.Controller, new { culture = language });
             }
 
             var item = (await _client.GetItemsAsync<object>(
@@ -48,7 +47,7 @@ namespace DancingGoat.Controllers
             }
 
 
-            return RedirectToAction(tranclatedAction, translatedController, new { culture = language, urlSlug = detaiItem.UrlPattern });
+            return RedirectToAction(translatedUrl.Action, translatedUrl.Controller, new { culture = language, urlSlug = detaiItem.UrlPattern });
         }
     }
 }

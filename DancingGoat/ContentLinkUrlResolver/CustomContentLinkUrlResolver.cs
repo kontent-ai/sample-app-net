@@ -1,5 +1,5 @@
-﻿using DancingGoat.Models;
-using Kentico.AspNetCore.LocalizedRouting;
+﻿using AspNetCore.Mvc.Routing.Localization;
+using DancingGoat.Models;
 using Kentico.Kontent.Delivery.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -56,16 +56,14 @@ namespace DancingGoat
         {
             var urlHelper = GetHelper(_urlHelperFactory, _actionContextAccessor);
             var culture = _actionContextAccessor.ActionContext.RouteData.Values["culture"].ToString();
-
-            var translatedAction = await _localizedRoutingProvider.ProvideRouteAsync(culture, action, controller, ProvideRouteType.OriginalToTranslated);
-            var translatedController = await _localizedRoutingProvider.ProvideRouteAsync(culture, controller, controller, ProvideRouteType.OriginalToTranslated);
+            var translatedUrl = await _localizedRoutingProvider.ProvideRouteAsync(culture, controller, action, LocalizationDirection.OriginalToTranslated);
 
             if (data == null)
             {
-                return urlHelper.Action(translatedAction, translatedController);
+                return urlHelper.Action(translatedUrl.Action, translatedUrl.Controller);
             }
 
-            return urlHelper.Action(translatedAction, translatedController, data);
+            return urlHelper.Action(translatedUrl.Action, translatedUrl.Controller, data);
         }
 
         private IUrlHelper GetHelper(IUrlHelperFactory urlHelperFactory, IActionContextAccessor actionContextAccessor)

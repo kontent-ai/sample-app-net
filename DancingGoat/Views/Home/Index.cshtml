@@ -29,13 +29,13 @@
             isFirstArticle = false;
             <div class="article-tile article-tile-large">
                 <div class="col-md-12 col-lg-6">
-                    <a asp-controller="Articles" asp-action="Show" asp-route-urlSlug="@article.UrlPattern">
+                    <localized-route asp-controller="Articles" asp-action="Show" asp-route-urlSlug="@article.UrlPattern">
                         <img-asset asset="@article.TeaserImage.First()" class="article-tile-image" default-width="300">
                             <media-condition min-width="1120" image-width="540" />
                             <media-condition min-width="768" max-width="1120" image-width="736" />
                             <media-condition min-width="330" max-width="768" image-width="468" />
                         </img-asset>
-                    </a>
+                    </localized-route>
                 </div>
                 <div class="col-md-12 col-lg-6">
                     <div class="article-tile-date">
@@ -43,7 +43,7 @@
                     </div>
                     <div class="article-tile-content">
                         <h2>
-                            <a asp-controller="Articles" asp-action="Show" asp-route-urlSlug="@article.UrlPattern">@article.Title</a>
+                            <localized-route asp-controller="Articles" asp-action="Show" asp-route-urlSlug="@article.UrlPattern">@article.Title</localized-route>
                         </h2>
                         <p class="article-tile-text lead-paragraph">
                             @Html.DisplayFor(vm => article.Summary)
