@@ -68,15 +68,15 @@ namespace DancingGoat
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //if (env.IsDevelopment())
-            //{
-            //    app.UseDeveloperExceptionPage();
-            //}
-            //else
-            //{
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
                 app.UseExceptionHandler($"/{DefaultCulture}/Errors/NotFound");
                 app.UseHsts();
-            //}
+            }
 
             app.UseSerilogRequestLogging();
 
