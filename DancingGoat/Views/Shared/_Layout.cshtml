@@ -38,30 +38,7 @@
                         </ul>
                     </nav>
                     <div class="additional-menu-buttons user-menu">
-                        <nav role="navigation">
-                            <ul class="dropdown-items-list dropdown-desktop-visible">
-                                <li>
-                                    @Html.ActionLink("English", "Index", "Languages", new
-                                    {
-                                       itemId = (Model as IDetailItem)?.Id,
-                                       itemType = (Model as IDetailItem)?.Type,
-                                       language = "en-US",
-                                       originalAction = ViewContext.RouteData.Values["action"].ToString(),
-                                       originalController = ViewContext.RouteData.Values["controller"].ToString()
-                                    })
-                                </li>
-                                <li>
-                                    @Html.ActionLink("Spanish", "Index", "Languages", new
-                                    {
-                                       itemId = (Model as IDetailItem)?.Id,
-                                       itemType = (Model as IDetailItem)?.Type,
-                                       language = "es-ES",
-                                       originalAction = ViewContext.RouteData.Values["action"].ToString(),
-                                       originalController = ViewContext.RouteData.Values["controller"].ToString()
-                                   })
-                                </li>
-                            </ul>
-                        </nav>
+                        @await Component.InvokeAsync("LanguageSelector")
                     </div>
                 </div>
             </div>

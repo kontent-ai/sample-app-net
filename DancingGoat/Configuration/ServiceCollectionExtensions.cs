@@ -29,7 +29,7 @@ namespace DancingGoat.Configuration
             var defaultCultureInfo = new CultureInfo(defaultCulture);
             services.Configure<RequestLocalizationOptions>(options =>
             {
-                List<CultureInfo> supportedCultures = new List<CultureInfo>
+                List<CultureInfo> supportedCultures = new()
                 {
                     defaultCultureInfo
                 };

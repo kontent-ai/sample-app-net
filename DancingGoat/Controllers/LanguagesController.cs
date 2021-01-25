@@ -42,7 +42,7 @@ namespace DancingGoat.Controllers
                 new LanguageParameter(language),
                 new ElementsParameter("url_pattern"))).Items.FirstOrDefault();
 
-            if (!(item is IDetailItem detaiItem))
+            if (item is not IDetailItem detaiItem)
             {
                 return NotFound();
             }
