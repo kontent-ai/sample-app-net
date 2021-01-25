@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Kentico.Kontent.Delivery.Abstractions.ILanguage>
+
+<cache expires-sliding="@TimeSpan.FromHours(1)">
+    <nav role="navigation">
+        <ul class="dropdown-items-list dropdown-desktop-visible">
+            @foreach (var lang in Model)
+            {
+                <li>
+                    @{
+                        var culture = new System.Globalization.CultureInfo(lang.System.Codename);
+                        if (culture.Parent != null)
+                        {
+                            // Get parent culture family to simplify language names
+                            culture = culture.Parent;
+                        }
+                    }
+                    @Html.ActionLink(culture.EnglishName, "Index", "Languages", new
+                    {
+                        itemId = (Model as IDetailItem)?.Id,
+                        itemType = (Model as IDetailItem)?.Type,
+                        language = lang.System.Codename,
+                        originalAction = ViewContext.RouteData.Values["action"].ToString(),
+                        originalController = ViewContext.RouteData.Values["controller"].ToString()
+                    })
+                </li>
+
+            }
+        </ul>
+    </nav>
+</cache>

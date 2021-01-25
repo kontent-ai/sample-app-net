@@ -21,7 +21,7 @@ namespace DancingGoat.Repositories
 
         public async Task<IEnumerable<Cafe>> GetCafes(string language, string country = null, string order = "system.name")
         {
-            List<IQueryParameter> parameters = new List<IQueryParameter>() { new LanguageParameter(language) };
+            List<IQueryParameter> parameters = new() { new LanguageParameter(language) };
             if(!string.IsNullOrEmpty(country))
             {
                 parameters.Add(new EqualsFilter($"elements.{Cafe.CountryCodename}", "USA"));

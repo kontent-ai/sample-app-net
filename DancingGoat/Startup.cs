@@ -9,6 +9,7 @@ using Kentico.Kontent.Delivery.Abstractions;
 using Kentico.Kontent.Delivery.Extensions;
 using Kentico.Kontent.Management.Helpers;
 using Kentico.Kontent.Management.Helpers.Configuration;
+using Kentico.Kontent.Delivery.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -48,7 +49,7 @@ namespace DancingGoat
             services.AddDeliveryClient(Configuration);
 
             // Register a second client for the configuration wizard
-            services.AddDeliveryClient(ReferenceClient, Configuration, $"{nameof(AppConfiguration)}:{nameof(DeliveryOptions)}");
+            services.AddDeliveryClient(ReferenceClient, Configuration, $"{nameof(AppConfiguration)}:{nameof(DeliveryOptions)}", NamedServiceProviderType.Autofac);
 
             // Repositories
             services.AddSingleton<ICafesRepository, CafesRepository>();
