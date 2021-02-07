@@ -21,7 +21,7 @@
                 <img-asset asset="@Model.ProductImage.First()" />
             </figure>
             <div class="description">
-                @Html.Raw(string.Join("\n", Model.ProductShortDescription?.Blocks ?? (Model.ProductLongDescription?.Blocks ?? Enumerable.Empty<IRichTextBlock>())))
+                @Html.Raw(string.Join("\n", Model.ProductShortDescription ?? (Model.ProductLongDescription ?? Enumerable.Empty<IRichTextBlock>())))
                 @RenderSection("ProductSpecificProperties", false)
             </div>
         </div>
