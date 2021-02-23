@@ -67,4 +67,3 @@ The app demonstrates the usage of the [`Kentico.AspNetCore.LocalizedRouting`](ht
 
 Check out the [contributing](CONTRIBUTING.md) page to see the best places to file issues, start discussions, and begin contributing.
 
-![Analytics](https://kentico-ga-beacon.azurewebsites.net/api/UA-69014260-4/Kentico/kontent-sample-app-net?pixel)
