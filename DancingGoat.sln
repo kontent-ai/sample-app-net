@@ -5,7 +5,13 @@ VisualStudioVersion = 16.0.29721.120
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DancingGoat", "DancingGoat\DancingGoat.csproj", "{4C2669B4-B63F-4617-AA10-2B0A6B95A5E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DancingGoat.Tests", "DancingGoat.Tests\DancingGoat.Tests.csproj", "{DF46AB6F-1418-4A13-83C9-E4193F385015}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DancingGoat.Tests", "DancingGoat.Tests\DancingGoat.Tests.csproj", "{DF46AB6F-1418-4A13-83C9-E4193F385015}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{095F7640-8C3B-4F92-BFF8-068726EE7BFD}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\integrate.yml = .github\workflows\integrate.yml
+		publish.ps1 = publish.ps1
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
