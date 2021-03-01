@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
@@ -28,3 +28,15 @@ jobs:
     - name: Build self-contained apps for Windows, Linux, and macOS
       shell: pwsh
       run: ./publish.ps1
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: "Web sites"
+        path: ./artifacts
+    - uses: fixpoint/azblob-upload-artifact@v4
+      with:
+        connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
+        container: kontent-sample-app-net
+        cleanup: true
+        name: kontent-sample-app-net-win-x86.zip
+        path: ./artifacts
