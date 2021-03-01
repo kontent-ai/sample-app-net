@@ -1,5 +1,6 @@
 # Kentico Kontent sample ASP.NET Core MVC web application
 [![Build & Test](https://github.com/Kentico/kontent-sample-app-net/actions/workflows/integrate.yml/badge.svg)](https://github.com/Kentico/kontent-sample-app-net/actions/workflows/integrate.yml)
+[![codecov](https://codecov.io/gh/Kentico/kontent-sample-app-net/branch/master/graph/badge.svg?token=hj8JmDzLjJ)](https://codecov.io/gh/Kentico/kontent-sample-app-net)
 [![Stack Overflow](https://img.shields.io/badge/Stack%20Overflow-ASK%20NOW-FE7A16.svg?logo=stackoverflow&logoColor=white)](https://stackoverflow.com/tags/kentico-kontent)
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://azuredeploy.net/)
 
