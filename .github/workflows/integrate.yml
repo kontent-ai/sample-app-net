@@ -38,5 +38,5 @@ jobs:
         connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
         container: kontent-sample-app-net
         cleanup: true
-        name: kontent-sample-app-net-win-x86.zip
+        name: kontent-sample-app-net
         path: ./artifacts
