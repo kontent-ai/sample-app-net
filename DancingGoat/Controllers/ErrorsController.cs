@@ -9,5 +9,10 @@ namespace DancingGoat.Controllers
             Response.StatusCode = 404;
             return View();
         }
+
+        public ActionResult Error()
+        {
+            return View();
+        }
     }
 }

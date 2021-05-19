@@ -1,17 +1,25 @@
 ﻿@model DancingGoat.Models.EditPanelViewModel
 
 <div class="edit-mode-panel">
-    <div>
-        <div class="edit-mode-panel__toggle">
-            <label class="switch">
-                <input id="edit-mode-switch" type="checkbox" onchange="toggleEditMode(this.checked)" autocomplete="off">
-                <span class="slider round"></span>
-            </label>
-        </div>
-        <div class="edit-mode-panel__caption">
-            <span class="edit-mode-panel__title">Edit mode</span>
+    <div class="edit-toggle">
+        <label class="edit-toggle__switch">
+            <input id="edit-mode-switch" type="checkbox" onchange="toggleEditMode(this.checked)" autocomplete="off">
+            <span class="slider round"></span>
+        </label>
+        <div class="edit-toggle__caption">
+            <span class="edit-toggle__title">Edit mode</span>
         </div>
     </div>
+    <div class="preview-toggle">
+        <label class="preview-toggle__switch">
+            <input class="preview-mode-switch" type="checkbox" onchange="trySetPreviewModeValue(this.checked, '@Model.ProjectGuid', true)" autocomplete="off">
+            <span class="slider round"></span>
+        </label>
+        <div class="preview-toggle__caption">
+            <span class="preview-toggle__title">Preview mode</span>
+        </div>
+    </div>
+
     <div class="edit-mode-panel__navigate-link">
         <a target="_blank" href="@Model.ItemUrl">Open content item in Kontent</a>
     </div>

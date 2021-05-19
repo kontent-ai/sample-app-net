@@ -6,6 +6,26 @@ This is a sample website written in ASP.NET Core 3.1 that uses the [Kentico Kont
 
 You can register your account for free at <https://app.kontent.ai>.
 
+## Quick start
+
+This version is modified to provide a single default instance for Sample project available from Quickstart screen.
+
+It receives the Project ID from a subdomain and renders respective sample content.
+https://f096e16bc2cd00f5771fb984dfc4c31d.dancinggoat-sample.com/
+
+Besides that, it provides a footer with preview mode onboarding where you can easily enable and later toggle preview mode by just entering preview API key.
+
+### Quick start local testing and development
+
+To run and debug the quick start version in ISS (with the domain wildcard)
+
+* Make sure you have .NET Core SDK installed
+* Create an IIS site with .NET Core application pool (No managed code) and domain binding for *.kontent-sample-app-net.com
+* Add the desired project-based domains to the hosts file, e.g. `127.0.0.1 0197821771cc009bc0b83a8eb5c4f3d7.kontent-sample-app-net.com`
+* Run the app in Debug mode with *IIS - Project ID from subdomain* profile selected
+
+If you are missing anything, VS should tell you what's wrong.
+
 ## Application setup
 
 You can run the app in two following ways:

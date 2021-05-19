@@ -82,10 +82,14 @@ namespace DancingGoat.Helpers.Extensions
         /// <param name="language">Codename of language variant</param>
         public static async Task EditPanelAsync(this IHtmlHelper htmlHelper, IConfiguration configuration, string itemId, string language)
         {
-            if (configuration.GetSection(nameof(DeliveryOptions)).Get<DeliveryOptions>().UsePreviewApi)
+            var deliveryOptions = configuration.GetSection(nameof(DeliveryOptions)).Get<DeliveryOptions>();
+            if (deliveryOptions.UsePreviewApi)
             {
                 var itemUrl = GetItemUrl(language, itemId, configuration);
-                var editPanelViewModel = new EditPanelViewModel() { ItemUrl = itemUrl };
+                var editPanelViewModel = new EditPanelViewModel() {
+                    ItemUrl = itemUrl,
+                    ProjectGuid = deliveryOptions.ProjectId
+                };
                 await htmlHelper.RenderPartialAsync("EditModePanel", editPanelViewModel);
             }
         }

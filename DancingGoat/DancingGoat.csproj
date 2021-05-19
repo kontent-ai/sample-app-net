@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <TypeScriptToolsVersion>3.5</TypeScriptToolsVersion>
+    <UserSecretsId>71643ae4-5d80-4cf7-af90-defcbd1fada2</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,6 +20,7 @@
     <PackageReference Include="Kentico.Kontent.Delivery" Version="14.0.0-alpha2" />
     <PackageReference Include="Kentico.Kontent.Recommender" Version="6.0.0" />
     <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.76" />
+    <PackageReference Include="Scrutor" Version="3.3.0" />
   </ItemGroup>
 
   <ItemGroup>

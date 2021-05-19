@@ -1,7 +1,11 @@
-﻿namespace DancingGoat.Models
+﻿using System;
+
+namespace DancingGoat.Models
 {
     public class EditPanelViewModel
     {
         public string ItemUrl { get; set; }
+
+        public string ProjectGuid { get; set; }
     }
 }

@@ -1,0 +1,65 @@
+﻿@model string
+<div class="footer-fixed-bottom">
+    <div class="footer-fixed-bottom__content">
+        <div class="footer-caption">
+            <i class="icon-info-circle"></i>
+            This sample website displays content from your Kentico Kontent Sample Project. With preview mode on, it includes unpublished content. <a class="info-cloud" href="#" onclick="showLearnMore(event, true);  return false;">Learn more</a>
+        </div>
+        <div class="preview-toggle">
+            <label class="preview-toggle__switch">
+                <input class="preview-mode-switch" type="checkbox" onchange="trySetPreviewModeValue(this.checked, '@Model', true)" autocomplete="off">
+                <span class="slider round"></span>
+            </label>
+            <div class="preview-toggle__caption">
+                <span class="preview-toggle__title">Preview mode</span>
+            </div>
+        </div>
+        <div class="edit-in-cloud-button">
+            <a target="_blank" href="https://app.kontent.ai/@Model" class="btn-cloud btn-cloud__padding btn-cloud-info">
+                <i class="btn-pen"></i> Edit in Kentico Kontent
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- The Modal -->
+<div id="modal-dialog" class="modal-dialog">
+    <div class="modal-dialog__container">
+        <div class="modal-dialog__pane">
+            <div class="modal-dialog__header">
+                <div class="modal-dialog__header-title">
+                    <h3>Sample website</h3>
+                </div>
+                <div class="modal-dialog__header-close">
+                    <a href="#" onclick="showLearnMore(event, false); return false;" class="modal-dialog__header__button-close">&times;</a>
+                </div>
+            </div>
+            <div class="modal-dialog__content">
+                <p>For demo purposes, we have deployed this website for you.</p>
+                <p>See how to:</p>
+                <ul>
+                    <li>
+                        <a target="_blank" href="https://app.kontent.ai/@Model" class="info-cloud">Edit content in your Sample Project</a> and see the changes on this website.
+                    </li>
+                    <li>
+                        <a class="info-cloud" target="_blank" href="https://docs.kontent.ai/tutorials/develop-apps/get-started/running-a-sample-application?tech=dotnet">Run the sample website locally</a> by yourself.
+                    </li>
+                    <li>
+                        <a class="info-cloud" target="_blank" href="https://docs.kontent.ai/tutorials/write-and-collaborate/preview-content/previewing-unpublished-content">Preview changes to your content</a> before it's published.
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-dialog__footer">
+                <div>
+                    <a target="_blank" href="#" onclick="showLearnMore(event, false); return false;" class="btn-cloud btn-cloud-cancel">
+                        Cancel
+                    </a>
+                </div>
+                <div>
+                    <a target="_blank" href="https://docs.kontent.ai/tutorials/develop-apps/get-started/running-a-sample-application?tech=dotnet#a-making-changes-to-your-project" class="btn-cloud btn-cloud-info">Edit content</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
