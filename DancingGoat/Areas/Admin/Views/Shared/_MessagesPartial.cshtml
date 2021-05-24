@@ -1,12 +1,13 @@
-﻿@{
+﻿@using DancingGoat.Areas.Admin.Models
+@{
     const string imagePathPattern = "~/images/Admin/{0}.svg";
     var routeDataMessageBody = Context.Request.Query["MessageBody"].FirstOrDefault();
     var routeDataMessageType = Context.Request.Query["MessageType"].FirstOrDefault();
-    DancingGoat.Areas.Admin.Models.MessageModel viewBagMessage = null;
+    MessageModel viewBagMessage = null;
     string imageName = null;
     string imagePath = null;
 
-    if (!string.IsNullOrEmpty(ViewBag.Message))
+    if (ViewBag.Message != null)
     {
         viewBagMessage = ViewBag.Message;
         imageName = viewBagMessage.MessageType.ToString().ToLowerInvariant();
@@ -15,21 +16,22 @@
 
     if (!string.IsNullOrEmpty(routeDataMessageType))
     {
-        imageName = routeDataMessageType.ToString().ToLowerInvariant();
+        imageName = routeDataMessageType.ToLowerInvariant();
         imagePath = string.Format(imagePathPattern, imageName);
     }
 }
 
-@{
+@functions
+{
     void MessageImage(string source, string altText)
     {
-        <img src="@source" height="44" width="44" alt="@altText" />
+        <img class="user-message__img" src="@source" alt="@altText" />
     }
 }
 
 @if ((!string.IsNullOrEmpty(ViewBag.ErrorMessage)) || (!string.IsNullOrEmpty(routeDataMessageBody)))
 {
-    <section class="messages">
+    <section class="messages kk-container">
         <h2 class="hidden">Message</h2>
         @{
             if (viewBagMessage != null)

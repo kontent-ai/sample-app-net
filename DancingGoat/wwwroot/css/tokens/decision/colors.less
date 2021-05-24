@@ -1,0 +1,124 @@
+@color-link: @color-sky-blue70;
+@color-link-hover: @color-sky-blue90;
+@color-icon-default: @color-black;
+@color-icon-large-default: @color-gray80;
+@color-icon-default-on-dark: @color-white;
+
+@color-focus: @color-symbio-blue;
+
+@color-background-dragged: @color-background-disabled;
+@color-background-hover: fade(@color-gray100, 10%);
+@color-table-row-background-hover: overlay(@color-background-hover, @color-white);
+@color-background-highlighted: @color-yellow10;
+@color-background-selected: @color-kentico-orange10;
+@color-background-selected-hover: @color-kentico-orange20;
+
+// Background color for text selection highlight - transparent to be able to combine with other text highlights (e.g. comments)
+@color-background-text-selection: fade(@color-xperience-blue50, 30%);
+// Background color for text selection highlight - not transparent to properly override the underlying element background instead of mixing with it
+@color-background-block-selection: @color-xperience-blue20;
+
+@color-product: @color-kentico-orange55;
+@color-product-hover: @color-kentico-orange70;
+@color-product-hover-complementary: @color-kentico-orange10;
+@color-product-selected: @color-kentico-orange70;
+@color-product-disabled: @color-kentico-orange30;
+
+@color-success-text: @color-persian-green60;
+@color-success-icon: @color-persian-green50;
+@color-success-background-high-emphasis: @color-persian-green60;
+
+@color-info-background-low-emphasis: @color-navy-blue10;
+@color-info-background-high-emphasis: @color-navy-blue60;
+@color-info-text: @color-navy-blue60;
+@color-info-icon: @color-navy-blue50;
+
+@color-warning-background-low-emphasis: @color-yellow10;
+@color-warning-background-high-emphasis: @color-yellow40;
+@color-warning-text: @color-yellow60;
+@color-warning-icon: @color-yellow50;
+
+@color-alert-background-low-emphasis: @color-red10;
+@color-alert-background-high-emphasis: @color-red60;
+@color-alert-text: @color-red60;
+@color-alert-icon: @color-red50;
+
+@color-alert-hover: @color-red70;
+@color-alert-focus: @color-red60;
+@color-alert-active: @color-alert-hover;
+
+@color-folder-icon: @color-yellow30;
+@color-folder-icon-active: @color-yellow40;
+
+@color-background-disabled: @color-gray20;
+@color-background-disabled-complementary: @color-gray30;
+@color-background-element-disabled: @color-gray10;
+@color-icon-disabled: @color-gray50;
+
+@color-background-block-selection: @color-xperience-blue20;
+
+@color-border-default: @color-gray40;
+@color-border-alert: @color-alert-text;
+@color-border-disabled: @color-gray30;
+@color-border-active: @color-cool-gray100;
+@color-border-hover: @color-border-active;
+
+@color-input-background: transparent;
+@color-input-border: @color-border-default;
+
+@color-forbidden-content: @color-border-alert;
+@color-forbidden-formatting-background: rgba(@color-red40, 0.35);
+
+@color-skeleton-background: @color-cool-gray10;
+.color-skeleton-content() {
+	.gradient-cool-gray-very-light();
+}
+
+@color-text-default-on-light: @color-gray100;
+@color-text-default-on-dark: @color-white;
+@color-text-disabled: @color-gray50;
+@color-text-hint: @color-gray60;
+@color-text-low-emphasis: @color-gray70;
+@color-text-hint-hover: @color-cool-gray100;
+@color-text-hint-selected: @color-text-default-on-light;
+
+@color-toggle-icon-selected: @color-icon-large-default;
+@color-toggle-text-selected: @color-text-default-on-light;
+@color-toggle-text: @color-gray70;
+@color-toggle-icon: @color-gray60;
+
+@color-comment-background-highlighted: @color-yellow20;
+@color-comment-background-selected: @color-yellow30;
+@color-suggestion-background-highlighted: @color-purple20;
+@color-suggestion-background-selected: @color-purple30;
+
+@color-overlay-background: fade(@color-navy-blue70, 40%);
+
+@color-sidebar-background: rgba(@color-navy-blue30, 0.2);
+
+@color-divider-default: @color-cool-gray20;
+@color-divider-table: @color-navy-blue30;
+@color-divider-disabled: @color-gray40;
+
+@color-monospace-background: rgba(@color-gray50, 0.35);
+
+@guard-gradients-angle-to-right: 90;
+@guard-gradients-angle-to-left: 270;
+@guard-gradients-angle-to-up: 360;
+@guard-gradients-angle-to-bottom: 180;
+
+.compose-guard-color(@angle) {
+	background-image: linear-gradient(@angle, @color-xperience-blue10, transparent);
+}
+
+@color-diff-format: @color-sky-blue20;
+@color-diff-format-border: @color-sky-blue60;
+@color-diff-negative: @color-red20;
+@color-diff-negative-border: @color-red60;
+@color-diff-positive: @color-neon-green10;
+@color-diff-positive-border: @color-neon-green60;
+
+@color-bar-item-background: @color-navy-blue20;
+@color-bar-item-background-hover: @color-navy-blue30;
+@color-bar-item-background-expansion: @color-white;
+@color-bar-item-title: @color-text-low-emphasis;
