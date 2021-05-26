@@ -1,0 +1,15 @@
+{
+  "name": "DancingGoat",
+  "version": "1.0.0",
+  "scripts": {
+    "build-less-admin": "lessc ./Styles/admin/Admin.less ./wwwroot/css/admin.css --source-map",
+    "build-less-site": "lessc ./Styles/site/Site.less ./wwwroot/css/site.css --source-map",
+    "build": "npm run build-less-admin && npm run build-less-site",
+    "watch-less": "watch \"npm run build\" ./Styles",
+    "dev": "npm run watch-less"
+  },
+  "devDependencies": {
+    "less": "4.1.1",
+    "watch": "1.0.2"
+  }
+}

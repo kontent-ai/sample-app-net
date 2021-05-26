@@ -257,3 +257,9 @@ paket-files/
 reports/
 publish/
 Scripts/tools/
+
+# Ignore style build outputs
+DancingGoat/wwwroot/css/**/*.css
+DancingGoat/wwwroot/css/**/*.css.map
+DancingGoat/Styles/**/*.css
+DancingGoat/Styles/**/*.css.map
