@@ -36,6 +36,10 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Watch Include="**\*.css" />
+  </ItemGroup>
+
   <Target Name="GenerateModels" BeforeTargets="BeforeBuild;BeforeRebuild">
     <PropertyGroup>
       <PowerShellExe Condition=" '$(PowerShellExe)'=='' ">%WINDIR%\System32\WindowsPowerShell\v1.0\powershell.exe</PowerShellExe>

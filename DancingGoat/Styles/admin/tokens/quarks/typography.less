@@ -1,0 +1,137 @@
+@import "../quarks/font-family";
+@import "../quarks/font-size";
+@import "../quarks/font-weight";
+@import "../quarks/line-height";
+
+.create-typography-style(@font-family, @font-size, @font-weight, @line-height) {
+	font-family: @font-family;
+	font-size: @font-size;
+	font-weight: @font-weight;
+	line-height: @line-height;
+}
+
+.create-action-style(@font-family, @font-size, @font-weight, @line-height) {
+	font-family: @font-family;
+	font-size: @font-size;
+	font-weight: @font-weight;
+	line-height: @line-height;
+	letter-spacing: @letter-spacing-l;
+	text-transform: uppercase;
+}
+
+@letter-spacing-l: 0.1ch;
+
+.typography-styles-headline-large() {
+	.create-typography-style(@font-family-product-primary, @font-size-xl, @font-weight-bold, @line-height-xxl);
+}
+
+.typography-styles-headline-medium() {
+	.create-typography-style(@font-family-product-primary, @font-size-l, @font-weight-bold, @line-height-xl);
+}
+
+.typography-styles-headline-small() {
+	.create-typography-style(@font-family-product-primary, @font-size-m, @font-weight-bold, @line-height-m);
+}
+
+.typography-styles-subheadline() {
+	.create-typography-style(@font-family-product-primary, @font-size-m, @font-weight-regular, @line-height-m);
+}
+
+.typography-styles-subheadline-large() {
+	.create-typography-style(@font-family-product-primary, @font-size-l, @font-weight-regular, @line-height-l);
+}
+
+.typography-styles-title-large() {
+	.create-typography-style(@font-family-product-primary, @font-size-m, @font-weight-medium, @line-height-m);
+}
+
+.typography-styles-title-medium() {
+	.create-typography-style(@font-family-product-primary, @font-size-s, @font-weight-medium, @line-height-m);
+}
+
+.typography-styles-title-small() {
+	.create-typography-style(@font-family-product-primary, @font-size-xs, @font-weight-medium, @line-height-s);
+}
+
+.typography-styles-body-large() {
+	.create-typography-style(@font-family-product-secondary, @font-size-l, @font-weight-regular, @line-height-xl);
+}
+
+.typography-styles-body-medium() {
+	.create-typography-style(@font-family-product-secondary, @font-size-m, @font-weight-regular, @line-height-l);
+}
+
+.typography-styles-body-small() {
+	.create-typography-style(@font-family-product-secondary, @font-size-s, @font-weight-regular, @line-height-m);
+}
+
+.typography-styles-body-large-emphasis() {
+	.create-typography-style(@font-family-product-secondary, @font-size-l, @font-weight-medium, @line-height-xl);
+}
+
+.typography-styles-body-medium-emphasis() {
+	.create-typography-style(@font-family-product-secondary, @font-size-m, @font-weight-medium, @line-height-l);
+}
+
+.typography-styles-body-small-emphasis() {
+	.create-typography-style(@font-family-product-secondary, @font-size-s, @font-weight-medium, @line-height-m);
+}
+
+.typography-styles-label-large() {
+	.create-typography-style(@font-family-product-primary, @font-size-m, @font-weight-regular, @line-height-m);
+}
+
+.typography-styles-label-medium() {
+	.create-typography-style(@font-family-product-primary, @font-size-s, @font-weight-regular, @line-height-m);
+}
+
+.typography-styles-label-small() {
+	.create-typography-style(@font-family-product-primary, @font-size-xs, @font-weight-regular, @line-height-xs);
+}
+
+.typography-styles-label-large-emphasis() {
+	.create-typography-style(@font-family-product-primary, @font-size-m, @font-weight-medium, @line-height-m);
+}
+
+.typography-styles-label-medium-emphasis() {
+	.create-typography-style(@font-family-product-primary, @font-size-s, @font-weight-medium, @line-height-m);
+}
+
+.typography-styles-label-small-emphasis() {
+	.create-typography-style(@font-family-product-primary, @font-size-xs, @font-weight-medium, @line-height-xs);
+}
+
+.typography-styles-caption() {
+	.create-typography-style(@font-family-product-primary, @font-size-xs, @font-weight-regular, @line-height-xs);
+}
+
+.typography-styles-action-large() {
+	.create-action-style(@font-family-product-primary, @font-size-m, @font-weight-bold, @line-height-xl);
+}
+
+.typography-styles-action-medium() {
+	.create-action-style(@font-family-product-primary, @font-size-s, @font-weight-bold, @line-height-m);
+}
+
+.typography-styles-action-small() {
+	.create-action-style(@font-family-product-primary, @font-size-s, @font-weight-medium, @line-height-m);
+}
+
+.typography-styles-ui-paragraph() {
+	.create-typography-style(@font-family-product-primary, @font-size-l, @font-weight-regular, @line-height-xl);
+}
+
+.typography-styles-font-icon(@icon-size) {
+	font-family: "kentico-icons-reskin";
+	font-size: @icon-size;
+	// Better Font Rendering on OSX
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-style: normal;
+	font-weight: @font-weight-regular;
+	font-variant: normal;
+	line-height: 1;
+	letter-spacing: normal;
+	text-transform: none;
+	speak: none;
+}
