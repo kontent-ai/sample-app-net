@@ -5,8 +5,38 @@
 [![Discord](https://img.shields.io/discord/821885171984891914?label=Discord&logo=Discord&logoColor=white)](https://discord.gg/SKCxwPtevJ)
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://azuredeploy.net/)
 
-This is a sample ASP.NET Core MVC app that uses the [Kentico Kontent Delivery .NET SDK](https://github.com/Kentico/kontent-delivery-sdk-net) to retrieve content from Kentico Kontent.
+This is a sample website written in ASP.NET Core that uses the [Kentico Kontent Delivery .NET SDK](https://github.com/Kentico/kontent-delivery-sdk-net) to manage and retrieve content from Kentico Kontent. For a brief walkthrough, read [Running the .NET sample app](https://docs.kontent.ai/tutorials/develop-apps/get-started/running-a-sample-application?tech=dotnet) on our Developer Hub.
 
+## Quick start
+
+This version is modified to provide a single default instance for Sample project available from Quickstart screen.
+
+It receives the Project ID from a subdomain and renders respective sample content. By default, the shared sample project ID is used for development convenience.
+
+https://975bf280fd91488c994c2f04416e5ee3.dancinggoat-sample.com/
+
+Besides that, it provides a footer with preview mode onboarding where you can easily enable and later toggle preview mode by just entering preview API key.
+
+### Quick start local testing and development
+
+To run and debug the **quick start version in IIS** (with the domain wildcard):
+
+* Make sure you have .NET Core SDK installed
+* Make sure you have IIS enabled as a Windows feature
+* Create an IIS site with .NET Core application pool (No managed code) and domain binding for *.kontent-sample-app-net.com
+* Add the desired project-based domains to the hosts file, e.g. `127.0.0.1 975bf280fd91488c994c2f04416e5ee3.kontent-sample-app-net.com`
+* Run the app in Debug mode with *IIS - Project ID from subdomain* profile selected
+
+If you are missing anything, VS should tell you what's wrong (Rider just won't run the configuration).
+
+To run and debug the **quick start version in IIS Express**:
+* Make sure you have .NET Core runtime installed
+* Make sure you have .NET Core hosting bundle installed
+* Make sure you have IIS Express installed (usually bundled with one of Visual Studio's web development packages)
+* Add desired project ID into *appsettings.json* (e.g. `975bf280-fd91-488c-994c-2f04416e5ee3`)
+* Run the app in Debug mode with *IIS express* profile selected
+
+If your Visual Studio or Rider have trouble running the .NET Core app in IIS Express, checkout their respective *applicationhost.config*. More details can be found in (a great article on the topic)[https://blog.maartenballiauw.be/post/2019/02/26/asp-net-core-iis-express-empty-error-starting-application.html#fixing-the-applicationhostconfig-template]  
 
 ## Getting started
 

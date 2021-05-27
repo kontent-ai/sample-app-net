@@ -2,6 +2,7 @@
 using DancingGoat.Infrastructure;
 using DancingGoat.Models;
 using DancingGoat.Repositories;
+using DancingGoat.Utils;
 using Kentico.AspNetCore.LocalizedRouting.Extensions;
 using Kentico.Kontent.AspNetCore.ImageTransformation;
 using Kentico.Kontent.Delivery;
@@ -50,6 +51,9 @@ namespace DancingGoat
 
             // Register a second client for the configuration wizard
             services.AddDeliveryClient(ReferenceClient, Configuration, $"{nameof(AppConfiguration)}:{nameof(DeliveryOptions)}", NamedServiceProviderType.Autofac);
+
+            // Quickstart override for delivery client based on project id from domain
+            services.AddScopedDomainBasedDeliveryClientFactory();
 
             // Repositories
             services.AddSingleton<ICafesRepository, CafesRepository>();
