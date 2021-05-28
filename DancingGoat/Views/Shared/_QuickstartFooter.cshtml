@@ -1,0 +1,109 @@
+﻿@model string
+<div class="footer-fixed-bottom">
+    <div class="quickstart-panel">
+        @if (ViewData["Title"].ToString()?.Trim() == @Localizer["AboutUs"].ToString().Trim())
+        {
+            <div class="component-switch-wrapper">
+                <input id="edit-mode-switch"
+                       autocomplete="off"
+                       hidden
+                       onchange="toggleEditMode(this.checked)"
+                       type="checkbox" />
+                <label class="component-switch" for="edit-mode-switch">
+                </label>
+                <span class="component-switch__label">Edit mode</span>
+            </div>
+        }
+        else
+        {
+            <div class="quickstart-icon-i-circle"></div>
+            <div class="quickstart-panel__preview-mode-description">
+                This sample website displays content from your Kentico Kontent Sample Project. With preview mode on, it includes unpublished content.
+            </div>
+            <a class="quickstart-panel__learn-more"
+               href="#"
+               onclick="showLearnMore(event, true);  return false;">
+                Learn more
+            </a>
+        }
+        <div class="quickstart-panel__preview-mode-toggle">
+            <div class="component-switch-wrapper">
+                <input id="quickstart-preview-mode-switch"
+                       autocomplete="off"
+                       hidden
+                       onchange="trySetPreviewModeValue(this.checked, '@Model', true)"
+                       type="checkbox" />
+
+                <label class="component-switch" for="quickstart-preview-mode-switch">
+                </label>
+                <span class="component-switch__label">Preview mode</span>
+            </div>
+        </div>
+        <a class="button button--small button-primary quickstart-panel__edit-in-kk-button"
+           target="_blank"
+           href="https://app.kontent.ai/@Model">
+            <div class="quickstart-icon-edit"></div> Edit in Kentico Kontent
+        </a>
+    </div>
+</div>
+
+<!-- The Modal -->
+<div id="modal-dialog" class="modal-dialog">
+    <div class="modal-dialog__container">
+        <div class="modal-dialog__pane">
+            <div class="modal-dialog__header">
+                <h3 class="modal-dialog__header-title">
+                    Sample website
+                </h3>
+                <a href="#"
+                    onclick="showLearnMore(event, false); return false;"
+                    class="modal-dialog__close-button">
+                    <div class="quickstart-icon-times"></div>
+                </a>
+            </div>
+            <div class="modal-dialog__content">
+                <p>For demo purposes, we have deployed this website for you.</p>
+                <p class="modal-dialog__how-to">See how to:</p>
+                <ul class="modal-dialog__how-to-list">
+                    <li>
+                        <a class="modal-dialog__link"
+                           target="_blank"
+                           href="https://app.kontent.ai/@Model">
+                            Edit content in your Sample Project
+                        </a>
+                        and see the changes on this website.
+                    </li>
+                    <li>
+                        <a class="modal-dialog__link"
+                           target="_blank"
+                           href="https://docs.kontent.ai/tutorials/develop-apps/get-started/running-a-sample-application?tech=dotnet">
+                            Run the sample website locally
+                        </a>
+                        by yourself.
+                    </li>
+                    <li>
+                        <a class="modal-dialog__link"
+                           target="_blank"
+                           href="https://docs.kontent.ai/tutorials/write-and-collaborate/preview-content/previewing-unpublished-content">
+                            Preview changes to your content
+                        </a>
+                        before it's published.
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-dialog__footer">
+                <a target="_blank"
+                   href="#"
+                   onclick="showLearnMore(event, false); return false;"
+                   class="button button-secondary modal-dialog__footer-button">
+                    Cancel
+                </a>
+                <a target="_blank"
+                   href="https://docs.kontent.ai/tutorials/develop-apps/get-started/running-a-sample-application?tech=dotnet#a-making-changes-to-your-project"
+                   class="button button-primary modal-dialog__footer-button">
+                    Edit content
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

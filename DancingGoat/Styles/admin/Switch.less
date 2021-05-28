@@ -1,0 +1,105 @@
+@import "./tokens/decision/colors";
+@import "./tokens/quarks/border";
+@import "./tokens/quarks/colors";
+@import "./tokens/quarks/shadow";
+@import "./tokens/quarks/spacing";
+@import "./tokens/quarks/typography";
+
+@transition-easing: cubic-bezier(0.23, 1, 0.32, 1);
+@transition-250: 250ms @transition-easing 50ms;
+
+@base-width-medium: (4.5 * @grid-unit);
+@base-height-medium: (2.5 * @grid-unit);
+
+@trigger-diameter-on: (2 * @grid-unit);
+@trigger-diameter-off: (1.75 * @grid-unit);
+
+@trigger-padding-on: ((@base-height-medium - @trigger-diameter-on) / 2);
+@trigger-padding-off: ((@base-height-medium - @trigger-diameter-off) / 2);
+
+@trigger-hover-color: @color-gray20;
+
+.component-switch-wrapper {
+	display: flex;
+	align-items: center;
+}
+
+.component-switch {
+	position: relative;
+	display: inline-block;
+	width: @base-width-medium;
+	height: @base-height-medium;
+	vertical-align: middle;
+	cursor: pointer;
+	background: @color-gray70;
+	border-radius: @border-radius-pill;
+	transition: @transition-250;
+
+	&:before {
+		position: absolute;
+		top: @trigger-padding-off;
+		left: @trigger-padding-off;
+		width: @trigger-diameter-off;
+		height: @trigger-diameter-off;
+		background: @color-white;
+		border-radius: 50%;
+		content: "";
+		transition: @transition-250;
+	}
+}
+
+.component-switch:focus {
+	.shadow-focus-styles();
+}
+
+.component-switch:hover {
+	background: @color-gray70;
+
+	&:before {
+		background: @trigger-hover-color;
+	}
+}
+
+input:checked + .component-switch {
+	background: @color-product;
+
+	&:before {
+		top: @trigger-padding-on;
+		left: (@base-width-medium - @trigger-diameter-on - @trigger-padding-on);
+		width: @trigger-diameter-on;
+		height: @trigger-diameter-on;
+	}
+}
+
+input:checked + .component-switch:hover {
+	background: @color-product-hover;
+
+	&:before {
+		background: @trigger-hover-color;
+	}
+}
+
+input:disabled + .component-switch {
+	cursor: not-allowed;
+	background: @color-background-disabled;
+
+	&:before {
+		background: @color-gray60;
+	}
+}
+
+input:checked:disabled + .component-switch {
+	cursor: not-allowed;
+	background: @color-product-disabled;
+
+	&:before {
+		background: @color-white;
+	}
+}
+
+.component-switch__label {
+	.typography-styles-label-medium();
+	margin-left: @spacing-s;
+	color: @color-text-default-on-light;
+	white-space: nowrap;
+}

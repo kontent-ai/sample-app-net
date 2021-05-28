@@ -1,4 +1,4 @@
-﻿const previewModeToggleClassname = 'preview-mode-switch';
+﻿const previewModeToggleId = 'quickstart-preview-mode-switch';
 const previewModeCookieName = 'IsPreviewMode';
 const previewApiKeyCookieName = 'PreviewApiKey';
 const enterPreviewApiKeyFirstMessage = 'Enter your Preview API key';
@@ -6,7 +6,7 @@ const enterPreviewApiKeyNextMessage = 'Enter your Delivery Preview API key -- yo
 const enterPreviewApiKeyPromptTitle = 'Preview API key';
 const requestPreviewKeyPromptSearchParam = 'promptPreviewKey';
 
-const previewModeToggle = document.getElementsByClassName(previewModeToggleClassname).item(0);
+const previewModeToggle = document.getElementById(previewModeToggleId);
 const isPreviewModeEnabled = getCookie(previewModeCookieName);
 previewModeToggle.checked = isPreviewModeEnabled === 'true' ? true : false;
 
@@ -69,7 +69,7 @@ function enterPreviewApiKey(isFirstTry , projectId) {
     const message = isFirstTry  ? enterPreviewApiKeyFirstMessage : enterPreviewApiKeyNextMessage;
     const previewApiKey = prompt(message, enterPreviewApiKeyPromptTitle);
     if (previewApiKey === null) {
-        const previewModeToggle = document.getElementsByClassName(previewModeToggleClassname).item(0);
+        const previewModeToggle = document.getElementById(previewModeToggleId);
         previewModeToggle.checked = false;
     } else {
         validatePreviewApiKey(previewApiKey, projectId)
