@@ -1,0 +1,109 @@
+@import "../tokens/decision/colors";
+@import "../tokens/decision/border";
+@import "../tokens/decision/spacing";
+@import "../tokens/decision/typography";
+@import "../tokens/quarks/box-shadow";
+@import "../tokens/quarks/colors";
+@import "../tokens/quarks/icon-size";
+@import "../tokens/quarks/spacing";
+@import "../tokens/quarks/typography";
+
+.modal-dialog {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: @color-overlay-background;
+    z-index: 9999;
+    display: none;
+
+    &__container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 900;
+        display: flex;
+        width: 100%;
+        min-height: 80vh;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__pane {
+        position: absolute;
+        min-width: (50 * @grid-unit);
+        width: (75 * @grid-unit);
+        padding: @spacing-card;
+        background: @color-white;
+        border-radius: @border-radius-card;
+        box-shadow: @box-shadow-l;
+    }
+
+    &__header {
+        display: flex;
+        align-items: center;
+        max-width: 100%;
+    }
+
+    &__header-title {
+        .typography-card-headline();
+        margin: 0;
+        flex-grow: 1;
+    }
+
+    &__close-button {
+        display: block;
+        padding: @spacing-xs;
+
+        &:hover {
+            background-color: @color-background-hover;
+            border-radius: @border-radius-s;
+        }
+    }
+
+    &__content {
+        .typography-styles-ui-paragraph();
+        margin-top: @spacing-xl;
+    }
+
+    &__how-to {
+        margin-bottom: 0;
+    }
+
+    &__how-to-list {
+        margin-top: @spacing-s;
+        padding-left: @spacing-xl;
+    }
+
+    &__link {
+        color: @color-link;
+        text-decoration: underline;
+
+        &:hover {
+            color: @color-link-hover;
+            text-decoration: underline;
+        }
+    }
+
+    &__footer {
+        justify-content: flex-end;
+        display: flex;
+        margin-top: @spacing-xl;
+    }
+
+    &__footer-button {
+        text-decoration: none;
+
+        & + & {
+            margin-left: @spacing-m;
+        }
+    }
+}
+
+.quickstart-icon-times {
+    width: @icon-size-s;
+    height: @icon-size-s;
+    background: url("/images/times.svg") center center no-repeat;
+}
