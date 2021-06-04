@@ -41,6 +41,7 @@ jobs:
       with:
         name: "Web sites"
         path: ./artifacts
+    # Used for testing sample app with sample project data in i.e. QA environment - reach out to Kontent DevOps for more information    
     - uses: fixpoint/azblob-upload-artifact@v4
       with:
         connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
