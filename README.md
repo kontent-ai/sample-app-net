@@ -12,7 +12,8 @@ This is a sample ASP.NET Core MVC app that uses the [Kentico Kontent Delivery .N
 
 To run the app:
 1. Clone the app repository with your favorite GIT client
-1. Open the _DancingGoat.sln_ solution file in VS or VS Code
+1. Run `npm install && npm run build` in the `DancingGoat` directory ([node.js](https://nodejs.org/) must be installed before running this command)
+1. Open the `DancingGoat.sln` solution file in VS or VS Code
 1. Run the app
 1. Follow the setup wizard or
 1. Alternatively, adjust the `\DancingGoat\appsettings.json` file:
