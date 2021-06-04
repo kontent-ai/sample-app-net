@@ -1,0 +1,44 @@
+@message-error-background: #F38480;
+@message-info-background: #89CFFA;
+
+.user-message {
+    background-repeat: no-repeat;
+    background-position: 28px 28px;
+    background-size: 2em 2em;
+    border-collapse: separate;
+    color: #FFFFFF;
+    padding: 2em;
+}
+
+.message-info {
+    background-color: @message-info-background;
+}
+
+.message-error {
+    background-color: @message-error-background;
+}
+
+.user-message__img {
+    height: 44px;
+    width: 44px;
+
+    &--error {
+        background: url("/images/error-white.svg") no-repeat center center;
+    }
+
+    &--info {
+        background: url("/images/info-white.svg") no-repeat center center;
+    }
+}
+
+.user-message p {
+    margin: 0;
+}
+
+.user-message p {
+    padding: 0 0 0 20px;
+}
+
+table.user-message td {
+    vertical-align: top;
+}

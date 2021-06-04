@@ -1,0 +1,27 @@
+@import "./tokens/quarks/spacing";
+
+.kk-container {
+  margin: 0 auto;
+  padding: 0 @spacing-xl;
+  max-width: (1000px + 2 * @spacing-xl);
+}
+
+.col {
+  flex: 1;
+}
+
+@screen-width-lg: 900px;
+
+@media (min-width: @screen-width-lg) {
+  .row-lg {
+    display: flex;
+  }
+
+  .row-lg--align-start {
+    align-items: flex-start;
+  }
+
+  .col + .col {
+    margin-left: @spacing-xl;
+  }
+}

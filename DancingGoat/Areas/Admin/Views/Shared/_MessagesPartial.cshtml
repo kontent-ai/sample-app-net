@@ -1,35 +1,36 @@
-﻿@{
-    const string imagePathPattern = "~/images/Admin/{0}.svg";
+﻿@using DancingGoat.Areas.Admin.Models
+@{
     var routeDataMessageBody = Context.Request.Query["MessageBody"].FirstOrDefault();
     var routeDataMessageType = Context.Request.Query["MessageType"].FirstOrDefault();
-    DancingGoat.Areas.Admin.Models.MessageModel viewBagMessage = null;
+    MessageModel viewBagMessage = null;
     string imageName = null;
-    string imagePath = null;
 
-    if (!string.IsNullOrEmpty(ViewBag.Message))
+    if (ViewBag.Message != null)
     {
         viewBagMessage = ViewBag.Message;
-        imageName = viewBagMessage.MessageType.ToString().ToLowerInvariant();
-        imagePath = string.Format(imagePathPattern, imageName);
+        imageName = CreateImageNameFromMessageType(viewBagMessage.MessageType);
     }
 
     if (!string.IsNullOrEmpty(routeDataMessageType))
     {
-        imageName = routeDataMessageType.ToString().ToLowerInvariant();
-        imagePath = string.Format(imagePathPattern, imageName);
+        imageName = routeDataMessageType.ToLowerInvariant();
     }
 }
 
-@{
-    void MessageImage(string source, string altText)
+@functions
+{
+    static string CreateImageNameFromMessageType(MessageType messageType)
+        => messageType.ToString().ToLowerInvariant();
+
+    void MessageImage(string imageName)
     {
-        <img src="@source" height="44" width="44" alt="@altText" />
+        <div class="user-message__img user-message__img--@imageName"></div>
     }
 }
 
 @if ((!string.IsNullOrEmpty(ViewBag.ErrorMessage)) || (!string.IsNullOrEmpty(routeDataMessageBody)))
 {
-    <section class="messages">
+    <section class="messages kk-container">
         <h2 class="hidden">Message</h2>
         @{
             if (viewBagMessage != null)
@@ -37,7 +38,7 @@
                 <table class="user-message message-@imageName">
                     <tr>
                         <td>
-                            @{ MessageImage(Url.Content(imagePath), string.Empty); }
+                            @{ MessageImage(imageName); }
                         </td>
                         <td>
                             <p>
@@ -53,7 +54,7 @@
                 <table class="user-message message-@imageName">
                     <tr>
                         <td>
-                            @{ MessageImage(Url.Content(imagePath), string.Empty); }
+                            @{ MessageImage(imageName); }
                         </td>
                         <td>
                             <p>
@@ -73,7 +74,7 @@ else
         <table class="user-message message-error">
             <tr>
                 <td>
-                    @{ MessageImage(Url.Content(string.Format(imagePathPattern, "error")), "Error"); }
+                    @{ MessageImage(CreateImageNameFromMessageType(MessageType.Error)); }
                 </td>
                 <td>
                     <p class="message-text"></p>
