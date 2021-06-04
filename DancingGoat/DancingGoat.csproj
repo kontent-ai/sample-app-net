@@ -27,7 +27,6 @@
     <Folder Include="Areas\Admin\Views\SelfConfig\" />
     <Folder Include="Areas\Admin\Views\Shared\EditorTemplates\" />
     <Folder Include="Models\ContentTypes\" />
-    <Folder Include="wwwroot\css\admin\" />
     <Folder Include="wwwroot\images\Admin\" />
   </ItemGroup>
 
@@ -35,6 +34,10 @@
     <None Update="UrlRewrite.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Watch Include="**\*.css" />
   </ItemGroup>
 
   <Target Name="GenerateModels" BeforeTargets="BeforeBuild;BeforeRebuild">

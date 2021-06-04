@@ -1,0 +1,9 @@
+@base-box-shadow-color: @color-black;
+@additional-box-shadow-color: @color-navy-blue90;
+
+@base-box-shadow: 0 0 @grid-unit 0 fade(@base-box-shadow-color, 3%);
+
+@box-shadow-xs: @base-box-shadow;
+@box-shadow-s: @base-box-shadow, 0 @grid-unit (1.75 * @grid-unit) 0 fade(@additional-box-shadow-color, 8%);
+@box-shadow-m: @base-box-shadow, 0 @grid-unit (1.75 * @grid-unit) 0 fade(@additional-box-shadow-color, 16%);
+@box-shadow-l: @base-box-shadow, 0 @grid-unit (4 * @grid-unit) 0 fade(@additional-box-shadow-color, 24%);

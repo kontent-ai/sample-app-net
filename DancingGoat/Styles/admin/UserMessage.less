@@ -1,0 +1,39 @@
+﻿@import "./tokens/decision/border";
+@import "./tokens/decision/colors";
+@import "./tokens/quarks/colors";
+@import "./tokens/quarks/icon-size";
+
+.hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.user-message {
+    margin-top: @spacing-xl;
+
+    & td {
+        padding: 0;
+    }
+}
+
+.user-message__img {
+    height: @icon-size-m;
+    width: @icon-size-m;
+    margin-right: @spacing-s;
+    margin-top: 2px;
+
+    &--error {
+        background: url("/images/Admin/error-red.svg") no-repeat center center;
+    }
+
+    &--info {
+        background: url("/images/Admin/info-black.svg") no-repeat center center;
+    }
+}

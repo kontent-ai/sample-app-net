@@ -1,4 +1,5 @@
-﻿@import "./variables.less";
+@message-error-background: #F38480;
+@message-info-background: #89CFFA;
 
 .user-message {
     background-repeat: no-repeat;
@@ -13,15 +14,24 @@
     background-color: @message-info-background;
 }
 
-.message-warning {
-    background-color: @message-warning-background;
-}
-
 .message-error {
     background-color: @message-error-background;
 }
 
-.user-message img, .user-message p {
+.user-message__img {
+    height: 44px;
+    width: 44px;
+
+    &--error {
+        background: url("/images/error-white.svg") no-repeat center center;
+    }
+
+    &--info {
+        background: url("/images/info-white.svg") no-repeat center center;
+    }
+}
+
+.user-message p {
     margin: 0;
 }
 

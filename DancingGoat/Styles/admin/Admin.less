@@ -1,0 +1,112 @@
+﻿@import "./tokens/decision/border";
+@import "./tokens/decision/colors";
+@import "./tokens/decision/spacing";
+@import "./tokens/quarks/colors";
+@import "./tokens/quarks/gradients";
+@import "./tokens/quarks/typography";
+@import "./Button";
+@import "./fonts";
+@import "./layout";
+@import "./UserMessage";
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    color: @color-text-default-on-light;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
+p {
+    margin: 0;
+    .typography-styles-ui-paragraph();
+}
+
+.headline-large {
+    .typography-styles-headline-large();
+}
+
+.headline-medium {
+    .typography-styles-headline-medium();
+}
+
+.gradient-desk {
+    .gradient-desk();
+    min-height: 100vh;
+}
+
+.color-alert-text {
+    color: @color-alert-text;
+}
+
+.paper {
+    background: @color-white;
+    border-radius: @border-radius-card;
+    padding: @spacing-xl;
+}
+
+.margin-top-l {
+    margin-top: @spacing-l;
+}
+
+.margin-top-xl {
+    margin-top: @spacing-xl;
+}
+
+.padding-bottom-xl {
+    padding-bottom: @spacing-xl;
+}
+
+.logo-link {
+    text-decoration: none;
+    display: block;
+}
+
+.logo {
+    height: @size-l;
+    margin: @spacing-xxl 0 @spacing-3xl;
+}
+
+.project-id-form {
+    display: flex;
+
+    &__input {
+        .typography-styles-body-medium();
+        line-height: normal;
+        border-radius: @border-radius-input;
+        border: @border-width-default solid @color-border-default;
+        padding: 0 @spacing-l;
+        min-width: 20ch;
+        width: 100%;
+        max-width: 40ch;
+
+        @media (min-width: @screen-width-lg) {
+            max-width: none;
+        }
+
+        &::placeholder {
+            color: @color-text-hint;
+            opacity: 1;
+        }
+
+        &:hover {
+            border-color: @color-border-hover;
+        }
+
+        &:focus {
+            border-color: @color-border-active;
+            outline: none;
+        }
+    }
+
+    &__submit-button {
+        margin-left: @spacing-s;
+    }
+}

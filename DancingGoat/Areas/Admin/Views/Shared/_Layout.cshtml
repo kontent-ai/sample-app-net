@@ -1,22 +1,18 @@
 ﻿<!DOCTYPE html>
 
-<html>
+<html lang="en">
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,600,700,700i&amp;subset=latin-ext">
-    <link rel="stylesheet" href="@Url.Content("~/css/Admin/Admin.css")" type="text/css" />
+    <link rel="stylesheet" href="@Url.Content("~/css/admin.css")" type="text/css" />
     @RenderSection("headers", false)
 </head>
-<body>
-    <div class="logotype-row">
-        <div class="content">
-            <div class="logotype">
-                <a href="/" class="logotype-link">
-                    <img src="~/images/Admin/kk-logo-hor-white-neg-rgb.svg" alt="Kentico Kontent logo" />
-                </a>
-            </div>
-        </div>
+<body class="gradient-desk padding-bottom-xl">
+    <div class="kk-container">
+        <a href="/" class="logo-link">
+            <img class="logo" src="~/images/Admin/kk-logo.svg" alt="Kentico Kontent logo" />
+        </a>
     </div>
     @RenderBody()
     @RenderSection("Scripts", required: false)
