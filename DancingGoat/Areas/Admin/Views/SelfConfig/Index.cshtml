@@ -9,7 +9,7 @@
 <header>
     <div class="kk-container">
         <h1 class="headline-large">@ViewBag.Title</h1>
-        <p class="margin-top-xl">For your sample app to work, you should have a Kentico Kontent project containing content. Your app should be then configured with its project ID. You can either get it by signing in using your Kentico Kontent credentials or by signing up for a trial. Later, it will be converted to a free plan.</p>
+        <p class="margin-top-xl">For your sample app to work, you should have a Kontent project containing content. Your app should be then configured with its project ID. You can either get it by signing in using your Kontent credentials or by signing up for a trial. Later, it will be converted to a free plan.</p>
     </div>
 </header>
 @{ await Html.RenderPartialAsync("~/Areas/Admin/Views/Shared/_MessagesPartial.cshtml"); }
@@ -21,7 +21,7 @@
         var left = (window.screen.width / 2) - ((w / 2) + 10);
         var top = (window.screen.height / 2) - ((h / 2) + 50);
 
-        window.open("@(Config.Value.KenticoKontentUrl.TrimEnd('/'))/sample-site-configuration", "Kentico Kontent",
+        window.open("@(Config.Value.KenticoKontentUrl.TrimEnd('/'))/sample-site-configuration", "Kontent",
             "status=no,height=" + w + ",width=" + h + ",resizable=yes,left="
             + left + ",top=" + top + ",screenX=" + left + ",screenY="
             + top + ",toolbar=no,menubar=no,location=no,directories=no");
@@ -47,7 +47,7 @@
     <section class="paper margin-top-xl">
         <h2 class="headline-medium">Get a Project ID</h2>
         <p class="margin-top-l">You may wish to either select from existing projects or create a new sample project. The app will be configured with its project ID.</p>
-        <button class="button button-primary margin-top-xl" onclick="openKenticoKontent()">Get Project ID from Kentico Kontent</button>
+        <button class="button button-primary margin-top-xl" onclick="openKenticoKontent()">Get Project ID from Kontent</button>
         @using (Html.BeginForm("UseSelected", "SelfConfig", FormMethod.Post, new { id = "set-configuration-from-kc" }))
         {
             @Html.HiddenFor(m => m.ProjectGuid, new { id = "project-guid-from-kc" })
