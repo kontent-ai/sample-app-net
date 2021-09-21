@@ -19,7 +19,7 @@ namespace DancingGoat.Areas.Admin.Controllers
             ;
 
         protected const string MESSAGE_SHARED_PROJECT =
-            "You've configured your app to with a project ID of a shared Kentico Kontent project.";
+            "You've configured your app to with a project ID of a shared Kontent project.";
 
         protected const string MESSAGE_INVALID_PROJECT_GUID = "ProjectId is not valid GUID.";
 

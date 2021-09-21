@@ -1,11 +1,11 @@
-# Kentico Kontent sample ASP.NET Core MVC web application
+# Kontent sample ASP.NET Core MVC web application
 [![Build & Test](https://github.com/Kentico/kontent-sample-app-net/actions/workflows/integrate.yml/badge.svg)](https://github.com/Kentico/kontent-sample-app-net/actions/workflows/integrate.yml)
 [![codecov](https://codecov.io/gh/Kentico/kontent-sample-app-net/branch/master/graph/badge.svg?token=hj8JmDzLjJ)](https://codecov.io/gh/Kentico/kontent-sample-app-net)
 [![Stack Overflow](https://img.shields.io/badge/Stack%20Overflow-ASK%20NOW-FE7A16.svg?logo=stackoverflow&logoColor=white)](https://stackoverflow.com/tags/kentico-kontent)
 [![Discord](https://img.shields.io/discord/821885171984891914?label=Discord&logo=Discord&logoColor=white)](https://discord.gg/SKCxwPtevJ)
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://azuredeploy.net/)
 
-This is a sample ASP.NET Core MVC app that uses the [Kentico Kontent Delivery .NET SDK](https://github.com/Kentico/kontent-delivery-sdk-net) to retrieve content from Kentico Kontent.
+This is a sample ASP.NET Core MVC app that uses the [Kontent Delivery .NET SDK](https://github.com/Kentico/kontent-delivery-sdk-net) to retrieve content from [Kontent by Kentico](https://kontent.ai).
 
 
 ## Getting started
@@ -31,7 +31,7 @@ Follow the [step-by-step tutorial](https://docs.kontent.ai/tutorials/develop-app
 
 ### Edit mode & preview
 
-Content contributors sometimes need to fix errors or typos right when they see them on the website. The sample app allows users to navigate from a piece of content on the site straight to the corresponding content item or element in Kentico Kontent. 
+Content contributors sometimes need to fix errors or typos right when they see them on the website. The sample app allows users to navigate from a piece of content on the site straight to the corresponding content item or element in Kontent. 
 
 To see Edit mode in action:
 

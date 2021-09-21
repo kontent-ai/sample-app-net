@@ -1,5 +1,5 @@
 ﻿<parameters>
-  <parameter name="Application Path" description="Full site path where you would like to install the Kentico Kontent MVC Sample App (i.e., Default Web Site/KenticoKontentSampleMvc)" defaultValue="Default Web Site/KenticoKontentSampleMvc" tags="iisapp">
+  <parameter name="Application Path" description="Full site path where you would like to install the Kontent MVC Sample App (i.e., Default Web Site/KenticoKontentSampleMvc)" defaultValue="Default Web Site/KenticoKontentSampleMvc" tags="iisapp">
     <parameterEntry type="ProviderPath" scope="iisapp" match="KenticoKontentSampleMvc" />
   </parameter>
   <parameter

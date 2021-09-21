@@ -9,12 +9,12 @@ namespace DancingGoat
     public class AppConfiguration
     {
         /// <summary>
-        /// URL of the Kentico Kontent app
+        /// URL of the Kontent app
         /// </summary>
         public string KenticoKontentUrl { get; set; }
 
         /// <summary>
-        /// Delivery options referencing the default Kentico Kontent sample project.
+        /// Delivery options referencing the default Kontent sample project.
         /// </summary>
         public DeliveryOptions DefaultDeliveryOptions { get; set; }
 
