@@ -25,7 +25,7 @@ To run the app:
     ```
 
 ## Tutorial
-Follow the [step-by-step tutorial](https://docs.kontent.ai/tutorials/develop-apps/get-started/run-sample-app?tech=dotnet) for even more details.
+Follow the [step-by-step tutorial](https://kontent.ai/learn/tutorials/develop-apps/get-started/run-sample-app?tech=dotnet) for even more details.
 
 ## Features
 
@@ -54,7 +54,7 @@ To explore how the functionality is implemented, navigate to the [`TagHelpers`](
 
 ### Responsive images
 
-The sample app contains a sample implementation of the `img-asset` tag helper from the [Kentico.Kontent.AspNetCore](https://www.nuget.org/packages/Kentico.Kontent.AspNetCore) NuGet package. Using the `img-asset` tag helper, you can easily create an `img` tag with `srcset` and `sizes` attributes. Read more about image transformation API in the [docs](https://docs.kontent.ai/reference/image-transformation).
+The sample app contains a sample implementation of the `img-asset` tag helper from the [Kentico.Kontent.AspNetCore](https://www.nuget.org/packages/Kentico.Kontent.AspNetCore) NuGet package. Using the `img-asset` tag helper, you can easily create an `img` tag with `srcset` and `sizes` attributes. Read more about [image transformation API](https://kontent.ai/learn/reference/image-transformation).
 You can adjust the behavir in the `appsettings.json` file.
 
 ```json
