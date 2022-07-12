@@ -20,7 +20,7 @@
     <PackageReference Include="Kentico.Kontent.Management.Helpers" Version="3.0.4" />
     <PackageReference Include="Kentico.Kontent.Delivery" Version="16.0.1" />
     <PackageReference Include="Kentico.Kontent.Recommender" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.113" />
+    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.175" />
     <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
   </ItemGroup>
 
