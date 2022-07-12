@@ -4,7 +4,7 @@
   "libraries": [
     {
       "provider": "cdnjs",
-      "library": "twitter-bootstrap@3.3.7",
+      "library": "twitter-bootstrap@5.1.3",
       "destination": "wwwroot/lib/bootstrap/"
     },
     {
@@ -14,7 +14,7 @@
     },
     {
       "provider": "cdnjs",
-      "library": "jquery-validate@1.19.1",
+      "library": "jquery-validate@1.19.5",
       "destination": "wwwroot/lib/jquery-validate/"
     },
     {
@@ -29,7 +29,7 @@
     },
     {
       "provider": "cdnjs",
-      "library": "less.js@3.9.0",
+      "library": "less.js@4.1.3",
       "destination": "wwwroot/lib/less.js/"
     }
   ]
