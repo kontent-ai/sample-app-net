@@ -8,8 +8,8 @@ using Kentico.Kontent.Recommender;
 using Kentico.AspNetCore.LocalizedRouting.Attributes;
 using Kentico.Kontent.Delivery.Abstractions;
 using DancingGoat.Configuration;
-using Kentico.Kontent.Delivery.Urls.QueryParameters;
-using Kentico.Kontent.Delivery.Urls.QueryParameters.Filters;
+using Kentico.Kontent.Urls.Delivery.QueryParameters;
+using Kentico.Kontent.Urls.Delivery.QueryParameters.Filters;
 
 namespace DancingGoat.Controllers
 {
