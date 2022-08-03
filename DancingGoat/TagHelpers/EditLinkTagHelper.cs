@@ -1,5 +1,5 @@
-﻿using Kentico.Kontent.Management.Helpers;
-using Kentico.Kontent.Management.Helpers.Models;
+﻿using Kontent.Ai.Management.Helpers;
+using Kontent.Ai.Management.Helpers.Models;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace DancingGoat.TagHelpers

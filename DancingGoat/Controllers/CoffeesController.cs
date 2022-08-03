@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Kentico.AspNetCore.LocalizedRouting.Attributes;
-using Kentico.Kontent.Delivery.Abstractions;
+using Kontent.Ai.Delivery.Abstractions;
 using DancingGoat.Configuration;
-using Kentico.Kontent.Urls.Delivery.QueryParameters.Filters;
-using Kentico.Kontent.Urls.Delivery.QueryParameters;
+using Kontent.Ai.Urls.Delivery.QueryParameters.Filters;
+using Kontent.Ai.Urls.Delivery.QueryParameters;
 
 namespace DancingGoat.Controllers
 {

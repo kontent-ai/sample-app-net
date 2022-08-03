@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using DancingGoat.Areas.Admin.Models;
 using DancingGoat.Configuration;
 using DancingGoat.Helpers;
-using Kentico.Kontent.Delivery.Abstractions;
+using Kontent.Ai.Delivery.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 

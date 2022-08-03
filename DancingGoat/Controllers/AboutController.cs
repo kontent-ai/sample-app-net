@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using DancingGoat.Configuration;
 using DancingGoat.Models;
 using Kentico.AspNetCore.LocalizedRouting.Attributes;
-using Kentico.Kontent.Delivery.Abstractions;
-using Kentico.Kontent.Management.Helpers.Models;
-using Kentico.Kontent.Urls.Delivery.QueryParameters;
+using Kontent.Ai.Delivery.Abstractions;
+using Kontent.Ai.Management.Helpers.Models;
+using Kontent.Ai.Urls.Delivery.QueryParameters;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DancingGoat.Controllers

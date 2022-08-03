@@ -1,6 +1,6 @@
 ﻿using DancingGoat.Models;
 using Kentico.AspNetCore.LocalizedRouting;
-using Kentico.Kontent.Delivery.Abstractions;
+using Kontent.Ai.Delivery.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;

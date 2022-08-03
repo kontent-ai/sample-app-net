@@ -1,6 +1,6 @@
 ﻿using System;
 using DancingGoat.Areas.Admin.Models;
-using Kentico.Kontent.Delivery.Abstractions;
+using Kontent.Ai.Delivery.Abstractions;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Options;
 

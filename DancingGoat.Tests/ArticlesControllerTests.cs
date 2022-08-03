@@ -1,8 +1,8 @@
 ﻿using DancingGoat.Controllers;
 using DancingGoat.Models;
 using Moq;
-using Kentico.Kontent.Delivery;
-using Kentico.Kontent.Delivery.Abstractions;
+using Kontent.Ai.Delivery;
+using Kontent.Ai.Delivery.Abstractions;
 using RichardSzalay.MockHttp;
 using System;
 using System.IO;
@@ -11,7 +11,7 @@ using Xunit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
-using Kentico.Kontent.Delivery.Builders.DeliveryClient;
+using Kontent.Ai.Delivery.Builders.DeliveryClient;
 
 namespace DancingGoat.Tests
 {
