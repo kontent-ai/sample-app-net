@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using DancingGoat.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Kentico.Kontent.Recommender;
 using Kentico.AspNetCore.LocalizedRouting.Attributes;
 using Kontent.Ai.Delivery.Abstractions;
 using DancingGoat.Configuration;
@@ -53,37 +52,7 @@ namespace DancingGoat.Controllers
             }
             else
             {
-                try
-                {
-                    var article = response.Items[0];
-                    var recommendationApiKey = _configuration.GetValue<string>("RecommendationApiKey");
-
-                    // If the recommender API key is present
-                    if (!string.IsNullOrWhiteSpace(recommendationApiKey))
-                    {
-                        /* Get recommendations from the Recommendation engine */
-                        var recommendationClient = new RecommendationClient(recommendationApiKey, 5);
-                        var lastMonth = TimeSpan.FromDays(30).Milliseconds;
-
-                        var recommendedArticles = await recommendationClient
-                            .CreateRequest(Request, Response, codename: article.System.Codename, limit: 2, contentType: article.System.Type)
-                            //.WithFilterQuery("\"personas=Barista\" in 'properties'")
-                            //.WithBoosterQuery($"if 'lastupdated' >= now() - {lastMonth} then 2 else 1")
-                            .Execute();
-
-                        var articles = (await _client.GetItemsAsync<Article>(new InFilter("system.codename", recommendedArticles.Select(a => a.Codename).ToArray()))).Items;
-                        article.RelatedArticles = articles.Select(a => (object)a);
-                        return View(article);
-                    }
-                    else
-                    {
-                        return View(article);
-                    }
-                }
-                catch (Exception)
-                {
-                    return View(response.Items[0]);
-                }
+                return View(response.Items[0]);
             }
         }
     }
