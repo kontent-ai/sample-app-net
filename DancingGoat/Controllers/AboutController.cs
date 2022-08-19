@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using DancingGoat.Configuration;
 using DancingGoat.Models;
-using Kentico.AspNetCore.LocalizedRouting.Attributes;
+using AspNetCore.Mvc.Routing.Localization.Attributes;
 using Kontent.Ai.Delivery.Abstractions;
 using Kontent.Ai.Management.Helpers.Models;
 using Kontent.Ai.Urls.Delivery.QueryParameters;

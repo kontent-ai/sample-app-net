@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using DancingGoat.Models;
 using Microsoft.AspNetCore.Mvc;
 using Kontent.Ai.Delivery.Abstractions;
-using Kentico.AspNetCore.LocalizedRouting;
+using AspNetCore.Mvc.Routing.Localization;
 using Kontent.Ai.Urls.Delivery.QueryParameters;
 using Kontent.Ai.Urls.Delivery.QueryParameters.Filters;
 
@@ -22,10 +22,9 @@ namespace DancingGoat.Controllers
 
         public async Task<ActionResult> Index([FromQuery]Guid itemId, [FromQuery]string originalAction, [FromQuery]string itemType, [FromQuery]string originalController, [FromQuery]string language)
         {
-            var translatedController = await _localizedRoutingProvider.ProvideRouteAsync(language, originalController, originalController, ProvideRouteType.OriginalToTranslated);
-            var tranclatedAction = await _localizedRoutingProvider.ProvideRouteAsync(language, originalAction, originalController, ProvideRouteType.OriginalToTranslated);
+            var translatedRouteInfo = await _localizedRoutingProvider.ProvideRouteAsync(language, originalController, originalAction, LocalizationDirection.OriginalToTranslated);
 
-            if(tranclatedAction == null || translatedController == null)
+            if(translatedRouteInfo == null)
             {
                 return NotFound();
             }
@@ -33,7 +32,7 @@ namespace DancingGoat.Controllers
             // Specific item is not selected, url will not be changed after redirect
             if (itemId == Guid.Empty || string.IsNullOrEmpty(itemType))
             {
-                return RedirectToAction(tranclatedAction, translatedController, new { culture = language });
+                return RedirectToAction(translatedRouteInfo.Action, translatedRouteInfo.Controller, new { culture = language });
             }
 
             var item = (await _client.GetItemsAsync<object>(
@@ -48,7 +47,7 @@ namespace DancingGoat.Controllers
             }
 
 
-            return RedirectToAction(tranclatedAction, translatedController, new { culture = language, urlSlug = detaiItem.UrlPattern });
+            return RedirectToAction(translatedRouteInfo.Action, translatedRouteInfo.Controller, new { culture = language, urlSlug = detaiItem.UrlPattern });
         }
     }
 }

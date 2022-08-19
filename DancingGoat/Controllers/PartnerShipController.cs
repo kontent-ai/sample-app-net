@@ -1,5 +1,5 @@
 ﻿using DancingGoat.Configuration;
-using Kentico.AspNetCore.LocalizedRouting.Attributes;
+using AspNetCore.Mvc.Routing.Localization.Attributes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DancingGoat.Controllers

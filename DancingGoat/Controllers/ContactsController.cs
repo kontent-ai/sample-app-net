@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using DancingGoat.Models;
 using Microsoft.AspNetCore.Mvc;
-using Kentico.AspNetCore.LocalizedRouting.Attributes;
+using AspNetCore.Mvc.Routing.Localization.Attributes;
 using DancingGoat.Repositories;
 using DancingGoat.Configuration;
 

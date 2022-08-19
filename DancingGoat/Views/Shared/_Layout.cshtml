@@ -1,12 +1,14 @@
 ﻿@using DancingGoat.Models
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewBag.Title - Dancing Goat</title>
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
+
 <body>
     <div class="page-wrap">
         <header class="header" role="banner">
@@ -19,6 +21,9 @@
                             </li>
                             <li>
                                 <a asp-controller="Coffees" asp-action="Index">@Localizer["Store"]</a>
+                            </li>
+                            <li>
+                                <a asp-controller="Coffees" asp-action="Index">Test</a>
                             </li>
                             <li>
                                 <a asp-controller="Articles" asp-action="Index">@Localizer["Articles"]</a>
@@ -72,10 +77,12 @@
                         <div class="col-md-4 col-lg-4 footer-col">
                             <h3>@Localizer["FollowUs.Title"]</h3>
                             <a class="followus-link" href="https://www.facebook.com/Dancing.Goat" target="_blank">
-                                <img alt="@Localizer["FollowUsOnFacebook"]" class="" src="~/images/facebook-icon.png" title="@Localizer["FollowUsOnFacebook"]">
+                                <img alt="@Localizer["FollowUsOnFacebook"]" class="" src="~/images/facebook-icon.png"
+                                    title="@Localizer["FollowUsOnFacebook"]">
                             </a>
                             <a class="followus-link" href="https://twitter.com/DancingGoat78" target="_blank">
-                                <img alt="@Localizer["FollowUsOnTwitter"]" class="" src="~/images/twitter-icon.png" title="@Localizer["FollowUsOnTwitter"]">
+                                <img alt="@Localizer["FollowUsOnTwitter"]" class="" src="~/images/twitter-icon.png"
+                                    title="@Localizer["FollowUsOnTwitter"]">
                             </a>
                         </div>
                     </div>
@@ -92,4 +99,5 @@
 
     @RenderSection("Scripts", required: false)
 </body>
+
 </html>

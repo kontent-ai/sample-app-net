@@ -2,7 +2,7 @@
 using DancingGoat.Infrastructure;
 using DancingGoat.Models;
 using DancingGoat.Repositories;
-using Kentico.AspNetCore.LocalizedRouting.Extensions;
+using AspNetCore.Mvc.Routing.Localization.Extensions;
 using Kontent.Ai.AspNetCore.ImageTransformation;
 using Kontent.Ai.Delivery;
 using Kontent.Ai.Delivery.Abstractions;
@@ -18,6 +18,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using static DancingGoat.Configuration.Constants;
+using System.Globalization;
 
 namespace DancingGoat
 {
@@ -64,7 +65,12 @@ namespace DancingGoat
             services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.AddSingleton<CustomLocalizedRoutingTranslationTransformer>();
             services.AddControllersWithViews();
-            services.AddLocalizedRouting();
+            var supportedCultures = new[]
+            {
+                new CultureInfo("en-US"),
+                new CultureInfo("es-ES"),
+            };
+            services.AddLocalizedRouting(supportedCultures);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

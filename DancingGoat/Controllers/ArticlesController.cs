@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using DancingGoat.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Kentico.AspNetCore.LocalizedRouting.Attributes;
+using AspNetCore.Mvc.Routing.Localization.Attributes;
 using Kontent.Ai.Delivery.Abstractions;
 using DancingGoat.Configuration;
 using Kontent.Ai.Urls.Delivery.QueryParameters;
@@ -23,8 +23,8 @@ namespace DancingGoat.Controllers
             _configuration = configuration;
         }
 
-        [LocalizedRoute(Constants.EnglishCulture, "")]
-        [LocalizedRoute(Constants.SpanishCulture, "")]
+        [LocalizedRoute(Constants.EnglishCulture, "Index")]
+        [LocalizedRoute(Constants.SpanishCulture, "Index")]
         public async Task<ActionResult> Index()
         {
             var response = await _client.GetItemsAsync<Article>(
