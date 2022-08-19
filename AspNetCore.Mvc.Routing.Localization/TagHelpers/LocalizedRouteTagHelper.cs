@@ -6,6 +6,17 @@ using System.Threading.Tasks;
 
 namespace AspNetCore.Mvc.Routing.Localization.TagHelpers
 {
+    [HtmlTargetElement("a", Attributes = "asp-action")]
+    [HtmlTargetElement("a", Attributes = "asp-controller")]
+    [HtmlTargetElement("a", Attributes = "asp-area")]
+    [HtmlTargetElement("a", Attributes = "asp-page")]
+    [HtmlTargetElement("a", Attributes = "asp-page-handler")]
+    [HtmlTargetElement("a", Attributes = "asp-fragment")]
+    [HtmlTargetElement("a", Attributes = "asp-host")]
+    [HtmlTargetElement("a", Attributes = "asp-protocol")]
+    [HtmlTargetElement("a", Attributes = "asp-route")]
+    [HtmlTargetElement("a", Attributes = "asp-all-route-data")]
+    [HtmlTargetElement("a", Attributes = "asp-route-*")]
     public class LocalizedRouteTagHelper : AnchorTagHelper
     {
         private readonly IActionContextAccessor _contextAccessor;
