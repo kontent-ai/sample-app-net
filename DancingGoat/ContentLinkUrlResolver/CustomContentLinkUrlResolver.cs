@@ -1,11 +1,11 @@
 ﻿using DancingGoat.Models;
-using Kentico.AspNetCore.LocalizedRouting;
 using Kontent.Ai.Delivery.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using System.Globalization;
 using System.Threading.Tasks;
+using Kentico.AspNetCore.LocalizedRouting;
 
 namespace DancingGoat
 {
@@ -14,8 +14,6 @@ namespace DancingGoat
         private readonly IUrlHelperFactory _urlHelperFactory;
         private readonly IActionContextAccessor _actionContextAccessor;
         private readonly ILocalizedRoutingProvider _localizedRoutingProvider;
-
-        protected string CurrentCulture => CultureInfo.CurrentUICulture.Name;
 
         public CustomContentLinkUrlResolver(IUrlHelperFactory urlHelperFactory, IActionContextAccessor actionContextAccessor, ILocalizedRoutingProvider localizedRoutingProvider)
         {

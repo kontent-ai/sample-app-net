@@ -1,15 +1,9 @@
-﻿using DancingGoat.Configuration;
-using Kentico.AspNetCore.LocalizedRouting.Attributes;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace DancingGoat.Controllers
 {
-    [LocalizedRoute(Constants.EnglishCulture, "Partner")]
-    [LocalizedRoute(Constants.SpanishCulture, "Afiliados")]
     public class PartnerShipController : Controller
     {
-        [LocalizedRoute(Constants.EnglishCulture, "Index")]
-        [LocalizedRoute(Constants.SpanishCulture, "Indice")]
         public ActionResult Index()
         {
             ViewBag.PartnershipRequested = TempData["formApplied"] ?? false;

@@ -1,19 +1,13 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using DancingGoat.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Kentico.AspNetCore.LocalizedRouting.Attributes;
 using Kontent.Ai.Delivery.Abstractions;
-using DancingGoat.Configuration;
 using Kontent.Ai.Urls.Delivery.QueryParameters;
 using Kontent.Ai.Urls.Delivery.QueryParameters.Filters;
 
 namespace DancingGoat.Controllers
 {
-    [LocalizedRoute(Constants.EnglishCulture, "Articles")]
-    [LocalizedRoute(Constants.SpanishCulture, "Articulos")]
     public class ArticlesController : ControllerBase
     {
         private readonly IConfiguration _configuration;
@@ -22,9 +16,7 @@ namespace DancingGoat.Controllers
         {
             _configuration = configuration;
         }
-
-        [LocalizedRoute(Constants.EnglishCulture, "")]
-        [LocalizedRoute(Constants.SpanishCulture, "")]
+        
         public async Task<ActionResult> Index()
         {
             var response = await _client.GetItemsAsync<Article>(
@@ -35,9 +27,7 @@ namespace DancingGoat.Controllers
 
             return View(response.Items);
         }
-
-        [LocalizedRoute(Constants.EnglishCulture, "Show")]
-        [LocalizedRoute(Constants.SpanishCulture, "Show")]
+        
         public async Task<ActionResult> Show(string urlSlug)
         {
             var response = await _client.GetItemsAsync<Article>(

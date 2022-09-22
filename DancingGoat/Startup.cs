@@ -1,8 +1,11 @@
-﻿using DancingGoat.Configuration;
+﻿using System;
+using System.Globalization;
+using System.Threading.Tasks;
+using AngleSharp.Io;
+using DancingGoat.Configuration;
 using DancingGoat.Infrastructure;
 using DancingGoat.Models;
 using DancingGoat.Repositories;
-using Kentico.AspNetCore.LocalizedRouting.Extensions;
 using Kontent.Ai.AspNetCore.ImageTransformation;
 using Kontent.Ai.Delivery;
 using Kontent.Ai.Delivery.Abstractions;
@@ -12,6 +15,7 @@ using Kontent.Ai.Management.Helpers.Configuration;
 using Kontent.Ai.Delivery.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -45,7 +49,7 @@ namespace DancingGoat
             // Enable Delivery Client
             services.AddHttpClient<IDeliveryHttpClient, DeliveryHttpClient>();
             services.AddSingleton<ITypeProvider, CustomTypeProvider>();
-            services.AddSingleton<IContentLinkUrlResolver, CustomContentLinkUrlResolver>();
+            //services.AddSingleton<IContentLinkUrlResolver, CustomContentLinkUrlResolver>();
             services.AddDeliveryClient(Configuration);
 
             // Register a second client for the configuration wizard
@@ -59,12 +63,24 @@ namespace DancingGoat
             services.ConfigureWritable<DeliveryOptions>((IConfigurationRoot)Configuration, Configuration.GetSection(nameof(DeliveryOptions)));
 
             // I18N
-            services.ConfigureRequestLocalization(DefaultCulture, SpanishCulture);
-            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+            //services.ConfigureRequestLocalization(DefaultCulture, SpanishCulture);
+            //services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.AddLocalization(options => options.ResourcesPath = "Resources");
-            services.AddSingleton<CustomLocalizedRoutingTranslationTransformer>();
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = new[]
+                {
+                    new CultureInfo(DefaultCulture),
+                    new CultureInfo(SpanishCulture)
+                };
+
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+                
+                options.AddInitialRequestCultureProvider(new RouteRequestCultureProvider());
+
+            });
             services.AddControllersWithViews();
-            services.AddLocalizedRouting();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -92,7 +108,7 @@ namespace DancingGoat
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapDynamicControllerRoute<CustomLocalizedRoutingTranslationTransformer>("{culture=en-US}/{controller=Home}/{action=Index}/{id?}");
+                //endpoints.MapDynamicControllerRoute<CustomLocalizedRoutingTranslationTransformer>("{culture=en-US}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute("default", "{culture=en-US}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute("areas", "{area:exists}/{controller=Home}/{action=Index}/{id?}"
                 );

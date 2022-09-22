@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Kentico.AspNetCore.LocalizedRouting.Attributes;
 using Kontent.Ai.Delivery.Abstractions;
 using DancingGoat.Models;
 using DancingGoat.Configuration;
@@ -11,16 +10,12 @@ using Kontent.Ai.Urls.Delivery.QueryParameters;
 namespace DancingGoat.Controllers
 {
 
-    [LocalizedRoute(Constants.EnglishCulture, "Product")]
-    [LocalizedRoute(Constants.SpanishCulture, "Tienda")]
     public class ProductController : ControllerBase
     {
         public ProductController(IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
         {
         }
-
-        [LocalizedRoute(Constants.EnglishCulture, "Detail")]
-        [LocalizedRoute(Constants.SpanishCulture, "Detalle")]
+        
         public async Task<ActionResult> Detail(string urlSlug)
         {
             var item = (await _client.GetItemsAsync<object>(new EqualsFilter("elements.url_pattern", urlSlug), new InFilter("system.type", Brewer.Codename, Coffee.Codename), new LanguageParameter(Language))).Items.FirstOrDefault();
