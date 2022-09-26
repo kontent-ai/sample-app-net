@@ -49,7 +49,8 @@ namespace DancingGoat
             // Enable Delivery Client
             services.AddHttpClient<IDeliveryHttpClient, DeliveryHttpClient>();
             services.AddSingleton<ITypeProvider, CustomTypeProvider>();
-            //services.AddSingleton<IContentLinkUrlResolver, CustomContentLinkUrlResolver>();
+            services.AddScoped<IActionContextAccessor, ActionContextAccessor>();
+            services.AddSingleton<IContentLinkUrlResolver, CustomContentLinkUrlResolver>();
             services.AddDeliveryClient(Configuration);
 
             // Register a second client for the configuration wizard
