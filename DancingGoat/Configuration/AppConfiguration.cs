@@ -11,7 +11,7 @@ namespace DancingGoat
         /// <summary>
         /// URL of the Kontent app
         /// </summary>
-        public string KenticoKontentUrl { get; set; }
+        public string KontentUrl { get; set; }
 
         /// <summary>
         /// Delivery options referencing the default Kontent sample project.

@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
-    <PackageReference Include="Kentico.AspNetCore.LocalizedRouting" Version="1.0.0-beta2" />
     <PackageReference Include="Kontent.Ai.AspNetCore" Version="0.13.1" />
     <PackageReference Include="Kontent.Ai.Delivery.Extensions.DependencyInjection" Version="17.0.0" />
     <PackageReference Include="Kontent.Ai.Management.Helpers" Version="4.2.0" />
