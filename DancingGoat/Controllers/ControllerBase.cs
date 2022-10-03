@@ -11,7 +11,7 @@ namespace DancingGoat.Controllers
     {
         protected readonly IDeliveryClient _client;
 
-        protected string Language => CultureInfo.CurrentCulture.Name;
+        protected string Language => CultureInfo.CurrentUICulture.Name;
 
         public ControllerBase(IDeliveryClientFactory deliveryClientFactory) : this()
         {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Threading.Tasks;
 using DancingGoat.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,7 @@ using Kontent.Ai.Urls.Delivery.QueryParameters;
 using Kontent.Ai.Urls.Delivery.QueryParameters.Filters;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Localization;
 
 namespace DancingGoat.Controllers
 {
@@ -38,11 +40,8 @@ namespace DancingGoat.Controllers
                 new DepthParameter(1),
                 new LanguageParameter(Language)
             );
-            
-            var requestCultureFeature = Request.HttpContext.Features.Get<IRequestCultureFeature>();
-            var culture = requestCultureFeature?.RequestCulture.Culture;
 
-            if (response.Items[0].System.Language != culture?.Name)
+            if (response.Items[0].System.Language != Language)
             {
                 var urlParts = Request.GetDisplayUrl().Split('/');
                 urlParts[3] = response.Items[0].System.Language;
