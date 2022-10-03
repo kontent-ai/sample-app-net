@@ -10,9 +10,7 @@ namespace DancingGoat.Infrastructure;
 
 public class RouteRequestCultureProvider: RequestCultureProvider
 {
-    private string _lastlyUsedCulture = "en-US";
     private readonly List<string> _supportedCultures = new() { "en-US", "es-ES" };
-
     public override Task<ProviderCultureResult> DetermineProviderCultureResult(HttpContext httpContext)
     {
         var path = httpContext.Request.Path.ToString();
