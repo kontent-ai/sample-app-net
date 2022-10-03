@@ -64,8 +64,6 @@ namespace DancingGoat
             services.ConfigureWritable<DeliveryOptions>((IConfigurationRoot)Configuration, Configuration.GetSection(nameof(DeliveryOptions)));
 
             // I18N
-            //services.ConfigureRequestLocalization(DefaultCulture, SpanishCulture);
-            //services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.Configure<RequestLocalizationOptions>(options =>
             {
@@ -77,11 +75,13 @@ namespace DancingGoat
 
                 options.SupportedCultures = supportedCultures;
                 options.SupportedUICultures = supportedCultures;
+                options.SetDefaultCulture(DefaultCulture); ;
                 
                 options.AddInitialRequestCultureProvider(new RouteRequestCultureProvider());
-
             });
-            services.AddControllersWithViews();
+            
+            services.AddControllersWithViews()
+                .AddViewLocalization();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

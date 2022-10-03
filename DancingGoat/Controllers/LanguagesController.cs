@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Kontent.Ai.Delivery.Abstractions;
 using Kontent.Ai.Urls.Delivery.QueryParameters;
 using Kontent.Ai.Urls.Delivery.QueryParameters.Filters;
+using Microsoft.AspNetCore.Routing;
 
 namespace DancingGoat.Controllers
 {
@@ -22,8 +23,9 @@ namespace DancingGoat.Controllers
             var urlParts = referer.Split('/');
             urlParts[3] = language;
             var newUrl = String.Join('/', urlParts);
-            
-            return Redirect(newUrl);
+
+
+            return new RedirectResult(newUrl);
         }
     }
 }

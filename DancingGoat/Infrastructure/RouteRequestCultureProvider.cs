@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
@@ -16,17 +18,11 @@ public class RouteRequestCultureProvider: RequestCultureProvider
         var path = httpContext.Request.Path.ToString();
         var culture = path.Split('/')[1];
 
-        if (culture != "" && !_supportedCultures.Contains(culture))
+        if (culture == "" || !_supportedCultures.Contains(culture))
         {
-            _lastlyUsedCulture = _lastlyUsedCulture == "" ? "en-US" : _lastlyUsedCulture;
-            httpContext.Response.Redirect($"/{_lastlyUsedCulture}/404");
-        }
-        else
-        {
-            _lastlyUsedCulture = culture; 
+            culture = "en-US";
         }
 
-        
         return Task.FromResult(new ProviderCultureResult(culture));
     }
 }
