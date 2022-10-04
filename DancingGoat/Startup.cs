@@ -39,7 +39,7 @@ namespace DancingGoat
             // Enable configuration services
             services.AddOptions();
 
-            // Register the ImageTransformationOptions required by Kontent tag helpers
+            // Register the ImageTransformationOptions required by Kontent.ai tag helpers
             services.Configure<ImageTransformationOptions>(Configuration.GetSection(nameof(ImageTransformationOptions)));
 
             // Configure the Edit Link Builder

@@ -5,11 +5,11 @@
 }
 
 @inject IOptionsSnapshot<AppConfiguration> Config
-
+ 
 <header>
     <div class="kk-container">
         <h1 class="headline-large">@ViewBag.Title</h1>
-        <p class="margin-top-xl">For your sample app to work, you should have a Kontent project containing content. Your app should be then configured with its project ID. You can either get it by signing in using your Kontent credentials or by signing up for a trial. Later, it will be converted to a free plan.</p>
+        <p class="margin-top-xl">For your sample app to work, you should have a Kontent.ai project containing content. Your app should be then configured with its project ID. You can either get it by signing in using your Kontent.ai credentials or by signing up for a trial. Later, it will be converted to a free plan.</p>
     </div>
 </header>
 @{ await Html.RenderPartialAsync("~/Areas/Admin/Views/Shared/_MessagesPartial.cshtml"); }

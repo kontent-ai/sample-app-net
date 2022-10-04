@@ -41,7 +41,7 @@ jobs:
       with:
         name: "Web sites"
         path: ./artifacts
-    # Used for testing sample app with sample project data in i.e. QA environment - reach out to Kontent DevOps for more information    
+    # Used for testing sample app with sample project data in i.e. QA environment - reach out to Kontent.ai DevOps for more information    
     - name: Upload to blob storage used for QA environment testing
       if: github.ref == 'refs/heads/master'
       uses: fixpoint/azblob-upload-artifact@v4

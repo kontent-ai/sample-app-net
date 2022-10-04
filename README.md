@@ -1,11 +1,11 @@
-# Kontent sample ASP.NET Core MVC web application
+# Kontent.ai sample ASP.NET Core MVC web application
 
 [![Build & Test](https://github.com/kontent-ai/sample-app-net/actions/workflows/integrate.yml/badge.svg)](https://github.com/kontent-ai/sample-app-net/actions/workflows/integrate.yml)
-[![codecov](https://codecov.io/gh/Kentico/kontent-sample-app-net/branch/master/graph/badge.svg?token=hj8JmDzLjJ)](https://codecov.io/gh/Kentico/kontent-sample-app-net)
+[![codecov](https://codecov.io/gh/kontent-ai/sample-app-net/branch/master/graph/badge.svg?token=X90Anf22sl)](https://codecov.io/gh/kontent-ai/sample-app-net)
 [![Stack Overflow](https://img.shields.io/badge/Stack%20Overflow-ASK%20NOW-FE7A16.svg?logo=stackoverflow&logoColor=white)](https://stackoverflow.com/tags/kontent)
 [![Discord](https://img.shields.io/discord/821885171984891914?label=Discord&logo=Discord&logoColor=white)](https://discord.gg/SKCxwPtevJ)
 
-This is a sample ASP.NET Core MVC app that uses the [Kontent.ai Delivery .NET SDK](https://github.com/Kentico/kontent-delivery-sdk-net) to retrieve content from [Kontent.ai](https://kontent.ai).
+This is a sample ASP.NET Core MVC app that uses the [Kontent.ai Delivery .NET SDK](https://github.com/kontent-ai/delivery-sdk-net) to retrieve content from [Kontent.ai](https://kontent.ai).
 
 ## Getting started
 
@@ -56,11 +56,11 @@ To see Edit mode in action:
 5. Click the **Edit mode** switch in the bottom-left corner.
 
 Edit buttons will appear next to each piece of content on the page.
-To explore how the functionality is implemented, navigate to the [`TagHelpers`](https://github.com/Kentico/kontent-sample-app-net/tree/master/DancingGoat/TagHelpers) folder.
+To explore how the functionality is implemented, navigate to the [`TagHelpers`](https://github.com/kontent-ai/sample-app-net/tree/master/DancingGoat/TagHelpers) folder.
 
 ### Responsive images
 
-The sample app contains a sample implementation of the `img-asset` tag helper from the [Kontent.Ai.AspNetCore](https://www.nuget.org/packages/Kentico.Kontent.AspNetCore) NuGet package. Using the `img-asset` tag helper, you can easily create an `img` tag with `srcset` and `sizes` attributes. Read more about [image transformation API](https://kontent.ai/learn/reference/image-transformation).
+The sample app contains a sample implementation of the `img-asset` tag helper from the [Kontent.Ai.AspNetCore](https://www.nuget.org/packages/Kontent.Ai.AspNetCore) NuGet package. Using the `img-asset` tag helper, you can easily create an `img` tag with `srcset` and `sizes` attributes. Read more about [image transformation API](https://kontent.ai/learn/reference/image-transformation).
 You can adjust the behaviour in the `appsettings.json` file.
 
 ```json

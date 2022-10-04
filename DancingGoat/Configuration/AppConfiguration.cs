@@ -9,12 +9,12 @@ namespace DancingGoat
     public class AppConfiguration
     {
         /// <summary>
-        /// URL of the Kontent app
+        /// URL of the Kontent.ai app
         /// </summary>
         public string KontentUrl { get; set; }
 
         /// <summary>
-        /// Delivery options referencing the default Kontent sample project.
+        /// Delivery options referencing the default Kontent.ai sample project.
         /// </summary>
         public DeliveryOptions DefaultDeliveryOptions { get; set; }
 
