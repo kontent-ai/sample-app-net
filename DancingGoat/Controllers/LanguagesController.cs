@@ -23,8 +23,7 @@ namespace DancingGoat.Controllers
             var urlParts = referer.Split('/');
             urlParts[3] = language;
             var newUrl = String.Join('/', urlParts);
-
-
+            
             return new RedirectResult(newUrl);
         }
     }
