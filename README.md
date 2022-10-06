@@ -14,7 +14,7 @@ To run the app:
 1. Clone the app repository
 2. Run `npm install && npm run build` in the `DancingGoat` directory to build CSS files for the project ([node.js](https://nodejs.org/) must be installed before running this command)
 3. Open the `DancingGoat.sln` solution file and run the app
-4. Follow the setup wizard to setup your project or, alternatively, adjust the `\DancingGoat\appsettings.json` file:
+4. Follow the setup wizard to setup your project or adjust the `\DancingGoat\appsettings.json` file:
 
    ```jsonc
    {
@@ -25,6 +25,7 @@ To run the app:
      // ...
    }
    ```
+
 > Follow the [step-by-step tutorial](https://kontent.ai/learn/tutorials/develop-apps/get-started/run-sample-app?tech=dotnet) for even more details.
 
 ## Features
@@ -71,8 +72,8 @@ You can adjust the behaviour in the `appsettings.json` file.
 
 ### Localized routing
 
-The app demonstrates the usage of language prefixes (e.g. `/en-US/articles`) for localizing URLs for SEO purposes. Each language is identified by its codename, in case of this project it is `en-US` and `es-ES`.
-The used language is obtained from the URL in the `/DancingGoat/Infrastructure/RouteRequestCultureProvider` and set as a culture of the app. 
+The app demonstrates the usage of language prefixes (e.g. `/en-US/articles`) for localizing URLs for SEO purposes. Each language is identified by its codename, in case of this project, it is `en-US` and `es-ES`.
+The used language is obtained from the URL via `/DancingGoat/Infrastructure/RouteRequestCultureProvider` and set as the culture of the app.
 ## Get involved
 
 Check out the [contributing](CONTRIBUTING.md) page to see the best places to file issues, start discussions, and begin contributing.
