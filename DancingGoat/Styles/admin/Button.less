@@ -12,14 +12,10 @@
   box-shadow: @outer-shadow-focus, @inner-shadow-focus, @base-shadow;
 }
 
-.borderless-button-style(@bgColor, @bgColorHover, @bgColorDisabled, @shadow: 0 0) {
+.borderless-button-style(@bgColor, @bgColorHover, @bgColorDisabled) {
   background: @bgColor;
-  box-shadow: @shadow;
 
-  &:focus {
-    .shadow-focus-styles(@shadow);
-  }
-
+  &:focus,
   &.active,
   &:active,
   &:hover {
@@ -44,6 +40,6 @@
 }
 
 .button-primary {
-  .borderless-button-style(@color-product, @color-product-hover, @color-background-disabled, @primary-button-shadow);
+  .borderless-button-style(@color-kontent-ai-purple, @color-kontent-ai-black, @color-background-disabled);
   color: @color-text-default-on-dark;
 }
