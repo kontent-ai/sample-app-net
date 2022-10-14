@@ -47,7 +47,7 @@ jobs:
       uses: fixpoint/azblob-upload-artifact@v4
       with:
         connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
-        container: kontent-sample-app-net
+        container: kontent-ai-sample-app-net
         cleanup: true
-        name: kontent-sample-app-net
+        name: kontent-ai-sample-app-net
         path: ./artifacts

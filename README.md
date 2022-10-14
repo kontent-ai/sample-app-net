@@ -2,7 +2,7 @@
 
 [![Build & Test](https://github.com/kontent-ai/sample-app-net/actions/workflows/integrate.yml/badge.svg)](https://github.com/kontent-ai/sample-app-net/actions/workflows/integrate.yml)
 [![codecov](https://codecov.io/gh/kontent-ai/sample-app-net/branch/master/graph/badge.svg?token=X90Anf22sl)](https://codecov.io/gh/kontent-ai/sample-app-net)
-[![Stack Overflow](https://img.shields.io/badge/Stack%20Overflow-ASK%20NOW-FE7A16.svg?logo=stackoverflow&logoColor=white)](https://stackoverflow.com/tags/kontent)
+[![Stack Overflow](https://img.shields.io/badge/Stack%20Overflow-ASK%20NOW-FE7A16.svg?logo=stackoverflow&logoColor=white)](https://stackoverflow.com/tags/kontent-ai)
 [![Discord](https://img.shields.io/discord/821885171984891914?label=Discord&logo=Discord&logoColor=white)](https://discord.gg/SKCxwPtevJ)
 
 This is a sample ASP.NET Core MVC app that uses the [Kontent.ai Delivery .NET SDK](https://github.com/kontent-ai/delivery-sdk-net) to retrieve content from [Kontent.ai](https://kontent.ai).

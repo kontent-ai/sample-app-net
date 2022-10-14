@@ -1,10 +1,10 @@
 ﻿<parameters>
-  <parameter name="Application Path" description="Full site path where you would like to install the Kontent.ai MVC Sample App (i.e., Default Web Site/KontentAiSampleMvc)" defaultValue="Default Web Site/KenticoKontentSampleMvc" tags="iisapp">
-    <parameterEntry type="ProviderPath" scope="iisapp" match="KenticoKontentSampleMvc" />
+  <parameter name="Application Path" description="Full site path where you would like to install the Kontent.ai MVC Sample App (i.e., Default Web Site/KontentAiSampleMvc)" defaultValue="Default Web Site/KontentAiSampleMvc" tags="iisapp">
+    <parameterEntry type="ProviderPath" scope="iisapp" match="KontentAiSampleMvc" />
   </parameter>
   <parameter
   name="SetAclParameter1" description="Sets the ACL on the web.config"  defaultValue="{Application Path}/web.config" tags="Hidden">
-    <parameterEntry type="ProviderPath" scope="setAcl" match="KenticoKontentSampleMvc/web.config" />
+    <parameterEntry type="ProviderPath" scope="setAcl" match="KontentAiSampleMvc/web.config" />
   </parameter>
 </parameters>
 
