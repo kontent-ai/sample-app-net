@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using DancingGoat.Infrastructure;
 using System.Globalization;
-using Kentico.Kontent.Delivery.Abstractions;
+using Kontent.Ai.Delivery.Abstractions;
 
 namespace DancingGoat.Controllers
 {
@@ -11,7 +11,7 @@ namespace DancingGoat.Controllers
     {
         protected readonly IDeliveryClient _client;
 
-        protected string Language => CultureInfo.CurrentCulture.Name;
+        protected string Language => CultureInfo.CurrentUICulture.Name;
 
         public ControllerBase(IDeliveryClientFactory deliveryClientFactory) : this()
         {

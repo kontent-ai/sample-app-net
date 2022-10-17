@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using DancingGoat.Areas.Admin.Models;
 using DancingGoat.Configuration;
 using DancingGoat.Helpers;
-using Kentico.Kontent.Delivery.Abstractions;
+using Kontent.Ai.Delivery.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -19,7 +19,7 @@ namespace DancingGoat.Areas.Admin.Controllers
             ;
 
         protected const string MESSAGE_SHARED_PROJECT =
-            "You've configured your app to with a project ID of a shared Kontent project.";
+            "You've configured your app to with a project ID of a shared Kontent.ai project.";
 
         protected const string MESSAGE_INVALID_PROJECT_GUID = "ProjectId is not valid GUID.";
 

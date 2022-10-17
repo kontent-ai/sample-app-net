@@ -1,6 +1,6 @@
 ﻿<MSDeploy.iisApp>
-  <iisApp path="KenticoKontentSampleMvc" />
-  <setAcl path="KenticoKontentSampleMvc/web.config" setAclResourceType="File" setAclAccess="Read, Write, Modify" />
+  <iisApp path="KontentAiSampleMvc" />
+  <setAcl path="KontentAiSampleMvc/web.config" setAclResourceType="File" setAclAccess="Read, Write, Modify" />
 </MSDeploy.iisApp>
 
 

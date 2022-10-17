@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Kentico.Kontent.Delivery.Abstractions.ILanguage>
+﻿@model IEnumerable<Kontent.Ai.Delivery.Abstractions.ILanguage>
 
 <cache expires-sliding="@TimeSpan.FromHours(1)">
     <nav role="navigation">
@@ -13,7 +13,9 @@
                             // Get parent culture family to simplify language names
                             culture = culture.Parent;
                         }
+                        var x = ViewContext.RouteData.Values["action"].ToString();
                     }
+                    @* <a asp-route-culture="@lang.System.Codename">@culture.EnglishName</a> *@
                     @Html.ActionLink(culture.EnglishName, "Index", "Languages", new
                     {
                         itemId = (Model as IDetailItem)?.Id,

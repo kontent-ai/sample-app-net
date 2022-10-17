@@ -1,10 +1,8 @@
 ﻿using DancingGoat.Models;
-using Kentico.AspNetCore.LocalizedRouting;
-using Kentico.Kontent.Delivery.Abstractions;
+using Kontent.Ai.Delivery.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
-using System.Globalization;
 using System.Threading.Tasks;
 
 namespace DancingGoat
@@ -13,15 +11,11 @@ namespace DancingGoat
     {
         private readonly IUrlHelperFactory _urlHelperFactory;
         private readonly IActionContextAccessor _actionContextAccessor;
-        private readonly ILocalizedRoutingProvider _localizedRoutingProvider;
 
-        protected string CurrentCulture => CultureInfo.CurrentUICulture.Name;
-
-        public CustomContentLinkUrlResolver(IUrlHelperFactory urlHelperFactory, IActionContextAccessor actionContextAccessor, ILocalizedRoutingProvider localizedRoutingProvider)
+        public CustomContentLinkUrlResolver(IUrlHelperFactory urlHelperFactory, IActionContextAccessor actionContextAccessor)
         {
             _urlHelperFactory = urlHelperFactory;
             _actionContextAccessor = actionContextAccessor;
-            _localizedRoutingProvider = localizedRoutingProvider;
         }
 
         public async Task<string> ResolveLinkUrlAsync(IContentLink link)
@@ -31,16 +25,16 @@ namespace DancingGoat
             {
                 case AboutUs.Codename:
                 case FactAboutUs.Codename:
-                    return await TranslateLink("Index", "About");
+                    return await ResolveLink("Index", "About");
                 case Article.Codename:
-                    return await TranslateLink("Show", "Articles", new { urlSlug = link.UrlSlug });
+                    return await ResolveLink("Show", "Articles", new { urlSlug = link.UrlSlug });
                 case Brewer.Codename:
                 case Coffee.Codename:
-                    return await TranslateLink("Detail", "Product", new { urlSlug = link.UrlSlug });
+                    return await ResolveLink("Detail", "Product", new { urlSlug = link.UrlSlug });
                 case Cafe.Codename:
-                    return await TranslateLink("Index", "Cafes");
+                    return await ResolveLink("Index", "Cafes");
                 case Home.Codename:
-                    return await TranslateLink("Index", "Home");
+                    return await ResolveLink("Index", "Home");
                 default:
                     return urlHelper.Action("NotFound", "Errors");
             }
@@ -52,20 +46,11 @@ namespace DancingGoat
             return Task.FromResult(urlHelper.Action("NotFound", "Errors"));
         }
 
-        private async Task<string> TranslateLink(string action, string controller, object data = null)
+        private async Task<string> ResolveLink(string action, string controller, object data = null)
         {
             var urlHelper = GetHelper(_urlHelperFactory, _actionContextAccessor);
-            var culture = _actionContextAccessor.ActionContext.RouteData.Values["culture"].ToString();
 
-            var translatedAction = await _localizedRoutingProvider.ProvideRouteAsync(culture, action, controller, ProvideRouteType.OriginalToTranslated);
-            var translatedController = await _localizedRoutingProvider.ProvideRouteAsync(culture, controller, controller, ProvideRouteType.OriginalToTranslated);
-
-            if (data == null)
-            {
-                return urlHelper.Action(translatedAction, translatedController);
-            }
-
-            return urlHelper.Action(translatedAction, translatedController, data);
+            return data == null ? urlHelper.Action(action, controller) : urlHelper.Action(action, controller, data);
         }
 
         private IUrlHelper GetHelper(IUrlHelperFactory urlHelperFactory, IActionContextAccessor actionContextAccessor)

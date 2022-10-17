@@ -4,24 +4,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Kentico.AspNetCore.LocalizedRouting.Attributes;
-using Kentico.Kontent.Delivery.Abstractions;
-using DancingGoat.Configuration;
-using Kentico.Kontent.Urls.Delivery.QueryParameters.Filters;
-using Kentico.Kontent.Urls.Delivery.QueryParameters;
+using Kontent.Ai.Delivery.Abstractions;
+using Kontent.Ai.Urls.Delivery.QueryParameters.Filters;
+using Kontent.Ai.Urls.Delivery.QueryParameters;
 
 namespace DancingGoat.Controllers
 {
-    [LocalizedRoute(Constants.EnglishCulture, "Coffees")]
-    [LocalizedRoute(Constants.SpanishCulture, "Cafes")]
     public class CoffeesController : ControllerBase
     {
         public CoffeesController(IDeliveryClientFactory deliveryClientFactory) : base(deliveryClientFactory)
         {
         }
-
-        [LocalizedRoute(Constants.EnglishCulture, "Index")]
-        [LocalizedRoute(Constants.SpanishCulture, "Indice")]
+        
         public async Task<ActionResult> Index()
         {
             var itemsTask = _client.GetItemsAsync<Coffee>(
@@ -47,8 +41,6 @@ namespace DancingGoat.Controllers
             return View(model);
         }
 
-        [LocalizedRoute(Constants.EnglishCulture, "Filter")]
-        [LocalizedRoute(Constants.SpanishCulture, "Filter")]
         public async Task<ActionResult> Filter(CoffeesFilterViewModel model)
         {
             var parameters = new List<IQueryParameter> {

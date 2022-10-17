@@ -32,7 +32,7 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
     - name: Codecov
-      uses: codecov/codecov-action@v1
+      uses: codecov/codecov-action@v3
     - name: Build self-contained apps for Windows, Linux, and macOS
       shell: pwsh
       run: ./publish.ps1
@@ -41,13 +41,13 @@ jobs:
       with:
         name: "Web sites"
         path: ./artifacts
-    # Used for testing sample app with sample project data in i.e. QA environment - reach out to Kontent DevOps for more information    
+    # Used for testing sample app with sample project data in i.e. QA environment - reach out to Kontent.ai DevOps for more information    
     - name: Upload to blob storage used for QA environment testing
       if: github.ref == 'refs/heads/master'
       uses: fixpoint/azblob-upload-artifact@v4
       with:
         connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
-        container: kontent-sample-app-net
+        container: kontent-ai-sample-app-net
         cleanup: true
-        name: kontent-sample-app-net
+        name: kontent-ai-sample-app-net
         path: ./artifacts

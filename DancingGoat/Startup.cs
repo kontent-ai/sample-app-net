@@ -1,17 +1,21 @@
-﻿using DancingGoat.Configuration;
+﻿using System;
+using System.Globalization;
+using System.Threading.Tasks;
+using AngleSharp.Io;
+using DancingGoat.Configuration;
 using DancingGoat.Infrastructure;
 using DancingGoat.Models;
 using DancingGoat.Repositories;
-using Kentico.AspNetCore.LocalizedRouting.Extensions;
-using Kentico.Kontent.AspNetCore.ImageTransformation;
-using Kentico.Kontent.Delivery;
-using Kentico.Kontent.Delivery.Abstractions;
-using Kentico.Kontent.Delivery.Extensions;
-using Kentico.Kontent.Management.Helpers;
-using Kentico.Kontent.Management.Helpers.Configuration;
-using Kentico.Kontent.Delivery.Extensions.DependencyInjection;
+using Kontent.Ai.AspNetCore.ImageTransformation;
+using Kontent.Ai.Delivery;
+using Kontent.Ai.Delivery.Abstractions;
+using Kontent.Ai.Delivery.Extensions;
+using Kontent.Ai.Management.Helpers;
+using Kontent.Ai.Management.Helpers.Configuration;
+using Kontent.Ai.Delivery.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,7 +39,7 @@ namespace DancingGoat
             // Enable configuration services
             services.AddOptions();
 
-            // Register the ImageTransformationOptions required by Kontent tag helpers
+            // Register the ImageTransformationOptions required by Kontent.ai tag helpers
             services.Configure<ImageTransformationOptions>(Configuration.GetSection(nameof(ImageTransformationOptions)));
 
             // Configure the Edit Link Builder
@@ -45,6 +49,7 @@ namespace DancingGoat
             // Enable Delivery Client
             services.AddHttpClient<IDeliveryHttpClient, DeliveryHttpClient>();
             services.AddSingleton<ITypeProvider, CustomTypeProvider>();
+            services.AddScoped<IActionContextAccessor, ActionContextAccessor>();
             services.AddSingleton<IContentLinkUrlResolver, CustomContentLinkUrlResolver>();
             services.AddDeliveryClient(Configuration);
 
@@ -59,12 +64,24 @@ namespace DancingGoat
             services.ConfigureWritable<DeliveryOptions>((IConfigurationRoot)Configuration, Configuration.GetSection(nameof(DeliveryOptions)));
 
             // I18N
-            services.ConfigureRequestLocalization(DefaultCulture, SpanishCulture);
-            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.AddLocalization(options => options.ResourcesPath = "Resources");
-            services.AddSingleton<CustomLocalizedRoutingTranslationTransformer>();
-            services.AddControllersWithViews();
-            services.AddLocalizedRouting();
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = new[]
+                {
+                    new CultureInfo(DefaultCulture),
+                    new CultureInfo(SpanishCulture)
+                };
+
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+                options.SetDefaultCulture(DefaultCulture); ;
+                
+                options.AddInitialRequestCultureProvider(new RouteRequestCultureProvider());
+            });
+            
+            services.AddControllersWithViews()
+                .AddViewLocalization();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -92,7 +109,7 @@ namespace DancingGoat
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapDynamicControllerRoute<CustomLocalizedRoutingTranslationTransformer>("{culture=en-US}/{controller=Home}/{action=Index}/{id?}");
+                //endpoints.MapDynamicControllerRoute<CustomLocalizedRoutingTranslationTransformer>("{culture=en-US}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute("default", "{culture=en-US}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute("areas", "{area:exists}/{controller=Home}/{action=Index}/{id?}"
                 );

@@ -1,4 +1,4 @@
-﻿using Kentico.Kontent.Delivery.Abstractions;
+﻿using Kontent.Ai.Delivery.Abstractions;
 using System;
 
 namespace DancingGoat
@@ -9,17 +9,17 @@ namespace DancingGoat
     public class AppConfiguration
     {
         /// <summary>
-        /// URL of the Kontent app
+        /// URL of the Kontent.ai app
         /// </summary>
-        public string KenticoKontentUrl { get; set; }
+        public string KontentUrl { get; set; }
 
         /// <summary>
-        /// Delivery options referencing the default Kontent sample project.
+        /// Delivery options referencing the default Kontent.ai sample project.
         /// </summary>
         public DeliveryOptions DefaultDeliveryOptions { get; set; }
 
         /// <summary>
-        /// Expiration date of a subscription the <see cref="Kentico.Kontent.Delivery.DeliveryOptions.ProjectId"/> is bound to.
+        /// Expiration date of a subscription the <see cref="Kontent.Ai.Delivery.Abstractions.DeliveryOptions.ProjectId"/> is bound to.
         /// </summary>
         public DateTime? SubscriptionExpiresAt { get; set; }
     }

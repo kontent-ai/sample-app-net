@@ -1,4 +1,4 @@
-﻿using Kentico.Kontent.Management.Helpers.Models;
+﻿using Kontent.Ai.Management.Helpers.Models;
 
 namespace DancingGoat.Models
 {
