@@ -30,6 +30,12 @@ To run the app:
 
 ## Features
 
+### Model generation
+
+With the help of [Kontent.ai model generator](https://github.com/kontent-ai/model-generator-net) you can generate models from your project. This process will create classes that you can work with within your codebase. To run the generation, use the Powershell script [./DanscingGoat/Tools/GenerateModels.ps1](https://github.com/kontent-ai/sample-app-net/blob/master/DancingGoat/Tools/GenerateModels.ps1) or Bash script [./DanscingGoat/Tools/GenerateModels.sh](https://github.com/kontent-ai/sample-app-net/blob/master/DancingGoat/Tools/GenerateModels.sh).
+
+> Be aware that by default, the scripts downloads the models from the default Dancing Goat project. If you want to download models from your custom project, change the project id inside the script file.
+
 ### Edit mode & preview
 
 Content contributors sometimes need to fix errors or typos right when they see them on the website. The sample app allows users to navigate from a piece of content on the site straight to the corresponding content item or element in Kontent.ai.
