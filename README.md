@@ -1,3 +1,9 @@
+> [!IMPORTANT]
+> This sample app relies on the Dancing Goat project, which is no longer available for creation in Kontent.ai.
+>
+> If you still wish to use this project, you can import the Dancing Goat project using the [Data Ops](https://github.com/kontent-ai/data-ops) tool by following the instructions provided in our [Dancing Goat repository](https://github.com/kontent-ai-bot/dancing-goat).
+
+
 # Kontent.ai sample ASP.NET Core MVC web application
 
 [![Build & Test](https://github.com/kontent-ai/sample-app-net/actions/workflows/integrate.yml/badge.svg)](https://github.com/kontent-ai/sample-app-net/actions/workflows/integrate.yml)
