@@ -1,3 +1,6 @@
+> [!WARNING]
+> This repository is no longer maintained. See [sample-app-net-mvc](https://github.com/kontent-ai/sample-app-net-mvc) repository for an updated sample app, built on top of modernized .NET delivery SDK and Ficto sample project.
+
 > [!IMPORTANT]
 > This sample app relies on the Dancing Goat project, which is no longer available for creation in Kontent.ai.
 >
